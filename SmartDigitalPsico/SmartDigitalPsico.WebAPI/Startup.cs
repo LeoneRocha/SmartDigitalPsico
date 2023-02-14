@@ -1,40 +1,32 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Serilog;
-using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract;
-using SmartDigitalPsico.Data.Repository;
+using SmartDigitalPsico.WebAPI.Data;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace SmartDigitalPsico
+namespace SmartDigitalPsico.WebAPI
 {
     public class Startup
     {
-
-        public IConfiguration _Configuration { get; }
-        public IWebHostEnvironment _Environment { get; }
-
-       public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
-            _Configuration = configuration;
-            _Environment = environment;
-
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .CreateLogger();
+            Configuration = configuration;
         }
-         
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllers();
-            //// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services.AddEndpointsApiExplorer();
-            //builder.Services.AddSwaggerGen();
 
             addDoc(services);
 
@@ -45,7 +37,7 @@ namespace SmartDigitalPsico
 
             addORM(services);
 
-            //addSecurity(services);
+            addSecurity(services);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
@@ -53,14 +45,14 @@ namespace SmartDigitalPsico
         private void addORM(IServiceCollection services)
         {
             //\\RAZORCREST
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(_Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         private void addDoc(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Smart Digital Psico", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartDigitalPsico.WebAPI", Version = "v1" });
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
@@ -80,7 +72,7 @@ namespace SmartDigitalPsico
                   options.TokenValidationParameters = new TokenValidationParameters
                   {
                       ValidateIssuerSigningKey = true,
-                      IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(_Configuration.GetSection("AppSettings:Token").Value)),
+                      IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
                       ValidateIssuer = false,
                       ValidateAudience = false
                   };
@@ -106,14 +98,14 @@ namespace SmartDigitalPsico
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartDigitalPsico v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartDigitalPsico.WebAPI v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

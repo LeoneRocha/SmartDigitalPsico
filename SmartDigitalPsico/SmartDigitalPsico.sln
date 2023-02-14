@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.API", "SmartDigitalPsico\SmartDigitalPsico.API.csproj", "{164A5FF2-56AD-4076-BB4A-7E24EB87A932}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Model", "SmartDigitalPsico.Model\SmartDigitalPsico.Model.csproj", "{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Data", "SmartDigitalPsico.Data\SmartDigitalPsico.Data.csproj", "{A4D30E78-BC29-4F82-A874-A0B333120FB5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Services", "SmartDigitalPsico.Services\SmartDigitalPsico.Services.csproj", "{D7B9A7A5-5AF2-43A7-A8EA-BBF577C84B62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDigitalPsico.Dominio", "SmartDigitalPsico.Dominio\SmartDigitalPsico.Dominio.csproj", "{B5E74544-9C9C-4588-86A1-9830D18197CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Dominio", "SmartDigitalPsico.Dominio\SmartDigitalPsico.Dominio.csproj", "{B5E74544-9C9C-4588-86A1-9830D18197CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.WebAPI", "SmartDigitalPsico.WebAPI\SmartDigitalPsico.WebAPI.csproj", "{A03CCECA-13FD-4992-9CB6-182FB5FC9813}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{164A5FF2-56AD-4076-BB4A-7E24EB87A932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{164A5FF2-56AD-4076-BB4A-7E24EB87A932}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{164A5FF2-56AD-4076-BB4A-7E24EB87A932}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{164A5FF2-56AD-4076-BB4A-7E24EB87A932}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{B5E74544-9C9C-4588-86A1-9830D18197CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E74544-9C9C-4588-86A1-9830D18197CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5E74544-9C9C-4588-86A1-9830D18197CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A03CCECA-13FD-4992-9CB6-182FB5FC9813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03CCECA-13FD-4992-9CB6-182FB5FC9813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03CCECA-13FD-4992-9CB6-182FB5FC9813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03CCECA-13FD-4992-9CB6-182FB5FC9813}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

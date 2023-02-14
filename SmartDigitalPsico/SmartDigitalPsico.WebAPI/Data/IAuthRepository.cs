@@ -1,8 +1,7 @@
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using SmartDigitalPsico.WebAPI.Models;
 
-namespace SmartDigitalPsico.Data.Contract
+namespace SmartDigitalPsico.WebAPI.Data
 {
     public interface IAuthRepository
     {

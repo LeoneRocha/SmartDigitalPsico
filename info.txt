@@ -1,0 +1,80 @@
+
+a - Criando a migração
+
+Para criar a migração no VS 2019 Community podemos abrir a janela do Package Manager Console (PMC) e digitar o comando:   
+
+Add-Migration  SmartDigitalPsicoDBMig [options]
+
+dotnet ef migrations add SmartDigitalPsicoDBMig [options]
+
+Este comando precisa do pacote Microsoft.EntityFrameworkCore.Tools instalado para funcionar.
+
+Usando o VS Code e a ferramenta de linha de comando CLI o comando é:
+
+dotnet ef migrations add NomeDaMigração [options]
+
+Para este comando funcionar temos instalar a ferramenta de linha de comando do EF Core globalmente usando o comando:
+
+dotnet tool install --global dotnet-ef
+
+
+SocialApp.Models> dotnet ef migrations add SmartDigitalPsicoDBMig --startup-project ../SmartDigitalPsico.WebAPI
+
+
+dotnet ef migrations add NewMigration --project SmartDigitalPsico.Data
+
+
+
+dotnet ef migrations add SmartDigitalPsicoDBMig --project SmartDigitalPsico.Data --output-dir Migrations --startup-project ../SmartDigitalPsico.WebAPI
+
+
+dotnet ef --startup-project ./SmartDigitalPsico.WebAPI.csproj migrations add SmartDigitalPsicoDBMig --context SmartDigitalPsicoDataContext --output-dir Migrations --project ../SmartDigitalPsico/SmartDigitalPsico.Data.csproj
+
+
+
+https://localhost:5001/swagger/index.html
+
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+
+dotnet tool install --global dotnet-ef
+
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+cd .\SmartDigitalPsico.Data
+enable-migrations
+add-migration InitialCreate
+
+
+
+dotnet ef migrations add InitialCreate	
+
+dotnet ef migrations add User
+
+dotnet ef migrations add UserCharacterRelationship
+
+dotnet ef database update
+ 
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+dotnet add package Swashbuckle.AspNetCore.Filters
+
+dotnet ef migrations add Weapon
+
+dotnet ef database update
+
+dotnet ef migrations add Skill
+
+dotnet ef database update
+
+dotnet ef migrations add SkillSeeding 
+
+dotnet ef database update
+
+dotnet ef migrations add CharacterPropeties
+
+dotnet watch run
+
+
+dotnet ef migrations add Role
+

@@ -3,15 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.Entity
 {
-    public class Usuario
+    public class User
     {
         public int Id { get; set; }
-        [Required]
-        public string Nome { get; set; }
-        public string Email { get; set; }
+        public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-        public List<RoleGroup> RoleGroups { get; set; }
+        public byte[] PasswordSalt { get; set; } 
+        [Required]
         public string Role { get; set; }
     }
 }

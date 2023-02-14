@@ -1,8 +1,7 @@
- 
+using SmartDigitalPsico.WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using SmartDigitalPsico.Model.Entity;
 
-namespace SmartDigitalPsico.Data.Context
+namespace SmartDigitalPsico.WebAPI.Data
 {
     public class DataContext : DbContext
     {
@@ -11,7 +10,7 @@ namespace SmartDigitalPsico.Data.Context
 
         }
          
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<User> Users { get; set; }
          
 
 
@@ -24,7 +23,7 @@ namespace SmartDigitalPsico.Data.Context
             //    new Skill { Id = 4, Name = "Blizzard", Damage = 50 }
             //);
 
-            modelBuilder.Entity<Usuario>().Property(u => u.Role).HasDefaultValue("Admin");
+            modelBuilder.Entity<User>().Property(u => u.Role).HasDefaultValue("Admin");
         }
     }
 }

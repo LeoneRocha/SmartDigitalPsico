@@ -2,21 +2,18 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using SmartDigitalPsico.WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity;
 
-namespace SmartDigitalPsico.Data.Repository
+namespace SmartDigitalPsico.WebAPI.Data
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly SmartDigitalPsicoDataContext _context;
+        private readonly DataContext _context;
         private readonly IConfiguration _configuration;
-        public AuthRepository(SmartDigitalPsicoDataContext context, IConfiguration configuration)
+        public AuthRepository(DataContext context, IConfiguration configuration)
         {
             _configuration = configuration;
             _context = context;
@@ -26,7 +23,7 @@ namespace SmartDigitalPsico.Data.Repository
         public async Task<ServiceResponse<string>> Login(string username, string password)
         {
             var response = new ServiceResponse<string>();
-            var user = await _context.Usuarios.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
             if (user == null)
             {
                 response.Success = false;
@@ -60,7 +57,7 @@ namespace SmartDigitalPsico.Data.Repository
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.Usuarios.Add(user);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
             response.Data = user.Id;
             return response;
@@ -68,7 +65,7 @@ namespace SmartDigitalPsico.Data.Repository
 
         public async Task<bool> UserExists(string username)
         {
-            if (await _context.Usuarios.AnyAsync(x => x.Username.ToLower().Equals(username.ToLower())))
+            if (await _context.Users.AnyAsync(x => x.Username.ToLower().Equals(username.ToLower())))
             {
                 return true;
             }
@@ -114,7 +111,7 @@ namespace SmartDigitalPsico.Data.Repository
             var tokendDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = System.DateTime.Now.AddDays(1),
                 SigningCredentials = creds
             };
 

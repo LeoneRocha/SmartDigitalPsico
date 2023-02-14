@@ -8,10 +8,10 @@ namespace SmartDigitalPsico.Model.Entity
         public int Id { get; set; }
         [Required]
         public string Nome { get; set; }
+        public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public List<RoleGroup> RoleGroups { get; set; }
-
         public string Role { get; set; }
     }
 }

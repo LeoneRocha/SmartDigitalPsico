@@ -22,8 +22,10 @@ SocialApp.Models> dotnet ef migrations add SmartDigitalPsicoDBMig --startup-proj
 
 
 dotnet ef migrations add NewMigration --project SmartDigitalPsico.Data
+******************
+dotnet ef migrations add SmartDigitalPsicoDBMig  --output-dir ../SmartDigitalPsico.Data/Migrations
 
-
+******************
 
 dotnet ef migrations add SmartDigitalPsicoDBMig --project SmartDigitalPsico.Data --output-dir Migrations --startup-project ../SmartDigitalPsico.WebAPI
 

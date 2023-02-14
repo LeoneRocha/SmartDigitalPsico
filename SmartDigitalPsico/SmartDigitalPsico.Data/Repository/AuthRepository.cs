@@ -26,7 +26,7 @@ namespace SmartDigitalPsico.Data.Repository
         public async Task<ServiceResponse<string>> Login(string username, string password)
         {
             var response = new ServiceResponse<string>();
-            var user = await _context.Usuarios.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
             if (user == null)
             {
                 response.Success = false;
@@ -60,7 +60,7 @@ namespace SmartDigitalPsico.Data.Repository
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.Usuarios.Add(user);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
             response.Data = user.Id;
             return response;
@@ -68,7 +68,7 @@ namespace SmartDigitalPsico.Data.Repository
 
         public async Task<bool> UserExists(string username)
         {
-            if (await _context.Usuarios.AnyAsync(x => x.Username.ToLower().Equals(username.ToLower())))
+            if (await _context.Users.AnyAsync(x => x.Username.ToLower().Equals(username.ToLower())))
             {
                 return true;
             }

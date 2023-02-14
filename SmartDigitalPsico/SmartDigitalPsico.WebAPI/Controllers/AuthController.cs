@@ -1,8 +1,9 @@
-using System.Threading.Tasks;
-using SmartDigitalPsico.WebAPI.Data;
-using SmartDigitalPsico.WebAPI.Dtos.User;
-using SmartDigitalPsico.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using SmartDigitalPsico.Data.Contract;
+using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.Entity;
+using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.WebAPI.Controllers
 {

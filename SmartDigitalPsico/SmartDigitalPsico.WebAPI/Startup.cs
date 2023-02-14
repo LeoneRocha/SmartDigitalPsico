@@ -8,7 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SmartDigitalPsico.WebAPI.Data;
+using SmartDigitalPsico.Data.Context;
+using SmartDigitalPsico.Data.Contract;
+using SmartDigitalPsico.Data.Repository;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace SmartDigitalPsico.WebAPI
@@ -45,7 +47,7 @@ namespace SmartDigitalPsico.WebAPI
         private void addORM(IServiceCollection services)
         {
             //\\RAZORCREST
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartDigitalPsicoDBConnection"), b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
         }
 
         private void addDoc(IServiceCollection services)

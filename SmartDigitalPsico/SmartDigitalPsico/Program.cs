@@ -1,54 +1,46 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract;
-using SmartDigitalPsico.Data.Repository;
-
-class Program
+using Microsoft.AspNetCore.Hosting;
+namespace SmartDigitalPsico
 {
-    static void Main(string[] args)
+    public class Program
     {
-        var builder = WebApplication.CreateBuilder(args);
-
-        // Add services to the container.
-
-        builder.Services.AddControllers();
-
-        addRepositories(builder);
-        addORM(builder);
-
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-
-        var app = builder.Build();
-
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        public static void Main(string[] args)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
+
+            //var builder = WebApplication.CreateBuilder(args);
+
+            //// Add services to the container.
+
+            //builder.Services.AddControllers();
+            //// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            //builder.Services.AddEndpointsApiExplorer();
+            //builder.Services.AddSwaggerGen();
+
+            //var app = builder.Build();
+
+            //// Configure the HTTP request pipeline.
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+
+            //app.UseHttpsRedirection();
+
+            //app.UseAuthorization();
+
+            //app.MapControllers();
+
+            //app.Run();
+
+
+            CreateHostBuilder(args).Build().Run();
         }
 
-        app.UseHttpsRedirection();
-
-        app.UseAuthorization();
-
-        app.MapControllers();
-
-        app.Run();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
-
-    private static void addORM(WebApplicationBuilder builder)
-    {
-        builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-    }
-
-    static void addRepositories(WebApplicationBuilder builder)
-    {
-        builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-        // throw new NotImplementedException();
-    }
-
 }
-

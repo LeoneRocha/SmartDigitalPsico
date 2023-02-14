@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDigitalPsico", "SmartDigitalPsico\SmartDigitalPsico.csproj", "{164A5FF2-56AD-4076-BB4A-7E24EB87A932}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDigitalPsico.API", "SmartDigitalPsico\SmartDigitalPsico.API.csproj", "{164A5FF2-56AD-4076-BB4A-7E24EB87A932}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDigitalPsico.Model", "SmartDigitalPsico.Model\SmartDigitalPsico.Model.csproj", "{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDigitalPsico.Data", "SmartDigitalPsico.Data\SmartDigitalPsico.Data.csproj", "{A4D30E78-BC29-4F82-A874-A0B333120FB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDigitalPsico.Services", "SmartDigitalPsico.Services\SmartDigitalPsico.Services.csproj", "{D7B9A7A5-5AF2-43A7-A8EA-BBF577C84B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{164A5FF2-56AD-4076-BB4A-7E24EB87A932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164A5FF2-56AD-4076-BB4A-7E24EB87A932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{164A5FF2-56AD-4076-BB4A-7E24EB87A932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D30E78-BC29-4F82-A874-A0B333120FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D30E78-BC29-4F82-A874-A0B333120FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D30E78-BC29-4F82-A874-A0B333120FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D30E78-BC29-4F82-A874-A0B333120FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7B9A7A5-5AF2-43A7-A8EA-BBF577C84B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7B9A7A5-5AF2-43A7-A8EA-BBF577C84B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7B9A7A5-5AF2-43A7-A8EA-BBF577C84B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7B9A7A5-5AF2-43A7-A8EA-BBF577C84B62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

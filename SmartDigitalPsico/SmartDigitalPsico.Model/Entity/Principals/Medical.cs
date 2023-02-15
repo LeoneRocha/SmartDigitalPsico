@@ -1,4 +1,4 @@
-using SmartDigitalPsico.Dominio.Enuns;
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using System.Collections.Generic;

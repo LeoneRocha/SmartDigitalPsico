@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.Dominio.Enuns
+namespace SmartDigitalPsico.Domains.Enuns
 {
     public enum ETypeAccreditation
     {

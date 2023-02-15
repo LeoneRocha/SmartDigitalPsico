@@ -1,4 +1,4 @@
-using SmartDigitalPsico.Dominio.Enuns;
+using SmartDigitalPsico.Domains.Enuns;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

@@ -13,6 +13,7 @@ using SmartDigitalPsico.Bussines.Principals;
 using SmartDigitalPsico.Data.Context;
 using SmartDigitalPsico.Data.Contract;
 using SmartDigitalPsico.Data.Repository;
+using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Principals;
 using Swashbuckle.AspNetCore.Filters;
@@ -36,7 +37,9 @@ namespace SmartDigitalPsico.WebAPI
 
             addDoc(services);
 
-            services.AddAutoMapper(typeof(Startup));
+           // services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+
 
             addRepositories(services);
             addBussines(services);
@@ -75,19 +78,19 @@ namespace SmartDigitalPsico.WebAPI
         private void addRepositories(IServiceCollection services)
         {
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMedicalRepository, MedicalRepository>();
         }
         private void addBussines(IServiceCollection services)
         {
+            services.AddScoped<IUserBussines, UserBussines>();
             services.AddScoped<IMedicalBussines, MedicalBussines>();
         }
 
         private void addServices(IServiceCollection services)
         {
+            services.AddScoped<IUserService, UserService>(); 
             services.AddScoped<IMedicalService, MedicalService>();
-            //services.AddScoped<IWeaponService, WeaponService>();
-            //services.AddScoped<IFightService, FightService>();
-
         }
 
         private void addDependencies(IServiceCollection services)

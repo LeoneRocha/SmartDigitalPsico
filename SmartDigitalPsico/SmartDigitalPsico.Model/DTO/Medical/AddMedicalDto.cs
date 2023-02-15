@@ -16,6 +16,6 @@ namespace SmartDigitalPsico.Model.Dto.User
         public string Accreditation { get; set; }
 
         public ETypeAccreditation TypeAccreditation { get; set; }
-
+        
     }
 }

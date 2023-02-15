@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Bussines.Contracts;
+using SmartDigitalPsico.Bussines.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Services.Contracts;
@@ -9,17 +11,26 @@ namespace SmartDigitalPsico.Services.Principals
 {
     public class MedicalService : IMedicalService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        //private readonly IUserBussines _userBussines;
         private readonly IMedicalBussines _medicalBussines;
-         
-        public MedicalService(IMedicalBussines medicalBussines)
+
+        private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        public MedicalService(//IUserBussines userBussines,
+            IMedicalBussines medicalBussines,
+            IHttpContextAccessor httpContextAccessor)
         {
+            //_userBussines = userBussines;
             _medicalBussines = medicalBussines;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ServiceResponse<GetMedicalDto>> AddEntity(AddMedicalDto newEntity)
         {
             var serviceResponse = new ServiceResponse<GetMedicalDto>();
 
+            newEntity.IdUserAction = GetUserId();  // _context.Users.FirstOrDefaultAsync(u => u.Id == GetUserId());
             serviceResponse.Data = await _medicalBussines.Add(newEntity);
 
             return serviceResponse;

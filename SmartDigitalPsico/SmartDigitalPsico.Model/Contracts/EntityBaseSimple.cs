@@ -18,5 +18,6 @@ namespace SmartDigitalPsico.Model.Contracts
         [Column("Language", TypeName = "char(5)")]
         [MaxLength(5)]
         public string Language { get; set; }
+
     }
 }

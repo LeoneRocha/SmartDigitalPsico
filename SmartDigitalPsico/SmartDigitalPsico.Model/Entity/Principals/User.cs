@@ -7,7 +7,7 @@ using SmartDigitalPsico.Model.Entity.Domains;
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("User", Schema = "dbo")]
-    public class User : EntityBase
+    public class User : EntityBaseLog
     {
         //https://learn.microsoft.com/en-us/ef/core/modeling/entity-properties?tabs=data-annotations%2Cwithout-nrt
 

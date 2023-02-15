@@ -15,7 +15,7 @@ namespace SmartDigitalPsico.Model.Contracts
         [Column("Description", TypeName = "varchar(255)")]
         public string Description { get; set; }
 
-        [Column("Description", TypeName = "char(5)")]
+        [Column("Language", TypeName = "char(5)")]
         [MaxLength(5)]
         public string Language { get; set; }
     }

@@ -52,10 +52,10 @@ namespace SmartDigitalPsico.Data.Context
 
             string valorbr = new CultureInfo("pt-BR").Name;
 
-            /*modelBuilder.Entity<Gender>().HasData(
-               new Gender {  Description = "Masculino", Language = valorbr },
-               new Gender {  Description = "Feminino", Language = valorbr } 
-           );*/
+            modelBuilder.Entity<Gender>().HasData(
+               new Gender { Id = 1, Description = "Masculino", Language = valorbr },
+               new Gender { Id = 2, Description = "Feminino", Language = valorbr } 
+           );
             modelBuilder.Entity<User>()
                 .Property(u => u.Role).HasDefaultValue("Admin");
 

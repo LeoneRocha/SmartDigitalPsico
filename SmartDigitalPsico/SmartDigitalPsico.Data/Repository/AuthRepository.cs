@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using SmartDigitalPsico.Data.Context;
 using SmartDigitalPsico.Data.Contract;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity;
+using SmartDigitalPsico.Model.Entity.Principals;
 
 namespace SmartDigitalPsico.Data.Repository
 {
@@ -26,7 +26,7 @@ namespace SmartDigitalPsico.Data.Repository
         public async Task<ServiceResponse<string>> Login(string username, string password)
         {
             var response = new ServiceResponse<string>();
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Name.ToLower().Equals(username.ToLower()));
             if (user == null)
             {
                 response.Success = false;
@@ -48,7 +48,7 @@ namespace SmartDigitalPsico.Data.Repository
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
             ServiceResponse<int> response = new ServiceResponse<int>();
-            if (await UserExists(user.Username))
+            if (await UserExists(user.Name))
             {
                 response.Success = false;
                 response.Message = "User already exists.";
@@ -68,7 +68,7 @@ namespace SmartDigitalPsico.Data.Repository
 
         public async Task<bool> UserExists(string username)
         {
-            if (await _context.Users.AnyAsync(x => x.Username.ToLower().Equals(username.ToLower())))
+            if (await _context.Users.AnyAsync(x => x.Name.ToLower().Equals(username.ToLower())))
             {
                 return true;
             }
@@ -103,7 +103,7 @@ namespace SmartDigitalPsico.Data.Repository
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Role, user.Role)
             };
 

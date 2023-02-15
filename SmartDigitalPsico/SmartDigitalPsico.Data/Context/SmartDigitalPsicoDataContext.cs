@@ -1,7 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SmartDigitalPsico.Model.Entity;
+using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Principals;
+using System.Globalization;
 
 namespace SmartDigitalPsico.Data.Context
 {
@@ -11,7 +13,7 @@ namespace SmartDigitalPsico.Data.Context
         {
 
         }
-     
+
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    if (!optionsBuilder.IsConfigured)
@@ -26,16 +28,37 @@ namespace SmartDigitalPsico.Data.Context
         //    base.OnConfiguring(optionsBuilder);
         //}
 
-        public DbSet<User> Users { get; set; }
+        #region Statics 
+
+        public DbSet<Gender> Genders { get; set; }
+
+        public DbSet<Office> Offices { get; set; }
 
         public DbSet<RoleGroup> RoleGroups { get; set; }
+        public DbSet<Specialty> Specialties { get; set; }
+        #endregion
 
+        #region Principais
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Medical> Medicals { get; set; }
+
+        public DbSet<Patient> Patients { get; set; }
+        #endregion Principais
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            string valorbr = new CultureInfo("pt-BR").Name;
+
+            /*modelBuilder.Entity<Gender>().HasData(
+               new Gender {  Description = "Masculino", Language = valorbr },
+               new Gender {  Description = "Feminino", Language = valorbr } 
+           );*/
             modelBuilder.Entity<User>()
-                .Property(u => u.Role).HasDefaultValue("Admin"); 
-             
+                .Property(u => u.Role).HasDefaultValue("Admin");
+
         }
 
     }

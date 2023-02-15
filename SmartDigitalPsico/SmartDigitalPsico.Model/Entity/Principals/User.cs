@@ -1,20 +1,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.Entity.Domains;
 
-namespace SmartDigitalPsico.Model.Entity
+namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("User", Schema = "dbo")]
-    public class User
+    public class User : EntityBase
     {
         //https://learn.microsoft.com/en-us/ef/core/modeling/entity-properties?tabs=data-annotations%2Cwithout-nrt
-        public int Id { get; set; }
-        [Required]
-        public string Username { get; set; }
 
-        [Column("Email", TypeName = "varchar(200)")]
-        public string Email { get; set; }
-         
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         [Required]

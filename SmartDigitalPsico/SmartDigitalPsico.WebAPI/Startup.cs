@@ -46,7 +46,7 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addORM(IServiceCollection services)
         {
-            //\\RAZORCREST
+            // 
             services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartDigitalPsicoDBConnection"), b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
         }
 

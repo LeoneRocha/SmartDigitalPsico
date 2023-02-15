@@ -3,6 +3,7 @@ using SmartDigitalPsico.Data.Contract;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity;
+using SmartDigitalPsico.Model.Entity.Principals;
 using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.WebAPI.Controllers
@@ -22,7 +23,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDto request)
         {
             var response = await _authRepo.Register(
-                new User { Username = request.Username }, request.Password
+                new User { Name = request.Username }, request.Password
             );
 
             if(!response.Success)

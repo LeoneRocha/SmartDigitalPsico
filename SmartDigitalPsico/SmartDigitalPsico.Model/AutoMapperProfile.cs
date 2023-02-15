@@ -1,6 +1,6 @@
 using AutoMapper;
 using SmartDigitalPsico.Model.Dto.User;
-using SmartDigitalPsico.Model.Entity;
+using SmartDigitalPsico.Model.Entity.Principals;
 
 namespace SmartDigitalPsico.Model
 {

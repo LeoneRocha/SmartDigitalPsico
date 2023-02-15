@@ -6,12 +6,12 @@ using SmartDigitalPsico.Model.Entity;
 namespace SmartDigitalPsico.Data.Context
 {
     public class SmartDigitalPsicoDataContext : DbContext
-    { 
+    {
         public SmartDigitalPsicoDataContext(DbContextOptions<SmartDigitalPsicoDataContext> options) : base(options)
         {
 
         }
-
+     
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    if (!optionsBuilder.IsConfigured)
@@ -27,10 +27,15 @@ namespace SmartDigitalPsico.Data.Context
         //}
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<RoleGroup> RoleGroups { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<User>().Property(u => u.Role).HasDefaultValue("Admin");
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role).HasDefaultValue("Admin"); 
+             
         }
 
     }

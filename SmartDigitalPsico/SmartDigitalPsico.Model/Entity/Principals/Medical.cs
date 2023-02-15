@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("Medical", Schema = "dbo")]
-    public class Medical : EntityBase
+    public class Medical : EntityBaseLog
     {
         public Office Office { get; set; }
         public List<Specialty> Specialties { get; set; }

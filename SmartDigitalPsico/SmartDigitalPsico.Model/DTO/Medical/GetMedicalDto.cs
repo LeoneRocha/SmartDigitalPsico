@@ -1,9 +1,10 @@
+using SmartDigitalPsico.Model.Contracts;
+
 namespace SmartDigitalPsico.Model.Dto.User
 {
-    public class GetMedicalDto
+    public class GetMedicalDto : EntityDTOBase
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+       
          
     }
 }

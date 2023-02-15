@@ -1,0 +1,81 @@
+=== Medico EMPRESA
+
+Nome: 
+Cargo:
+Especialidades:
+CRP/CRM: 
+
+ 
+Name:
+Office:
+Specialties:
+CRP/CRM:
+
+
+
+=== IDENTIFICACAO 
+
+PACIENTE (NOME) 
+
+DATA DE NASCIMENTO : 
+GÊNEREO: 
+CPF: 
+RG: 
+Profissão 
+ESCOLARIDADE:  
+Estado civil 
+Telefone
+EMAIL 
+ENDERECO 
+BAIRRO 
+CIDADE 
+ESTADO  
+
+Contato emergencia (nome): 
+Telefone: 
+
+
+PATIENT (NAME)
+
+DATE OF BIRTH :
+GENDER:
+CPF:
+RG:
+Profession XXXXXXXXXXXXXXXXXXXXXX
+EDUCATION:
+marital status
+Telephone
+EMAIL
+ADDRESS
+NEIGHBORHOOD
+CITY
+STATE
+
+Emergency contact (name):
+Telephone:
+
+Emergency contact (name):
+Telephone:
+
+
+
+=== INFORMAÇÔES COMPLEMENTARES 
+
+Acompanhamento pisiquiatrico:
+Acompanhamento neurologico:
+
+#Lista de medicação#
+Medicação: | Inicio:(DATA) 
+
+#Lista de INTERNACOES#
+
+Descrição: | Inicio:(DATA)  Fim:(DATA)   CID: 
+
+OBSERVACOES. 
+
+
+=== INFORMAÇÔES COMPLEMENTARES 
+
+PRONTUARIO 
+
+DATA: QUEIXA INICIAL 

@@ -7,8 +7,8 @@ namespace SmartDigitalPsico.Services.Contracts
     {
         Task<ServiceResponse<List<GetMedicalDto>>> GetAll();
         Task<ServiceResponse<GetMedicalDto>> GetById(int id);
-        Task<ServiceResponse<List<GetMedicalDto>>> AddEntity(AddMedicalDto newEntity);
+        Task<ServiceResponse<GetMedicalDto>> AddEntity(AddMedicalDto newEntity);
         Task<ServiceResponse<GetMedicalDto>> UpdateEntity(UpdateMedicalDto updatedEntity);
-        Task<ServiceResponse<List<GetMedicalDto>>> DeleteEntity(int id); 
+        Task<ServiceResponse<bool>> DeleteEntity(int id); 
     }
 }

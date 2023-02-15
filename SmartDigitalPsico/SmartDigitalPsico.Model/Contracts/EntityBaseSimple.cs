@@ -10,6 +10,7 @@ namespace SmartDigitalPsico.Model.Contracts
 {
     public abstract class EntityBaseSimple
     {
+        [Column("Id")] 
         public int Id { get; set; }
 
         [Column("Description", TypeName = "varchar(255)")]

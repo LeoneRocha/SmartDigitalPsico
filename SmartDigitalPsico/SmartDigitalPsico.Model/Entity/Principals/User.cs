@@ -11,9 +11,13 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     {
         //https://learn.microsoft.com/en-us/ef/core/modeling/entity-properties?tabs=data-annotations%2Cwithout-nrt
 
+        [Column("PasswordHash")]
         public byte[] PasswordHash { get; set; }
+        [Column("PasswordSalt")]
         public byte[] PasswordSalt { get; set; }
+       
         [Required]
+        [Column("Role")]
         public string Role { get; set; }
 
         public List<RoleGroup> RoleGroups { get; set; }

@@ -18,6 +18,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Genders",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -31,7 +32,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Offices",
+                name: "Officies",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -41,11 +43,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Offices", x => x.Id);
+                    table.PrimaryKey("PK_Officies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "RoleGroups",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -73,7 +76,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     Enable = table.Column<bool>(type: "bit", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateModify = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateLasAcess = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateLastAcess = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,13 +92,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GenderId = table.Column<int>(type: "int", nullable: false),
-                    Profession = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Profession = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateModify = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateLasAcess = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Enable = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,6 +103,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     table.ForeignKey(
                         name: "FK_Patient_Genders_GenderId",
                         column: x => x.GenderId,
+                        principalSchema: "dbo",
                         principalTable: "Genders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -124,15 +125,16 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     Enable = table.Column<bool>(type: "bit", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateModify = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateLasAcess = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateLastAcess = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Medical", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Medical_Offices_OfficeId",
+                        name: "FK_Medical_Officies_OfficeId",
                         column: x => x.OfficeId,
-                        principalTable: "Offices",
+                        principalSchema: "dbo",
+                        principalTable: "Officies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -146,6 +148,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             migrationBuilder.CreateTable(
                 name: "RoleGroupUser",
+                schema: "dbo",
                 columns: table => new
                 {
                     RoleGroupsId = table.Column<int>(type: "int", nullable: false),
@@ -157,6 +160,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     table.ForeignKey(
                         name: "FK_RoleGroupUser_RoleGroups_RoleGroupsId",
                         column: x => x.RoleGroupsId,
+                        principalSchema: "dbo",
                         principalTable: "RoleGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -171,6 +175,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Specialties",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -191,12 +196,39 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "dbo",
                 table: "Genders",
                 columns: new[] { "Id", "Description", "Language" },
                 values: new object[,]
                 {
                     { 1, "Masculino", "pt-BR" },
                     { 2, "Feminino", "pt-BR" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "Officies",
+                columns: new[] { "Id", "Description", "Language" },
+                values: new object[,]
+                {
+                    { 1, "Psicólogo", "pt-BR" },
+                    { 2, "Psicóloga", "pt-BR" },
+                    { 3, "Clínico", "pt-BR" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "Specialties",
+                columns: new[] { "Id", "Description", "Language", "MedicalId" },
+                values: new object[,]
+                {
+                    { 1, "Psicologia Clínica", "pt-BR", null },
+                    { 2, "Psicologia Social", "pt-BR", null },
+                    { 3, "Psicologia educacional", "pt-BR", null },
+                    { 4, "Psicologia Esportiva ", "pt-BR", null },
+                    { 5, "Psicologia organizacional", "pt-BR", null },
+                    { 6, "Psicologia hospitalar", "pt-BR", null },
+                    { 7, "Psicologia do trânsito", "pt-BR", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -219,11 +251,13 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleGroupUser_UsersId",
+                schema: "dbo",
                 table: "RoleGroupUser",
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Specialties_MedicalId",
+                schema: "dbo",
                 table: "Specialties",
                 column: "MedicalId");
         }
@@ -236,23 +270,28 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "RoleGroupUser");
+                name: "RoleGroupUser",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Specialties");
+                name: "Specialties",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Genders");
+                name: "Genders",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "RoleGroups");
+                name: "RoleGroups",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "Medical",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Offices");
+                name: "Officies",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "User",

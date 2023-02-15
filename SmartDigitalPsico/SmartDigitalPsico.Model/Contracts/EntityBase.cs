@@ -7,6 +7,7 @@ namespace SmartDigitalPsico.Model.Contracts
 {
     public abstract class EntityBase
     {
+        [Column("Id")] 
         public int Id { get; set; }
 
         [Column("Name", TypeName = "varchar(200)")]
@@ -14,7 +15,7 @@ namespace SmartDigitalPsico.Model.Contracts
 
         [Column("Email", TypeName = "varchar(200)")]
         public string Email { get; set; }
-
+        [Column("Enable")]
         public bool Enable { get; set; } 
 
     }

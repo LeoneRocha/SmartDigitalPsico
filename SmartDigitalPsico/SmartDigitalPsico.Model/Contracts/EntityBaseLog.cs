@@ -7,8 +7,11 @@ namespace SmartDigitalPsico.Model.Contracts
 {
     public abstract class EntityBaseLog : EntityBase, IEntityBaseLog
     {
+        [Column("DateCreated")] 
         public  DateTime DateCreated { get; set; }
+        [Column("DateModify")]
         public  DateTime DateModify { get; set; }
+        [Column("DateLastAcess")]
         public  DateTime DateLasAcess { get; set; }
     }
 }

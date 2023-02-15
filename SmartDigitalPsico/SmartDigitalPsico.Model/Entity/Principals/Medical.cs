@@ -11,11 +11,15 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class Medical : EntityBaseLog
     {
         public Office Office { get; set; }
+
         public List<Specialty> Specialties { get; set; }
 
         public User User { get; set; }
+
+        [Column("Accreditation")]
         public string Accreditation { get; set; }
 
+        [Column("TypeAccreditation")]
         public ETypeAccreditation TypeAccreditation { get; set; }
     }
 }

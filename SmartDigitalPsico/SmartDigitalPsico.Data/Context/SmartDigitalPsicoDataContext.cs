@@ -52,12 +52,36 @@ namespace SmartDigitalPsico.Data.Context
 
             string valorbr = new CultureInfo("pt-BR").Name;
 
+            modelBuilder.Entity<Patient>().Property(b => b.Profession).IsRequired(false);//optinal case
+
+            #region MOCK
+
             modelBuilder.Entity<Gender>().HasData(
                new Gender { Id = 1, Description = "Masculino", Language = valorbr },
-               new Gender { Id = 2, Description = "Feminino", Language = valorbr } 
-           );
+               new Gender { Id = 2, Description = "Feminino", Language = valorbr }
+               );
+
+            modelBuilder.Entity<Office>().HasData(
+               new Office { Id = 1, Description = "Psicólogo", Language = valorbr },
+               new Office { Id = 2, Description = "Psicóloga", Language = valorbr },
+               new Office { Id = 3, Description = "Clínico", Language = valorbr }
+               );
+
+            modelBuilder.Entity<Specialty>().HasData(
+              new Specialty { Id = 1, Description = "Psicologia Clínica", Language = valorbr },
+              new Specialty { Id = 2, Description = "Psicologia Social", Language = valorbr },
+              new Specialty { Id = 3, Description = "Psicologia educacional", Language = valorbr },
+              new Specialty { Id = 4, Description = "Psicologia Esportiva ", Language = valorbr },
+              new Specialty { Id = 5, Description = "Psicologia organizacional", Language = valorbr },
+              new Specialty { Id = 6, Description = "Psicologia hospitalar", Language = valorbr },
+              new Specialty { Id = 7, Description = "Psicologia do trânsito", Language = valorbr }
+              );
+            #endregion
+
             modelBuilder.Entity<User>()
                 .Property(u => u.Role).HasDefaultValue("Admin");
+
+            base.OnModelCreating(modelBuilder);
 
         }
 

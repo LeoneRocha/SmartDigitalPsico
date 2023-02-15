@@ -21,7 +21,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false)
@@ -36,7 +36,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false)
@@ -51,7 +51,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false)
@@ -66,7 +66,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
@@ -88,10 +88,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    GenderId = table.Column<int>(type: "int", nullable: false),
+                    GenderId = table.Column<long>(type: "bigint", nullable: false),
                     Profession = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
@@ -114,10 +114,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OfficeId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    OfficeId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
                     Accreditation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeAccreditation = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
@@ -151,8 +151,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    RoleGroupsId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
+                    RoleGroupsId = table.Column<long>(type: "bigint", nullable: false),
+                    UsersId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -178,9 +178,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MedicalId = table.Column<int>(type: "int", nullable: true),
+                    MedicalId = table.Column<long>(type: "bigint", nullable: true),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false)
                 },
@@ -201,8 +201,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 columns: new[] { "Id", "Description", "Language" },
                 values: new object[,]
                 {
-                    { 1, "Masculino", "pt-BR" },
-                    { 2, "Feminino", "pt-BR" }
+                    { 1L, "Masculino", "pt-BR" },
+                    { 2L, "Feminino", "pt-BR" }
                 });
 
             migrationBuilder.InsertData(
@@ -211,9 +211,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 columns: new[] { "Id", "Description", "Language" },
                 values: new object[,]
                 {
-                    { 1, "Psicólogo", "pt-BR" },
-                    { 2, "Psicóloga", "pt-BR" },
-                    { 3, "Clínico", "pt-BR" }
+                    { 1L, "Psicólogo", "pt-BR" },
+                    { 2L, "Psicóloga", "pt-BR" },
+                    { 3L, "Clínico", "pt-BR" }
                 });
 
             migrationBuilder.InsertData(
@@ -222,13 +222,13 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 columns: new[] { "Id", "Description", "Language", "MedicalId" },
                 values: new object[,]
                 {
-                    { 1, "Psicologia Clínica", "pt-BR", null },
-                    { 2, "Psicologia Social", "pt-BR", null },
-                    { 3, "Psicologia educacional", "pt-BR", null },
-                    { 4, "Psicologia Esportiva ", "pt-BR", null },
-                    { 5, "Psicologia organizacional", "pt-BR", null },
-                    { 6, "Psicologia hospitalar", "pt-BR", null },
-                    { 7, "Psicologia do trânsito", "pt-BR", null }
+                    { 1L, "Psicologia Clínica", "pt-BR", null },
+                    { 2L, "Psicologia Social", "pt-BR", null },
+                    { 3L, "Psicologia educacional", "pt-BR", null },
+                    { 4L, "Psicologia Esportiva ", "pt-BR", null },
+                    { 5L, "Psicologia organizacional", "pt-BR", null },
+                    { 6L, "Psicologia hospitalar", "pt-BR", null },
+                    { 7L, "Psicologia do trânsito", "pt-BR", null }
                 });
 
             migrationBuilder.CreateIndex(

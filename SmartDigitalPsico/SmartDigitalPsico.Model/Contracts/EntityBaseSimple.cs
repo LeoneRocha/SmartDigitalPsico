@@ -11,7 +11,7 @@ namespace SmartDigitalPsico.Model.Contracts
     public abstract class EntityBaseSimple
     {
         [Column("Id")] 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Column("Description", TypeName = "varchar(255)")]
         public string Description { get; set; }

@@ -45,9 +45,9 @@ namespace SmartDigitalPsico.Data.Repository
             return response;
         }
 
-        public async Task<ServiceResponse<int>> Register(User user, string password)
+        public async Task<ServiceResponse<long>> Register(User user, string password)
         {
-            ServiceResponse<int> response = new ServiceResponse<int>();
+            ServiceResponse<long> response = new ServiceResponse<long>();
             if (await UserExists(user.Name))
             {
                 response.Success = false;

@@ -24,11 +24,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("RoleGroupUser", b =>
                 {
-                    b.Property<int>("RoleGroupsId")
-                        .HasColumnType("int");
+                    b.Property<long>("RoleGroupsId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
+                    b.Property<long>("UsersId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("RoleGroupsId", "UsersId");
 
@@ -39,12 +39,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Domains.Gender", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -64,13 +64,13 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 1L,
                             Description = "Masculino",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 2L,
                             Description = "Feminino",
                             Language = "pt-BR"
                         });
@@ -78,12 +78,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Domains.Office", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -103,19 +103,19 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 1L,
                             Description = "Psicólogo",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 2L,
                             Description = "Psicóloga",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 3L,
                             Description = "Clínico",
                             Language = "pt-BR"
                         });
@@ -123,12 +123,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Domains.RoleGroup", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -148,12 +148,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Domains.Specialty", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -166,8 +166,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("char(5)")
                         .HasColumnName("Language");
 
-                    b.Property<int?>("MedicalId")
-                        .HasColumnType("int");
+                    b.Property<long?>("MedicalId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -178,43 +178,43 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 1L,
                             Description = "Psicologia Clínica",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 2L,
                             Description = "Psicologia Social",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 3L,
                             Description = "Psicologia educacional",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 4L,
                             Description = "Psicologia Esportiva ",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 5L,
                             Description = "Psicologia organizacional",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 6L,
                             Description = "Psicologia hospitalar",
                             Language = "pt-BR"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 7L,
                             Description = "Psicologia do trânsito",
                             Language = "pt-BR"
                         });
@@ -222,12 +222,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Accreditation")
                         .IsRequired()
@@ -260,15 +260,15 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(200)")
                         .HasColumnName("Name");
 
-                    b.Property<int>("OfficeId")
-                        .HasColumnType("int");
+                    b.Property<long>("OfficeId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("TypeAccreditation")
                         .HasColumnType("int")
                         .HasColumnName("TypeAccreditation");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -281,12 +281,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Patient", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2")
@@ -301,8 +301,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("Enable");
 
-                    b.Property<int>("GenderId")
-                        .HasColumnType("int");
+                    b.Property<long>("GenderId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -322,12 +322,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2")

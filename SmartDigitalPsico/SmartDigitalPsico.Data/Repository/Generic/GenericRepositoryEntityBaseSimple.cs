@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract.Generic;
+using SmartDigitalPsico.Data.Repository.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Data.Repository

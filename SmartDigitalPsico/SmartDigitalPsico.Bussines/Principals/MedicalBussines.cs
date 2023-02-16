@@ -24,7 +24,7 @@ namespace SmartDigitalPsico.Bussines.Principals
             var entityResponse = new GetMedicalDto();
             Medical entityAdd = _mapper.Map<Medical>(newEntity);
              
-            entityAdd.User = await _userRepository.GetById(newEntity.IdUserAction); 
+            entityAdd.User = await _userRepository.FindByID(newEntity.IdUserAction); 
 
             entityResponse = _mapper.Map<GetMedicalDto>(await _medicalRepository.Add(entityAdd)); 
 

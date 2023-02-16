@@ -1,4 +1,4 @@
-using SmartDigitalPsico.Bussines.Contracts.Generic;
+using SmartDigitalPsico.Bussines.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 

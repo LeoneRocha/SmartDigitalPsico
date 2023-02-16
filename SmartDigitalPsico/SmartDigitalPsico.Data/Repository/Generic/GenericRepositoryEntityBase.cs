@@ -1,39 +1,37 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract.Generic;
+using SmartDigitalPsico.Data.Repository.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Data.Repository
 {
-    public class GenericRepositoryEntityBase<T> : IRepositoryEntityBase<T> where T : EntityBase
+    public class GenericRepositoryEntityBase<T> : IRepositoryEntityBaseSimple<T> where T : EntityBase
     {
         protected SmartDigitalPsicoDataContext _context;
-      
 
         private DbSet<T> dataset;
         public GenericRepositoryEntityBase(SmartDigitalPsicoDataContext context)
         {
             _context = context;
             dataset = _context.Set<T>();
-           // connStr= _context.Database.GetConnectionString();
         }
 
-        public List<T> FindAll()
+        public async Task<List<T>> FindAll()
         {
-            return dataset.ToList();
+            return await dataset.ToListAsync();
         }
 
-        public T FindByID(long id)
+        public async Task<T> FindByID(long id)
         {
-            return dataset.SingleOrDefault(p => p.Id.Equals(id));
+            return await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
 
-        public T Create(T item)
+        public async Task<T> Create(T item)
         {
             try
             {
                 dataset.Add(item);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return item;
             }
             catch (Exception)
@@ -42,15 +40,15 @@ namespace SmartDigitalPsico.Data.Repository
             }
         }
 
-        public T Update(T item)
+        public async Task<T> Update(T item)
         {
-            var result = dataset.SingleOrDefault(p => p.Id.Equals(item.Id));
+            var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
             if (result != null)
             {
                 try
                 {
                     _context.Entry(result).CurrentValues.SetValues(item);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return result;
                 }
                 catch (Exception)
@@ -60,50 +58,54 @@ namespace SmartDigitalPsico.Data.Repository
             }
             else
             {
-                return null;
+                return result;
             }
         }
 
-        public void Delete(long id)
+        public async Task<bool> Delete(long id)
         {
-            var result = dataset.SingleOrDefault(p => p.Id.Equals(id));
+            var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
             if (result != null)
             {
                 try
                 {
                     dataset.Remove(result);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
                 catch (Exception)
                 {
                     throw;
                 }
             }
+
+            return true;
         }
 
-        public bool Exists(long id)
+        public async Task<bool> Exists(long id)
         {
-            return dataset.Any(p => p.Id.Equals(id));
+            return await dataset.AnyAsync(p => p.Id.Equals(id));
         }
 
-        public List<T> FindWithPagedSearch(string query)
+        public async Task<List<T>> FindWithPagedSearch(string query)
         {
-            return dataset.FromSqlRaw<T>(query).ToList();
+            return await dataset.FromSqlRaw<T>(query).ToListAsync();
         }
 
-        public int GetCount(string query)
+        public async Task<int> GetCount(string query)
         {
-            var result = "";
+            int result = 0;
             using (var connection = _context.Database.GetDbConnection())
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = query;
-                    result = command.ExecuteScalar().ToString();
+                    var resultAsyn = await command.ExecuteScalarAsync();
+
+                    int.TryParse(resultAsyn.ToString(), out result);
                 }
             }
-            return int.Parse(result);
+            return result;
         }
     }
 }

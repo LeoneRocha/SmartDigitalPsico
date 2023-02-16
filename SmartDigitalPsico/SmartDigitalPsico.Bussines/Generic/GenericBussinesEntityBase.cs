@@ -5,16 +5,16 @@ using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Bussines.Generic
 {
-    public class GenericBussinesEntityBaseSimple<Entity, Repo, ResutEntity>
-        : IGenericBussinesEntityBaseSimple<Entity, ResutEntity>
-        where Entity : EntityBaseSimple
-        where Repo : IRepositoryEntityBaseSimple<Entity>
-        where ResutEntity : EntityDTOBaseSimple
+    public class GenericBussinesEntityBase<Entity, Repo, ResutEntity>
+        : IGenericBussinesEntityBase<Entity, ResutEntity>
+        where Entity : EntityBase
+        where Repo : IRepositoryEntityBase<Entity>
+        where ResutEntity : EntityDTOBase
 
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
-        public GenericBussinesEntityBaseSimple(IMapper mapper, Repo UserRepository)
+        public GenericBussinesEntityBase(IMapper mapper, Repo UserRepository)
         {
             _mapper = mapper;
             _genericRepository = UserRepository;
@@ -35,11 +35,24 @@ namespace SmartDigitalPsico.Bussines.Generic
         public virtual async Task<ServiceResponse<bool>> Delete(long id)
         {
             ServiceResponse<bool> response = new ServiceResponse<bool>();
-            bool entityResponse = await _genericRepository.Delete(id);
 
-            response.Data = entityResponse;
-            response.Success = true;
-            response.Message = "Register Deleted.";
+            bool exists = await _genericRepository.Exists(id);
+            if (!exists)
+            {
+                response.Success = false;
+                response.Message = "Register not found.";
+                return response;
+            }
+            else
+            {
+                response.Success = await _genericRepository.Delete(id); 
+                if (response.Success)
+                {
+                    response.Message = "Register deleted.";
+                    response.Success = true;
+                }
+            } 
+
             return response;
         }
         public async Task<ServiceResponse<bool>> Exists(long id)

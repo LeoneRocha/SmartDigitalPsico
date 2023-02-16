@@ -1,44 +1,24 @@
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using SmartDigitalPsico.Bussines.Contracts.Principals;
+using SmartDigitalPsico.Bussines.Generic;
+using SmartDigitalPsico.Data.Contract.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Contracts;
-using System.Security.Claims;
+using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class UserService : IUserService
-    {
+    public class UserService : GenericServicesEntityBase<User, IUserBussines, EntityDTOBase>, IUserService
+
+    { 
         private readonly IUserBussines _userBussines;
 
-        public UserService(IUserBussines userBussines)
+        public UserService(IMapper mapper, IUserBussines entityBussines)
+            : base(mapper, entityBussines)
         {
-            _userBussines = userBussines;
-        } 
-        public async Task<ServiceResponse<GetUserDto>> DeleteEntity(int id)
-        {
-            var serviceResponse = new ServiceResponse<GetUserDto>();
-
-            serviceResponse = await _userBussines.Delete(id);
-
-            return serviceResponse;
-        } 
-        public async Task<ServiceResponse<List<GetUserDto>>> GetAll()
-        {
-            var serviceResponse = new ServiceResponse<List<GetUserDto>>();
-
-            serviceResponse = await _userBussines.GetAll();
-
-            return serviceResponse;
-        }
-
-        public async Task<ServiceResponse<GetUserDto>> GetById(int id)
-        {
-            var serviceResponse = new ServiceResponse<GetUserDto>();
-
-            serviceResponse = await _userBussines.GetById(id);
-
-            return serviceResponse;
+            _userBussines = entityBussines;
         }
 
         public async Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto newEntity)
@@ -50,11 +30,11 @@ namespace SmartDigitalPsico.Services.Principals
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> UpdateEntity(UpdateUserDto updatedEntity)
+        public async Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updateEntity)
         {
             var serviceResponse = new ServiceResponse<GetUserDto>();
 
-            serviceResponse = await _userBussines.Update(updatedEntity);
+            serviceResponse = await _userBussines.UpdateUser(updateEntity);
 
             return serviceResponse;
         }

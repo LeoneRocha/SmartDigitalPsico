@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
@@ -26,15 +27,13 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> Get()
         {
-            //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
-            return Ok(await _userService.GetAll());
+           return Ok(await _userService.FindAll());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> GetById(int id)
         {
-            return Ok(await _userService.GetById(id));
+            return Ok(await _userService.FindByID(id));
         }
          
         [HttpPost("Register")]
@@ -52,7 +51,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> UpdateUser(UpdateUserDto updateEntity)
         {
-            var response = await _userService.UpdateEntity(updateEntity);
+            return Ok(new EmptyResult());
+            var response = await _userService.UpdateUser(updateEntity);
             if (response.Data == null)
             {
                 return NotFound(response);
@@ -62,7 +62,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            var response = await _userService.DeleteEntity(id);
+            var response = await _userService.Delete(id);
             if (!response.Success)
             {
                 return NotFound(response);

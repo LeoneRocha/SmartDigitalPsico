@@ -1,64 +1,26 @@
 using AutoMapper;
 using SmartDigitalPsico.Bussines.Contracts.Principals;
+using SmartDigitalPsico.Bussines.Generic;
 using SmartDigitalPsico.Data.Contract.Principals;
+using SmartDigitalPsico.Data.Repository.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 
 namespace SmartDigitalPsico.Bussines.Principals
 {
-    public class UserBussines : IUserBussines
+    public class UserBussines : GenericBussinesEntityBase<User, IUserRepository, EntityDTOBase>, IUserBussines
+
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public UserBussines(IMapper mapper, IUserRepository UserRepository)
+        public UserBussines(IMapper mapper, IUserRepository entityRepository)
+            : base(mapper, entityRepository) 
         {
             _mapper = mapper;
-            _userRepository = UserRepository;
-        }
-
-        public async Task<ServiceResponse<GetUserDto>> Delete(int id)
-        {
-            ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
-            User entityResponse = await _userRepository.GetById(id);
-            bool exists = await UserExists(entityResponse.Name);
-            if (!exists)
-            {
-                response.Success = false;
-                response.Message = "User not found.";
-                return response;
-            }
-            response.Success = await _userRepository.Delete(id);
-
-            if (response.Success)
-                response.Message = "User deleted.";
-
-            return response;
-        }
-
-        public async Task<ServiceResponse<List<GetUserDto>>> GetAll()
-        {
-            ServiceResponse<List<GetUserDto>> response = new ServiceResponse<List<GetUserDto>>();
-            List<User> entityResponse = await _userRepository.GetAll();
-
-            response.Data = entityResponse.Select(c => _mapper.Map<GetUserDto>(c)).ToList();
-
-            response.Success = true;
-            response.Message = "User exist.";
-            return response;
-        }
-
-        public async Task<ServiceResponse<GetUserDto>> GetById(int id)
-        {
-            ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
-            User entityResponse = await _userRepository.GetById(id);
-
-            response.Data = _mapper.Map<GetUserDto>(entityResponse);
-            response.Success = true;
-            response.Message = "User exist.";
-            return response;
-        }
+            _userRepository = entityRepository;
+        } 
 
         public async Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto userRegisterDto)
         {
@@ -69,12 +31,12 @@ namespace SmartDigitalPsico.Bussines.Principals
                 response.Success = false;
                 response.Message = "User already exists.";
                 return response;
-            } 
+            }
             createPasswordHash(userRegisterDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
-             
+
             User entityAdd = _mapper.Map<User>(userRegisterDto);
 
-            entityAdd.Name = userRegisterDto.Username;  
+            entityAdd.Name = userRegisterDto.Username;
 
             entityAdd.PasswordHash = passwordHash;
             entityAdd.PasswordSalt = passwordSalt;
@@ -90,38 +52,40 @@ namespace SmartDigitalPsico.Bussines.Principals
             response.Message = "User registred.";
             return response;
         }
-
-        public async Task<ServiceResponse<GetUserDto>> Update(UpdateUserDto updateUser)
-        {
+         
+        public async Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updateUser)
+        { 
             ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
-            User entityUpdate = await _userRepository.GetById(updateUser.Id);
+            User entityUpdate = await _userRepository.FindByID(updateUser.Id);
+
             bool exists = await UserExists(entityUpdate.Name);
             if (!exists)
             {
                 response.Success = false;
                 response.Message = "User not found.";
                 return response;
-            }  
-            entityUpdate.Name = updateUser.Name; 
+            }
+            entityUpdate.Name = updateUser.Name;
             entityUpdate.Enable = updateUser.Enable;
             entityUpdate.Email = updateUser.Email;
             entityUpdate.ModifyDate = DateTime.Now;
-             
+
             User entityResponse = await _userRepository.Update(entityUpdate);
             response.Success = true;
-            response.Data = _mapper.Map<GetUserDto>(entityResponse); 
+            response.Data = _mapper.Map<GetUserDto>(entityResponse);
 
             if (response.Success)
                 response.Message = "User Updated.";
 
             return response;
         }
-        private async Task<bool> UserExists(string username)
+
+        public async Task<bool> UserExists(string username)
         {
             bool response = await _userRepository.UserExists(username);
 
             return response;
-        }
+        } 
 
         private void createPasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -147,6 +111,5 @@ namespace SmartDigitalPsico.Bussines.Principals
                 return true;
             }
         }
-
     }
 }

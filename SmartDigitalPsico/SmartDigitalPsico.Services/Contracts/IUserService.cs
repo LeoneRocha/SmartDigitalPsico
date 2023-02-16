@@ -1,14 +1,14 @@
+using SmartDigitalPsico.Bussines.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Contracts
 {
-    public interface IUserService
+    public interface IUserService : IGenericServicesEntityBase<User, EntityDTOBase>
     {
-        Task<ServiceResponse<List<GetUserDto>>> GetAll();
-        Task<ServiceResponse<GetUserDto>> GetById(int id); 
-        Task<ServiceResponse<GetUserDto>> UpdateEntity(UpdateUserDto updatedEntity);
-        Task<ServiceResponse<GetUserDto>> DeleteEntity(int id); 
         Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto newEntity);
+        Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updateEntity);
     }
 }

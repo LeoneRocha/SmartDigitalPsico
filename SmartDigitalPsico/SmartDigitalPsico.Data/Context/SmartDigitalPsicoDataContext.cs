@@ -51,6 +51,8 @@ namespace SmartDigitalPsico.Data.Context
 
         public DbSet<PatientMedicationInformation> PatientMedicationInformations { get; set; }
         public DbSet<PatientRecord> PatientRecords { get; set; }
+
+        public DbSet<PatientNotificationMessage> PatientNotificationMessages { get; set; }
         #endregion Principais
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

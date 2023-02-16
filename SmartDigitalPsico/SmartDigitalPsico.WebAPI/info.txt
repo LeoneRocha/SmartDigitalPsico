@@ -1,4 +1,27 @@
 
+Portifolio Projto FIcha Psicologia
+Features / ESCOPO
+- em .net Core 
+
+0) WEB API 
+-  
+- Code First / Migration 
+- Mysql Local Podemo migrar para Google Cloud
+- 
+1) Agular (Backofice e administrativo) 
+- Autenticacao Azure Directory 
+- Azure CosmoDB SQL NO SQL  / Azure Cache Redis ( Informacoes estaticas dos sistem) sistema de cache 
+-- Azure Storage Blob - Para upload de arquivos, receituario, etc 
+*** Mas a versao final usaremos o S3 Amazon 
+
+- Em container do docker
+- Testes automatizados UNIT 
+
+- Azure Service Bus / HUB de EVENTOS (Modulo de recebimento de menssagens de pacientes via dispositivos moveis ou website)
+2) Centro de menssagens cliente movel em REACT + NATIVE gerar app movel 
+-
+
+
 a - Criando a migração
 
 Para criar a migração no VS 2019 Community podemos abrir a janela do Package Manager Console (PMC) e digitar o comando:   

@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract;
+using SmartDigitalPsico.Data.Contract.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 
-namespace SmartDigitalPsico.Data.Repository
+namespace SmartDigitalPsico.Data.Repository.Principals
 {
     public class MedicalRepository : IMedicalRepository
     {
@@ -22,13 +22,13 @@ namespace SmartDigitalPsico.Data.Repository
             _configuration = configuration;
             _context = context;
 
-        } 
+        }
         public async Task<Medical> Add(Medical newEntity)
         {
             _context.Medicals.Add(newEntity);
 
             await _context.SaveChangesAsync();
-             
+
             return newEntity;
         }
 

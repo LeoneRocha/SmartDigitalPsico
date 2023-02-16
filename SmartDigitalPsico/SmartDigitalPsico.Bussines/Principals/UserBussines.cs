@@ -1,14 +1,14 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SmartDigitalPsico.Bussines.Contracts;
 using SmartDigitalPsico.Data.Context;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using System.Security.Claims;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Data.Contract;
 using System.Text;
 using System.Collections.Generic;
+using SmartDigitalPsico.Data.Contract.Principals;
+using SmartDigitalPsico.Bussines.Contracts.Principals;
 
 namespace SmartDigitalPsico.Bussines.Principals
 {
@@ -88,7 +88,7 @@ namespace SmartDigitalPsico.Bussines.Principals
             entityAdd.Enable = true;
             entityAdd.DateCreated = DateTime.Now;
             entityAdd.DateModify = DateTime.Now;
-            entityAdd.DateLasAcess = DateTime.Now;
+            entityAdd.DateLastAcess = DateTime.Now;
 
             User entityResponse = await _userRepository.Register(entityAdd);
 
@@ -98,9 +98,29 @@ namespace SmartDigitalPsico.Bussines.Principals
             return response;
         }
 
-        public Task<ServiceResponse<GetUserDto>> Update(UpdateUserDto updateUser)
+        public async Task<ServiceResponse<GetUserDto>> Update(UpdateUserDto updateUser)
         {
-            throw new NotImplementedException();
+            ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
+            User entityUpdate = await _userRepository.GetById(updateUser.Id);
+            bool exists = await UserExists(entityUpdate.Name);
+            if (!exists)
+            {
+                response.Success = false;
+                response.Message = "User not found.";
+                return response;
+            }
+
+            entityUpdate.Name = updateUser.Name;
+
+            User entityResponse = await _userRepository.Update(entityUpdate);
+            response.Success = true;
+            response.Data = _mapper.Map<GetUserDto>(entityResponse);
+
+
+            if (response.Success)
+                response.Message = "User Updated.";
+
+            return response;
         }
         private async Task<bool> UserExists(string username)
         {

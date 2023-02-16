@@ -5,11 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.Contracts
 {
-    public interface IEntityBaseLog
+    public abstract class EntityDTOBaseSimple
     {
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModify { get; set; } 
-        public DateTime DateLastAcess { get; set; }
+         
+        public long Id { get; set; }
+         
+        public string Description { get; set; }
+ 
+        public string Language { get; set; }
 
     }
 }

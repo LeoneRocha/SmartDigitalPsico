@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using SmartDigitalPsico.Bussines.Contracts;
+using SmartDigitalPsico.Bussines.Contracts.Principals;
 using SmartDigitalPsico.Bussines.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;

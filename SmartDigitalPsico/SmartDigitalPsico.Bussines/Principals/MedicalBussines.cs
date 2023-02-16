@@ -1,13 +1,13 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SmartDigitalPsico.Bussines.Contracts;
 using SmartDigitalPsico.Data.Context;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using System.Security.Claims;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Data.Contract;
 using SmartDigitalPsico.Data.Repository;
+using SmartDigitalPsico.Data.Contract.Principals;
+using SmartDigitalPsico.Bussines.Contracts.Principals;
 
 namespace SmartDigitalPsico.Bussines.Principals
 {
@@ -17,8 +17,7 @@ namespace SmartDigitalPsico.Bussines.Principals
         private readonly IMedicalRepository _medicalRepository;
         private readonly IUserRepository _userRepository;
 
-
-
+         
         public MedicalBussines(IMapper mapper, IMedicalRepository medicalRepository, IUserRepository userRepository)
         {
             _mapper = mapper;

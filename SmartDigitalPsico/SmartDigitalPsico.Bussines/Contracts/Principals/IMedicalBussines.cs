@@ -1,6 +1,6 @@
 using SmartDigitalPsico.Model.Dto.User;
 
-namespace SmartDigitalPsico.Bussines.Contracts
+namespace SmartDigitalPsico.Bussines.Contracts.Principals
 {
     public interface IMedicalBussines
     {

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Http;
-using SmartDigitalPsico.Bussines.Contracts;
+using SmartDigitalPsico.Bussines.Contracts.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Services.Contracts;

@@ -9,7 +9,7 @@ using SmartDigitalPsico.Model.Entity.Domains;
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("Patient", Schema = "dbo")]
-    public class Patient : EntityBase
+    public class Patient : EntityBaseLog
     {
         [Column("DateOfBirth")]
         public DateTime DateOfBirth { get; set; }

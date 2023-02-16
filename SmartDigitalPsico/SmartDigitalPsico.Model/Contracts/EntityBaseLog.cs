@@ -12,6 +12,6 @@ namespace SmartDigitalPsico.Model.Contracts
         [Column("DateModify")]
         public  DateTime DateModify { get; set; }
         [Column("DateLastAcess")]
-        public  DateTime DateLasAcess { get; set; }
+        public  DateTime DateLastAcess { get; set; }
     }
 }

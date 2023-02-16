@@ -1,0 +1,113 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SmartDigitalPsico.Data.Context;
+using SmartDigitalPsico.Data.Contract.Generic;
+using SmartDigitalPsico.Model.Contracts;
+
+namespace SmartDigitalPsico.Data.Repository
+{
+    public class GenericRepositoryEntityBaseSimple<T> : IRepositoryEntityBaseSimple<T> where T : EntityBaseSimple
+    {
+        protected SmartDigitalPsicoDataContext _context;
+        //public readonly string connStr;
+
+        private DbSet<T> dataset;
+        public GenericRepositoryEntityBaseSimple(SmartDigitalPsicoDataContext context)
+        {
+            _context = context;
+            dataset = _context.Set<T>();
+            // connStr= _context.Database.GetConnectionString();
+        }
+
+        public async Task<List<T>> FindAll()
+        {
+            return await dataset.ToListAsync();
+        }
+
+        public async Task<T> FindByID(long id)
+        {
+            return await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+        }
+
+        public async Task<T> Create(T item)
+        {
+            try
+            {
+                dataset.Add(item);
+                await _context.SaveChangesAsync();
+                return item;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<T> Update(T item)
+        {
+            var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
+            if (result != null)
+            {
+                try
+                {
+                    _context.Entry(result).CurrentValues.SetValues(item);
+                    await _context.SaveChangesAsync();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            else
+            {
+                return result;
+            }
+        }
+
+        public async Task<bool> Delete(long id)
+        {
+            var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            if (result != null)
+            {
+                try
+                {
+                    dataset.Remove(result);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+            return true;
+        }
+
+        public async Task<bool> Exists(long id)
+        {
+            return await dataset.AnyAsync(p => p.Id.Equals(id));
+        }
+
+        public async Task<List<T>> FindWithPagedSearch(string query)
+        {
+            return await dataset.FromSqlRaw<T>(query).ToListAsync();
+        }
+
+        public async Task<int> GetCount(string query)
+        {
+            int result = 0;
+            using (var connection = _context.Database.GetDbConnection())
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    var resultAsyn = await command.ExecuteScalarAsync();
+
+                    int.TryParse(resultAsyn.ToString(), out result);
+                }
+            }
+            return result;
+        }
+    }
+}

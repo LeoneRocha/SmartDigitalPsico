@@ -3,10 +3,10 @@ using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.Data.Contract
+namespace SmartDigitalPsico.Data.Contract.Principals
 {
     public interface IUserRepository
-    {  
+    {
         Task<List<User>> GetAll();
         Task<User> GetById(int id);
         Task<User> Add(User newEntity);

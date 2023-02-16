@@ -20,6 +20,9 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("Role")]
         public string Role { get; set; }
 
+        [Column("Login")]
+        public string? Login { get; set; }
+
         public List<RoleGroup> RoleGroups { get; set; }
     }
 }

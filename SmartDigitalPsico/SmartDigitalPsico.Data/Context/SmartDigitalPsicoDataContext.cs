@@ -54,6 +54,9 @@ namespace SmartDigitalPsico.Data.Context
 
             modelBuilder.Entity<Patient>().Property(b => b.Profession).IsRequired(false);//optinal case
 
+
+            
+
             #region MOCK
 
             modelBuilder.Entity<Gender>().HasData(

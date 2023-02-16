@@ -17,23 +17,39 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("DateOfBirth")]
         public Gender Gender { get; set; }
 
-        [Column("Profession")]
-        [AllowNull]
+        [Column("Profession")] 
         public string Profession { get; set; }
+        
+        [Column("Cpf", TypeName = "varchar(15)")]
+        public string? Cpf { get; set; }
+       
+        [Column("Rg", TypeName = "varchar(15)")]
+        public string? Rg { get; set; }
+
+        [Column("Education", TypeName = "varchar(255)")]
+        public string? Education { get; set; }
+         
+        
+        [Column("PhoneNumber", TypeName = "varchar(20)")]
+        public string? PhoneNumber { get; set; }
 
 
-        /*Date Of Birth :
-        Gender:
-        Cpf:
-        Rg:
-        Profession
-        Education:
-        Marital Status
-        Telephone
-        Email
-        Address
-        Neighborhood
-        City
-        State*/
+        [Column("AddressStreet", TypeName = "varchar(255)")]
+        public string? AddressStreet { get; set; }
+        
+        [Column("AddressNeighborhood", TypeName = "varchar(255)")]
+        public string? AddressNeighborhood { get; set; }
+
+        [Column("AddressCity", TypeName = "varchar(255)")]
+        public string? AddressCity { get; set; }
+
+
+        [Column("AddressState", TypeName = "varchar(255)")]
+        public string? AddressState { get; set; }
+
+
+        [Column("AddressCep", TypeName = "varchar(20)")]
+        public string? AddressCep { get; set; }
+      
     }
 }

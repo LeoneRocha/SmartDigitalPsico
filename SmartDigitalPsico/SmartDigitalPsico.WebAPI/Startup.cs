@@ -13,8 +13,10 @@ using SmartDigitalPsico.Bussines.Principals;
 using SmartDigitalPsico.Data.Context;
 using SmartDigitalPsico.Data.Contract;
 using SmartDigitalPsico.Data.Contract.Principals;
+using SmartDigitalPsico.Data.Contract.SystemDomains;
 using SmartDigitalPsico.Data.Repository;
 using SmartDigitalPsico.Data.Repository.Principals;
+using SmartDigitalPsico.Data.Repository.SystemDomains;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Principals;
@@ -82,17 +84,21 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMedicalRepository, MedicalRepository>();
+
+            services.AddScoped<IGenderRepository, GenderRepository>();
         }
         private void addBussines(IServiceCollection services)
         {
             services.AddScoped<IUserBussines, UserBussines>();
             services.AddScoped<IMedicalBussines, MedicalBussines>();
+            services.AddScoped<IGenderBussines, GenderBussines>();
         }
 
         private void addServices(IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>(); 
             services.AddScoped<IMedicalService, MedicalService>();
+            services.AddScoped<IGenderServices, GenderService>();
         }
 
         private void addDependencies(IServiceCollection services)

@@ -20,8 +20,4 @@
     <ProjectReference Include="..\SmartDigitalPsico.Dominio\SmartDigitalPsico.Domains.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SystemDomains\" />
-  </ItemGroup>
-
 </Project>

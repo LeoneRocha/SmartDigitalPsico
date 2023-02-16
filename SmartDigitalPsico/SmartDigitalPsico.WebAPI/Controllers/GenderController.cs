@@ -29,7 +29,6 @@ namespace SmartDigitalPsico.WebAPI.Controllers
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
             return Ok(await _genderService.FindAll());
-        } 
-
+        }  
     }
 }

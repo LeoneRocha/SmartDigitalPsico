@@ -1,14 +1,9 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using SmartDigitalPsico.Data.Context;
+using SmartDigitalPsico.Bussines.Contracts.Principals;
+using SmartDigitalPsico.Data.Contract.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
-using System.Security.Claims;
 using SmartDigitalPsico.Model.Entity.Principals;
-using System.Text;
-using System.Collections.Generic;
-using SmartDigitalPsico.Data.Contract.Principals;
-using SmartDigitalPsico.Bussines.Contracts.Principals;
 
 namespace SmartDigitalPsico.Bussines.Principals
 {
@@ -74,21 +69,19 @@ namespace SmartDigitalPsico.Bussines.Principals
                 response.Success = false;
                 response.Message = "User already exists.";
                 return response;
-            }
-
+            } 
             createPasswordHash(userRegisterDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
              
             User entityAdd = _mapper.Map<User>(userRegisterDto);
 
-            entityAdd.Name = userRegisterDto.Username; 
-            //_mapper.Map<User>(newEntity);
+            entityAdd.Name = userRegisterDto.Username;  
 
             entityAdd.PasswordHash = passwordHash;
             entityAdd.PasswordSalt = passwordSalt;
             entityAdd.Enable = true;
-            entityAdd.DateCreated = DateTime.Now;
-            entityAdd.DateModify = DateTime.Now;
-            entityAdd.DateLastAcess = DateTime.Now;
+            entityAdd.CreatedDate = DateTime.Now;
+            entityAdd.ModifyDate = DateTime.Now;
+            entityAdd.LastAccessDate = DateTime.Now;
 
             User entityResponse = await _userRepository.Register(entityAdd);
 
@@ -108,14 +101,15 @@ namespace SmartDigitalPsico.Bussines.Principals
                 response.Success = false;
                 response.Message = "User not found.";
                 return response;
-            }
-
-            entityUpdate.Name = updateUser.Name;
-
+            }  
+            entityUpdate.Name = updateUser.Name; 
+            entityUpdate.Enable = updateUser.Enable;
+            entityUpdate.Email = updateUser.Email;
+            entityUpdate.ModifyDate = DateTime.Now;
+             
             User entityResponse = await _userRepository.Update(entityUpdate);
             response.Success = true;
-            response.Data = _mapper.Map<GetUserDto>(entityResponse);
-
+            response.Data = _mapper.Map<GetUserDto>(entityResponse); 
 
             if (response.Success)
                 response.Message = "User Updated.";

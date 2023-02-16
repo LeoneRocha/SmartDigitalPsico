@@ -1,22 +1,14 @@
-using SmartDigitalPsico.Domains.Enuns;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using SmartDigitalPsico.Model.Entity.Principals;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.Contracts
 {
-    public abstract class EntityBase
+    public abstract class EntityBase : EntityBaseSimple  
     {
-        [Column("Id")] 
-        public long Id { get; set; }
-
-        [Column("Name", TypeName = "varchar(200)")]
+        [Column("Name", TypeName = "varchar(200)", Order = 2)]
         public string Name { get; set; }
 
-        [Column("Email", TypeName = "varchar(200)")]
-        public string Email { get; set; }
-        [Column("Enable")]
-        public bool Enable { get; set; } 
-
+        [Column("Email", TypeName = "varchar(200)", Order = 3)]
+        public string Email { get; set; } 
     }
 }

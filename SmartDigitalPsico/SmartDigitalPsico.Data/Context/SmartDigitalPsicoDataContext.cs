@@ -1,9 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System.Globalization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SmartDigitalPsico.Data.Context
 {
@@ -13,7 +13,6 @@ namespace SmartDigitalPsico.Data.Context
         {
 
         }
-
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    if (!optionsBuilder.IsConfigured)
@@ -45,17 +44,20 @@ namespace SmartDigitalPsico.Data.Context
         public DbSet<Medical> Medicals { get; set; }
 
         public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<PatientAdditionalInformation> PatientAdditionalInformations { get; set; }
+
+        public DbSet<PatientHospitalizationInformation> PatientHospitalizationInformations { get; set; }
+
+        public DbSet<PatientMedicationInformation> PatientMedicationInformations { get; set; }
+        public DbSet<PatientRecord> PatientRecords { get; set; }
         #endregion Principais
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             string valorbr = new CultureInfo("pt-BR").Name;
-
+             
             modelBuilder.Entity<Patient>().Property(b => b.Profession).IsRequired(false);//optinal case
-
-
-            
 
             #region MOCK
 
@@ -84,9 +86,7 @@ namespace SmartDigitalPsico.Data.Context
             modelBuilder.Entity<User>()
                 .Property(u => u.Role).HasDefaultValue("Admin");
 
-            base.OnModelCreating(modelBuilder);
-
+            base.OnModelCreating(modelBuilder); 
         }
-
     }
 }

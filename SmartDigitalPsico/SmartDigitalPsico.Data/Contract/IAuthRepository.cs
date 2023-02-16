@@ -1,6 +1,5 @@
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
-using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.Data.Contract
 {

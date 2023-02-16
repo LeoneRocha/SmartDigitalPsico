@@ -80,7 +80,19 @@ Medicação: | Inicio:(DATA)
 Descrição: | Inicio:(DATA)  Fim:(DATA)   CID: 
 
 OBSERVACOES. 
+*******************************************************************
+Psychiatric follow-up:
+Neurological follow-up:
 
+# Medication list#
+Medication: | Start: (DATE)
+
+# INTERNATIONAL LIST#
+
+Description: | Start:(DATE) End:(DATE) CID:
+
+COMMENTS.
+*********************************************************************
 
 === INFORMAÇÔES COMPLEMENTARES 
 

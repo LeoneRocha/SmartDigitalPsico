@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmartDigitalPsico.Model.Contracts
+﻿namespace SmartDigitalPsico.Model.Contracts
 {
     public class ServiceResponse<T>
     {

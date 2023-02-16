@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
+﻿namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
 {
     public class TokenConfiguration
-    {
-      
+    { 
         public string Audience { get; set; }
        
         public string Issuer { get; set; }

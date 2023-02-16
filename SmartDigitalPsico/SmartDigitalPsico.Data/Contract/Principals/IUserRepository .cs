@@ -1,7 +1,4 @@
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
-using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.Data.Contract.Principals
 {
@@ -13,11 +10,7 @@ namespace SmartDigitalPsico.Data.Contract.Principals
         Task<User> Update(User updatedEntity);
         Task<bool> Delete(int id);
         Task<User> Register(User entityAdd);
-
-        //Task<ServiceResponse<int>> Register(User user, string password);
-        //Task<ServiceResponse<string>> Login(string username, string password);
-        Task<bool> UserExists(string username);
-
-
+         
+        Task<bool> UserExists(string username); 
     }
 }

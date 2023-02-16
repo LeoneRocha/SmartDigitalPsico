@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Bussines.Contracts.Principals;
-using SmartDigitalPsico.Bussines.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Services.Contracts;
@@ -13,8 +11,7 @@ namespace SmartDigitalPsico.Services.Principals
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         //private readonly IUserBussines _userBussines;
-        private readonly IMedicalBussines _medicalBussines;
-
+        private readonly IMedicalBussines _medicalBussines; 
         private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         public MedicalService(//IUserBussines userBussines,
@@ -34,8 +31,7 @@ namespace SmartDigitalPsico.Services.Principals
             serviceResponse.Data = await _medicalBussines.Add(newEntity);
 
             return serviceResponse;
-        }
-
+        } 
         public Task<ServiceResponse<bool>> DeleteEntity(int id)
         {
             throw new NotImplementedException();

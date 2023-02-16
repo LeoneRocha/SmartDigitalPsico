@@ -8,14 +8,12 @@ namespace SmartDigitalPsico.Data.Repository
     public class GenericRepositoryEntityBaseSimple<T> : IRepositoryEntityBaseSimple<T> where T : EntityBaseSimple
     {
         protected SmartDigitalPsicoDataContext _context;
-        //public readonly string connStr;
-
+        
         private DbSet<T> dataset;
         public GenericRepositoryEntityBaseSimple(SmartDigitalPsicoDataContext context)
         {
             _context = context;
-            dataset = _context.Set<T>();
-            // connStr= _context.Database.GetConnectionString();
+            dataset = _context.Set<T>(); 
         }
 
         public async Task<List<T>> FindAll()

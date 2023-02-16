@@ -1,5 +1,4 @@
 using SmartDigitalPsico.Domains.Enuns;
-using SmartDigitalPsico.Model.Entity.Domains;
 
 namespace SmartDigitalPsico.Model.Dto.User
 {

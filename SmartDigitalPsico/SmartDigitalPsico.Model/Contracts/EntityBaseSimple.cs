@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using SmartDigitalPsico.Model.Contracts.Interface;
 
 namespace SmartDigitalPsico.Model.Contracts
 {
-    public abstract class EntityBaseSimple
+    public abstract class EntityBaseSimple : IEntityBaseLog
     {
-        [Column("Id")] 
+        [Column("Id", Order = 0)]
         public long Id { get; set; }
 
-        [Column("Description", TypeName = "varchar(255)")]
-        public string Description { get; set; }
+        [Column("Enable", Order = 1)]
+        public bool Enable { get; set; }
 
-        [Column("Language", TypeName = "char(5)")]
-        [MaxLength(5)]
-        public string Language { get; set; }
+        [Column("CreatedDate")]
+        public DateTime CreatedDate { get; set; }
 
+        [Column("ModifyDate")]
+        public DateTime ModifyDate { get; set; }
+
+        [Column("LastAccessDate")]
+        public DateTime LastAccessDate { get; set; }
     }
 }

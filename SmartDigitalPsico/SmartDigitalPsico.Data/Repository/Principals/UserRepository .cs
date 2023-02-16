@@ -1,14 +1,7 @@
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using SmartDigitalPsico.Data.Context;
 using SmartDigitalPsico.Data.Contract.Principals;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 
 namespace SmartDigitalPsico.Data.Repository.Principals
@@ -20,8 +13,7 @@ namespace SmartDigitalPsico.Data.Repository.Principals
         public UserRepository(SmartDigitalPsicoDataContext context, IConfiguration configuration)
         {
             _configuration = configuration;
-            _context = context;
-
+            _context = context; 
         }
         public async Task<User> Add(User newEntity)
         {
@@ -82,12 +74,7 @@ namespace SmartDigitalPsico.Data.Repository.Principals
                 User entityReturn = await _context.Users.FirstOrDefaultAsync(u => u.Id == updatedEntity.Id);
 
                 if (entityReturn != null)
-                {
-                    entityReturn.Name = updatedEntity.Name;
-                    entityReturn.Enable = updatedEntity.Enable;
-                    entityReturn.Email = updatedEntity.Email;
-                    entityReturn.DateModify = DateTime.Now;
-
+                { 
                     await _context.SaveChangesAsync();
                 }
             }

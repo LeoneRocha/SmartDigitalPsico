@@ -8,7 +8,7 @@ namespace SmartDigitalPsico.Data.Repository
     public class GenericRepositoryEntityBase<T> : IRepositoryEntityBase<T> where T : EntityBase
     {
         protected SmartDigitalPsicoDataContext _context;
-        //public readonly string connStr;
+      
 
         private DbSet<T> dataset;
         public GenericRepositoryEntityBase(SmartDigitalPsicoDataContext context)

@@ -8,8 +8,7 @@ namespace SmartDigitalPsico.Services.Contracts
         Task<ServiceResponse<List<GetUserDto>>> GetAll();
         Task<ServiceResponse<GetUserDto>> GetById(int id); 
         Task<ServiceResponse<GetUserDto>> UpdateEntity(UpdateUserDto updatedEntity);
-        Task<ServiceResponse<GetUserDto>> DeleteEntity(int id);
-
+        Task<ServiceResponse<GetUserDto>> DeleteEntity(int id); 
         Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto newEntity);
     }
 }

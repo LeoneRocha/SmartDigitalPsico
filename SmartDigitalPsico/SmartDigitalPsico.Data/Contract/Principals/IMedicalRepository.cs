@@ -1,7 +1,4 @@
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
-using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.Data.Contract.Principals
 {

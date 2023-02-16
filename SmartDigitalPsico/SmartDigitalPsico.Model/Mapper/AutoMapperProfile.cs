@@ -10,21 +10,26 @@ namespace SmartDigitalPsico.Model.Mapper
     {
         public AutoMapperProfile()
         {
+            #region USER
             CreateMap<User, GetUserDto>();
             CreateMap<GetUserDto, User>();
             CreateMap<UserRegisterDto, User>();
+            #endregion
 
+            #region EntityBase
 
             CreateMap<EntityBaseSimple, EntityDTOBaseSimple>();
             CreateMap<EntityDTOBaseSimple, EntityBaseSimple>();
-            
+
+            #endregion
+             
+            #region Gender
             CreateMap<Gender, EntityBaseSimple>();
             CreateMap<EntityBaseSimple, Gender>();
 
             CreateMap<Gender, EntityDTOBaseSimple>();
             CreateMap<EntityDTOBaseSimple, Gender>();
-
-
+            #endregion 
         }
     }
 }

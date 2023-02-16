@@ -14,8 +14,7 @@ namespace SmartDigitalPsico.Services.Principals
         public UserService(IUserBussines userBussines)
         {
             _userBussines = userBussines;
-        }
-
+        } 
         public async Task<ServiceResponse<GetUserDto>> DeleteEntity(int id)
         {
             var serviceResponse = new ServiceResponse<GetUserDto>();
@@ -23,8 +22,7 @@ namespace SmartDigitalPsico.Services.Principals
             serviceResponse = await _userBussines.Delete(id);
 
             return serviceResponse;
-        }
-
+        } 
         public async Task<ServiceResponse<List<GetUserDto>>> GetAll()
         {
             var serviceResponse = new ServiceResponse<List<GetUserDto>>();

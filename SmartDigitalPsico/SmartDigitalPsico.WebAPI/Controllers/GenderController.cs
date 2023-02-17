@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts;
 using System.Collections.Generic;

@@ -1,11 +1,11 @@
 using AutoMapper;
-using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
-namespace SmartDigitalPsico.Business.Principals
+namespace SmartDigitalPsico.Business.SystemDomains
 {
     public class GenderBusiness : GenericBusinessEntityBaseSimple<Gender, IGenderRepository, EntityVOBaseSimple>, IGenderBusiness
 

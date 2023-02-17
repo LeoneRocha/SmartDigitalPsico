@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Generic

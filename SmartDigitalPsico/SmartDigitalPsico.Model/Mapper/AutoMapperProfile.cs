@@ -3,6 +3,7 @@ using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO;
 
 namespace SmartDigitalPsico.Model.Mapper
 {

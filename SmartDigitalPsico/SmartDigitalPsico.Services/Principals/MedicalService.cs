@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Generic;
 using System.ComponentModel;
 using System.Security.Claims;
+using SmartDigitalPsico.Model.VO.Medical;
 
 namespace SmartDigitalPsico.Services.Principals
 {

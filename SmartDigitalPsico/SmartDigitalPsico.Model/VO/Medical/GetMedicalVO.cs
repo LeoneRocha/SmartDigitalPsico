@@ -1,8 +1,6 @@
-using SmartDigitalPsico.Model.Contracts;
-
-namespace SmartDigitalPsico.Model.VO.User
+namespace SmartDigitalPsico.Model.VO.Medical
 {
     public class GetMedicalVO : EntityVOBase
-    { 
+    {
     }
 }

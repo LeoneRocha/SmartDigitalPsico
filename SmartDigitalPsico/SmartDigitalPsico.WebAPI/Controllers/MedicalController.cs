@@ -2,7 +2,7 @@ using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO.User;
+using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Services.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -10,7 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -19,6 +21,7 @@ using SmartDigitalPsico.Repository.Principals;
 using SmartDigitalPsico.Repository.SystemDomains;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Principals;
+using SmartDigitalPsico.Services.SystemDomains;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 

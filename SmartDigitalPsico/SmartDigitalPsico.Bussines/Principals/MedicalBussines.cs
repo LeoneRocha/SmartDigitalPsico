@@ -5,11 +5,11 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using SmartDigitalPsico.Model.VO.Medical;
 
 namespace SmartDigitalPsico.Business.Principals
 {

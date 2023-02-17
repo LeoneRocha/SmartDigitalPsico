@@ -4,7 +4,7 @@ using SmartDigitalPsico.Model.Entity.Domains;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IGenderBusiness : IGenericBusinessEntityBaseSimple<Gender, EntityDTOBaseSimple> 
+    public interface IGenderBusiness : IGenericBusinessEntityBaseSimple<Gender, EntityVOBaseSimple> 
     { 
 
     }

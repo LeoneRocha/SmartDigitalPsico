@@ -5,7 +5,7 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,7 +13,7 @@ using System.Security.Claims;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class MedicalBusiness : GenericBusinessEntityBase<Medical, IMedicalRepository, GetMedicalDto>, IMedicalBusiness
+    public class MedicalBusiness : GenericBusinessEntityBase<Medical, IMedicalRepository, GetMedicalVO>, IMedicalBusiness
 
     {
         private readonly IMapper _mapper;
@@ -30,9 +30,9 @@ namespace SmartDigitalPsico.Business.Principals
             _entityRepository = entityRepository;
             _userRepository = userRepository;
         } 
-        public async Task<ServiceResponse<GetMedicalDto>> Create(AddMedicalDto item)
+        public async Task<ServiceResponse<GetMedicalVO>> Create(AddMedicalVO item)
         {
-            ServiceResponse<GetMedicalDto> response = new ServiceResponse<GetMedicalDto>();
+            ServiceResponse<GetMedicalVO> response = new ServiceResponse<GetMedicalVO>();
 
             if (await Exists(item.Accreditation , item.TypeAccreditation))
             {
@@ -57,7 +57,7 @@ namespace SmartDigitalPsico.Business.Principals
 
             Medical entityResponse = await _entityRepository.Create(entityAdd);
 
-            response.Data = _mapper.Map<GetMedicalDto>(entityResponse);
+            response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
             response.Success = true;
             response.Message = "Medical registred.";
             return response; 

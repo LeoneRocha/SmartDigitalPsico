@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<ServiceResponse<GetUserDto>>> Register(UserRegisterDto newEntity)
+        public async Task<ActionResult<ServiceResponse<GetUserVO>>> Register(UserRegisterVO newEntity)
         {
             var response = await _userService.Register(newEntity);
 
@@ -29,7 +29,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDto request)
+        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginVO request)
         { 
             var response = await _userService.Login(request.Login, request.Password
             );
@@ -44,7 +44,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
 
         [HttpGet("")]
         [HttpGet("/Logout/{login}")]
-        public async Task<ActionResult<ServiceResponse<string>>> Logout(UserLoginDto request)
+        public async Task<ActionResult<ServiceResponse<string>>> Logout(UserLoginVO request)
         { 
             var response = await _userService.Logout(request.Login);
 

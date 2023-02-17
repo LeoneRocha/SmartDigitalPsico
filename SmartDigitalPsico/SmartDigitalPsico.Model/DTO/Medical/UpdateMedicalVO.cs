@@ -1,6 +1,6 @@
-namespace SmartDigitalPsico.Model.Dto.User
+namespace SmartDigitalPsico.Model.VO.User
 {
-    public class UpdateMedicalDto
+    public class UpdateMedicalVO
     {
         public int Id { get; set; }
         public string Name { get; set; }

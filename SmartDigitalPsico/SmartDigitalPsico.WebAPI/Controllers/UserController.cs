@@ -2,7 +2,7 @@ using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,19 +25,19 @@ namespace SmartDigitalPsico.WebAPI.Controllers
 
         //[AllowAnonymous]
         [HttpGet("FindAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> FindAll()
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> FindAll()
         {
            return Ok(await _userService.FindAll());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> FindByID(int id)
+        public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> FindByID(int id)
         {
             return Ok(await _userService.FindByID(id));
         } 
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> UpdateUser(UpdateUserDto updateEntity)
+        public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> UpdateUser(UpdateUserVO updateEntity)
         { 
             var response = await _userService.UpdateUser(updateEntity);
             if (response.Data == null)

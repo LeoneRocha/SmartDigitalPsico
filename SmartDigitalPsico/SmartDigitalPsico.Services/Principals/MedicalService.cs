@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Generic;
@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class MedicalService : GenericServicesEntityBase<Medical, IMedicalBusiness, GetMedicalDto>, IMedicalService
+    public class MedicalService : GenericServicesEntityBase<Medical, IMedicalBusiness, GetMedicalVO>, IMedicalService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMedicalBusiness _entityBusiness;
@@ -24,9 +24,9 @@ namespace SmartDigitalPsico.Services.Principals
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ServiceResponse<GetMedicalDto>> Create(AddMedicalDto item)
+        public async Task<ServiceResponse<GetMedicalVO>> Create(AddMedicalVO item)
         {
-            var serviceResponse = new ServiceResponse<GetMedicalDto>();
+            var serviceResponse = new ServiceResponse<GetMedicalVO>();
 
             // item.IdUserAction = GetUserId();
 

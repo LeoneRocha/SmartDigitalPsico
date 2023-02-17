@@ -1,8 +1,8 @@
 using SmartDigitalPsico.Model.Contracts;
 
-namespace SmartDigitalPsico.Model.Dto.User
+namespace SmartDigitalPsico.Model.VO.User
 {
-    public class GetUserDto : EntityDTOBase
+    public class GetUserVO : EntityVOBase
     {  
         public string TokenAuth { get; set; }
 

@@ -1,6 +1,6 @@
-namespace SmartDigitalPsico.Model.Dto.User
+namespace SmartDigitalPsico.Model.VO.User
 {
-    public class UserRegisterDto
+    public class UserRegisterVO
     {
         public string UserName { get; set; }
         public string Email { get; set; }

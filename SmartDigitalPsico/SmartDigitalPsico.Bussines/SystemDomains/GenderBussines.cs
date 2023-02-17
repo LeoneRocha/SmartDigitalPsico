@@ -7,7 +7,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class GenderBusiness : GenericBusinessEntityBaseSimple<Gender, IGenderRepository, EntityDTOBaseSimple>, IGenderBusiness
+    public class GenderBusiness : GenericBusinessEntityBaseSimple<Gender, IGenderRepository, EntityVOBaseSimple>, IGenderBusiness
 
     {
         public GenderBusiness(IMapper _mapper, IGenderRepository _genderRepository)

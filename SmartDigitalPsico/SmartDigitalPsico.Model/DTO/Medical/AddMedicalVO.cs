@@ -1,9 +1,9 @@
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts.Interface;
 
-namespace SmartDigitalPsico.Model.Dto.User
+namespace SmartDigitalPsico.Model.VO.User
 {
-    public class AddMedicalDto : IEntityDTOUserLog
+    public class AddMedicalVO : IEntityVOUserLog
     {
         public long Id { get; set; }
         public string Name { get; set; }

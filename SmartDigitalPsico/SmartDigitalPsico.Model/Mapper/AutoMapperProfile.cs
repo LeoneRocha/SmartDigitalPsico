@@ -1,6 +1,6 @@
 using AutoMapper;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 
@@ -11,15 +11,15 @@ namespace SmartDigitalPsico.Model.Mapper
         public AutoMapperProfile()
         {
             #region USER
-            CreateMap<User, GetUserDto>();
-            CreateMap<GetUserDto, User>();
-            CreateMap<UserRegisterDto, User>();
+            CreateMap<User, GetUserVO>();
+            CreateMap<GetUserVO, User>();
+            CreateMap<UserRegisterVO, User>();
             #endregion
 
             #region EntityBase
 
-            CreateMap<EntityBaseSimple, EntityDTOBaseSimple>();
-            CreateMap<EntityDTOBaseSimple, EntityBaseSimple>();
+            CreateMap<EntityBaseSimple, EntityVOBaseSimple>();
+            CreateMap<EntityVOBaseSimple, EntityBaseSimple>();
 
             #endregion
              
@@ -27,8 +27,8 @@ namespace SmartDigitalPsico.Model.Mapper
             CreateMap<Gender, EntityBaseSimple>();
             CreateMap<EntityBaseSimple, Gender>();
 
-            CreateMap<Gender, EntityDTOBaseSimple>();
-            CreateMap<EntityDTOBaseSimple, Gender>();
+            CreateMap<Gender, EntityVOBaseSimple>();
+            CreateMap<EntityVOBaseSimple, Gender>();
             #endregion 
         }
     }

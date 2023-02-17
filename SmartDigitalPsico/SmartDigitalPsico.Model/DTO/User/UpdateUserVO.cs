@@ -1,8 +1,8 @@
 using SmartDigitalPsico.Model.Contracts;
 
-namespace SmartDigitalPsico.Model.Dto.User
+namespace SmartDigitalPsico.Model.VO.User
 {
-    public class UpdateUserDto : EntityDTOBase
+    public class UpdateUserVO : EntityVOBase
     {
  
         public string Name { get; set; } 

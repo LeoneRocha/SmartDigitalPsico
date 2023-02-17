@@ -1,14 +1,14 @@
 using AutoMapper;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class UserService : GenericServicesEntityBase<User, IUserBusiness, GetUserDto>, IUserService
+    public class UserService : GenericServicesEntityBase<User, IUserBusiness, GetUserVO>, IUserService
 
     { 
         private readonly IUserBusiness _userBusiness;
@@ -28,9 +28,9 @@ namespace SmartDigitalPsico.Services.Principals
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> Login(string username, string password)
+        public async Task<ServiceResponse<GetUserVO>> Login(string username, string password)
         {
-            var serviceResponse = new ServiceResponse<GetUserDto>();
+            var serviceResponse = new ServiceResponse<GetUserVO>();
 
             serviceResponse = await _userBusiness.Login(username, password);
 
@@ -46,18 +46,18 @@ namespace SmartDigitalPsico.Services.Principals
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto newEntity)
+        public async Task<ServiceResponse<GetUserVO>> Register(UserRegisterVO newEntity)
         {
-            var serviceResponse = new ServiceResponse<GetUserDto>();
+            var serviceResponse = new ServiceResponse<GetUserVO>();
 
             serviceResponse = await _userBusiness.Register(newEntity);
 
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updateEntity)
+        public async Task<ServiceResponse<GetUserVO>> UpdateUser(UpdateUserVO updateEntity)
         {
-            var serviceResponse = new ServiceResponse<GetUserDto>();
+            var serviceResponse = new ServiceResponse<GetUserVO>();
 
             serviceResponse = await _userBusiness.UpdateUser(updateEntity);
 

@@ -1,6 +1,6 @@
 namespace SmartDigitalPsico.Model.Contracts
 {
-    public abstract class EntityDTOBase
+    public abstract class EntityVOBase
     {
         public long Id { get; set; }
          

@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class UserBusiness : GenericBusinessEntityBase<User, IUserRepository, GetUserDto>, IUserBusiness
+    public class UserBusiness : GenericBusinessEntityBase<User, IUserRepository, GetUserVO>, IUserBusiness
 
     {
         private readonly IMapper _mapper;
@@ -26,9 +26,9 @@ namespace SmartDigitalPsico.Business.Principals
             _configuration = configuration;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> Login(string login, string password)
+        public async Task<ServiceResponse<GetUserVO>> Login(string login, string password)
         {
-            var response = new ServiceResponse<GetUserDto>(); 
+            var response = new ServiceResponse<GetUserVO>(); 
 
             var user = await _userRepository.FindByLogin(login);
             if (user == null)
@@ -50,22 +50,22 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto userRegisterDto)
+        public async Task<ServiceResponse<GetUserVO>> Register(UserRegisterVO userRegisterVO)
         {
-            ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
 
-            if (await UserExists(userRegisterDto.UserName))
+            if (await UserExists(userRegisterVO.UserName))
             {
                 response.Success = false;
                 response.Message = "User already exists.";
                 return response;
             }
-            createPasswordHash(userRegisterDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            createPasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            User entityAdd = _mapper.Map<User>(userRegisterDto);
+            User entityAdd = _mapper.Map<User>(userRegisterVO);
 
-            entityAdd.Name = userRegisterDto.UserName;
-            entityAdd.Login = userRegisterDto.Login;
+            entityAdd.Name = userRegisterVO.UserName;
+            entityAdd.Login = userRegisterVO.Login;
 
             entityAdd.Role = "ADMIN";
             entityAdd.PasswordHash = passwordHash;
@@ -76,15 +76,15 @@ namespace SmartDigitalPsico.Business.Principals
 
             User entityResponse = await _userRepository.Register(entityAdd);
 
-            response.Data = _mapper.Map<GetUserDto>(entityResponse);
+            response.Data = _mapper.Map<GetUserVO>(entityResponse);
             response.Success = true;
             response.Message = "User registred.";
             return response;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updateUser)
+        public async Task<ServiceResponse<GetUserVO>> UpdateUser(UpdateUserVO updateUser)
         {
-            ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
             User entityUpdate = await _userRepository.FindByID(updateUser.Id);
 
             bool exists = await UserExists(entityUpdate.Name);
@@ -101,7 +101,7 @@ namespace SmartDigitalPsico.Business.Principals
 
             User entityResponse = await _userRepository.Update(entityUpdate);
             response.Success = true;
-            response.Data = _mapper.Map<GetUserDto>(entityResponse);
+            response.Data = _mapper.Map<GetUserVO>(entityResponse);
 
             if (response.Success)
                 response.Message = "User Updated.";
@@ -157,9 +157,9 @@ namespace SmartDigitalPsico.Business.Principals
             }
         }
 
-        private GetUserDto createToken(User user)
+        private GetUserVO createToken(User user)
         {
-            GetUserDto response = _mapper.Map<GetUserDto>(user);
+            GetUserVO response = _mapper.Map<GetUserVO>(user);
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

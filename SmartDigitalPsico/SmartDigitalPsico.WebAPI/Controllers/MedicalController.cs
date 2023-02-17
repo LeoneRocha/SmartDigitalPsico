@@ -2,7 +2,7 @@ using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Get()
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
@@ -33,19 +33,19 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> GetById(int id)
         {
             return Ok(await _medicalService.FindByID(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> Create(AddMedicalDto newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Create(AddMedicalVO newEntity)
         {
             return Ok(await _medicalService.Create(newEntity));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> Update(UpdateMedicalDto UpdateEntity)
+        public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> Update(UpdateMedicalVO UpdateEntity)
         {
             return Ok(new EmptyResult());
             //var response = await _medicalService.Update(UpdateEntity);

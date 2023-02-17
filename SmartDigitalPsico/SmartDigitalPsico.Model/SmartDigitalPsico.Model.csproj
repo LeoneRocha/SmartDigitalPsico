@@ -15,4 +15,8 @@
     <ProjectReference Include="..\SmartDigitalPsico.Dominio\SmartDigitalPsico.Domains.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Hypermedia\Enricher\" />
+  </ItemGroup>
+
 </Project>

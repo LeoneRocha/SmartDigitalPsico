@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Contracts;
@@ -12,8 +12,8 @@ using System.Security.Claims;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-   // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityDTOBaseSimple>, IGenderService
-   public class GenderService : GenericServicesEntityBaseSimple <Gender, IGenderBusiness, EntityDTOBaseSimple>, IGenderServices
+   // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityVOBaseSimple>, IGenderService
+   public class GenderService : GenericServicesEntityBaseSimple <Gender, IGenderBusiness, EntityVOBaseSimple>, IGenderServices
 
     {
         private readonly IGenderBusiness _entityBusiness;
@@ -24,9 +24,9 @@ namespace SmartDigitalPsico.Services.Principals
             _entityBusiness = entityBusiness;
         }
 
-        /* public async Task<ServiceResponse<List<EntityDTOBaseSimple>>> FindAll()
+        /* public async Task<ServiceResponse<List<EntityVOBaseSimple>>> FindAll()
          {
-             var serviceResponse = new ServiceResponse<List<EntityDTOBaseSimple>>();
+             var serviceResponse = new ServiceResponse<List<EntityVOBaseSimple>>();
 
              serviceResponse = await _entityBusiness.FindAll();
 

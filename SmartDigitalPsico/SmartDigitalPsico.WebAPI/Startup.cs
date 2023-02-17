@@ -38,7 +38,7 @@ namespace SmartDigitalPsico.WebAPI
 
             addDoc(services);
 
-           // services.AddAutoMapper(typeof(Startup));
+            // services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
 
@@ -93,9 +93,9 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addServices(IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>(); 
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMedicalService, MedicalService>();
-           // services.AddScoped<IGenderServices, GenderService>();
+            services.AddScoped<IGenderServices, GenderService>();
         }
 
         private void addDependencies(IServiceCollection services)

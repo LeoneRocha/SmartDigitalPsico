@@ -1,15 +1,15 @@
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IUserBusiness : IGenericBusinessEntityBase<User, GetUserDto>
+    public interface IUserBusiness : IGenericBusinessEntityBase<User, GetUserVO>
     {
-        Task<ServiceResponse<GetUserDto>> Login(string username, string password);
+        Task<ServiceResponse<GetUserVO>> Login(string username, string password);
         Task<ServiceResponse<bool>> Logout(string username);
-        Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto newEntity);
-        Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updateEntity);
+        Task<ServiceResponse<GetUserVO>> Register(UserRegisterVO newEntity);
+        Task<ServiceResponse<GetUserVO>> UpdateUser(UpdateUserVO updateEntity);
     }
 }

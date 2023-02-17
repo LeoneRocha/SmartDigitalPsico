@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Model", "SmartDigitalPsico.Model\SmartDigitalPsico.Model.csproj", "{DC2F6C8B-E942-4D67-83C2-A8FD5CAC7F0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Data", "SmartDigitalPsico.Data\SmartDigitalPsico.Data.csproj", "{A4D30E78-BC29-4F82-A874-A0B333120FB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Repository", "SmartDigitalPsico.Data\SmartDigitalPsico.Repository.csproj", "{A4D30E78-BC29-4F82-A874-A0B333120FB5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Services", "SmartDigitalPsico.Services\SmartDigitalPsico.Services.csproj", "{D7B9A7A5-5AF2-43A7-A8EA-BBF577C84B62}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Domains",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.WebAPI", "SmartDigitalPsico.WebAPI\SmartDigitalPsico.WebAPI.csproj", "{A03CCECA-13FD-4992-9CB6-182FB5FC9813}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDigitalPsico.Bussines", "SmartDigitalPsico.Bussines\SmartDigitalPsico.Bussines.csproj", "{0E426E36-9A98-4452-AC82-10893F3CE824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Bussines", "SmartDigitalPsico.Bussines\SmartDigitalPsico.Bussines.csproj", "{0E426E36-9A98-4452-AC82-10893F3CE824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,11 +1,14 @@
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using SmartDigitalPsico.Bussines.Contracts.Principals;
 using SmartDigitalPsico.Bussines.Generic;
-using SmartDigitalPsico.Data.Contract.Principals;
-using SmartDigitalPsico.Data.Repository.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Repository.Contract.Principals;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace SmartDigitalPsico.Bussines.Principals
 {
@@ -14,13 +17,38 @@ namespace SmartDigitalPsico.Bussines.Principals
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
-
-        public UserBussines(IMapper mapper, IUserRepository entityRepository)
-            : base(mapper, entityRepository) 
+        IConfiguration _configuration;
+        public UserBussines(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration)
+            : base(mapper, entityRepository)
         {
             _mapper = mapper;
             _userRepository = entityRepository;
-        } 
+            _configuration = configuration;
+        }
+
+        public async Task<ServiceResponse<GetUserDto>> Login(string login, string password)
+        {
+            var response = new ServiceResponse<GetUserDto>(); 
+
+            var user = await _userRepository.FindByLogin(login);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found.";
+            }
+            else if (!verifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Wrong password.";
+            }
+            else
+            {
+                response.Data = createToken(user);
+                response.Message = "User Logged.";
+            }
+
+            return response;
+        }
 
         public async Task<ServiceResponse<GetUserDto>> Register(UserRegisterDto userRegisterDto)
         {
@@ -37,10 +65,11 @@ namespace SmartDigitalPsico.Bussines.Principals
             User entityAdd = _mapper.Map<User>(userRegisterDto);
 
             entityAdd.Name = userRegisterDto.Username;
+            entityAdd.Login = userRegisterDto.Login;
 
-            entityAdd.Role = "ADMIN"; 
+            entityAdd.Role = "ADMIN";
             entityAdd.PasswordHash = passwordHash;
-            entityAdd.PasswordSalt = passwordSalt; 
+            entityAdd.PasswordSalt = passwordSalt;
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;
             entityAdd.LastAccessDate = DateTime.Now;
@@ -52,9 +81,9 @@ namespace SmartDigitalPsico.Bussines.Principals
             response.Message = "User registred.";
             return response;
         }
-         
+
         public async Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updateUser)
-        { 
+        {
             ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
             User entityUpdate = await _userRepository.FindByID(updateUser.Id);
 
@@ -80,12 +109,29 @@ namespace SmartDigitalPsico.Bussines.Principals
             return response;
         }
 
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string login)
         {
-            bool response = await _userRepository.UserExists(username);
+            bool response = await _userRepository.UserExists(login);
 
             return response;
-        } 
+        }
+         
+        public async Task<ServiceResponse<bool>> Logout(string login)
+        {
+            var response = new ServiceResponse<bool>();
+            bool user = await _userRepository.UserExists(login);
+            if (!user)
+            {
+                response.Success = false;
+                response.Message = "User not found.";
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "User logout.";
+            } 
+            return response;
+        }
 
         private void createPasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -94,8 +140,7 @@ namespace SmartDigitalPsico.Bussines.Principals
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
-        }
-
+        } 
         private bool verifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
@@ -110,6 +155,31 @@ namespace SmartDigitalPsico.Bussines.Principals
                 }
                 return true;
             }
-        } 
+        }
+
+        private GetUserDto createToken(User user)
+        {
+            GetUserDto response = _mapper.Map<GetUserDto>(user);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokendDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokendDescriptor);
+            response.TokenAuth = tokenHandler.WriteToken(token);
+            return response;
+        }
     }
 }

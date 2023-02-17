@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using SmartDigitalPsico.Bussines.Generic.Contracts;
-using SmartDigitalPsico.Data.Repository.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Bussines.Generic
 {

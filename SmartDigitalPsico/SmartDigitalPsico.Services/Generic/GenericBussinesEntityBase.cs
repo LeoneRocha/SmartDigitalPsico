@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using SmartDigitalPsico.Bussines.Generic.Contracts;
-using SmartDigitalPsico.Data.Repository.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Dto.User;
-using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Generic
 {
@@ -43,7 +40,7 @@ namespace SmartDigitalPsico.Services.Generic
         {
             var serviceResponse = new ServiceResponse<bool>();
 
-            serviceResponse = await _genericBussines.Delete(id);
+            serviceResponse = await _genericBussines.EnableOrDisable(id);
 
             return serviceResponse;
         }

@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Configuration;
-using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract.Principals;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Repository.Context;
+using SmartDigitalPsico.Repository.Contract.Principals;
 
-namespace SmartDigitalPsico.Data.Repository.Principals
+namespace SmartDigitalPsico.Repository.Principals
 {
     public class MedicalRepository : IMedicalRepository
     {

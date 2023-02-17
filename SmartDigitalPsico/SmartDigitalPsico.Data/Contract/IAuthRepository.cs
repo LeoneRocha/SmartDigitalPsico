@@ -1,7 +1,7 @@
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 
-namespace SmartDigitalPsico.Data.Contract
+namespace SmartDigitalPsico.Repository.Contract
 {
     public interface IAuthRepository
     {

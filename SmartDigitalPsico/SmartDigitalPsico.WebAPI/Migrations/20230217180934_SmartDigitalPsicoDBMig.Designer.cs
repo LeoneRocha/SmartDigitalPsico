@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartDigitalPsico.Data.Context;
+using SmartDigitalPsico.Repository.Context;
 
 #nullable disable
 
 namespace SmartDigitalPsico.WebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
-    [Migration("20230217134542_SmartDigitalPsicoDBMig")]
+    [Migration("20230217180934_SmartDigitalPsicoDBMig")]
     partial class SmartDigitalPsicoDBMig
     {
         /// <inheritdoc />

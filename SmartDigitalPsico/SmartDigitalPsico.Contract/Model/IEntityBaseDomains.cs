@@ -1,4 +1,4 @@
-namespace SmartDigitalPsico.Model.Contracts.Interface
+namespace SmartDigitalPsico.Contract.Model
 {
     public interface IEntityBaseDomains
     {

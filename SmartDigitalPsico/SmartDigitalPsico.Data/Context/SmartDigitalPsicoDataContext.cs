@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace SmartDigitalPsico.Data.Context
+namespace SmartDigitalPsico.Repository.Context
 {
     public class SmartDigitalPsicoDataContext : DbContext
     {

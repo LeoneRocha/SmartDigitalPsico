@@ -34,19 +34,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> FindByID(int id)
         {
             return Ok(await _userService.FindByID(id));
-        }
-         
-        [HttpPost("Register")]
-        public async Task<ActionResult<ServiceResponse<GetUserDto>>> Register(UserRegisterDto newEntity)
-        {
-            var response = await _userService.Register(newEntity);
-
-            if (!response.Success)
-            {
-                return BadRequest(response);
-            } 
-            return Ok(response); 
-        }
+        } 
 
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> UpdateUser(UpdateUserDto updateEntity)
@@ -68,6 +56,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers
             }
             return Ok(response);
         }
+
+       
 
     }
 }

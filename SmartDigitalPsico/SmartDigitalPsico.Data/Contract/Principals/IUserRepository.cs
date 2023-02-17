@@ -1,12 +1,13 @@
-﻿using SmartDigitalPsico.Data.Repository.Generic.Contracts;
-using SmartDigitalPsico.Model.Entity.Domains;
+﻿using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Repository.Generic.Contracts;
 
-namespace SmartDigitalPsico.Data.Contract.Principals
+namespace SmartDigitalPsico.Repository.Contract.Principals
 {
     public interface IUserRepository : IRepositoryEntityBase<User>
     {
+        Task<User> FindByLogin(string login);
         Task<User> Register(User entityAdd);
-        Task<bool> UserExists(string username);
+        Task<bool> UserExists(string login);
     }
 }

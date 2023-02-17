@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Repository.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Repository.Context;
+using SmartDigitalPsico.Repository.Generic.Contracts;
 
-namespace SmartDigitalPsico.Data.Repository
+namespace SmartDigitalPsico.Repository.Generic
 {
-    public abstract class GenericRepositoryEntityBaseSimple<T> : IRepositoryEntityBaseSimple<T> where T : EntityBaseSimple
+    public abstract class GenericRepositoryEntityBase<T> : IRepositoryEntityBase<T> where T : EntityBase
     {
         protected SmartDigitalPsicoDataContext _context;
 
         private DbSet<T> dataset;
-        public GenericRepositoryEntityBaseSimple(SmartDigitalPsicoDataContext context)
+        public GenericRepositoryEntityBase(SmartDigitalPsicoDataContext context)
         {
             _context = context;
             dataset = _context.Set<T>();
@@ -51,9 +51,9 @@ namespace SmartDigitalPsico.Data.Repository
                     await _context.SaveChangesAsync();
                     return result;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
             else
@@ -81,33 +81,6 @@ namespace SmartDigitalPsico.Data.Repository
             return true;
         }
 
-        public virtual async Task<bool> Exists(long id)
-        {
-            return await dataset.AnyAsync(p => p.Id.Equals(id));
-        }
-
-        public virtual async Task<List<T>> FindWithPagedSearch(string query)
-        {
-            return await dataset.FromSqlRaw<T>(query).ToListAsync();
-        }
-
-        public virtual async Task<int> GetCount(string query)
-        {
-            int result = 0;
-            using (var connection = _context.Database.GetDbConnection())
-            {
-                connection.Open();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = query;
-                    var resultAsyn = await command.ExecuteScalarAsync();
-
-                    int.TryParse(resultAsyn.ToString(), out result);
-                }
-            }
-            return result;
-        }
-
         public virtual async Task<bool> EnableOrDisable(long id)
         {
             var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
@@ -132,6 +105,33 @@ namespace SmartDigitalPsico.Data.Repository
                 }
             }
             return true;
+        }
+
+        public virtual async Task<bool> Exists(long id)
+        {
+            return await dataset.AnyAsync(p => p.Id.Equals(id));
+        }
+
+        public virtual async Task<List<T>> FindWithPagedSearch(string query)
+        {
+            return await dataset.FromSqlRaw(query).ToListAsync();
+        }
+
+        public virtual async Task<int> GetCount(string query)
+        {
+            int result = 0;
+            using (var connection = _context.Database.GetDbConnection())
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    var resultAsyn = await command.ExecuteScalarAsync();
+
+                    int.TryParse(resultAsyn.ToString(), out result);
+                }
+            }
+            return result;
         }
     }
 }

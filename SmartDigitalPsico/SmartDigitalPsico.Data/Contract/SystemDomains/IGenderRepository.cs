@@ -1,7 +1,7 @@
-﻿using SmartDigitalPsico.Data.Repository.Generic.Contracts;
-using SmartDigitalPsico.Model.Entity.Domains;
+﻿using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Repository.Generic.Contracts;
 
-namespace SmartDigitalPsico.Data.Contract.SystemDomains
+namespace SmartDigitalPsico.Repository.Contract.SystemDomains
 {
     public interface IGenderRepository : IRepositoryEntityBaseSimple<Gender>
     {

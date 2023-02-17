@@ -10,7 +10,7 @@ namespace SmartDigitalPsico.Model.Contracts
         public long Id { get; set; }
 
         [Column("Enable", Order = 1)]
-        [DefaultValue(true)] 
+        [DefaultValue(true)]
         public bool? Enable { get; set; }
 
         [Column("CreatedDate")]

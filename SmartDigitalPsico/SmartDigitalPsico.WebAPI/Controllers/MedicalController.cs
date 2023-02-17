@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.WebAPI.Controllers
-{ 
+{
     //[Authorize(Roles = "Player")]
     //[Authorize]
     [ApiController]

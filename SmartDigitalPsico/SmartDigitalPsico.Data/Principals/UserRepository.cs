@@ -1,14 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract.Principals;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Repository.Context;
+using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Generic;
 
-namespace SmartDigitalPsico.Data.Repository.Principals
+namespace SmartDigitalPsico.Repository.Principals
 {
     public class UserRepository : GenericRepositoryEntityBase<User>, IUserRepository
     {
         public UserRepository(SmartDigitalPsicoDataContext context) : base(context) { }
-         
+
+        public async Task<User> FindByLogin(string login)
+        {
+            User userResult = await _context.Users.FirstOrDefaultAsync(p => p.Login.Equals(login));
+
+            return userResult;
+        }
+
         public async Task<User> Register(User entityAdd)
         {
             _context.Users.Add(entityAdd);
@@ -16,9 +24,9 @@ namespace SmartDigitalPsico.Data.Repository.Principals
             return entityAdd;
         }
 
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string login)
         {
-            if (await _context.Users.AnyAsync(x => x.Name.ToLower().Equals(username.ToLower())))
+            if (await _context.Users.AnyAsync(x => x.Login.ToLower().Equals(login.ToLower())))
             {
                 return true;
             }

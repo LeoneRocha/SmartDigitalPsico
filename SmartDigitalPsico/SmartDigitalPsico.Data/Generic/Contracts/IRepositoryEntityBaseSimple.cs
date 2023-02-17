@@ -1,8 +1,8 @@
 ﻿using SmartDigitalPsico.Model.Contracts;
 
-namespace SmartDigitalPsico.Data.Repository.Generic.Contracts
+namespace SmartDigitalPsico.Repository.Generic.Contracts
 {
-    public interface IRepositoryEntityBase<T> where T : EntityBase
+    public interface IRepositoryEntityBaseSimple<T> where T : EntityBaseSimple
     {
         Task<T> Create(T item);
         Task<T> FindByID(long id);

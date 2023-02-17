@@ -1,8 +1,8 @@
 using AutoMapper;
 using SmartDigitalPsico.Bussines.Contracts.Principals;
-using SmartDigitalPsico.Data.Contract.Principals;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Bussines.Principals
 {

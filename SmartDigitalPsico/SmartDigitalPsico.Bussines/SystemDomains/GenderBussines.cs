@@ -1,9 +1,9 @@
 using AutoMapper;
 using SmartDigitalPsico.Bussines.Contracts.Principals;
 using SmartDigitalPsico.Bussines.Generic;
-using SmartDigitalPsico.Data.Contract.SystemDomains;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Bussines.Principals
 {

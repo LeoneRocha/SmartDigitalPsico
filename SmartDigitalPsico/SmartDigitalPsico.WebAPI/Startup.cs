@@ -10,18 +10,15 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SmartDigitalPsico.Bussines.Contracts.Principals;
 using SmartDigitalPsico.Bussines.Principals;
-using SmartDigitalPsico.Data.Context;
-using SmartDigitalPsico.Data.Contract;
-using SmartDigitalPsico.Data.Contract.Principals;
-using SmartDigitalPsico.Data.Contract.SystemDomains;
-using SmartDigitalPsico.Data.Repository;
-using SmartDigitalPsico.Data.Repository.Principals;
-using SmartDigitalPsico.Data.Repository.SystemDomains;
 using SmartDigitalPsico.Model.Mapper;
+using SmartDigitalPsico.Repository.Context;
+using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
+using SmartDigitalPsico.Repository.Principals;
+using SmartDigitalPsico.Repository.SystemDomains;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Principals;
 using Swashbuckle.AspNetCore.Filters;
-using System;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -81,7 +78,7 @@ namespace SmartDigitalPsico.WebAPI
         #region INTERFACES
         private void addRepositories(IServiceCollection services)
         {
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            //services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMedicalRepository, MedicalRepository>();
 

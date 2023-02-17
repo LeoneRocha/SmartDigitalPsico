@@ -1,6 +1,6 @@
 using SmartDigitalPsico.Model.Entity.Principals;
 
-namespace SmartDigitalPsico.Data.Contract.Principals
+namespace SmartDigitalPsico.Repository.Contract.Principals
 {
     public interface IMedicalRepository
     {

@@ -3,7 +3,7 @@ using SmartDigitalPsico.Model.Contracts;
 namespace SmartDigitalPsico.Services.Generic.Contracts
 {
     public interface IGenericServicesEntityBaseSimple<T, ResutEntity> where T : EntityBaseSimple
-        where ResutEntity : EntityDTOBaseSimple
+        where ResutEntity : class
     {
         Task<ServiceResponse<ResutEntity>> Create(ResutEntity item);
         Task<ServiceResponse<ResutEntity>> FindByID(long id);

@@ -1,4 +1,4 @@
-using SmartDigitalPsico.Bussines.Generic.Contracts;
+using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -6,7 +6,7 @@ using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Contracts
 {
-    public interface IUserService : IGenericServicesEntityBase<User, EntityDTOBase>
+    public interface IUserService : IGenericServicesEntityBase<User, GetUserDto>
     {
         Task<ServiceResponse<GetUserDto>> Login(string login, string password);
         Task<ServiceResponse<bool>> Logout(string login);

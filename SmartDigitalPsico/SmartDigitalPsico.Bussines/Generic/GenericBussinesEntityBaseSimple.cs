@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using SmartDigitalPsico.Bussines.Generic.Contracts;
+using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Repository.Generic.Contracts;
 
-namespace SmartDigitalPsico.Bussines.Generic
+namespace SmartDigitalPsico.Business.Generic
 {
-    public class GenericBussinesEntityBaseSimple<Entity, Repo, ResutEntity>
-        : IGenericBussinesEntityBaseSimple<Entity, ResutEntity>
+    public class GenericBusinessEntityBaseSimple<Entity, Repo, ResutEntity>
+        : IGenericBusinessEntityBaseSimple<Entity, ResutEntity>
         where Entity : EntityBaseSimple
         where Repo : IRepositoryEntityBaseSimple<Entity>
         where ResutEntity : EntityDTOBaseSimple
@@ -14,7 +14,7 @@ namespace SmartDigitalPsico.Bussines.Generic
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
-        public GenericBussinesEntityBaseSimple(IMapper mapper, Repo UserRepository)
+        public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository)
         {
             _mapper = mapper;
             _genericRepository = UserRepository;

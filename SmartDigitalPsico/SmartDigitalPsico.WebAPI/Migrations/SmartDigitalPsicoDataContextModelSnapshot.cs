@@ -358,12 +358,15 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Accreditation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("Accreditation");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedDate");
+
+                    b.Property<long?>("CreatedUserId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -386,6 +389,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ModifyDate");
 
+                    b.Property<long?>("ModifyUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(200)")
@@ -399,10 +405,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("TypeAccreditation");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ModifyUserId");
 
                     b.HasIndex("OfficeId");
 
@@ -449,6 +459,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedDate");
 
+                    b.Property<long?>("CreatedUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2")
                         .HasColumnName("DateOfBirth");
@@ -492,6 +505,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ModifyDate");
 
+                    b.Property<long?>("ModifyUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(200)")
@@ -512,9 +528,13 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedUserId");
+
                     b.HasIndex("GenderId");
 
                     b.HasIndex("MedicalId");
+
+                    b.HasIndex("ModifyUserId");
 
                     b.ToTable("Patients", "dbo");
                 });
@@ -945,6 +965,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
                 {
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
+                        .WithMany()
+                        .HasForeignKey("ModifyUserId");
+
                     b.HasOne("SmartDigitalPsico.Model.Entity.Domains.Office", "Office")
                         .WithMany()
                         .HasForeignKey("OfficeId")
@@ -953,9 +981,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("ModifyUser");
 
                     b.Navigation("Office");
 
@@ -964,6 +994,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Patient", b =>
                 {
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
                     b.HasOne("SmartDigitalPsico.Model.Entity.Domains.Gender", "Gender")
                         .WithMany()
                         .HasForeignKey("GenderId")
@@ -976,9 +1010,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
+                        .WithMany()
+                        .HasForeignKey("ModifyUserId");
+
+                    b.Navigation("CreatedUser");
+
                     b.Navigation("Gender");
 
                     b.Navigation("Medical");
+
+                    b.Navigation("ModifyUser");
                 });
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientAdditionalInformation", b =>

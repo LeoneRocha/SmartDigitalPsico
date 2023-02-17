@@ -1,5 +1,5 @@
 using AutoMapper;
-using SmartDigitalPsico.Bussines.Contracts.Principals;
+using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -8,22 +8,22 @@ using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class UserService : GenericServicesEntityBase<User, IUserBussines, EntityDTOBase>, IUserService
+    public class UserService : GenericServicesEntityBase<User, IUserBusiness, GetUserDto>, IUserService
 
     { 
-        private readonly IUserBussines _userBussines;
+        private readonly IUserBusiness _userBusiness;
 
-        public UserService(IMapper mapper, IUserBussines entityBussines)
-            : base(mapper, entityBussines)
+        public UserService(IMapper mapper, IUserBusiness entityBusiness)
+            : base(mapper, entityBusiness)
         {
-            _userBussines = entityBussines;
+            _userBusiness = entityBusiness;
         }
 
         public async override Task<ServiceResponse<bool>> Delete(long id)
         {
             var serviceResponse = new ServiceResponse<bool>();
 
-            serviceResponse = await _userBussines.EnableOrDisable(id);
+            serviceResponse = await _userBusiness.EnableOrDisable(id);
 
             return serviceResponse;
         }
@@ -32,7 +32,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             var serviceResponse = new ServiceResponse<GetUserDto>();
 
-            serviceResponse = await _userBussines.Login(username, password);
+            serviceResponse = await _userBusiness.Login(username, password);
 
             return serviceResponse;
         }
@@ -41,7 +41,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             var serviceResponse = new ServiceResponse<bool>();
 
-            serviceResponse = await _userBussines.Logout(username);
+            serviceResponse = await _userBusiness.Logout(username);
 
             return serviceResponse;
         }
@@ -50,7 +50,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             var serviceResponse = new ServiceResponse<GetUserDto>();
 
-            serviceResponse = await _userBussines.Register(newEntity);
+            serviceResponse = await _userBusiness.Register(newEntity);
 
             return serviceResponse;
         }
@@ -59,7 +59,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             var serviceResponse = new ServiceResponse<GetUserDto>();
 
-            serviceResponse = await _userBussines.UpdateUser(updateEntity);
+            serviceResponse = await _userBusiness.UpdateUser(updateEntity);
 
             return serviceResponse;
         }

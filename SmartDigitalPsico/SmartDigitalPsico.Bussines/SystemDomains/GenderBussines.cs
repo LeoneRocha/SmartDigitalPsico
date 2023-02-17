@@ -1,16 +1,16 @@
 using AutoMapper;
-using SmartDigitalPsico.Bussines.Contracts.Principals;
-using SmartDigitalPsico.Bussines.Generic;
+using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
-namespace SmartDigitalPsico.Bussines.Principals
+namespace SmartDigitalPsico.Business.Principals
 {
-    public class GenderBussines : GenericBussinesEntityBaseSimple<Gender, IGenderRepository, EntityDTOBaseSimple>, IGenderBussines
+    public class GenderBusiness : GenericBusinessEntityBaseSimple<Gender, IGenderRepository, EntityDTOBaseSimple>, IGenderBusiness
 
     {
-        public GenderBussines(IMapper _mapper, IGenderRepository _genderRepository)
+        public GenderBusiness(IMapper _mapper, IGenderRepository _genderRepository)
             : base(_mapper, _genderRepository) { }
     }
 }

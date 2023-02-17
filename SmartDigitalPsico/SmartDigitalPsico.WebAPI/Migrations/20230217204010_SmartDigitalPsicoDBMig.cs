@@ -126,9 +126,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
                     OfficeId = table.Column<long>(type: "bigint", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    Accreditation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
+                    Accreditation = table.Column<string>(type: "varchar(255)", nullable: false),
                     TypeAccreditation = table.Column<int>(type: "int", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -144,12 +146,23 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Medicals_Users_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Medicals_Users_ModifyUserId",
+                        column: x => x.ModifyUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Medicals_Users_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -217,6 +230,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
                     MedicalId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GenderId = table.Column<long>(type: "bigint", nullable: false),
                     Profession = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -252,6 +267,18 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         principalTable: "Medicals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Patients_Users_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Patients_Users_ModifyUserId",
+                        column: x => x.ModifyUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -493,6 +520,18 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Medicals_CreatedUserId",
+                schema: "dbo",
+                table: "Medicals",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Medicals_ModifyUserId",
+                schema: "dbo",
+                table: "Medicals",
+                column: "ModifyUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Medicals_OfficeId",
                 schema: "dbo",
                 table: "Medicals",
@@ -589,6 +628,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Patients_CreatedUserId",
+                schema: "dbo",
+                table: "Patients",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Patients_GenderId",
                 schema: "dbo",
                 table: "Patients",
@@ -599,6 +644,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 table: "Patients",
                 column: "MedicalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_ModifyUserId",
+                schema: "dbo",
+                table: "Patients",
+                column: "ModifyUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleGroupUser_UsersId",

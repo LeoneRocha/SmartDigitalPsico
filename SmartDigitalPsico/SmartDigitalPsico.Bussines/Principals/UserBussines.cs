@@ -1,8 +1,8 @@
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SmartDigitalPsico.Bussines.Contracts.Principals;
-using SmartDigitalPsico.Bussines.Generic;
+using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -10,15 +10,15 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace SmartDigitalPsico.Bussines.Principals
+namespace SmartDigitalPsico.Business.Principals
 {
-    public class UserBussines : GenericBussinesEntityBase<User, IUserRepository, EntityDTOBase>, IUserBussines
+    public class UserBusiness : GenericBusinessEntityBase<User, IUserRepository, GetUserDto>, IUserBusiness
 
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         IConfiguration _configuration;
-        public UserBussines(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration)
+        public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration)
             : base(mapper, entityRepository)
         {
             _mapper = mapper;
@@ -54,7 +54,7 @@ namespace SmartDigitalPsico.Bussines.Principals
         {
             ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
 
-            if (await UserExists(userRegisterDto.Username))
+            if (await UserExists(userRegisterDto.UserName))
             {
                 response.Success = false;
                 response.Message = "User already exists.";
@@ -64,7 +64,7 @@ namespace SmartDigitalPsico.Bussines.Principals
 
             User entityAdd = _mapper.Map<User>(userRegisterDto);
 
-            entityAdd.Name = userRegisterDto.Username;
+            entityAdd.Name = userRegisterDto.UserName;
             entityAdd.Login = userRegisterDto.Login;
 
             entityAdd.Role = "ADMIN";

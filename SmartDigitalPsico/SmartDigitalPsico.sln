@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Domains",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.WebAPI", "SmartDigitalPsico.WebAPI\SmartDigitalPsico.WebAPI.csproj", "{A03CCECA-13FD-4992-9CB6-182FB5FC9813}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Bussines", "SmartDigitalPsico.Bussines\SmartDigitalPsico.Bussines.csproj", "{0E426E36-9A98-4452-AC82-10893F3CE824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Business", "SmartDigitalPsico.Bussines\SmartDigitalPsico.Business.csproj", "{0E426E36-9A98-4452-AC82-10893F3CE824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

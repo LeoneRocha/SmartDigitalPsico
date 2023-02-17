@@ -8,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SmartDigitalPsico.Bussines.Contracts.Principals;
-using SmartDigitalPsico.Bussines.Principals;
+using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -43,7 +43,7 @@ namespace SmartDigitalPsico.WebAPI
 
 
             addRepositories(services);
-            addBussines(services);
+            addBusiness(services);
             addServices(services);
 
             addORM(services);
@@ -84,18 +84,18 @@ namespace SmartDigitalPsico.WebAPI
 
             services.AddScoped<IGenderRepository, GenderRepository>();
         }
-        private void addBussines(IServiceCollection services)
+        private void addBusiness(IServiceCollection services)
         {
-            services.AddScoped<IUserBussines, UserBussines>();
-            services.AddScoped<IMedicalBussines, MedicalBussines>();
-            services.AddScoped<IGenderBussines, GenderBussines>();
+            services.AddScoped<IUserBusiness, UserBusiness>();
+            services.AddScoped<IMedicalBusiness, MedicalBusiness>();
+            services.AddScoped<IGenderBusiness, GenderBusiness>();
         }
 
         private void addServices(IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>(); 
             services.AddScoped<IMedicalService, MedicalService>();
-            services.AddScoped<IGenderServices, GenderService>();
+           // services.AddScoped<IGenderServices, GenderService>();
         }
 
         private void addDependencies(IServiceCollection services)

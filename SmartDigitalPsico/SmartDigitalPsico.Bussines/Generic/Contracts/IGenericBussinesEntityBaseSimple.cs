@@ -1,9 +1,9 @@
 using SmartDigitalPsico.Model.Contracts;
 
-namespace SmartDigitalPsico.Bussines.Generic.Contracts
+namespace SmartDigitalPsico.Business.Generic.Contracts
 {
-    public interface IGenericBussinesEntityBaseSimple<T, ResutEntity> where T : EntityBaseSimple
-        where ResutEntity : EntityDTOBaseSimple
+    public interface IGenericBusinessEntityBaseSimple<T, ResutEntity> where T : EntityBaseSimple
+        where ResutEntity : class
     {
         Task<ServiceResponse<ResutEntity>> Create(ResutEntity item);
         Task<ServiceResponse<ResutEntity>> FindByID(long id);

@@ -1,62 +1,36 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using SmartDigitalPsico.Bussines.Contracts.Principals;
+using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Contracts;
+using SmartDigitalPsico.Services.Generic;
 using System.Security.Claims;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class GenderService : IGenderServices
+   // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityDTOBaseSimple>, IGenderService
+   public class GenderService : GenericServicesEntityBaseSimple <Gender, IGenderBusiness, EntityDTOBaseSimple>, IGenderServices
+
     {
-        private readonly IGenderBussines _genderBussines;
+        private readonly IGenderBusiness _entityBusiness;
 
-        public GenderService(IGenderBussines genderService)
+        public GenderService(IMapper mapper, IGenderBusiness entityBusiness)
+           : base(mapper, entityBusiness)
         {
-            _genderBussines = genderService;
-        } 
-        public Task<ServiceResponse<EntityDTOBaseSimple>> Create(EntityDTOBaseSimple item)
-        {
-            throw new NotImplementedException();
+            _entityBusiness = entityBusiness;
         }
 
-        public Task<ServiceResponse<bool>> Delete(long id)
-        {
-            throw new NotImplementedException();
-        }
+        /* public async Task<ServiceResponse<List<EntityDTOBaseSimple>>> FindAll()
+         {
+             var serviceResponse = new ServiceResponse<List<EntityDTOBaseSimple>>();
 
-        public Task<ServiceResponse<bool>> Exists(long id)
-        {
-            throw new NotImplementedException();
-        }
+             serviceResponse = await _entityBusiness.FindAll();
 
-        public async Task<ServiceResponse<List<EntityDTOBaseSimple>>> FindAll()
-        {
-            var serviceResponse = new ServiceResponse<List<EntityDTOBaseSimple>>();
-
-            serviceResponse = await _genderBussines.FindAll();
-
-            return serviceResponse;
-        }
-
-        public Task<ServiceResponse<EntityDTOBaseSimple>> FindByID(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ServiceResponse<List<EntityDTOBaseSimple>>> FindWithPagedSearch(string query)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ServiceResponse<int>> GetCount(string query)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ServiceResponse<EntityDTOBaseSimple>> Update(EntityDTOBaseSimple item)
-        {
-            throw new NotImplementedException();
-        }
+             return serviceResponse;
+         } */
     }
 }

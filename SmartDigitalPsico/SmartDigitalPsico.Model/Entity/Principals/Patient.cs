@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Domains;
 
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("Patients", Schema = "dbo")]
-    public class Patient : EntityBase
+    public class Patient : EntityBase, IEntityBaseLogUser
     {
         #region Relationship
         [Required] 
@@ -19,10 +20,13 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public List<PatientMedicationInformation> PatientMedicationInformations { get; set; }
         public List<PatientRecord> PatientRecords { get; set; }
 
+        public User? CreatedUser { get; set; }
+        public User? ModifyUser { get; set; }
+
         #endregion Relationship
-         
+
         #region Columns
-          
+
         [Column("DateOfBirth")]
         public DateTime DateOfBirth { get; set; }
 

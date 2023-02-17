@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
-using SmartDigitalPsico.Bussines.Generic.Contracts;
+using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Repository.Generic.Contracts;
 
-namespace SmartDigitalPsico.Bussines.Generic
+namespace SmartDigitalPsico.Business.Generic
 {
-    public class GenericBussinesEntityBase<Entity, Repo, ResutEntity>
-        : IGenericBussinesEntityBase<Entity, ResutEntity>
+    public class GenericBusinessEntityBase<Entity, Repo, ResutEntity>
+        : IGenericBusinessEntityBase<Entity, ResutEntity>
         where Entity : EntityBase
         where Repo : IRepositoryEntityBase<Entity>
-        where ResutEntity : EntityDTOBase
+        where ResutEntity : class
 
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
-        public GenericBussinesEntityBase(IMapper mapper, Repo UserRepository)
+        public GenericBusinessEntityBase(IMapper mapper, Repo UserRepository)
         {
             _mapper = mapper;
             _genericRepository = UserRepository;

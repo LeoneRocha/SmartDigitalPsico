@@ -1,14 +1,12 @@
+using SmartDigitalPsico.Business.Generic.Contracts;
+using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
+using SmartDigitalPsico.Model.Entity.Principals;
 
-namespace SmartDigitalPsico.Bussines.Contracts.Principals
+namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IMedicalBussines
+    public interface IMedicalBusiness : IGenericBusinessEntityBase<Medical, GetMedicalDto>
     {
-        Task<List<GetMedicalDto>> GetAll();
-        Task<GetMedicalDto> GetById(int id);
-        Task<GetMedicalDto> Add(AddMedicalDto newEntity);
-        Task<GetMedicalDto> Update(UpdateMedicalDto updatedEntity);
-        Task<bool> Delete(int id);
-
+        Task<ServiceResponse<GetMedicalDto>> Create(AddMedicalDto item);
     }
 }

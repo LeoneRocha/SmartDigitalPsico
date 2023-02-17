@@ -1,16 +1,17 @@
 using SmartDigitalPsico.Domains.Enuns;
+using SmartDigitalPsico.Model.Contracts.Interface;
 
 namespace SmartDigitalPsico.Model.Dto.User
 {
-    public class AddMedicalDto
+    public class AddMedicalDto : IEntityDTOUserLog
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
 
-        public int IdUserAction { get; set; }
+        public long IdUserAction { get; set; }
 
-        public int IdOffice { get; set; }
-        public List<int> IdsSpecialties { get; set; }
+        public long IdOffice { get; set; }
+        public List<long> IdsSpecialties { get; set; }
  
         public string Accreditation { get; set; }
 

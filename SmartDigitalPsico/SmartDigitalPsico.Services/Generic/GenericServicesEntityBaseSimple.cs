@@ -4,16 +4,16 @@ using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Services.Generic
 {
-    public class GenericServicesEntityBase<Entity, Business, ResutEntity>
-        : IGenericBusinessEntityBase<Entity, ResutEntity>
-        where Entity : EntityBase
-        where Business : IGenericBusinessEntityBase<Entity, ResutEntity>
+    public class GenericServicesEntityBaseSimple<Entity, Business, ResutEntity>
+        : IGenericBusinessEntityBaseSimple<Entity, ResutEntity>
+        where Entity : EntityBaseSimple
+        where Business : IGenericBusinessEntityBaseSimple<Entity, ResutEntity>
         where ResutEntity : class
 
     {
         private readonly IMapper _mapper;
         private readonly Business _genericBusiness;
-        public GenericServicesEntityBase(IMapper mapper, Business genericBusiness)
+        public GenericServicesEntityBaseSimple(IMapper mapper, Business genericBusiness)
         {
             _mapper = mapper;
             _genericBusiness = genericBusiness;

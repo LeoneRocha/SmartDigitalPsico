@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
@@ -28,34 +29,38 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            return Ok(await _medicalService.GetAll());
+            return Ok(await _medicalService.FindAll());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> GetById(int id)
         {
-            return Ok(await _medicalService.GetById(id));
+            return Ok(await _medicalService.FindByID(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> AddMedical(AddMedicalDto newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> Create(AddMedicalDto newEntity)
         {
-            return Ok(await _medicalService.AddEntity(newEntity));
+            return Ok(await _medicalService.Create(newEntity));
         }
+
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> UpdateCharacter(UpdateMedicalDto UpdateEntity)
+        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> Update(UpdateMedicalDto UpdateEntity)
         {
-            var response = await _medicalService.UpdateEntity(UpdateEntity);
-            if (response.Data == null)
-            {
-                return NotFound(response);
-            }
-            return Ok(response);
+            return Ok(new EmptyResult());
+            //var response = await _medicalService.Update(UpdateEntity);
+            //if (response.Data == null)
+            //{
+            //    return NotFound(response);
+            //}
+            //return Ok(response);
         }
+
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            var response = await _medicalService.DeleteEntity(id);
+            var response = await _medicalService.Delete(id);
             if (response.Data)
             {
                 return NotFound(response);

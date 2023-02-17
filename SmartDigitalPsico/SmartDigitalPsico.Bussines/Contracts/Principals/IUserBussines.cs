@@ -1,11 +1,11 @@
-using SmartDigitalPsico.Bussines.Generic.Contracts;
+using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Dto.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 
-namespace SmartDigitalPsico.Bussines.Contracts.Principals
+namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IUserBussines : IGenericBussinesEntityBase<User, EntityDTOBase>
+    public interface IUserBusiness : IGenericBusinessEntityBase<User, GetUserDto>
     {
         Task<ServiceResponse<GetUserDto>> Login(string username, string password);
         Task<ServiceResponse<bool>> Logout(string username);

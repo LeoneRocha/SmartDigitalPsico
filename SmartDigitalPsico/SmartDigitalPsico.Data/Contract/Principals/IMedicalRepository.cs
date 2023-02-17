@@ -1,13 +1,11 @@
+﻿using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Repository.Contract.Principals
 {
-    public interface IMedicalRepository
+    public interface IMedicalRepository : IRepositoryEntityBase<Medical>
     {
-        Task<List<Medical>> GetAll();
-        Task<Medical> GetById(int id);
-        Task<Medical> Add(Medical newEntity);
-        Task<Medical> Update(Medical updatedEntity);
-        Task<bool> Delete(int id);
+        Task<bool> Exists(string accreditation);
     }
 }

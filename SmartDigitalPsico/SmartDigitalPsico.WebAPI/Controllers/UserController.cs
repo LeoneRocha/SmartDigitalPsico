@@ -11,9 +11,10 @@ namespace SmartDigitalPsico.WebAPI.Controllers
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
-    [ApiController]
-    [Route("[controller]")]
-
+    [ApiController] 
+    [ApiVersion("1")]
+    //[Authorize("Bearer")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

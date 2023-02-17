@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.WebAPI.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+    [ApiController] 
+    [ApiVersion("1")]
+    //[Authorize("Bearer")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class AuthController : ControllerBase
     { 
         private readonly IUserService _userService;

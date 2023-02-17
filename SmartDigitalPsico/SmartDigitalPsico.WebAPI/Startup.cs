@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ using SmartDigitalPsico.Repository.SystemDomains;
 using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Principals;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -35,20 +37,33 @@ namespace SmartDigitalPsico.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             addDoc(services);
-
             // services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(typeof(AutoMapperProfile));
-
-
             addRepositories(services);
             addBusiness(services);
             addServices(services);
-
             addORM(services);
             addSecurity(services);
             addDependencies(services);
+            addVersionning(services);
+
+        }
+
+        private void addVersionning(IServiceCollection services)
+        {
+            services.AddApiVersioning();
+            //services.AddApiVersioning(options =>
+            //{
+            //    options.ReportApiVersions = true;
+            //    options.AssumeDefaultVersionWhenUnspecified = true;
+            //    options.DefaultApiVersion = new ApiVersion(1, 0);
+            //}); 
+            //services.AddVersionedApiExplorer(options =>
+            //{
+            //    options.GroupNameFormat = "'v'V";
+            //    options.SubstituteApiVersionInUrl = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,6 +116,9 @@ namespace SmartDigitalPsico.WebAPI
         private void addDependencies(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
         }
 
         #endregion

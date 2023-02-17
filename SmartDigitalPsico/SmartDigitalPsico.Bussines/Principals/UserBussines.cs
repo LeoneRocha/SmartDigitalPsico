@@ -38,9 +38,9 @@ namespace SmartDigitalPsico.Bussines.Principals
 
             entityAdd.Name = userRegisterDto.Username;
 
+            entityAdd.Role = "ADMIN"; 
             entityAdd.PasswordHash = passwordHash;
-            entityAdd.PasswordSalt = passwordSalt;
-            entityAdd.Enable = true;
+            entityAdd.PasswordSalt = passwordSalt; 
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;
             entityAdd.LastAccessDate = DateTime.Now;
@@ -110,6 +110,6 @@ namespace SmartDigitalPsico.Bussines.Principals
                 }
                 return true;
             }
-        }
+        } 
     }
 }

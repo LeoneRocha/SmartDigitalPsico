@@ -5,7 +5,7 @@ using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Data.Repository
 {
-    public class GenericRepositoryEntityBase<T> : IRepositoryEntityBaseSimple<T> where T : EntityBase
+    public abstract class GenericRepositoryEntityBase<T> : IRepositoryEntityBase<T> where T : EntityBase
     {
         protected SmartDigitalPsicoDataContext _context;
 
@@ -16,17 +16,17 @@ namespace SmartDigitalPsico.Data.Repository
             dataset = _context.Set<T>();
         }
 
-        public async Task<List<T>> FindAll()
+        public virtual async Task<List<T>> FindAll()
         {
             return await dataset.ToListAsync();
         }
 
-        public async Task<T> FindByID(long id)
+        public virtual async Task<T> FindByID(long id)
         {
             return await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
 
-        public async Task<T> Create(T item)
+        public virtual async Task<T> Create(T item)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace SmartDigitalPsico.Data.Repository
             }
         }
 
-        public async Task<T> Update(T item)
+        public virtual async Task<T> Update(T item)
         {
             var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
             if (result != null)
@@ -51,9 +51,9 @@ namespace SmartDigitalPsico.Data.Repository
                     await _context.SaveChangesAsync();
                     return result;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
             else
@@ -62,7 +62,7 @@ namespace SmartDigitalPsico.Data.Repository
             }
         }
 
-        public async Task<bool> Delete(long id)
+        public virtual async Task<bool> Delete(long id)
         {
             var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
             if (result != null)
@@ -81,17 +81,43 @@ namespace SmartDigitalPsico.Data.Repository
             return true;
         }
 
-        public async Task<bool> Exists(long id)
+        public virtual async Task<bool> EnableOrDisable(long id)
+        {
+            var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            if (result != null)
+            {
+                try
+                {
+                    try
+                    {
+                        result.Enable = !result.Enable;
+                        await _context.SaveChangesAsync();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return true;
+        }
+         
+        public virtual async Task<bool> Exists(long id)
         {
             return await dataset.AnyAsync(p => p.Id.Equals(id));
         }
 
-        public async Task<List<T>> FindWithPagedSearch(string query)
+        public virtual async Task<List<T>> FindWithPagedSearch(string query)
         {
             return await dataset.FromSqlRaw<T>(query).ToListAsync();
         }
 
-        public async Task<int> GetCount(string query)
+        public virtual async Task<int> GetCount(string query)
         {
             int result = 0;
             using (var connection = _context.Database.GetDbConnection())

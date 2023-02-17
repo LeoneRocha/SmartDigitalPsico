@@ -6,8 +6,9 @@ Features / ESCOPO
 0) WEB API 
 -  
 - Code First / Migration 
-- Mysql Local Podemo migrar para Google Cloud
-- 
+- SQL SERVER 
+- MIGRAR PARA MYSQL -  Local Podemo migrar para Google Cloud
+
 1) Agular (Backofice e administrativo) 
 - Autenticacao Azure Directory 
 - Azure CosmoDB SQL NO SQL  / Azure Cache Redis ( Informacoes estaticas dos sistem) sistema de cache 
@@ -40,7 +41,9 @@ Para este comando funcionar temos instalar a ferramenta de linha de comando do E
 
 dotnet tool install --global dotnet-ef
 
-
+--------------REMOVE 
+dotnet ef database update 0
+dotnet ef migrations remove
 
 
 

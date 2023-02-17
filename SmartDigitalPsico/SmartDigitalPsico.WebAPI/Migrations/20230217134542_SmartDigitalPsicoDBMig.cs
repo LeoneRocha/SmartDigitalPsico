@@ -23,7 +23,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -42,7 +42,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -61,7 +61,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -80,7 +80,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -99,7 +99,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -122,7 +122,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
                     OfficeId = table.Column<long>(type: "bigint", nullable: false),
@@ -213,7 +213,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
                     MedicalId = table.Column<long>(type: "bigint", nullable: false),
@@ -261,7 +261,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -302,7 +302,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -346,7 +346,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -385,13 +385,57 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PatientNotificationMessage",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    PatientId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
+                    Message = table.Column<string>(name: "Message ", type: "varchar(max)", nullable: false),
+                    IsReaded = table.Column<bool>(type: "bit", nullable: false),
+                    ReadingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Notified = table.Column<bool>(type: "bit", nullable: false),
+                    NotifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientNotificationMessage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PatientNotificationMessage_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalSchema: "dbo",
+                        principalTable: "Patients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PatientNotificationMessage_Users_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PatientNotificationMessage_Users_ModifyUserId",
+                        column: x => x.ModifyUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PatientRecords",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Enable = table.Column<bool>(type: "bit", nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
                     Annotation = table.Column<string>(type: "varchar(max)", nullable: false),
@@ -415,37 +459,37 @@ namespace SmartDigitalPsico.WebAPI.Migrations
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Genders",
-                columns: new[] { "Id", "CreatedDate", "Description", "Enable", "Language", "LastAccessDate", "ModifyDate" },
+                columns: new[] { "Id", "CreatedDate", "Description", "Language", "LastAccessDate", "ModifyDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masculino", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Feminino", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masculino", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Feminino", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Officies",
-                columns: new[] { "Id", "CreatedDate", "Description", "Enable", "Language", "LastAccessDate", "ModifyDate" },
+                columns: new[] { "Id", "CreatedDate", "Description", "Language", "LastAccessDate", "ModifyDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicólogo", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicóloga", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Clínico", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicólogo", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicóloga", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Clínico", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Specialties",
-                columns: new[] { "Id", "CreatedDate", "Description", "Enable", "Language", "LastAccessDate", "ModifyDate" },
+                columns: new[] { "Id", "CreatedDate", "Description", "Language", "LastAccessDate", "ModifyDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia Clínica", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia Social", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia educacional", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia Esportiva ", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 5L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia organizacional", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 6L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia hospitalar", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 7L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia do trânsito", false, "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia Clínica", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia Social", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia educacional", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia Esportiva ", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia organizacional", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia hospitalar", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia do trânsito", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -521,6 +565,24 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PatientNotificationMessage_CreatedUserId",
+                schema: "dbo",
+                table: "PatientNotificationMessage",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientNotificationMessage_ModifyUserId",
+                schema: "dbo",
+                table: "PatientNotificationMessage",
+                column: "ModifyUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientNotificationMessage_PatientId",
+                schema: "dbo",
+                table: "PatientNotificationMessage",
+                column: "PatientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PatientRecords_PatientId",
                 schema: "dbo",
                 table: "PatientRecords",
@@ -562,6 +624,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "PatientMedicationInformations",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "PatientNotificationMessage",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

@@ -38,6 +38,16 @@ namespace SmartDigitalPsico.Services.Generic
 
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<bool>> EnableOrDisable(long id)
+        {
+            var serviceResponse = new ServiceResponse<bool>();
+
+            serviceResponse = await _genericBussines.Delete(id);
+
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<bool>> Exists(long id)
         {
             var serviceResponse = new ServiceResponse<bool>();

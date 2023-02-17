@@ -24,14 +24,14 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         }
 
         //[AllowAnonymous]
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> Get()
+        [HttpGet("FindAll")]
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalDto>>>> FindAll()
         {
            return Ok(await _userService.FindAll());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> FindByID(int id)
         {
             return Ok(await _userService.FindByID(id));
         }
@@ -50,8 +50,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
 
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetMedicalDto>>> UpdateUser(UpdateUserDto updateEntity)
-        {
-            return Ok(new EmptyResult());
+        { 
             var response = await _userService.UpdateUser(updateEntity);
             if (response.Data == null)
             {

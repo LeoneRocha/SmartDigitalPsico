@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System.Globalization;
+using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SmartDigitalPsico.Data.Context
@@ -58,7 +59,7 @@ namespace SmartDigitalPsico.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             string valorbr = new CultureInfo("pt-BR").Name;
-             
+
             modelBuilder.Entity<Patient>().Property(b => b.Profession).IsRequired(false);//optinal case
 
             #region MOCK
@@ -85,10 +86,31 @@ namespace SmartDigitalPsico.Data.Context
               );
             #endregion
 
-            modelBuilder.Entity<User>()
-                .Property(u => u.Role).HasDefaultValue("Admin");
+            modelBuilder.Entity<User>().Property(u => u.Role).HasDefaultValue("Admin");
+            bool valorPadraoEnable = true;
+            #region Domains  DEFAULTs VALUEs
+            modelBuilder.Entity<Gender>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Specialty>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Office>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<RoleGroup>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
 
-            base.OnModelCreating(modelBuilder); 
+            #endregion Domains  DEFAULTs VALUEs
+
+            #region Principals  DEFAULTs VALUEs
+
+            modelBuilder.Entity<User>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Medical>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Patient>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+
+            modelBuilder.Entity<PatientAdditionalInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientHospitalizationInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientMedicationInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientNotificationMessage>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientRecord>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+
+            #endregion Principals  DEFAULTs VALUEs
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

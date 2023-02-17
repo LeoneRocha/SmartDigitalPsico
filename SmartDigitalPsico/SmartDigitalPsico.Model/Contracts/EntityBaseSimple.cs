@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using SmartDigitalPsico.Model.Contracts.Interface;
 
 namespace SmartDigitalPsico.Model.Contracts
@@ -9,7 +10,8 @@ namespace SmartDigitalPsico.Model.Contracts
         public long Id { get; set; }
 
         [Column("Enable", Order = 1)]
-        public bool Enable { get; set; }
+        [DefaultValue(true)] 
+        public bool? Enable { get; set; }
 
         [Column("CreatedDate")]
         public DateTime CreatedDate { get; set; }

@@ -55,6 +55,19 @@ namespace SmartDigitalPsico.Bussines.Generic
 
             return response;
         }
+        public virtual async Task<ServiceResponse<ResutEntity>> Update(ResutEntity item)
+        {
+            ServiceResponse<ResutEntity> response = new ServiceResponse<ResutEntity>();
+
+            var entityUpdate = _mapper.Map<Entity>(item);
+            Entity entityResponse = await _genericRepository.Update(entityUpdate);
+
+            response.Data = _mapper.Map<ResutEntity>(entityResponse);
+            response.Success = true;
+            response.Message = "Register Updated.";
+            return response;
+        }
+
         public async Task<ServiceResponse<bool>> Exists(long id)
         {
             ServiceResponse<bool> response = new ServiceResponse<bool>();
@@ -106,16 +119,28 @@ namespace SmartDigitalPsico.Bussines.Generic
             response.Message = "Registers Counted.";
             return response;
         }
-        public virtual async Task<ServiceResponse<ResutEntity>> Update(ResutEntity item)
+
+        public virtual async Task<ServiceResponse<bool>> EnableOrDisable(long id)
         {
-            ServiceResponse<ResutEntity> response = new ServiceResponse<ResutEntity>();
+            ServiceResponse<bool> response = new ServiceResponse<bool>();
 
-            var entityUpdate = _mapper.Map<Entity>(item);
-            Entity entityResponse = await _genericRepository.Update(entityUpdate);
+            bool exists = await _genericRepository.Exists(id);
+            if (!exists)
+            {
+                response.Success = false;
+                response.Message = "Register not found.";
+                return response;
+            }
+            else
+            {
+                response.Success = await _genericRepository.EnableOrDisable(id);
+                if (response.Success)
+                {
+                    response.Message = "Register updated.";
+                    response.Success = true;
+                }
+            }
 
-            response.Data = _mapper.Map<ResutEntity>(entityResponse);
-            response.Success = true;
-            response.Message = "Register Updated.";
             return response;
         }
     }

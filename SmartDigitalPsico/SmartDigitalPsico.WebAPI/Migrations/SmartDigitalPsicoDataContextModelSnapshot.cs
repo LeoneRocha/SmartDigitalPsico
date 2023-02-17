@@ -71,8 +71,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -100,7 +102,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 1L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Masculino",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -110,7 +111,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 2L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Feminino",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -136,8 +136,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -165,7 +167,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 1L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicólogo",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -175,7 +176,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 2L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicóloga",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -185,7 +185,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 3L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Clínico",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -211,8 +210,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -254,8 +255,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -283,7 +286,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 1L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicologia Clínica",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -293,7 +295,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 2L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicologia Social",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -303,7 +304,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 3L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicologia educacional",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -313,7 +313,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 4L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicologia Esportiva ",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -323,7 +322,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 5L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicologia organizacional",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -333,7 +331,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 6L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicologia hospitalar",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -343,7 +340,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             Id = 7L,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Psicologia do trânsito",
-                            Enable = false,
                             Language = "pt-BR",
                             LastAccessDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -375,8 +371,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Email")
                         .HasColumnOrder(3);
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -473,8 +471,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("EmergencyContactPhoneNumber");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -536,8 +536,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Property<long?>("CreatedUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -601,8 +603,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -670,8 +674,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Dosage");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -733,8 +739,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Property<long?>("CreatedUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -812,8 +820,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -855,8 +865,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Email")
                         .HasColumnOrder(3);
 
-                    b.Property<bool>("Enable")
+                    b.Property<bool?>("Enable")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 

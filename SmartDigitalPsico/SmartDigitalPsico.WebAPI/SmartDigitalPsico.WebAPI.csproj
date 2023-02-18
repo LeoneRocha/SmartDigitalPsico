@@ -26,9 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Principals\Patient\PatientAdditionalInformation\" />
-    <Folder Include="Controllers\Principals\Patient\PatientHospitalizationInformation\" />
-    <Folder Include="Controllers\Principals\Patient\PatientMedicationInformation\" />
-    <Folder Include="Controllers\Principals\Patient\PatientRecord\" />
   </ItemGroup>
 
 </Project>

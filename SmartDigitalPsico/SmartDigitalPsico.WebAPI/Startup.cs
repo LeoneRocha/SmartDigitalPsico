@@ -99,7 +99,11 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IMedicalRepository, MedicalRepository>();
 
             #region PATIENT
-
+            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IPatientRecordRepository  , PatientRecordRepository>();
+            services.AddScoped<IPatientMedicationInformationRepository, PatientMedicationInformationRepository>();
+            services.AddScoped<IPatientHospitalizationInformationRepository, PatientHospitalizationInformationRepository>();
+            services.AddScoped<IPatientAdditionalInformationRepository, IPatientAdditionalInformationRepository>();
             #endregion PATIENT
 
             services.AddScoped<IGenderRepository, GenderRepository>();
@@ -116,6 +120,14 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IRoleGroupBusiness, RoleGroupBusiness>();
             services.AddScoped<IGenderBusiness, GenderBusiness>();
             services.AddScoped<ISpecialtyBusiness, SpecialtyBusiness>();
+
+            #region PATIENT
+            services.AddScoped<IPatientBusiness, PatientBusiness>();
+            services.AddScoped<IPatientRecordBusiness, PatientRecordBusiness>();
+            services.AddScoped<IPatientMedicationInformationBusiness, PatientMedicationInformationBusiness>();
+            services.AddScoped<IPatientHospitalizationInformationBusiness, PatientHospitalizationInformationBusiness>();
+            services.AddScoped<IPatientAdditionalInformationBusiness, IPatientAdditionalInformationBusiness>();
+            #endregion PATIENT 
         }
 
         private void addServices(IServiceCollection services)
@@ -126,14 +138,21 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IOfficeServices, OfficeServices>();
             services.AddScoped<IRoleGroupServices, RoleGroupServices>();
             services.AddScoped<ISpecialtyServices, SpecialtyServices>();
+
+            #region PATIENT
+            services.AddScoped<IPatientServices, PatientServices>();
+            services.AddScoped<IPatientRecordServices, PatientRecordServices>();
+            services.AddScoped<IPatientMedicationInformationServices, PatientMedicationInformationServices>();
+            services.AddScoped<IPatientHospitalizationInformationServices, PatientHospitalizationInformationServices>();
+            services.AddScoped<IPatientAdditionalInformationServices, IPatientAdditionalInformationServices>();
+            #endregion PATIENT
+
+
         }
 
         private void addDependencies(IServiceCollection services)
         {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
         }
 
         #endregion

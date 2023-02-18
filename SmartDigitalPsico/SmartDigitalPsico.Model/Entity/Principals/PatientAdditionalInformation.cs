@@ -13,7 +13,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class PatientAdditionalInformation : EntityBaseSimple, IEntityBaseLogUser
     {
         #region Relationship
-       
+        [Required]
         public Patient Patient { get; set; }
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
@@ -24,9 +24,9 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("FollowUp_Psychiatric", TypeName = "varchar(max)")]
         public string? FollowUp_Psychiatric { get; set; }
 
-        [Column("FollowUp_Neurological", TypeName = "varchar(max)")]  
+        [Column("FollowUp_Neurological", TypeName = "varchar(max)")]
         public string? FollowUp_Neurological { get; set; }
-        
+
         #endregion Columns 
     }
 }

@@ -13,23 +13,24 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     {
         #region Relationship
         [Required] 
-        public Office Office { get; set; }
-       
+        public Office Office { get; set; }       
         public User? User { get; set; }
         public List<Specialty> Specialties { get; set; }
         public List<Patient> Patienties { get; set; }
-
+        public User? CreatedUser { get; set; }
+        public User? ModifyUser { get; set; }
         #endregion Relationship
 
         #region Columns
-           
-        [Column("Accreditation", TypeName = "varchar(255)")]
+
+        [Column("Accreditation", TypeName = "varchar(20)")]
+        [MaxLength(20)]
+        [Required]
         public string Accreditation { get; set; }
 
         [Column("TypeAccreditation")]
         public ETypeAccreditation TypeAccreditation { get; set; }
-        public User? CreatedUser { get; set; }
-        public User? ModifyUser { get; set; }
+ 
         #endregion Columns 
     }
 }

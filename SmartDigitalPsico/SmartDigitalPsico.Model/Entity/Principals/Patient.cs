@@ -13,7 +13,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class Patient : EntityBase, IEntityBaseLogUser
     {
         #region Relationship
-        [Required] 
+        [Required]
         public Medical Medical { get; set; }
         public List<PatientAdditionalInformation> PatientAdditionalInformations { get; set; }
         public List<PatientHospitalizationInformation> PatientHospitalizationInformations { get; set; }
@@ -23,6 +23,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
 
+        [Column("Gender")]
+        public Gender Gender { get; set; }
         #endregion Relationship
 
         #region Columns
@@ -30,43 +32,53 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("DateOfBirth")]
         public DateTime DateOfBirth { get; set; }
 
-        [Column("Gender")]
-        public Gender Gender { get; set; }
-
-        [Column("Profession")]
-        public string Profession { get; set; }
+        [Column("Profession", TypeName = "varchar(255)")]
+        [MaxLength(255)]
+        public string? Profession { get; set; }
 
         [Column("Cpf", TypeName = "varchar(15)")]
+        [MaxLength(15)]
         public string? Cpf { get; set; }
 
         [Column("Rg", TypeName = "varchar(15)")]
-        public string? Rg { get; set; }
+        [Required]
+        [MaxLength(15)]
+        public string Rg { get; set; }
 
         [Column("Education", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string? Education { get; set; }
 
         [Column("PhoneNumber", TypeName = "varchar(20)")]
+        [MaxLength(20)]
         public string? PhoneNumber { get; set; }
 
         [Column("AddressStreet", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string? AddressStreet { get; set; }
 
         [Column("AddressNeighborhood", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string? AddressNeighborhood { get; set; }
 
         [Column("AddressCity", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string? AddressCity { get; set; }
 
         [Column("AddressState", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string? AddressState { get; set; }
 
         [Column("AddressCep", TypeName = "varchar(20)")]
+        [MaxLength(20)]
         public string? AddressCep { get; set; }
 
         [Column("EmergencyContactName", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string? EmergencyContactName { get; set; }
 
         [Column("EmergencyContactPhoneNumber", TypeName = "varchar(20)")]
+        [MaxLength(20)]
         public string? EmergencyContactPhoneNumber { get; set; }
         #endregion
     }

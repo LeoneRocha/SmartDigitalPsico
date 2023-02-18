@@ -12,8 +12,8 @@ using SmartDigitalPsico.Repository.Context;
 namespace SmartDigitalPsico.WebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
-    [Migration("20230217233442_SmartDigitalPsicoDBMig_0001")]
-    partial class SmartDigitalPsicoDBMig_0001
+    [Migration("20230218144655_SmartDigitalPsicoDBMig")]
+    partial class SmartDigitalPsicoDBMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
@@ -136,6 +137,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
@@ -210,6 +212,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
@@ -255,6 +258,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
@@ -361,7 +365,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Accreditation")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
                         .HasColumnName("Accreditation");
 
                     b.Property<DateTime>("CreatedDate")
@@ -435,26 +440,32 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("AddressCep")
+                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)")
                         .HasColumnName("AddressCep");
 
                     b.Property<string>("AddressCity")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("AddressCity");
 
                     b.Property<string>("AddressNeighborhood")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("AddressNeighborhood");
 
                     b.Property<string>("AddressState")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("AddressState");
 
                     b.Property<string>("AddressStreet")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("AddressStreet");
 
                     b.Property<string>("Cpf")
+                        .HasMaxLength(15)
                         .HasColumnType("varchar(15)")
                         .HasColumnName("Cpf");
 
@@ -470,6 +481,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("DateOfBirth");
 
                     b.Property<string>("Education")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Education");
 
@@ -480,10 +492,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnOrder(3);
 
                     b.Property<string>("EmergencyContactName")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("EmergencyContactName");
 
                     b.Property<string>("EmergencyContactPhoneNumber")
+                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)")
                         .HasColumnName("EmergencyContactPhoneNumber");
 
@@ -518,14 +532,18 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnOrder(2);
 
                     b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)")
                         .HasColumnName("PhoneNumber");
 
                     b.Property<string>("Profession")
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("Profession");
 
                     b.Property<string>("Rg")
+                        .IsRequired()
+                        .HasMaxLength(15)
                         .HasColumnType("varchar(15)")
                         .HasColumnName("Rg");
 
@@ -611,6 +629,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("CID")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)")
                         .HasColumnName("CID");
 
@@ -623,6 +642,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
@@ -690,10 +710,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
                     b.Property<string>("Dosage")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Dosage");
 
@@ -713,6 +735,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("LastAccessDate");
 
                     b.Property<string>("MainDrug")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("MainDrug");
 
@@ -727,6 +750,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Posology")
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Posology");
 
@@ -779,7 +803,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasColumnType("varchar(max)")
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)")
                         .HasColumnName("Message ");
 
                     b.Property<DateTime>("ModifyDate")
@@ -840,6 +865,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
 
@@ -900,7 +926,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("LastAccessDate");
 
                     b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
                         .HasColumnName("Login")
                         .HasColumnOrder(4);
 
@@ -927,7 +955,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Property<string>("Role")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasDefaultValue("Admin")
                         .HasColumnName("Role");
 

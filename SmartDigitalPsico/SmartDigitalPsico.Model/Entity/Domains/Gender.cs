@@ -9,6 +9,7 @@ namespace SmartDigitalPsico.Model.Entity.Domains
     public class Gender : EntityBaseSimple , IEntityBaseDomains
     {
         [Column("Description", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string Description { get; set; }
 
         [Column("Language", TypeName = "char(5)")]

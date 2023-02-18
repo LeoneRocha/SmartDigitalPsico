@@ -12,6 +12,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class PatientRecord : EntityBaseSimple
     {
         #region Relationship 
+        [Required]
         public Patient Patient { get; set; }
 
         #endregion Relationship
@@ -19,9 +20,12 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Columns 
 
         [Column("Description", TypeName = "varchar(255)")]
+        [MaxLength(255)]
+        [Required]
         public string Description { get; set; }
 
-        [Column("Annotation", TypeName = "varchar(max)")]
+        [Column("Annotation", TypeName = "varchar(max)")] 
+        [Required]
         public string Annotation { get; set; }
          
         [Column("AnnotationDate")]

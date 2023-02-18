@@ -12,6 +12,7 @@ namespace SmartDigitalPsico.Model.Entity.Domains
         public List<User> Users { get; set; }
 
         [Column("Description", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string Description { get; set; }
 
         [Column("Language", TypeName = "char(5)")]

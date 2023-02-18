@@ -12,16 +12,17 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     [Table("PatientNotificationMessage", Schema = "dbo")]
     public class PatientNotificationMessage : EntityBaseSimple, IEntityBaseLogUser
     {
-        #region Relationship
-
+        #region Relationship 
+        [Required] 
         public Patient Patient { get; set; }
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
         #endregion Relationship
 
         #region Columns 
+        [Column("Message ", TypeName = "varchar(2000)")] 
+        [MaxLength(2000)]
         [Required]
-        [Column("Message ", TypeName = "varchar(max)")]
         public string Message { get; set; }
 
         [Column("IsReaded")]

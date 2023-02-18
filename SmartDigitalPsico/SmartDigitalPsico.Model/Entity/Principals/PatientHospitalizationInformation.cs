@@ -13,6 +13,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class PatientHospitalizationInformation : EntityBaseSimple, IEntityBaseLogUser
     {
         #region Relationship 
+        [Required] 
         public Patient Patient { get; set; }
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
@@ -21,6 +22,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Columns 
 
         [Column("Description", TypeName = "varchar(255)")]
+        [MaxLength(255)]
+        [Required]
         public string Description { get; set; }
 
         [Column("StartDate")]
@@ -30,9 +33,12 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public DateTime? EndDate { get; set; }
 
         [Column("CID", TypeName = "varchar(20)")]
+        [MaxLength(20)]
+        [Required]
         public string CID { get; set; }
          
         [Column("Observation", TypeName = "varchar(max)")]
+        [Required]
         public string Observation { get; set; }
          
         #endregion Columns 

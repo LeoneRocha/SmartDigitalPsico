@@ -18,8 +18,10 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         #region Columns 
 
-        [Column("Login", Order = 4)]
-        public string? Login { get; set; }
+        [Column("Login", Order = 4, TypeName = "varchar(25)")]
+        [MaxLength(25)] 
+        [Required] 
+        public string Login { get; set; }
 
         [Column("PasswordHash")]
         public byte[] PasswordHash { get; set; }
@@ -27,7 +29,9 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public byte[] PasswordSalt { get; set; }
 
         [Required]
-        [Column("Role")]
+        [Column("Role", TypeName = "varchar(50)")]
+        [MaxLength(50)] 
+
         public string Role { get; set; }
 
 

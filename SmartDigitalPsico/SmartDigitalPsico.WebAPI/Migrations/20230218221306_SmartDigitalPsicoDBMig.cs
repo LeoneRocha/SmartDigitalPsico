@@ -464,6 +464,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
                     Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     Annotation = table.Column<string>(type: "varchar(max)", nullable: false),
                     AnnotationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -481,6 +483,18 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         principalTable: "Patients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PatientRecords_Users_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PatientRecords_Users_ModifyUserId",
+                        column: x => x.ModifyUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -620,6 +634,18 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 schema: "dbo",
                 table: "PatientNotificationMessage",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientRecords_CreatedUserId",
+                schema: "dbo",
+                table: "PatientRecords",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientRecords_ModifyUserId",
+                schema: "dbo",
+                table: "PatientRecords",
+                column: "ModifyUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PatientRecords_PatientId",

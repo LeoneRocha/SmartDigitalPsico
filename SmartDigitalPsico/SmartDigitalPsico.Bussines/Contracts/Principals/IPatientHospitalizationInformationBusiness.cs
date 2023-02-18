@@ -8,7 +8,7 @@ namespace SmartDigitalPsico.Business.Contracts.Principals
 {
     public interface IPatientHospitalizationInformationBusiness : IGenericBusinessEntityBaseSimple<PatientHospitalizationInformation, GetPatientHospitalizationInformationVO>
     {
-        Task<ServiceResponse<GetPatientHospitalizationInformationVO>> Create(AddPatientRecordVO item);
-        Task<List<GetPatientHospitalizationInformationVO>> FindAllByPatient(long patientId);
+        Task<ServiceResponse<GetPatientHospitalizationInformationVO>> Create(AddPatientHospitalizationInformationVO item);
+        Task<ServiceResponse<List<GetPatientHospitalizationInformationVO>>> FindAllByPatient(long patientId);
     }
 }

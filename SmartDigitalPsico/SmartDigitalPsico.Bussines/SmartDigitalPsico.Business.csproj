@@ -16,10 +16,4 @@
     <ProjectReference Include="..\SmartDigitalPsico.Model\SmartDigitalPsico.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Principals\Patient\PatientAdditionalInformation\" />
-    <Folder Include="Principals\Patient\PatientHospitalizationInformation\" />
-    <Folder Include="Principals\Patient\PatientMedicationInformation\" />
-  </ItemGroup>
-
 </Project>

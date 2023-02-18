@@ -44,9 +44,7 @@ namespace SmartDigitalPsico.Business.Principals
                 return response;
             }
             Patient entityAdd = _mapper.Map<Patient>(item);
-
-            entityAdd.Name = item.Name;
-
+              
             #region Relationship
 
             User userAction = await _userRepository.FindByID(item.IdUserAction);

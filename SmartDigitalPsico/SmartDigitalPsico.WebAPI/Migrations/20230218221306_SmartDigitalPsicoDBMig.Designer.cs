@@ -12,7 +12,7 @@ using SmartDigitalPsico.Repository.Context;
 namespace SmartDigitalPsico.WebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
-    [Migration("20230218162320_SmartDigitalPsicoDBMig")]
+    [Migration("20230218221306_SmartDigitalPsicoDBMig")]
     partial class SmartDigitalPsicoDBMig
     {
         /// <inheritdoc />
@@ -867,6 +867,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedDate");
 
+                    b.Property<long?>("CreatedUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -888,10 +891,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ModifyDate");
 
+                    b.Property<long?>("ModifyUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("PatientId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ModifyUserId");
 
                     b.HasIndex("PatientId");
 
@@ -1155,11 +1165,23 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientRecord", b =>
                 {
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
+                        .WithMany()
+                        .HasForeignKey("ModifyUserId");
+
                     b.HasOne("SmartDigitalPsico.Model.Entity.Principals.Patient", "Patient")
                         .WithMany("PatientRecords")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("ModifyUser");
 
                     b.Navigation("Patient");
                 });

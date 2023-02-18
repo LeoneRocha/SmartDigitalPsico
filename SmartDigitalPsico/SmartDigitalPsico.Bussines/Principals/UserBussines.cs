@@ -28,7 +28,7 @@ namespace SmartDigitalPsico.Business.Principals
 
         public async Task<ServiceResponse<GetUserVO>> Login(string login, string password)
         {
-            var response = new ServiceResponse<GetUserVO>(); 
+            var response = new ServiceResponse<GetUserVO>();
 
             var user = await _userRepository.FindByLogin(login);
             if (user == null)
@@ -63,9 +63,6 @@ namespace SmartDigitalPsico.Business.Principals
             createPasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
             User entityAdd = _mapper.Map<User>(userRegisterVO);
-
-            entityAdd.Name = userRegisterVO.Name;
-            entityAdd.Login = userRegisterVO.Login;
 
             entityAdd.Role = "ADMIN";
             entityAdd.PasswordHash = passwordHash;
@@ -115,7 +112,7 @@ namespace SmartDigitalPsico.Business.Principals
 
             return response;
         }
-         
+
         public async Task<ServiceResponse<bool>> Logout(string login)
         {
             var response = new ServiceResponse<bool>();
@@ -129,7 +126,7 @@ namespace SmartDigitalPsico.Business.Principals
             {
                 response.Success = false;
                 response.Message = "User logout.";
-            } 
+            }
             return response;
         }
 
@@ -140,7 +137,7 @@ namespace SmartDigitalPsico.Business.Principals
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
-        } 
+        }
         private bool verifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))

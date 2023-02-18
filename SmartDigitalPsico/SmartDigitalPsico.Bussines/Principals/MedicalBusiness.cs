@@ -42,12 +42,15 @@ namespace SmartDigitalPsico.Business.Principals
                 return response;
             }
             Medical entityAdd = _mapper.Map<Medical>(item);
-
-            entityAdd.Name = item.Name;
+           
+            #region Relationship
 
             entityAdd.Office = await _officeRepository.FindByID(item.OfficeId); 
+          
             List<Specialty> specialtiesAdd = await _specialtyRepository.FindByIDs(item.SpecialtiesIds);
             entityAdd.Specialties = specialtiesAdd;
+
+            #endregion Relationship
 
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;

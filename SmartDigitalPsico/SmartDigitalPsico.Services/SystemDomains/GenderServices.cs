@@ -1,14 +1,9 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using SmartDigitalPsico.Business.Principals;
-using SmartDigitalPsico.Model.VO.User;
-using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Generic;
-using System.Security.Claims;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
+using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
+using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.SystemDomains
 {

@@ -5,8 +5,29 @@ using SmartDigitalPsico.Repository.Generic;
 
 namespace SmartDigitalPsico.Repository.SystemDomains
 {
-    public class RoleGroupRepository : GenericRepositoryEntityBaseSimple<RoleGroup>, IRoleGroupRepository
+    public class RoleGroupRepository : GenericRepositoryEntityBaseSimple<RoleGroup>, IRoleGroupRepository, IDisposable
     {
         public RoleGroupRepository(SmartDigitalPsicoDataContext context) : base(context) { }
+
+        #region DISPOSE
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                //if (disposing)
+                //{ 
+                //}
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

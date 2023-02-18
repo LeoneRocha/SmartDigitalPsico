@@ -13,7 +13,7 @@ namespace SmartDigitalPsico.Repository.Principals
 
         public async Task<bool> Exists(string accreditation)
         {
-            return await _context.Medicals.AnyAsync(x => x.Accreditation.ToLower().Equals(accreditation.ToLower()));
+            return await dataset.AnyAsync(x => x.Accreditation.ToLower().Equals(accreditation.ToLower()));
         }
     }
 }

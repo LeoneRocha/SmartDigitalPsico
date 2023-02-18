@@ -5,6 +5,6 @@ namespace SmartDigitalPsico.Repository.Contract.SystemDomains
 {
     public interface ISpecialtyRepository : IRepositoryEntityBaseSimple<Specialty>
     {
-
+        Task<List<Specialty>> FindByIDs(List<long> idsSpecialties);
     }
 }

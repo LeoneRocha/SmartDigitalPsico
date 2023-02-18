@@ -15,4 +15,10 @@
     <ProjectReference Include="..\SmartDigitalPsico.Dominio\SmartDigitalPsico.Domains.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="VO\Patient\PatientHospitalizationInformation\" />
+    <Folder Include="VO\Patient\PatientAdditionalInformation\" />
+    <Folder Include="VO\Patient\PatientMedicationInformation\" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO.Medical;
 
 namespace SmartDigitalPsico.Model.VO.Patient
 {
-    public class GetPatientVO
+    public class GetPatientVO : EntityVOBase 
     {
         //MUDAR AS RELACOES PARA OBJETOS 
         #region Relationship

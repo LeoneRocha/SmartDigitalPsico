@@ -4,21 +4,21 @@ using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Generic;
 using System.Security.Claims;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Model.VO;
+using SmartDigitalPsico.Services.Contracts.SystemDomains;
 
 namespace SmartDigitalPsico.Services.SystemDomains
 {
     // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityVOBaseSimple>, IGenderService
-    public class GenderService : GenericServicesEntityBaseSimple<Gender, IGenderBusiness, EntityVOBaseSimple>, IGenderServices
+    public class SpecialtyServices : GenericServicesEntityBaseSimple<Specialty, ISpecialtyBusiness, EntityVOBaseSimple>, ISpecialtyServices
 
     {
-        private readonly IGenderBusiness _entityBusiness;
+        private readonly ISpecialtyBusiness _entityBusiness;
 
-        public GenderService(IMapper mapper, IGenderBusiness entityBusiness)
+        public SpecialtyServices(IMapper mapper, ISpecialtyBusiness entityBusiness)
            : base(mapper, entityBusiness)
         {
             _entityBusiness = entityBusiness;

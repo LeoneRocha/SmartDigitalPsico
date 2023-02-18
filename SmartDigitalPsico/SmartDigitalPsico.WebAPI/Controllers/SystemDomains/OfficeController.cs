@@ -1,27 +1,25 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO;
-using SmartDigitalPsico.Model.VO.User;
-using SmartDigitalPsico.Services.Contracts;
+using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers
+namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
-    [ApiController] 
+    [ApiController]
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class GenderController : ControllerBase
+    public class OfficeController : ControllerBase
     {
-        private readonly IGenderServices _genderService;
+        private readonly IOfficeServices _entityService;
 
-        public GenderController(IGenderServices genderService)
+        public OfficeController(IOfficeServices entityService)
         {
-            _genderService = genderService;
+            _entityService = entityService;
         }
 
         //[AllowAnonymous]
@@ -30,7 +28,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            return Ok(await _genderService.FindAll());
-        }  
+            return Ok(await _entityService.FindAll());
+        }
     }
 }

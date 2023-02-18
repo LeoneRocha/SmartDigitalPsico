@@ -1,23 +1,20 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Contracts.Principals;
-using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Contracts;
-using SmartDigitalPsico.Services.Generic;
-using System.ComponentModel;
-using System.Security.Claims;
 using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class MedicalService : GenericServicesEntityBase<Medical, IMedicalBusiness, GetMedicalVO>, IMedicalService
+    public class MedicalServices: GenericServicesEntityBase<Medical, IMedicalBusiness, GetMedicalVO>, IMedicalServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMedicalBusiness _entityBusiness;
         //private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); 
-        public MedicalService(IMapper mapper, IMedicalBusiness entityBusiness, IHttpContextAccessor httpContextAccessor)
+        public MedicalServices(IMapper mapper, IMedicalBusiness entityBusiness, IHttpContextAccessor httpContextAccessor)
             : base(mapper, entityBusiness)
         {
             _entityBusiness = entityBusiness;

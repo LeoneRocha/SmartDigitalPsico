@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.Medical;
-using SmartDigitalPsico.Services.Contracts;
+using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers
+namespace SmartDigitalPsico.WebAPI.Controllers.Principals
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
@@ -18,9 +18,9 @@ namespace SmartDigitalPsico.WebAPI.Controllers
 
     public class MedicalController : ControllerBase
     {
-        private readonly IMedicalService _medicalService;
+        private readonly IMedicalServices _medicalService;
 
-        public MedicalController(IMedicalService medicalService)
+        public MedicalController(IMedicalServices medicalService)
         {
             _medicalService = medicalService;
         }

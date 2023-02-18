@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.WebAPI", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Business", "SmartDigitalPsico.Bussines\SmartDigitalPsico.Business.csproj", "{0E426E36-9A98-4452-AC82-10893F3CE824}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocFiles", "DocFiles", "{EBDE9811-BA68-44C8-A457-FAB31AD025DF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E2CF30E-FAA7-4DCA-8969-565B819D655E}"
 	ProjectSection(SolutionItems) = preProject
 		..\Documentacao\info.txt = ..\Documentacao\info.txt

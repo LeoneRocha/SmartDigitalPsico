@@ -4,9 +4,9 @@ using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Generic.Contracts;
 
-namespace SmartDigitalPsico.Services.Contracts
+namespace SmartDigitalPsico.Services.Contracts.Principals
 {
-    public interface IUserService : IGenericServicesEntityBase<User, GetUserVO>
+    public interface IUserServices : IGenericServicesEntityBase<User, GetUserVO>
     {
         Task<ServiceResponse<GetUserVO>> Login(string login, string password);
         Task<ServiceResponse<bool>> Logout(string login);

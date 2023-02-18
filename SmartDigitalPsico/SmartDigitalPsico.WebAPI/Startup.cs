@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,11 +18,11 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.Principals;
 using SmartDigitalPsico.Repository.SystemDomains;
-using SmartDigitalPsico.Services.Contracts;
+using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using Swashbuckle.AspNetCore.Filters;
-using System;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -51,8 +50,7 @@ namespace SmartDigitalPsico.WebAPI
             addDependencies(services);
             addVersionning(services);
 
-        }
-
+        } 
         private void addVersionning(IServiceCollection services)
         {
             services.AddApiVersioning();
@@ -101,19 +99,29 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IMedicalRepository, MedicalRepository>();
 
             services.AddScoped<IGenderRepository, GenderRepository>();
+            services.AddScoped<IOfficeRepository, OfficeRepository>();
+            services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
+            services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+
         }
         private void addBusiness(IServiceCollection services)
         {
             services.AddScoped<IUserBusiness, UserBusiness>();
             services.AddScoped<IMedicalBusiness, MedicalBusiness>();
+            services.AddScoped<IOfficeBusiness, OfficeBusiness>();
+            services.AddScoped<IRoleGroupBusiness, RoleGroupBusiness>();
             services.AddScoped<IGenderBusiness, GenderBusiness>();
+            services.AddScoped<ISpecialtyBusiness, SpecialtyBusiness>();
         }
 
         private void addServices(IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IMedicalService, MedicalService>();
-            services.AddScoped<IGenderServices, GenderService>();
+            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IMedicalServices, MedicalServices>();
+            services.AddScoped<IGenderServices, GenderServices>();
+            services.AddScoped<IOfficeServices, OfficeServices>();
+            services.AddScoped<IRoleGroupServices, RoleGroupServices>();
+            services.AddScoped<ISpecialtyServices, SpecialtyServices>();
         }
 
         private void addDependencies(IServiceCollection services)

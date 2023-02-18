@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
-using SmartDigitalPsico.Services.Contracts;
+using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers
+namespace SmartDigitalPsico.WebAPI.Controllers.Principals
 {
-    [ApiController] 
+    [ApiController]
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class AuthController : ControllerBase
-    { 
-        private readonly IUserService _userService;
-        public AuthController(IUserService userService)
+    {
+        private readonly IUserServices _userService;
+        public AuthController(IUserServices userService)
         {
             _userService = userService;
         }
@@ -32,7 +32,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
 
         [HttpPost("Login")]
         public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginVO request)
-        { 
+        {
             var response = await _userService.Login(request.Login, request.Password
             );
 
@@ -47,7 +47,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers
         [HttpGet("")]
         [HttpGet("/Logout/{login}")]
         public async Task<ActionResult<ServiceResponse<string>>> Logout(UserLoginVO request)
-        { 
+        {
             var response = await _userService.Logout(request.Login);
 
             if (!response.Success)

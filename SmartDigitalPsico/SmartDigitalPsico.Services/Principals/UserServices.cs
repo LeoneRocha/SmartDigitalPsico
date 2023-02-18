@@ -3,17 +3,17 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Contracts;
 using SmartDigitalPsico.Services.Generic;
+using SmartDigitalPsico.Services.Contracts.Principals;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class UserService : GenericServicesEntityBase<User, IUserBusiness, GetUserVO>, IUserService
+    public class UserServices : GenericServicesEntityBase<User, IUserBusiness, GetUserVO>, IUserServices
 
     { 
         private readonly IUserBusiness _userBusiness;
 
-        public UserService(IMapper mapper, IUserBusiness entityBusiness)
+        public UserServices(IMapper mapper, IUserBusiness entityBusiness)
             : base(mapper, entityBusiness)
         {
             _userBusiness = entityBusiness;

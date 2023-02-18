@@ -4,10 +4,10 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Generic.Contracts;
 using SmartDigitalPsico.Model.VO;
 
-namespace SmartDigitalPsico.Services.Contracts
+namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
-    public interface IGenderServices : IGenericServicesEntityBaseSimple<Gender, EntityVOBaseSimple>
-    { 
+    public interface IOfficeServices : IGenericServicesEntityBaseSimple<Office, EntityVOBaseSimple>
+    {
 
     }
 }

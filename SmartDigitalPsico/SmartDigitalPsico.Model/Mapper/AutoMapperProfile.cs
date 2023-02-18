@@ -6,6 +6,11 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient;
+using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
+using SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation;
+using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
+using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
+using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
 
 namespace SmartDigitalPsico.Model.Mapper
 {
@@ -22,7 +27,7 @@ namespace SmartDigitalPsico.Model.Mapper
 
             #region Gender
             CreateMap<Gender, GetGenderVO>();
-            CreateMap<GetGenderVO, Gender>(); 
+            CreateMap<GetGenderVO, Gender>();
 
             #endregion  Gender
 
@@ -49,11 +54,11 @@ namespace SmartDigitalPsico.Model.Mapper
             CreateMap<Specialty, EntityVOBaseSimple>();
             CreateMap<EntityVOBaseSimple, Specialty>();
             #endregion Specialty
-             
+
             #region USER
             CreateMap<User, GetUserVO>();
             CreateMap<GetUserVO, User>();
-            CreateMap<UpdateUserVO, User>();  
+            CreateMap<UpdateUserVO, User>();
             CreateMap<UserLoginVO, User>();
             CreateMap<UserRegisterVO, User>();
             #endregion USER
@@ -66,12 +71,53 @@ namespace SmartDigitalPsico.Model.Mapper
 
             #endregion Medical 
 
-            //TODO:Patient
-            //TODO:PatientRecord
-            //TODO:PatientAdditionalInformation
-            //TODO:PatientHospitalizationInformation
-            //TODO:PatientMedicationInformation
-            //TODO:PatientNotificationMessage
+            #region Patient
+            CreateMap<Patient, GetPatientVO>();
+            CreateMap<GetPatientVO, Patient>();
+            CreateMap<AddPatientVO, Patient>();
+            CreateMap<UpdatePatientVO, Patient>();
+
+            #endregion Patient 
+
+            #region PatientRecord
+            CreateMap<PatientRecord, GetPatientRecordVO>();
+            CreateMap<GetPatientRecordVO, PatientRecord>();
+            CreateMap<AddPatientRecordVO, PatientRecord>();
+            CreateMap<UpdatePatientRecordVO, PatientRecord>();
+
+            #endregion PatientRecord 
+
+            #region PatientAdditionalInformation
+            CreateMap<PatientAdditionalInformation, GetPatientAdditionalInformationVO>();
+            CreateMap<GetPatientAdditionalInformationVO, PatientAdditionalInformation>();
+            CreateMap<AddPatientAdditionalInformationVO, PatientAdditionalInformation>();
+            CreateMap<UpdatePatientAdditionalInformationVO, PatientAdditionalInformation>();
+
+            #endregion PatientAdditionalInformation 
+
+            #region PatientHospitalizationInformation
+            CreateMap<PatientHospitalizationInformation, GetPatientHospitalizationInformationVO>();
+            CreateMap<GetPatientHospitalizationInformationVO, PatientHospitalizationInformation>();
+            CreateMap<AddPatientHospitalizationInformationVO, PatientHospitalizationInformation>();
+            CreateMap<UpdatePatientHospitalizationInformationVO, PatientHospitalizationInformation>();
+
+            #endregion PatientHospitalizationInformation 
+
+            #region PatientMedicationInformation
+            CreateMap<PatientMedicationInformation, GetPatientMedicationInformationVO>();
+            CreateMap<GetPatientMedicationInformationVO, PatientMedicationInformation>();
+            CreateMap<AddPatientMedicationInformationVO, PatientMedicationInformation>();
+            CreateMap<UpdatePatientMedicationInformationVO, PatientMedicationInformation>();
+
+            #endregion PatientMedicationInformation 
+
+            #region PatientNotificationMessage
+            CreateMap<PatientNotificationMessage, GetPatientNotificationMessageVO>();
+            CreateMap<GetPatientNotificationMessageVO, PatientNotificationMessage>();
+            CreateMap<AddPatientNotificationMessageVO, PatientNotificationMessage>();
+            CreateMap<UpdatePatientNotificationMessageVO, PatientNotificationMessage>();
+
+            #endregion PatientNotificationMessage 
         }
     }
 }

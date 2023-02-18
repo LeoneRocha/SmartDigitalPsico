@@ -32,13 +32,6 @@
     <ProjectReference Include="..\SmartDigitalPsico.Model\SmartDigitalPsico.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Principals\Patient\PatientAdditionalInformation\" />
-    <Folder Include="Principals\Patient\PatientHospitalizationInformation\" />
-    <Folder Include="Principals\Patient\PatientMedicationInformation\" />
-    <Folder Include="Principals\Patient\PatientRecord\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <BaseOutputPath>..\SmartDigitalPsico.Data\bin\</BaseOutputPath>
   </PropertyGroup>

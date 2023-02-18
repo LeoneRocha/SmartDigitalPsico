@@ -7,7 +7,6 @@ using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
-using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 

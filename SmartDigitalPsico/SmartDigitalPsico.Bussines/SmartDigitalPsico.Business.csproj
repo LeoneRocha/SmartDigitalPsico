@@ -20,7 +20,6 @@
     <Folder Include="Principals\Patient\PatientAdditionalInformation\" />
     <Folder Include="Principals\Patient\PatientHospitalizationInformation\" />
     <Folder Include="Principals\Patient\PatientMedicationInformation\" />
-    <Folder Include="Principals\Patient\PatientRecord\" />
   </ItemGroup>
 
 </Project>

@@ -50,7 +50,7 @@ namespace SmartDigitalPsico.WebAPI
             addDependencies(services);
             addVersionning(services);
 
-        } 
+        }
         private void addVersionning(IServiceCollection services)
         {
             services.AddApiVersioning();
@@ -97,6 +97,10 @@ namespace SmartDigitalPsico.WebAPI
             //services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMedicalRepository, MedicalRepository>();
+
+            #region PATIENT
+
+            #endregion PATIENT
 
             services.AddScoped<IGenderRepository, GenderRepository>();
             services.AddScoped<IOfficeRepository, OfficeRepository>();

@@ -10,7 +10,7 @@ namespace SmartDigitalPsico.Business.Generic
         : IGenericBusinessEntityBaseSimple<Entity, ResutEntity>
         where Entity : EntityBaseSimple
         where Repo : IRepositoryEntityBaseSimple<Entity>
-        where ResutEntity : EntityVOBaseSimple
+        where ResutEntity : class
 
     {
         private readonly IMapper _mapper;

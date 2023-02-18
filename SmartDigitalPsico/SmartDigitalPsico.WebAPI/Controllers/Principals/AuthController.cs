@@ -43,9 +43,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Principals
 
             return Ok(response);
         }
-
-        [HttpGet("")]
-        [HttpGet("/Logout/{login}")]
+         
+        [HttpGet("Logout/{login}")]
         public async Task<ActionResult<ServiceResponse<string>>> Logout(UserLoginVO request)
         {
             var response = await _userService.Logout(request.Login);

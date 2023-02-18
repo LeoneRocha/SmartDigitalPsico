@@ -103,7 +103,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientRecordRepository  , PatientRecordRepository>();
             services.AddScoped<IPatientMedicationInformationRepository, PatientMedicationInformationRepository>();
             services.AddScoped<IPatientHospitalizationInformationRepository, PatientHospitalizationInformationRepository>();
-            services.AddScoped<IPatientAdditionalInformationRepository, IPatientAdditionalInformationRepository>();
+            services.AddScoped<IPatientAdditionalInformationRepository, PatientAdditionalInformationRepository>();
             #endregion PATIENT
 
             services.AddScoped<IGenderRepository, GenderRepository>();
@@ -126,7 +126,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientRecordBusiness, PatientRecordBusiness>();
             services.AddScoped<IPatientMedicationInformationBusiness, PatientMedicationInformationBusiness>();
             services.AddScoped<IPatientHospitalizationInformationBusiness, PatientHospitalizationInformationBusiness>();
-            services.AddScoped<IPatientAdditionalInformationBusiness, IPatientAdditionalInformationBusiness>();
+            services.AddScoped<IPatientAdditionalInformationBusiness, PatientAdditionalInformationBusiness>();
             #endregion PATIENT 
         }
 
@@ -144,7 +144,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientRecordServices, PatientRecordServices>();
             services.AddScoped<IPatientMedicationInformationServices, PatientMedicationInformationServices>();
             services.AddScoped<IPatientHospitalizationInformationServices, PatientHospitalizationInformationServices>();
-            services.AddScoped<IPatientAdditionalInformationServices, IPatientAdditionalInformationServices>();
+            services.AddScoped<IPatientAdditionalInformationServices, PatientAdditionalInformationServices>();
             #endregion PATIENT
 
 

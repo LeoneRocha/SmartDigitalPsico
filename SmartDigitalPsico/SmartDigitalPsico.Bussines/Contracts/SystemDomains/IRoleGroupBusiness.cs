@@ -4,7 +4,7 @@ using SmartDigitalPsico.Model.VO;
 
 namespace SmartDigitalPsico.Business.Contracts.SystemDomains
 {
-    public interface IRoleGroupBusiness : IGenericBusinessEntityBaseSimple<RoleGroup, EntityVOBaseSimple>
+    public interface IRoleGroupBusiness : IGenericBusinessEntityBaseSimple<RoleGroup, GetRoleGroupVO>
     {
 
     }

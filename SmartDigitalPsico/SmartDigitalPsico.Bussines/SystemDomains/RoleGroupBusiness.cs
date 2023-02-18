@@ -7,7 +7,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
-    public class RoleGroupBusiness : GenericBusinessEntityBaseSimple<RoleGroup, IRoleGroupRepository, EntityVOBaseSimple>, IRoleGroupBusiness
+    public class RoleGroupBusiness : GenericBusinessEntityBaseSimple<RoleGroup, IRoleGroupRepository, GetRoleGroupVO>, IRoleGroupBusiness
 
     {
         public RoleGroupBusiness(IMapper _mapper, IRoleGroupRepository entityRepository)

@@ -4,6 +4,7 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using SmartDigitalPsico.Services.Generic;
 

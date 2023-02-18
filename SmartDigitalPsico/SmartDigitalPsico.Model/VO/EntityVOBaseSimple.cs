@@ -11,7 +11,6 @@ namespace SmartDigitalPsico.Model.VO
         public string Description { get; set; }
         [MaxLength(5)]
         public string Language { get; set; }
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
-
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>(); 
     }
 }

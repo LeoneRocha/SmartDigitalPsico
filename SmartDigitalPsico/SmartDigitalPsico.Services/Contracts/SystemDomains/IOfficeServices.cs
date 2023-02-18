@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO;
 
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
-    public interface IOfficeServices : IGenericServicesEntityBaseSimple<Office, EntityVOBaseSimple>
+    public interface IOfficeServices : IGenericServicesEntityBaseSimple<Office, GetOfficeVO>
     {
 
     }

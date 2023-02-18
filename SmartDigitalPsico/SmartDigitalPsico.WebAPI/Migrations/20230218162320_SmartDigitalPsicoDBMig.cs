@@ -100,8 +100,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
-                    Name = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Email = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Login = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
@@ -123,8 +123,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
-                    Name = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Email = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     OfficeId = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -227,8 +227,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
-                    Name = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Email = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     MedicalId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),

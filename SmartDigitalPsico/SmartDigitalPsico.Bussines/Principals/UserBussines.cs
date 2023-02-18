@@ -54,7 +54,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
 
-            if (await UserExists(userRegisterVO.UserName))
+            if (await UserExists(userRegisterVO.Name))
             {
                 response.Success = false;
                 response.Message = "User already exists.";
@@ -64,7 +64,7 @@ namespace SmartDigitalPsico.Business.Principals
 
             User entityAdd = _mapper.Map<User>(userRegisterVO);
 
-            entityAdd.Name = userRegisterVO.UserName;
+            entityAdd.Name = userRegisterVO.Name;
             entityAdd.Login = userRegisterVO.Login;
 
             entityAdd.Role = "ADMIN";

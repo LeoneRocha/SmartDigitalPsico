@@ -4,7 +4,7 @@ using SmartDigitalPsico.Model.VO;
 
 namespace SmartDigitalPsico.Business.Contracts.SystemDomains
 {
-    public interface ISpecialtyBusiness : IGenericBusinessEntityBaseSimple<Specialty, EntityVOBaseSimple>
+    public interface ISpecialtyBusiness : IGenericBusinessEntityBaseSimple<Specialty, GetSpecialtyVO>
     {
 
     }

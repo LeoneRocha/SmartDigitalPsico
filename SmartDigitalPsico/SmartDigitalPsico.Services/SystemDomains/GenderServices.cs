@@ -13,7 +13,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 namespace SmartDigitalPsico.Services.SystemDomains
 {
     // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityVOBaseSimple>, IGenderService
-    public class GenderServices : GenericServicesEntityBaseSimple<Gender, IGenderBusiness, EntityVOBaseSimple>, IGenderServices
+    public class GenderServices : GenericServicesEntityBaseSimple<Gender, IGenderBusiness, GetGenderVO>, IGenderServices
 
     {
         private readonly IGenderBusiness _entityBusiness;

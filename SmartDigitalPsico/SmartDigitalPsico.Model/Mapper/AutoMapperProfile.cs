@@ -5,6 +5,7 @@ using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.Patient;
 
 namespace SmartDigitalPsico.Model.Mapper
 {
@@ -20,11 +21,9 @@ namespace SmartDigitalPsico.Model.Mapper
             #endregion
 
             #region Gender
-            CreateMap<Gender, EntityBaseSimple>();
-            CreateMap<EntityBaseSimple, Gender>();
+            CreateMap<Gender, GetGenderVO>();
+            CreateMap<GetGenderVO, Gender>(); 
 
-            CreateMap<Gender, EntityVOBaseSimple>();
-            CreateMap<EntityVOBaseSimple, Gender>();
             #endregion  Gender
 
             #region Office
@@ -54,8 +53,9 @@ namespace SmartDigitalPsico.Model.Mapper
             #region USER
             CreateMap<User, GetUserVO>();
             CreateMap<GetUserVO, User>();
+            CreateMap<UpdateUserVO, User>();  
+            CreateMap<UserLoginVO, User>();
             CreateMap<UserRegisterVO, User>();
-            CreateMap<UpdateUserVO, User>();
             #endregion USER
 
             #region Medical

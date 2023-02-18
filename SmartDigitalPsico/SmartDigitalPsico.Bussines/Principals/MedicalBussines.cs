@@ -7,6 +7,7 @@ using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
@@ -45,8 +46,8 @@ namespace SmartDigitalPsico.Business.Principals
 
             entityAdd.Name = item.Name;
 
-            entityAdd.Office = await _officeRepository.FindByID(item.IdOffice); 
-            List<Specialty> specialtiesAdd = await _specialtyRepository.FindByIDs(item.IdsSpecialties);
+            entityAdd.Office = await _officeRepository.FindByID(item.OfficeId); 
+            List<Specialty> specialtiesAdd = await _specialtyRepository.FindByIDs(item.SpecialtiesIds);
             entityAdd.Specialties = specialtiesAdd;
 
             entityAdd.CreatedDate = DateTime.Now;

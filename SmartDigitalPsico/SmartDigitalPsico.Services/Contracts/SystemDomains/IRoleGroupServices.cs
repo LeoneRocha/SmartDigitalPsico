@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO;
 
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
-    public interface IRoleGroupServices : IGenericServicesEntityBaseSimple<RoleGroup, EntityVOBaseSimple>
+    public interface IRoleGroupServices : IGenericServicesEntityBaseSimple<RoleGroup, GetRoleGroupVO>
     {
 
     }

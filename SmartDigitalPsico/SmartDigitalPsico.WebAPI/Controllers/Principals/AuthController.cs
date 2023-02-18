@@ -38,7 +38,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Principals
 
             if (!response.Success)
             {
-                return BadRequest(response);
+                return Unauthorized(response);
             }
 
             return Ok(response);

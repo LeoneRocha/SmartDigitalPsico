@@ -1,10 +1,10 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 
-namespace SmartDigitalPsico.Model.VO.Medical
+namespace SmartDigitalPsico.Model.VO.Patient
 {
-    public class UpdateMedicalVO : AddMedicalVO
+    public class UpdatePatientVO : AddPatientVO
     {
-         
+
     }
 }

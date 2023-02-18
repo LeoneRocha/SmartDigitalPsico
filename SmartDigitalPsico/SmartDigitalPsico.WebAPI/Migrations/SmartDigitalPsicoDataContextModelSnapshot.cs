@@ -375,7 +375,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Email")
                         .HasColumnOrder(3);
 
@@ -399,7 +400,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("Name")
                         .HasColumnOrder(2);
 
@@ -484,7 +486,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Email")
                         .HasColumnOrder(3);
 
@@ -524,7 +527,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("Name")
                         .HasColumnOrder(2);
 
@@ -907,7 +911,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Email")
                         .HasColumnOrder(3);
 
@@ -935,7 +940,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("Name")
                         .HasColumnOrder(2);
 

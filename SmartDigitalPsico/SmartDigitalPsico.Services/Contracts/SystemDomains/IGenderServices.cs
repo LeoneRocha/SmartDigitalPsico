@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO;
 
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
-    public interface IGenderServices : IGenericServicesEntityBaseSimple<Gender, EntityVOBaseSimple>
+    public interface IGenderServices : IGenericServicesEntityBaseSimple<Gender, GetGenderVO>
     {
 
     }

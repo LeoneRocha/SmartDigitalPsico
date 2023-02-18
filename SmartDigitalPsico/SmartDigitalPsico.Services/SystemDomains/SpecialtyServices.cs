@@ -13,7 +13,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 namespace SmartDigitalPsico.Services.SystemDomains
 {
     // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityVOBaseSimple>, IGenderService
-    public class SpecialtyServices : GenericServicesEntityBaseSimple<Specialty, ISpecialtyBusiness, EntityVOBaseSimple>, ISpecialtyServices
+    public class SpecialtyServices : GenericServicesEntityBaseSimple<Specialty, ISpecialtyBusiness, GetSpecialtyVO>, ISpecialtyServices
 
     {
         private readonly ISpecialtyBusiness _entityBusiness;

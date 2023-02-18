@@ -5,6 +5,7 @@ namespace SmartDigitalPsico.Model.VO.Patient.PatientRecord
 {
     public class UpdatePatientRecordVO : AddPatientRecordVO
     {
-
+        public long Id { get; set; }
+        public bool Enable { get; set; }
     }
 }

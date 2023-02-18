@@ -1,0 +1,31 @@
+using SmartDigitalPsico.Domains.Hypermedia;
+using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using System.ComponentModel.DataAnnotations;
+
+namespace SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation
+{
+    public class GetPatientHospitalizationInformationVO : ISupportsHyperMedia
+    {
+        public long Id { get; set; }
+        //MUDAR AS RELACOES PARA OBJETOS  
+        #region Relationship  
+        public GetPatientVO Patient { get; set; }
+
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+        #endregion Relationship
+
+        #region Columns 
+
+        public string Description { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
+        public string CID { get; set; }
+
+        public string Observation { get; set; }
+
+        #endregion Columns 
+    }
+}

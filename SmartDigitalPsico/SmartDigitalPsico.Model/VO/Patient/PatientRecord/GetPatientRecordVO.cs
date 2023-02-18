@@ -8,7 +8,7 @@ namespace SmartDigitalPsico.Model.VO.Patient.PatientRecord
     {
         //MUDAR AS RELACOES PARA OBJETOS  
         #region Relationship  
-        public long PatientId { get; set; }
+        public GetPatientVO Patient { get; set; }
 
         #endregion Relationship
 

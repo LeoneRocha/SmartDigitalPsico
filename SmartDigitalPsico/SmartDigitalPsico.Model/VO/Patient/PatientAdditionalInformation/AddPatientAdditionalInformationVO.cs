@@ -2,10 +2,11 @@ using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SmartDigitalPsico.Model.VO.Patient.PatientRecord
+namespace SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation
 {
-    public class AddPatientRecordVO : ISupportsHyperMedia, IEntityVOUserLog
+    public class AddPatientAdditionalInformationVO : ISupportsHyperMedia, IEntityVOUserLog
     {
         [Required]
         public long IdUserAction { get; set; }
@@ -18,16 +19,12 @@ namespace SmartDigitalPsico.Model.VO.Patient.PatientRecord
         #endregion Relationship
 
         #region Columns 
+         
+        public string FollowUp_Psychiatric { get; set; }
+         
+        public string FollowUp_Neurological { get; set; }
 
-        [MaxLength(255)]
-        [Required]
-        public string Description { get; set; }
+        #endregion Columns 
 
-        [Required]
-        public string Annotation { get; set; }
-        [Required]
-        public DateTime AnnotationDate { get; set; }
-
-        #endregion Columns  
     }
 }

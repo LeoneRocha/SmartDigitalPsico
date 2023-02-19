@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts.Principals;

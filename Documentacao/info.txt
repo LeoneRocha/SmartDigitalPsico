@@ -92,3 +92,38 @@ dotnet watch run
 
 
 dotnet ef migrations add Role
+
+
+
+ if (typeValueT is ServiceResponseHypermedia<T> serviceResponse)
+                {
+                    if (serviceResponse.Data is T model)
+                    {
+                        await EnrichModel(model, urlHelper);
+                    }
+                    else if (serviceResponse.Data is List<T> collection)
+                    {
+                        ConcurrentBag<T> bag = new ConcurrentBag<T>(collection);
+                        Parallel.ForEach(bag, (element) =>
+                        {
+                            EnrichModel(element, urlHelper);
+                        });
+                    }
+                }
+
+
+            int idObject = 0;
+            try
+            {
+                var obId = content.Data.GetType().GetProperty("Id");
+                //percorrer se for uma lista e oegar o id de cada item 
+                if (obId != null)
+                {
+                    int.TryParse(obId.GetValue(content.Data, null).ToString(), out idObject);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
@@ -29,10 +30,11 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Get()
         {
+            var result = _entityService.FindAll(); 
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            return Ok(await _entityService.FindAll());
-        } 
+            return Ok(await result);
+        }
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> GetById(int id)

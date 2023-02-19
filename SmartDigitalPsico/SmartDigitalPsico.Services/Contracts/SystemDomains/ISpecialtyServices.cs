@@ -2,7 +2,7 @@ using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Generic.Contracts;
-using SmartDigitalPsico.Model.VO;
+using SmartDigitalPsico.Model.VO.Domains;
 
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {

@@ -2,6 +2,7 @@ using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {

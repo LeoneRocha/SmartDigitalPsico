@@ -11,17 +11,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
-using RestWithASPNETUdemy.Hypermedia.Enricher;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Hypermedia.Enricher;
 using SmartDigitalPsico.Model.Mapper;
-using SmartDigitalPsico.Model.VO;
-using SmartDigitalPsico.Model.VO.Medical;
-using SmartDigitalPsico.Model.VO.Patient;
-using SmartDigitalPsico.Model.VO.User;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -32,7 +31,6 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using Swashbuckle.AspNetCore.Filters;
-using System;
 using System.Collections.Generic;
 
 namespace SmartDigitalPsico.WebAPI
@@ -77,31 +75,28 @@ namespace SmartDigitalPsico.WebAPI
             addVersionning(services);
 
             //Dependency Injection
-            addDependenciesInjection(services); 
+            addDependenciesInjection(services);
         }
 
         private void addHyperMedia(IServiceCollection services)
         {
             var filterOptions = new HyperMediaFilterOptions();
             //filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+
+            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<ServiceResponse<GetGenderVO>>());
             filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetGenderVO>());
-
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetOfficeVO>>());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetOfficeVO>());
-
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetSpecialtyVO>>());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetSpecialtyVO>());
-
-
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetUserVO>>());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetUserVO>());
-
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetMedicalVO>>());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetMedicalVO>());
-
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetPatientVO>>());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetPatientVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetOfficeVO>());
+            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetOfficeVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetSpecialtyVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetSpecialtyVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetUserVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetUserVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetMedicalVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetMedicalVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetPatientVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetPatientVO>());
 
             services.AddSingleton(filterOptions);
         }
@@ -323,6 +318,8 @@ namespace SmartDigitalPsico.WebAPI
 
 
         }
-        #endregion 
+
+        
+        #endregion
     }
 }

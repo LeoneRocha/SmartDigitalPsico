@@ -1,7 +1,7 @@
 using AutoMapper;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.VO;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Generic;
 

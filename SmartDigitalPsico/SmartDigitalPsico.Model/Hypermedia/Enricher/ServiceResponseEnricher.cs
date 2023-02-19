@@ -1,35 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Constants;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Domains;
 using System.Text;
 
-namespace RestWithASPNETUdemy.Hypermedia.Enricher
+namespace SmartDigitalPsico.Model.Hypermedia.Enricher
 {
-    public class ServiceResponseEnricher<TResult> : ContentResponseEnricher<ServiceResponse<TResult>>
+    public class ServiceResponseEnricher<TResult> : ContentResponseEnricher<GetGenderVO> 
+         
     {
         private readonly object _lock = new object();
-        protected override Task EnrichModel(ServiceResponse<TResult> content, IUrlHelper urlHelper)
+        protected override Task EnrichModel(GetGenderVO content, IUrlHelper urlHelper)
         {
-            var path = "api/Gender/v1";
-            int idObject = 0;
-            try
-            {
-                var obId = content.Data.GetType().GetProperty("Id");
-                //percorrer se for uma lista e oegar o id de cada item 
-                if (obId != null)
-                { 
-                    int.TryParse(obId.GetValue(content.Data, null).ToString(), out idObject);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            //content.Data.Id
-            string link = GetLink(idObject, urlHelper, path);
+            var path = "api/book/v1";
+            string link = GetLink(content.Id, urlHelper, path);
 
             content.Links.Add(new HyperMediaLink()
             {
@@ -66,7 +51,7 @@ namespace RestWithASPNETUdemy.Hypermedia.Enricher
         {
             lock (_lock)
             {
-                var url = new { controller = path, id = id };
+                var url = new { controller = path, id };
                 return new StringBuilder(urlHelper.Link("DefaultApi", url)).Replace("%2F", "/").ToString();
             };
         }

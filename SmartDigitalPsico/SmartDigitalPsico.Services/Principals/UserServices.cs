@@ -5,6 +5,7 @@ using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Generic;
 using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 
 namespace SmartDigitalPsico.Services.Principals
 {

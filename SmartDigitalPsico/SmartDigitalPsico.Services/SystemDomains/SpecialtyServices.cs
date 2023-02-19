@@ -7,8 +7,8 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Services.Generic;
 using System.Security.Claims;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
-using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
+using SmartDigitalPsico.Model.VO.Domains;
 
 namespace SmartDigitalPsico.Services.SystemDomains
 {

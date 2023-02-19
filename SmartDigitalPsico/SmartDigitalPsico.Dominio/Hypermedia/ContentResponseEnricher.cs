@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace SmartDigitalPsico.Domains.Hypermedia
 {
@@ -15,7 +16,12 @@ namespace SmartDigitalPsico.Domains.Hypermedia
         }
         public virtual bool CanEnrich(Type contentType)
         {
-            return contentType == typeof(T) || contentType == typeof(List<T>) || contentType == typeof(PagedSearchVO<T>);
+            bool isCanEnrich = contentType == typeof(T) || contentType == typeof(List<T>) || contentType == typeof(PagedSearchVO<T>)
+                || contentType == typeof(ServiceResponse<T>);
+
+            isCanEnrich = true;
+
+            return isCanEnrich;
         }
 
         protected abstract Task EnrichModel(T content, IUrlHelper urlHelper);
@@ -31,9 +37,38 @@ namespace SmartDigitalPsico.Domains.Hypermedia
         public async Task Enrich(ResultExecutingContext response)
         {
             var urlHelper = new UrlHelperFactory().GetUrlHelper(response);
+            //SIngle 
             if (response.Result is OkObjectResult okObjectResult)
             {
-                if (okObjectResult.Value is T model)
+                if (okObjectResult.Value is ServiceResponse<T> serviceResponse)
+                {
+                    if (serviceResponse.Data is T model)
+                    {
+                        await EnrichModel(model, urlHelper);
+                    }
+                    else if (serviceResponse.Data is List<T> collection)
+                    {
+                        ConcurrentBag<T> bag = new ConcurrentBag<T>(collection);
+                        Parallel.ForEach(bag, (element) =>
+                        {
+                            EnrichModel(element, urlHelper);
+                        });
+                    }
+                }
+                //LIST
+                else if (okObjectResult.Value is ServiceResponse<List<T>> serviceResponse2) 
+                {
+                    if (serviceResponse2.Data is List<T> collection)
+                    {
+                        ConcurrentBag<T> bag = new ConcurrentBag<T>(collection);
+                        Parallel.ForEach(bag, (element) =>
+                        {
+                            EnrichModel(element, urlHelper);
+                        });
+                    }
+
+                }
+                else if (okObjectResult.Value is T model)
                 {
                     await EnrichModel(model, urlHelper);
                 }

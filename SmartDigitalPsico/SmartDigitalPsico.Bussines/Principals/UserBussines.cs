@@ -9,6 +9,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 
 namespace SmartDigitalPsico.Business.Principals
 {

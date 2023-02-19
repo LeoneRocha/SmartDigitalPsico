@@ -1,3 +1,4 @@
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Services.Generic.Contracts

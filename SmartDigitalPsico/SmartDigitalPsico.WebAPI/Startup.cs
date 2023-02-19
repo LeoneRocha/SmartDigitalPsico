@@ -5,13 +5,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RestWithASPNETUdemy.Hypermedia.Enricher;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -23,6 +26,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -38,19 +42,77 @@ namespace SmartDigitalPsico.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Security API
+            addSecurity(services);
+
+            //AcceptHeader 
             services.AddControllers();
+
+            //CORS
+            addCors(services);
+
+            //AcceptHeader 
+            addAcceptHeader(services);
+
+            //Documenacao
             addDoc(services);
-            // services.AddAutoMapper(typeof(Startup));
+
+            // Auto Mapper 
             services.AddAutoMapper(typeof(AutoMapperProfile));
+
+            //ORM API
+            addORM(services);
+
+            //Versioning API
+            addVersionning(services);
+
+            //Dependency Injection
+            addDependenciesInjection(services);
+
+            //HyperMediaFilterOptions
+            addHyperMedia(services);
+
+        }
+
+        private void addHyperMedia(IServiceCollection services)
+        {
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
+
+            services.AddSingleton(filterOptions);
+        }
+
+        private void addAcceptHeader(IServiceCollection services)
+        {
+            //AcceptHeader 
+            //services.AddMvc(options =>
+            //{
+            //    options.RespectBrowserAcceptHeader = true;
+
+            //    options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+            //    options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            //})
+            //.AddXmlSerializerFormatters();
+        }
+
+        private void addCors(IServiceCollection services)
+        {
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+        }
+
+        private void addDependenciesInjection(IServiceCollection services)
+        {
             addRepositories(services);
             addBusiness(services);
             addServices(services);
-            addORM(services);
-            addSecurity(services);
             addDependencies(services);
-            addVersionning(services);
-
         }
+
         private void addVersionning(IServiceCollection services)
         {
             services.AddApiVersioning();
@@ -73,14 +135,22 @@ namespace SmartDigitalPsico.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartDigitalPsico.WebAPI v1"));
+
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseCors();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartDigitalPsico.WebAPI v1"));
+
+            //var option = new RewriteOptions();
+            //option.AddRedirect("^$", "swagger");
+             
+            // app.UseRewriter(option);
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -88,6 +158,7 @@ namespace SmartDigitalPsico.WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}"); 
             });
         }
 
@@ -100,7 +171,7 @@ namespace SmartDigitalPsico.WebAPI
 
             #region PATIENT
             services.AddScoped<IPatientRepository, PatientRepository>();
-            services.AddScoped<IPatientRecordRepository  , PatientRecordRepository>();
+            services.AddScoped<IPatientRecordRepository, PatientRecordRepository>();
             services.AddScoped<IPatientMedicationInformationRepository, PatientMedicationInformationRepository>();
             services.AddScoped<IPatientHospitalizationInformationRepository, PatientHospitalizationInformationRepository>();
             services.AddScoped<IPatientAdditionalInformationRepository, PatientAdditionalInformationRepository>();
@@ -152,7 +223,8 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addDependencies(IServiceCollection services)
         {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         #endregion
@@ -196,6 +268,35 @@ namespace SmartDigitalPsico.WebAPI
                       ValidateAudience = false
                   };
               });
+
+
+            //   services.AddAuthentication(options =>
+            //   {
+            //       options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //       options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //   })
+            //.AddJwtBearer(options =>
+            //{
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = tokenConfigurations.Issuer,
+            //        ValidAudience = tokenConfigurations.Audience,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+            //    };
+            //});
+
+            //   services.AddAuthorization(auth =>
+            //   {
+            //       auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+            //           .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+            //           .RequireAuthenticatedUser().Build());
+            //   });
+
+
         }
         #endregion 
     }

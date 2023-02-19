@@ -13,7 +13,7 @@ namespace SmartDigitalPsico.Model.Hypermedia.Enricher
         private readonly object _lock = new object();
         protected override Task EnrichModel(GetGenderVO content, IUrlHelper urlHelper)
         {
-            var path = "api/book/v1";
+            var path = "api/gender/v1";
             string link = GetLink(content.Id, urlHelper, path);
 
             content.Links.Add(new HyperMediaLink()

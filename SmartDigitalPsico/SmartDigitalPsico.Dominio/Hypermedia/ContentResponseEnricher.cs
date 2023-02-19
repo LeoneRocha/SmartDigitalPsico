@@ -17,10 +17,8 @@ namespace SmartDigitalPsico.Domains.Hypermedia
         public virtual bool CanEnrich(Type contentType)
         {
             bool isCanEnrich = contentType == typeof(T) || contentType == typeof(List<T>) || contentType == typeof(PagedSearchVO<T>)
-                || contentType == typeof(ServiceResponse<T>);
-
-            isCanEnrich = true;
-
+                || contentType == typeof(ServiceResponse<T>) || contentType == typeof(ServiceResponse<List<T>>);
+             
             return isCanEnrich;
         }
 
@@ -30,7 +28,9 @@ namespace SmartDigitalPsico.Domains.Hypermedia
         {
             if (response.Result is OkObjectResult okObjectResult)
             {
-                return CanEnrich(okObjectResult.Value.GetType());
+                var objValidate = okObjectResult.Value.GetType();
+
+                return CanEnrich(objValidate);
             }
             return false;
         }
@@ -56,7 +56,7 @@ namespace SmartDigitalPsico.Domains.Hypermedia
                     }
                 }
                 //LIST
-                else if (okObjectResult.Value is ServiceResponse<List<T>> serviceResponse2) 
+                else if (okObjectResult.Value is ServiceResponse<List<T>> serviceResponse2)
                 {
                     if (serviceResponse2.Data is List<T> collection)
                     {

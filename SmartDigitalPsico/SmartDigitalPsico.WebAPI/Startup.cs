@@ -84,9 +84,9 @@ namespace SmartDigitalPsico.WebAPI
             //filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
 
             filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<ServiceResponse<GetGenderVO>>());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetGenderVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetGenderVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
             //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetOfficeVO>());
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
             //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
             //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetOfficeVO>>());
             //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetSpecialtyVO>>());

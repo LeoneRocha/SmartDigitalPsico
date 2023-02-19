@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
@@ -25,7 +26,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<EntityVOBaseSimple>>>> Get()
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<List<GetRoleGroupVO>>>> Get()
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 

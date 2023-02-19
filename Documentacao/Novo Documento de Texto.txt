@@ -1,0 +1,11 @@
+d
+Error
+Response body
+Download
+System.InvalidOperationException The constraint reference 'apiVersion' could not be resolved to a type. Register the constraint type with 'Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap'.
+
+
++		contentType	{Name = "ServiceResponse`1" FullName = "SmartDigitalPsico.Model.Contracts.ServiceResponse`1[[System.Collections.Generic.List`1[[SmartDigitalPsico.Model.VO.GetGenderVO, SmartDigitalPsico.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"}	System.Type {System.RuntimeType}
++		typeof(T)	{Name = "ServiceResponse`1" FullName = "SmartDigitalPsico.Model.Contracts.ServiceResponse`1[[SmartDigitalPsico.Model.VO.GetGenderVO, SmartDigitalPsico.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"}	System.Type {System.RuntimeType}
+
+   

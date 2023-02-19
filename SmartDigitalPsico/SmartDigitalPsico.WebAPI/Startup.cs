@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using RestWithASPNETUdemy.Hypermedia.Enricher;
 using SmartDigitalPsico.Business.Contracts.Principals;
@@ -16,6 +18,7 @@ using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Model.Mapper;
+using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -27,6 +30,7 @@ using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using Swashbuckle.AspNetCore.Filters;
 using System;
+using System.Collections.Generic;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -54,6 +58,9 @@ namespace SmartDigitalPsico.WebAPI
             //AcceptHeader 
             addAcceptHeader(services);
 
+            //HyperMediaFilterOptions
+            addHyperMedia(services);
+
             //Documenacao
             addDoc(services);
 
@@ -67,32 +74,29 @@ namespace SmartDigitalPsico.WebAPI
             addVersionning(services);
 
             //Dependency Injection
-            addDependenciesInjection(services);
-
-            //HyperMediaFilterOptions
-            addHyperMedia(services);
-
+            addDependenciesInjection(services); 
         }
 
         private void addHyperMedia(IServiceCollection services)
         {
             var filterOptions = new HyperMediaFilterOptions();
-            filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
-
+            //filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetGenderVO>());
             services.AddSingleton(filterOptions);
         }
 
         private void addAcceptHeader(IServiceCollection services)
         {
-            //AcceptHeader 
-            //services.AddMvc(options =>
-            //{
-            //    options.RespectBrowserAcceptHeader = true;
+            //AcceptHeader
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
 
-            //    options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
-            //    options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
-            //})
-            //.AddXmlSerializerFormatters();
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+            .AddXmlSerializerFormatters();
         }
 
         private void addCors(IServiceCollection services)
@@ -147,10 +151,10 @@ namespace SmartDigitalPsico.WebAPI
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartDigitalPsico.WebAPI v1"));
 
-            //var option = new RewriteOptions();
-            //option.AddRedirect("^$", "swagger");
-             
-            // app.UseRewriter(option);
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+
+            app.UseRewriter(option);
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -158,7 +162,8 @@ namespace SmartDigitalPsico.WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}"); 
+                //HyperMedia
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
         }
 

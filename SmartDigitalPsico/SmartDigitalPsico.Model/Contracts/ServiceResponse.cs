@@ -1,9 +1,14 @@
-﻿namespace SmartDigitalPsico.Model.Contracts
+﻿using SmartDigitalPsico.Domains.Hypermedia;
+using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+
+namespace SmartDigitalPsico.Model.Contracts
 {
-    public class ServiceResponse<T>
+    public class ServiceResponse<T> : ISupportsHyperMedia
     {
         public T Data { get; set; }
         public bool Success { get; set; } = true;
         public string Message { get; set; } = null;
+         
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

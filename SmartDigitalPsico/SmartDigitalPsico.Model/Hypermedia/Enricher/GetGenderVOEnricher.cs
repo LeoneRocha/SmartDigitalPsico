@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Constants;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.VO.Domains;
 using System.Text;
 
 namespace SmartDigitalPsico.Model.Hypermedia.Enricher
 {
-    public class GetGenderVOEnricher : ContentResponseEnricher<GetGenderVO>
+    public class GetGenderVOEnricher : ContentResponseEnricher<GetGenderVO> 
+         
     {
         private readonly object _lock = new object();
         protected override Task EnrichModel(GetGenderVO content, IUrlHelper urlHelper)

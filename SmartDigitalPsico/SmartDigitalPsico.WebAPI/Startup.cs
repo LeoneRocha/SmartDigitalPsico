@@ -80,23 +80,9 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addHyperMedia(IServiceCollection services)
         {
-            var filterOptions = new HyperMediaFilterOptions();
-            //filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
+            var filterOptions = new HyperMediaFilterOptions();  
 
-            filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<ServiceResponse<GetGenderVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetGenderVO>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetOfficeVO>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetOfficeVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetSpecialtyVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetSpecialtyVO>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetUserVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetUserVO>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetMedicalVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetMedicalVO>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetPatientVO>>());
-            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetPatientVO>());
+            filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher()); 
 
             services.AddSingleton(filterOptions);
         }
@@ -195,6 +181,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientMedicationInformationRepository, PatientMedicationInformationRepository>();
             services.AddScoped<IPatientHospitalizationInformationRepository, PatientHospitalizationInformationRepository>();
             services.AddScoped<IPatientAdditionalInformationRepository, PatientAdditionalInformationRepository>();
+            services.AddScoped<IPatientNotificationMessageRepository, PatientNotificationMessageRepository>();
             #endregion PATIENT
 
             services.AddScoped<IGenderRepository, GenderRepository>();
@@ -218,6 +205,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientMedicationInformationBusiness, PatientMedicationInformationBusiness>();
             services.AddScoped<IPatientHospitalizationInformationBusiness, PatientHospitalizationInformationBusiness>();
             services.AddScoped<IPatientAdditionalInformationBusiness, PatientAdditionalInformationBusiness>();
+            services.AddScoped<IPatientNotificationMessageBusiness, PatientNotificationMessageBusiness>();
             #endregion PATIENT 
         }
 
@@ -236,6 +224,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientMedicationInformationServices, PatientMedicationInformationServices>();
             services.AddScoped<IPatientHospitalizationInformationServices, PatientHospitalizationInformationServices>();
             services.AddScoped<IPatientAdditionalInformationServices, PatientAdditionalInformationServices>();
+            services.AddScoped<IPatientNotificationMessageServices, PatientNotificationMessageServices>();
             #endregion PATIENT
 
 

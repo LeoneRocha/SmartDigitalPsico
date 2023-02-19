@@ -127,3 +127,17 @@ dotnet ef migrations add Role
 
                 throw;
             }
+                     //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<ServiceResponse<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetGenderVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetOfficeVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetOfficeVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetSpecialtyVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetSpecialtyVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetUserVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetUserVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetMedicalVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetMedicalVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetPatientVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetPatientVO>());

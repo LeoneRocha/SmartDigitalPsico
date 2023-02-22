@@ -4,25 +4,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.User
 {
-    public class UserRegisterVO : ISupportsHyperMedia
+    public class UserRegisterVO
     {
         [MaxLength(255)]
         [Required]
         public string Name { get; set; }
 
         [MaxLength(100)]
-        [Required] 
+        [Required]
         public string Email { get; set; }
 
         [MaxLength(25)]
-        [Required] 
+        [Required]
         public string Login { get; set; }
 
         [MaxLength(20)]
         [Required]
-        public string Password { get; set; }
-
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+        public string Password { get; set; } 
 
     }
 }

@@ -41,6 +41,14 @@ Para este comando funcionar temos instalar a ferramenta de linha de comando do E
 
 dotnet tool install --global dotnet-ef
 
+
+
+
+
+3) DEPLOY AUTOMATICO 
+
+
+
 --------------REMOVE 
 dotnet ef database update 0
 dotnet ef migrations remove

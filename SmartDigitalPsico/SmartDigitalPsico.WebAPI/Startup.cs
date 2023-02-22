@@ -144,12 +144,7 @@ namespace SmartDigitalPsico.WebAPI
             }
 
             //// Migrate latest database changes during startup
-            
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
-                context.Database.Migrate();
-            }
+            addAutoMigrate(app);
 
             app.UseHttpsRedirection();
 
@@ -174,6 +169,16 @@ namespace SmartDigitalPsico.WebAPI
                 //HyperMedia
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
+        }
+
+        private void addAutoMigrate(IApplicationBuilder app)
+        {
+            //// Migrate latest database changes during startup
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
+                context.Database.Migrate();
+            }
         }
 
         #region INTERFACES

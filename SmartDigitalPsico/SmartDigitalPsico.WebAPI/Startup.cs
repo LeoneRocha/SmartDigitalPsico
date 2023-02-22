@@ -31,6 +31,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.Collections.Generic;
 
 namespace SmartDigitalPsico.WebAPI
@@ -80,9 +81,9 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addHyperMedia(IServiceCollection services)
         {
-            var filterOptions = new HyperMediaFilterOptions();  
+            var filterOptions = new HyperMediaFilterOptions();
 
-            filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher()); 
+            filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
 
             services.AddSingleton(filterOptions);
         }
@@ -140,7 +141,14 @@ namespace SmartDigitalPsico.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
 
+            //// Migrate latest database changes during startup
+            
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
+                context.Database.Migrate();
             }
 
             app.UseHttpsRedirection();
@@ -242,6 +250,8 @@ namespace SmartDigitalPsico.WebAPI
         private void addORM(IServiceCollection services)
         {
             services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartDigitalPsicoDBConnection"), b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
+
+
         }
         #endregion
 
@@ -308,7 +318,7 @@ namespace SmartDigitalPsico.WebAPI
 
         }
 
-        
+
         #endregion
     }
 }

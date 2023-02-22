@@ -12,7 +12,7 @@ using SmartDigitalPsico.Repository.Context;
 namespace SmartDigitalPsico.WebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
-    [Migration("20230218221306_SmartDigitalPsicoDBMig")]
+    [Migration("20230222145635_SmartDigitalPsicoDBMig")]
     partial class SmartDigitalPsicoDBMig
     {
         /// <inheritdoc />
@@ -917,6 +917,9 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("Admin")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")

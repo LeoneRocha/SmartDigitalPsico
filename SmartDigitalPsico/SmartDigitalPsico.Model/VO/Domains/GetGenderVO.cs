@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Domains
 {
-    public class GetGenderVO : ISupportsHyperMedia
+    public class GetGenderVO : ISupportsHyperMedia, IEntityVO
     {
         public long Id { get; set; }
         [MaxLength(255)]

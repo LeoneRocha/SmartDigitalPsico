@@ -5,11 +5,11 @@ using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Services.Generic
 {
-    public class GenericServicesEntityBaseSimple<Entity, Business, ResultEntity>
-        : IGenericBusinessEntityBaseSimple<Entity, ResultEntity>
+    public class GenericServicesEntityBaseSimple<Entity, Business, EntityVO>
+        : IGenericBusinessEntityBaseSimple<Entity, EntityVO>
         where Entity : EntityBaseSimple
-        where Business : IGenericBusinessEntityBaseSimple<Entity, ResultEntity>
-        where ResultEntity : class
+        where Business : IGenericBusinessEntityBaseSimple<Entity, EntityVO>
+        where EntityVO : class
 
     {
         private readonly IMapper _mapper;
@@ -19,9 +19,9 @@ namespace SmartDigitalPsico.Services.Generic
             _mapper = mapper;
             _genericBusiness = genericBusiness;
         }
-        public virtual async Task<ServiceResponse<ResultEntity>> Create(ResultEntity item)
+        public virtual async Task<ServiceResponse<EntityVO>> Create(EntityVO item)
         {
-            var serviceResponse = new ServiceResponse<ResultEntity>();
+            var serviceResponse = new ServiceResponse<EntityVO>();
 
             serviceResponse = await _genericBusiness.Create(item);
 
@@ -54,25 +54,25 @@ namespace SmartDigitalPsico.Services.Generic
 
             return serviceResponse;
         }
-        public async Task<ServiceResponse<List<ResultEntity>>> FindAll()
+        public async Task<ServiceResponse<List<EntityVO>>> FindAll()
         {
-            var serviceResponse = new ServiceResponse<List<ResultEntity>>();
+            var serviceResponse = new ServiceResponse<List<EntityVO>>();
 
             serviceResponse = await _genericBusiness.FindAll();
 
             return serviceResponse;
         }
-        public async Task<ServiceResponse<ResultEntity>> FindByID(long id)
+        public async Task<ServiceResponse<EntityVO>> FindByID(long id)
         {
-            var serviceResponse = new ServiceResponse<ResultEntity>();
+            var serviceResponse = new ServiceResponse<EntityVO>();
 
             serviceResponse = await _genericBusiness.FindByID(id);
 
             return serviceResponse;
         }
-        public async Task<ServiceResponse<List<ResultEntity>>> FindWithPagedSearch(string query)
+        public async Task<ServiceResponse<List<EntityVO>>> FindWithPagedSearch(string query)
         {
-            var serviceResponse = new ServiceResponse<List<ResultEntity>>();
+            var serviceResponse = new ServiceResponse<List<EntityVO>>();
 
             serviceResponse = await _genericBusiness.FindWithPagedSearch(query);
 
@@ -86,9 +86,9 @@ namespace SmartDigitalPsico.Services.Generic
 
             return serviceResponse;
         }
-        public virtual async Task<ServiceResponse<ResultEntity>> Update(ResultEntity item)
+        public virtual async Task<ServiceResponse<EntityVO>> Update(EntityVO item)
         {
-            var serviceResponse = new ServiceResponse<ResultEntity>();
+            var serviceResponse = new ServiceResponse<EntityVO>();
 
             serviceResponse = await _genericBusiness.Update(item);
 

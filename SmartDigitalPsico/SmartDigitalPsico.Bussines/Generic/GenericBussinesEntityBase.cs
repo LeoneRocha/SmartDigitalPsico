@@ -6,11 +6,11 @@ using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Generic
 {
-    public class GenericBusinessEntityBase<Entity, Repo, ResultEntity>
-        : IGenericBusinessEntityBase<Entity, ResultEntity>
+    public class GenericBusinessEntityBase<Entity, Repo, EntityVO>
+        : IGenericBusinessEntityBase<Entity, EntityVO>
         where Entity : EntityBase
         where Repo : IRepositoryEntityBase<Entity>
-        where ResultEntity : class
+        where EntityVO : class
 
     {
         private readonly IMapper _mapper;
@@ -20,15 +20,15 @@ namespace SmartDigitalPsico.Business.Generic
             _mapper = mapper;
             _genericRepository = UserRepository;
         }
-        public virtual async Task<ServiceResponse<ResultEntity>> Create(ResultEntity item)
+        public virtual async Task<ServiceResponse<EntityVO>> Create(EntityVO item)
         {
-            ServiceResponse<ResultEntity> response = new ServiceResponse<ResultEntity>();
+            ServiceResponse<EntityVO> response = new ServiceResponse<EntityVO>();
 
             Entity entityAdd = _mapper.Map<Entity>(item);
 
             Entity entityResponse = await _genericRepository.Create(entityAdd);
 
-            response.Data = _mapper.Map<ResultEntity>(entityResponse);
+            response.Data = _mapper.Map<EntityVO>(entityResponse);
             response.Success = true;
             response.Message = "Register Created.";
             return response;
@@ -56,14 +56,14 @@ namespace SmartDigitalPsico.Business.Generic
 
             return response;
         }
-        public virtual async Task<ServiceResponse<ResultEntity>> Update(ResultEntity item)
+        public virtual async Task<ServiceResponse<EntityVO>> Update(EntityVO item)
         {
-            ServiceResponse<ResultEntity> response = new ServiceResponse<ResultEntity>();
+            ServiceResponse<EntityVO> response = new ServiceResponse<EntityVO>();
 
             var entityUpdate = _mapper.Map<Entity>(item);
             Entity entityResponse = await _genericRepository.Update(entityUpdate);
 
-            response.Data = _mapper.Map<ResultEntity>(entityResponse);
+            response.Data = _mapper.Map<EntityVO>(entityResponse);
             response.Success = true;
             response.Message = "Register Updated.";
             return response;
@@ -79,33 +79,33 @@ namespace SmartDigitalPsico.Business.Generic
             response.Message = "Register exist.";
             return response;
         }
-        public async Task<ServiceResponse<List<ResultEntity>>> FindAll()
+        public async Task<ServiceResponse<List<EntityVO>>> FindAll()
         {
-            ServiceResponse<List<ResultEntity>> response = new ServiceResponse<List<ResultEntity>>();
+            ServiceResponse<List<EntityVO>> response = new ServiceResponse<List<EntityVO>>();
             List<Entity> entityResponse = await _genericRepository.FindAll();
 
-            response.Data = entityResponse.Select(c => _mapper.Map<ResultEntity>(c)).ToList();
+            response.Data = entityResponse.Select(c => _mapper.Map<EntityVO>(c)).ToList();
 
             response.Success = true;
             response.Message = "Register exist.";
             return response;
         }
-        public async Task<ServiceResponse<ResultEntity>> FindByID(long id)
+        public async Task<ServiceResponse<EntityVO>> FindByID(long id)
         {
-            ServiceResponse<ResultEntity> response = new ServiceResponse<ResultEntity>();
+            ServiceResponse<EntityVO> response = new ServiceResponse<EntityVO>();
             Entity entityResponse = await _genericRepository.FindByID(id);
 
-            response.Data = _mapper.Map<ResultEntity>(entityResponse);
+            response.Data = _mapper.Map<EntityVO>(entityResponse);
             response.Success = true;
             response.Message = "Register find.";
             return response;
         }
-        public async Task<ServiceResponse<List<ResultEntity>>> FindWithPagedSearch(string query)
+        public async Task<ServiceResponse<List<EntityVO>>> FindWithPagedSearch(string query)
         {
-            ServiceResponse<List<ResultEntity>> response = new ServiceResponse<List<ResultEntity>>();
+            ServiceResponse<List<EntityVO>> response = new ServiceResponse<List<EntityVO>>();
             List<Entity> entityResponse = await _genericRepository.FindWithPagedSearch(query);
 
-            response.Data = entityResponse.Select(c => _mapper.Map<ResultEntity>(c)).ToList();
+            response.Data = entityResponse.Select(c => _mapper.Map<EntityVO>(c)).ToList();
             response.Success = true;
             response.Message = "Register find.";
             return response;

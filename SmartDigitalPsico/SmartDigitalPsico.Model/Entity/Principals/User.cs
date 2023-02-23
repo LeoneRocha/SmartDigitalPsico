@@ -33,7 +33,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [MaxLength(50)] 
 
         public string Role { get; set; }
-         
+
+        public bool Admin { get; set; }
 
         #endregion Columns 
     }

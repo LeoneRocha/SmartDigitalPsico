@@ -3,14 +3,14 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
 using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientNotificationMessageBusiness : GenericBusinessEntityBaseSimple<PatientNotificationMessage, IPatientNotificationMessageRepository, GetPatientNotificationMessageVO>, IPatientNotificationMessageBusiness
+    public class PatientNotificationMessageBusiness : GenericBusinessEntityBaseSimple<PatientNotificationMessage
+        , AddPatientNotificationMessageVO, UpdatePatientNotificationMessageVO, GetPatientNotificationMessageVO, IPatientNotificationMessageRepository>, IPatientNotificationMessageBusiness
 
     {
         private readonly IMapper _mapper;

@@ -10,19 +10,18 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
-    public class GenderBusiness : GenericBusinessEntityBaseSimple<Gender, AddGenderVO, GetGenderVO, GetGenderVO, IGenderRepository>, IGenderBusiness
+    public class OfficeBusiness : GenericBusinessEntityBaseSimple<Office, AddOfficeVO, GetOfficeVO, GetOfficeVO, IOfficeRepository>, IOfficeBusiness
 
-    { 
+    {
         private readonly IMapper _mapper; 
-        private readonly IGenderRepository _entityRepository;
-
-        public GenderBusiness(IMapper mapper, IGenderRepository entityRepository)
+        private readonly IOfficeRepository _entityRepository;
+        
+        public OfficeBusiness(IMapper mapper, IOfficeRepository entityRepository)
             : base(mapper, entityRepository)
         {
             _mapper = mapper;
             _entityRepository = entityRepository;
         } 
 
-            
     }
 }

@@ -6,8 +6,7 @@ using SmartDigitalPsico.Model.VO.Medical;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IMedicalBusiness : IGenericBusinessEntityBase<Medical, GetMedicalVO>
-    {
-        Task<ServiceResponse<GetMedicalVO>> Create(AddMedicalVO item);
+    public interface IMedicalBusiness  
+    { 
     }
 }

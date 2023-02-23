@@ -3,17 +3,17 @@ using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Services.Generic.Contracts
 {
-    public interface IGenericServicesEntityBase<T, ResutEntity> where T : EntityBase
-        where ResutEntity : class
+    public interface IGenericServicesEntityBase<T, ResultEntity> where T : EntityBase
+        where ResultEntity : class
     {
-        Task<ServiceResponse<ResutEntity>> Create(ResutEntity item);
-        Task<ServiceResponse<ResutEntity>> FindByID(long id);
-        Task<ServiceResponse<List<ResutEntity>>> FindAll();
-        Task<ServiceResponse<ResutEntity>> Update(ResutEntity item);
+        Task<ServiceResponse<ResultEntity>> Create(ResultEntity item);
+        Task<ServiceResponse<ResultEntity>> FindByID(long id);
+        Task<ServiceResponse<List<ResultEntity>>> FindAll();
+        Task<ServiceResponse<ResultEntity>> Update(ResultEntity item);
         Task<ServiceResponse<bool>> Delete(long id);
         Task<ServiceResponse<bool>> EnableOrDisable(long id);
         Task<ServiceResponse<bool>> Exists(long id);
-        Task<ServiceResponse<List<ResutEntity>>> FindWithPagedSearch(string query);
+        Task<ServiceResponse<List<ResultEntity>>> FindWithPagedSearch(string query);
         Task<ServiceResponse<int>> GetCount(string query);
 
     }

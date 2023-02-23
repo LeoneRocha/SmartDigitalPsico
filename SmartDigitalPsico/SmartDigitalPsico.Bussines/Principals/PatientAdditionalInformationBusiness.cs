@@ -3,14 +3,15 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientAdditionalInformationBusiness : GenericBusinessEntityBaseSimple<PatientAdditionalInformation, IPatientAdditionalInformationRepository, GetPatientAdditionalInformationVO>, IPatientAdditionalInformationBusiness
+    public class PatientAdditionalInformationBusiness  
+        : GenericBusinessEntityBaseSimple<PatientAdditionalInformation
+            , AddPatientAdditionalInformationVO,UpdatePatientAdditionalInformationVO, GetPatientAdditionalInformationVO, IPatientAdditionalInformationRepository>, IPatientAdditionalInformationBusiness
 
     {
         private readonly IMapper _mapper;
@@ -28,7 +29,7 @@ namespace SmartDigitalPsico.Business.Principals
             _patientRepository = patientRepository;
         } 
 
-        public async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Create(AddPatientAdditionalInformationVO item)
+        public override async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Create(AddPatientAdditionalInformationVO item)
         {
             ServiceResponse<GetPatientAdditionalInformationVO> response = new ServiceResponse<GetPatientAdditionalInformationVO>();
 
@@ -72,8 +73,6 @@ namespace SmartDigitalPsico.Business.Principals
             response.Success = true;
             response.Message = "Patients finded.";
             return response;
-        }
-
-        
+        } 
     }
 }

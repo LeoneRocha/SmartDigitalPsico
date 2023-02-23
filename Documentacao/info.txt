@@ -7,7 +7,7 @@ Features / ESCOPO
 -  
 - Code First / Migration 
 - SQL SERVER 
-- MIGRAR PARA MYSQL -  Local Podemo migrar para Google Cloud
+- MIGRAR PARA MYSQL - Local Podemo migrar para Google Cloud
 
 1) Agular (Backofice e administrativo) 
 - Autenticacao Azure Directory 

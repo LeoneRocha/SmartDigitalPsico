@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO
 {
-    public abstract class EntityVOBaseSimple //: ISupportsHyperMedia
+    public abstract class EntityVOBaseSimple : IEntityVO //: ISupportsHyperMedia
     {
         public long Id { get; set; }
         [MaxLength(255)]

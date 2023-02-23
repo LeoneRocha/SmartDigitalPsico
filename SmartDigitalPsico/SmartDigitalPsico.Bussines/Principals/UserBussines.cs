@@ -10,11 +10,12 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Business.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class UserBusiness : GenericBusinessEntityBase<User, IUserRepository, GetUserVO>, IUserBusiness
-
+    public class UserBusiness : GenericBusinessEntityBase<User, UserRegisterVO, UpdateUserVO, GetUserVO, IUserRepository>
+        , IUserBusiness
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;

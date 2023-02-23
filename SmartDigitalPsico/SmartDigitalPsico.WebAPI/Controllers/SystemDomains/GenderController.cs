@@ -49,15 +49,15 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Update(GetGenderVO UpdateEntity)
+        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Update(UpdateGenderVO updateEntity)
         {
-            return BadRequest("Em construção");  // Ok(new EmptyResult());
-            //var response = await _medicalService.Update(UpdateEntity);
-            //if (response.Data == null)
-            //{
-            //    return NotFound(response);
-            //}
-            //return Ok(response);
+            //return BadRequest("Em construção"); 
+            var response = await _entityService.Update(updateEntity);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
 

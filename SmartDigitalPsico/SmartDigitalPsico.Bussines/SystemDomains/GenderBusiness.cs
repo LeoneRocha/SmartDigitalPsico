@@ -1,16 +1,53 @@
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.Generic.Contracts;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
+using SmartDigitalPsico.Repository.Principals;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
-    public class GenderBusiness : GenericBusinessEntityBaseSimple<Gender, IGenderRepository, GetGenderVO>, IGenderBusiness
-
+    public class GenderBusiness
+      : GenericBussinesEntityBaseSimplev2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderRepository>, IGenderBusiness
     {
-        public GenderBusiness(IMapper _mapper, IGenderRepository _genderRepository)
-            : base(_mapper, _genderRepository) { }
+        private readonly IMapper _mapper;
+        private readonly IGenderRepository _genericRepository;
+      
+
+
+        public GenderBusiness(IMapper mapper, IGenderRepository entityRepository)
+            : base(mapper, entityRepository) {
+
+            _mapper = mapper;
+            _genericRepository = entityRepository; 
+        }
+         
+        public override async Task<ServiceResponse<GetGenderVO>> Update(UpdateGenderVO item)
+        {
+            ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
+
+            bool entityExists = await _genericRepository.Exists(item.Id);
+
+            if (!entityExists)
+            {
+                response.Success = false;
+                response.Message = "Register not found.";
+                return response;
+            } 
+            Gender entityUpdate = _mapper.Map<Gender>(item);
+
+            Gender entityResponse = await _genericRepository.Update(entityUpdate);
+
+            response.Data = _mapper.Map<GetGenderVO>(entityResponse);
+            response.Success = true;
+            response.Message = "Register Updated.";
+            return response;
+             
+        }
     }
 }

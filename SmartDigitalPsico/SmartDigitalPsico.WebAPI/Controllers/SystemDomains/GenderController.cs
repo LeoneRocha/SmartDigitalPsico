@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.Domains;
-using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -44,7 +42,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Create(GetGenderVO newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Create(AddGenderVO newEntity)
         {
             return Ok(await _entityService.Create(newEntity));
         }

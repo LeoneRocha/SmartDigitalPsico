@@ -8,7 +8,8 @@ using SmartDigitalPsico.Services.Generic;
 namespace SmartDigitalPsico.Services.SystemDomains
 {
     // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityVOBaseSimple>, IGenderService
-    public class GenderServices : GenericServicesEntityBaseSimple<Gender, IGenderBusiness, GetGenderVO>, IGenderServices
+    public class GenderServices : 
+        GenericServicesEntityBaseSimpleV2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderBusiness>, IGenderServices
 
     {
         private readonly IGenderBusiness _entityBusiness;

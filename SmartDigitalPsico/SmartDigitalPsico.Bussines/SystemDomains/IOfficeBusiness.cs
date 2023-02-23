@@ -7,10 +7,10 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
-    public class SpecialtyBusiness : GenericBusinessEntityBaseSimple<Specialty, ISpecialtyRepository, GetSpecialtyVO>, ISpecialtyBusiness
+    public class OfficeBusiness : GenericBusinessEntityBaseSimple<Office, IOfficeRepository, GetOfficeVO>, IOfficeBusiness
 
     {
-        public SpecialtyBusiness(IMapper _mapper, ISpecialtyRepository entityRepository)
+        public OfficeBusiness(IMapper _mapper, IOfficeRepository entityRepository)
             : base(_mapper, entityRepository) { }
     }
 }

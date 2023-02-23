@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
@@ -14,7 +13,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientBusiness : GenericBusinessEntityBase<Patient, AddPatientVO, UpdatePatientVO, GetPatientVO, IPatientRepository>, IPatientBusiness
+    public class PatientBusiness : GenericBusinessEntityBase<Patient, IPatientRepository, GetPatientVO>, IPatientBusiness
 
     {
         private readonly IMapper _mapper;
@@ -33,7 +32,7 @@ namespace SmartDigitalPsico.Business.Principals
         }
 
 
-        public override async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
+        public async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
         {
             ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
 

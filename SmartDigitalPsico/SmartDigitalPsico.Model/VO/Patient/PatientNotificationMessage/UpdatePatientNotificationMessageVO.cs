@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage
 {
-    public class UpdatePatientNotificationMessageVO : ISupportsHyperMedia, IEntityVOUserLog, IEntityVO
+    public class UpdatePatientNotificationMessageVO : ISupportsHyperMedia, IEntityVOUserLog
     {
         [Required]
         public long IdUserAction { get; set; }

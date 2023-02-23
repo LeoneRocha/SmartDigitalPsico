@@ -2,18 +2,15 @@
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Generic
 {
-    public class GenericBusinessEntityBase<TEntity, TAddEntity, TUpdateEntity, ResultEntity, Repo>
-        : IGenericBusinessEntityBase<TEntity, TAddEntity, TUpdateEntity, ResultEntity>
-        where TEntity : EntityBase 
-        where TAddEntity : class
-        where TUpdateEntity : IEntityVO
-        where ResultEntity : class
-        where Repo : IRepositoryEntityBase<TEntity>
+    public class GenericBusinessEntityBase<Entity, Repo, ResutEntity>
+        : IGenericBusinessEntityBase<Entity, ResutEntity>
+        where Entity : EntityBase
+        where Repo : IRepositoryEntityBase<Entity>
+        where ResutEntity : class
 
     {
         private readonly IMapper _mapper;
@@ -23,15 +20,15 @@ namespace SmartDigitalPsico.Business.Generic
             _mapper = mapper;
             _genericRepository = UserRepository;
         }
-        public virtual async Task<ServiceResponse<ResultEntity>> Create(TAddEntity item)
+        public virtual async Task<ServiceResponse<ResutEntity>> Create(ResutEntity item)
         {
-            ServiceResponse<ResultEntity> response = new ServiceResponse<ResultEntity>();
+            ServiceResponse<ResutEntity> response = new ServiceResponse<ResutEntity>();
 
-            TEntity entityAdd = _mapper.Map<TEntity>(item);
+            Entity entityAdd = _mapper.Map<Entity>(item);
 
-            TEntity entityResponse = await _genericRepository.Create(entityAdd);
+            Entity entityResponse = await _genericRepository.Create(entityAdd);
 
-            response.Data = _mapper.Map<ResultEntity>(entityResponse);
+            response.Data = _mapper.Map<ResutEntity>(entityResponse);
             response.Success = true;
             response.Message = "Register Created.";
             return response;
@@ -59,28 +56,17 @@ namespace SmartDigitalPsico.Business.Generic
 
             return response;
         }
-        public virtual async Task<ServiceResponse<ResultEntity>> Update(TUpdateEntity item)
+        public virtual async Task<ServiceResponse<ResutEntity>> Update(ResutEntity item)
         {
-            ServiceResponse<ResultEntity> response = new ServiceResponse<ResultEntity>();
-            TEntity entityFounded = await _genericRepository.FindByID(item.Id);
-            if (entityFounded == null)
-            {
-                response.Success = false;
-                response.Message = "Register not found.";
-                return response;
-            }
-            var entityUpdate = _mapper.Map<TEntity>(item);
+            ServiceResponse<ResutEntity> response = new ServiceResponse<ResutEntity>();
 
-            entityUpdate.ModifyDate = DateTime.Now;
+            var entityUpdate = _mapper.Map<Entity>(item);
+            Entity entityResponse = await _genericRepository.Update(entityUpdate);
 
-            TEntity entityResponse = await _genericRepository.Update(entityUpdate);
+            response.Data = _mapper.Map<ResutEntity>(entityResponse);
             response.Success = true;
-            response.Data = _mapper.Map<ResultEntity>(entityResponse);
-
-            if (response.Success)
-                response.Message = "Register Updated.";
-
-            return response; 
+            response.Message = "Register Updated.";
+            return response;
         }
 
         public async Task<ServiceResponse<bool>> Exists(long id)
@@ -93,33 +79,33 @@ namespace SmartDigitalPsico.Business.Generic
             response.Message = "Register exist.";
             return response;
         }
-        public async Task<ServiceResponse<List<ResultEntity>>> FindAll()
+        public async Task<ServiceResponse<List<ResutEntity>>> FindAll()
         {
-            ServiceResponse<List<ResultEntity>> response = new ServiceResponse<List<ResultEntity>>();
-            List<TEntity> entityResponse = await _genericRepository.FindAll();
+            ServiceResponse<List<ResutEntity>> response = new ServiceResponse<List<ResutEntity>>();
+            List<Entity> entityResponse = await _genericRepository.FindAll();
 
-            response.Data = entityResponse.Select(c => _mapper.Map<ResultEntity>(c)).ToList();
+            response.Data = entityResponse.Select(c => _mapper.Map<ResutEntity>(c)).ToList();
 
             response.Success = true;
             response.Message = "Register exist.";
             return response;
         }
-        public async Task<ServiceResponse<ResultEntity>> FindByID(long id)
+        public async Task<ServiceResponse<ResutEntity>> FindByID(long id)
         {
-            ServiceResponse<ResultEntity> response = new ServiceResponse<ResultEntity>();
-            TEntity entityResponse = await _genericRepository.FindByID(id);
+            ServiceResponse<ResutEntity> response = new ServiceResponse<ResutEntity>();
+            Entity entityResponse = await _genericRepository.FindByID(id);
 
-            response.Data = _mapper.Map<ResultEntity>(entityResponse);
+            response.Data = _mapper.Map<ResutEntity>(entityResponse);
             response.Success = true;
             response.Message = "Register find.";
             return response;
         }
-        public async Task<ServiceResponse<List<ResultEntity>>> FindWithPagedSearch(string query)
+        public async Task<ServiceResponse<List<ResutEntity>>> FindWithPagedSearch(string query)
         {
-            ServiceResponse<List<ResultEntity>> response = new ServiceResponse<List<ResultEntity>>();
-            List<TEntity> entityResponse = await _genericRepository.FindWithPagedSearch(query);
+            ServiceResponse<List<ResutEntity>> response = new ServiceResponse<List<ResutEntity>>();
+            List<Entity> entityResponse = await _genericRepository.FindWithPagedSearch(query);
 
-            response.Data = entityResponse.Select(c => _mapper.Map<ResultEntity>(c)).ToList();
+            response.Data = entityResponse.Select(c => _mapper.Map<ResutEntity>(c)).ToList();
             response.Success = true;
             response.Message = "Register find.";
             return response;

@@ -4,11 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Domains
 {
-    public class AddGenderVO  
+    public class AddGenderVO
     {
-        [MaxLength(255)]
-        public string Description { get; set; }
-        [MaxLength(5)]
-        public string Language { get; set; }
     }
 }

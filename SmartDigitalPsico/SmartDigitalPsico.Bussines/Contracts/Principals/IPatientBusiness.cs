@@ -6,10 +6,10 @@ using SmartDigitalPsico.Model.VO.Patient;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IPatientBusiness
+    public interface IPatientBusiness : IGenericBusinessEntityBase<Patient, GetPatientVO>
     {
- 
+        Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item);
 
-        Task<ServiceResponse<GetPatientVO>> FindByPatient(GetPatientVO info);
+        Task<ServiceResponse<GetPatientVO>> FindByPatient(GetPatientVO info); 
     }
 }

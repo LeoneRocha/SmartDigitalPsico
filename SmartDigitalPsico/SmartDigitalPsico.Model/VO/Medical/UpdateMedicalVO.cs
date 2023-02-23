@@ -1,7 +1,7 @@
 namespace SmartDigitalPsico.Model.VO.Medical
 {
-    public class UpdateMedicalVO : AddMedicalVO, IEntityVO
+    public class UpdateMedicalVO : AddMedicalVO
     {
-        public long Id { get; set; }
+         
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation
 {
-    public class UpdatePatientMedicationInformationVO : AddPatientMedicationInformationVO , IEntityVO
+    public class UpdatePatientMedicationInformationVO : AddPatientMedicationInformationVO
     {
         [Required]
         public long Id { get; set; }

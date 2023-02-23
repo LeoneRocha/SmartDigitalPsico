@@ -2,11 +2,12 @@
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Generic
 {
     public class GenericServicesEntityBaseSimple<Entity, Business, EntityVO>
-        : IGenericBusinessEntityBaseSimple<Entity, EntityVO>
+        : IGenericServicesEntityBaseSimple<Entity, EntityVO>
         where Entity : EntityBaseSimple
         where Business : IGenericBusinessEntityBaseSimple<Entity, EntityVO>
         where EntityVO : class

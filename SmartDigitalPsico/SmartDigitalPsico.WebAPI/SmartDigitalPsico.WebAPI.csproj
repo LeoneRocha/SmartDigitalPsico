@@ -24,8 +24,4 @@
     <ProjectReference Include="..\SmartDigitalPsico.Services\SmartDigitalPsico.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Principals\Patient\" />
-  </ItemGroup>
-
 </Project>

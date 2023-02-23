@@ -6,7 +6,7 @@ using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.Principals
+namespace SmartDigitalPsico.WebAPI.Controllers.Patient
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
@@ -17,7 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Principals
 
     public class PatientNotificationMessageController : ControllerBase
     {
-        private readonly IPatientNotificationMessageServices  _entitytService;
+        private readonly IPatientNotificationMessageServices _entitytService;
 
         public PatientNotificationMessageController(IPatientNotificationMessageServices entitytService)
         {

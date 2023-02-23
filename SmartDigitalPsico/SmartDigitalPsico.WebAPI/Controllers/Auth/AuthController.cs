@@ -5,7 +5,7 @@ using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.Principals
+namespace SmartDigitalPsico.WebAPI.Controllers.Auth
 {
     [ApiController]
     [ApiVersion("1")]
@@ -44,7 +44,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Principals
 
             return Ok(response);
         }
-         
+
         [HttpGet("Logout/{login}")]
         public async Task<ActionResult<ServiceResponse<string>>> Logout(UserLoginVO request)
         {

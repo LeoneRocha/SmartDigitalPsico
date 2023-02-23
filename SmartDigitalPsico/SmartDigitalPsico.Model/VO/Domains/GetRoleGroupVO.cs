@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Domains
 {
-    public class GetRoleGroupVO : EntityVOBaseSimple
+    public class GetRoleGroupVO : EntityVOBaseDomain, ISupportsHyperMedia 
     {
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

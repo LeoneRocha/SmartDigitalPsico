@@ -20,9 +20,12 @@ namespace SmartDigitalPsico.Model.Mapper
         public AutoMapperProfile()
         {
             #region EntityBase
+             
+            CreateMap<EntityBase , EntityVOBaseName>();
+            CreateMap<EntityVOBaseName, EntityBase >(); 
 
-            CreateMap<EntityBaseSimple, EntityVOBaseSimple>();
-            CreateMap<EntityVOBaseSimple, EntityBaseSimple>();
+            CreateMap<EntityBaseSimple, EntityVOBaseDomain>();
+            CreateMap<EntityVOBaseDomain, EntityBaseSimple>();
 
             #endregion
 

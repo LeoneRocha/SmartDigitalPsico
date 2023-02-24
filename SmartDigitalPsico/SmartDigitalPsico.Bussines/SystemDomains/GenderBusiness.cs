@@ -36,8 +36,11 @@ namespace SmartDigitalPsico.Business.SystemDomains
                 response.Success = false;
                 response.Message = "Register not found.";
                 return response;
-            } 
+            }
+
+
             Gender entityUpdate = _mapper.Map<Gender>(item);
+            entityUpdate.ModifyDate = DateTime.Now;
 
             Gender entityResponse = await _genericRepository.Update(entityUpdate);
 

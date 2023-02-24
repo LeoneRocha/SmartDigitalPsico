@@ -29,6 +29,10 @@ namespace SmartDigitalPsico.Business.Generic
 
             TEntity entityAdd = _mapper.Map<TEntity>(item);
 
+            entityAdd.CreatedDate = DateTime.Now;
+            entityAdd.ModifyDate = DateTime.Now;
+            entityAdd.LastAccessDate = DateTime.Now; 
+
             TEntity entityResponse = await _genericRepository.Create(entityAdd);
 
             response.Data = _mapper.Map<TEntityResult>(entityResponse);
@@ -59,7 +63,9 @@ namespace SmartDigitalPsico.Business.Generic
                 return response;
             }
 
-            var entityUpdate = _mapper.Map<TEntity>(item);                      
+            var entityUpdate = _mapper.Map<TEntity>(item);
+             
+            entityUpdate.ModifyDate = DateTime.Now;  
 
             TEntity entityResponse = await _genericRepository.Update(entityUpdate);
 

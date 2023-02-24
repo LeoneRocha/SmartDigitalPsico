@@ -34,5 +34,44 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
 
             return Ok(await _entityService.FindAll());
         }
+
+        [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> GetById(int id)
+        {
+            return Ok(await _entityService.FindByID(id));
+        }
+
+        [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<List<GetRoleGroupVO>>>> Create(AddRoleGroupVO newEntity)
+        {
+            return Ok(await _entityService.Create(newEntity));
+        }
+
+        [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> Update(UpdateRoleGroupVO updateEntity)
+        {
+            //return BadRequest("Em construção"); 
+            var response = await _entityService.Update(updateEntity);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
+        {
+            var response = await _entityService.Delete(id);
+            if (response.Data)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }

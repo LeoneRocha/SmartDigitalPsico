@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Domains
 {
-    public class AddGenderVO : IEntityVOAdd
+    public class AddGenderVO : EntityVOBaseDomainAdd
     { 
 
     }

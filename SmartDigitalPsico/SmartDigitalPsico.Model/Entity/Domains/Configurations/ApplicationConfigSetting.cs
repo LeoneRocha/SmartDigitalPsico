@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
 {
-    [Table("ApplicationSettings", Schema = "dbo")]
-    public class ApplicationSettings : EntityBaseSimple, IEntityBaseDomains
+    [Table("ApplicationConfigSetting", Schema = "dbo")]
+    public class ApplicationConfigSetting  : EntityBaseSimple, IEntityBaseDomains
     {
         [Column("Description", TypeName = "varchar(255)")]
         public string Description { get; set; }

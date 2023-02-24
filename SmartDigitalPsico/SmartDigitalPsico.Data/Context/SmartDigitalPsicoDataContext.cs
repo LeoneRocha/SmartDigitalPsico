@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System.Globalization;
 using System.Reflection.Metadata;
@@ -54,6 +55,11 @@ namespace SmartDigitalPsico.Repository.Context
         public DbSet<PatientRecord> PatientRecords { get; set; }
 
         public DbSet<PatientNotificationMessage> PatientNotificationMessages { get; set; }
+
+        public DbSet<ApplicationLanguage> ApplicationLanguages { get; set; }
+
+        public DbSet<ApplicationConfigSetting> ApplicationConfigSettings { get; set; }
+
         #endregion Principais
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -33,22 +33,37 @@ namespace SmartDigitalPsico.Model.Mapper
             CreateMap<Gender, GetGenderVO>();
             CreateMap<GetGenderVO, Gender>();
 
+            CreateMap<AddGenderVO, Gender>();
+            CreateMap<UpdateGenderVO, Gender>();
+
             #endregion  Gender
 
             #region Office
             CreateMap<Office, GetOfficeVO>();
             CreateMap<GetOfficeVO, Office>();
-             
+
+
+            CreateMap<AddOfficeVO, Office>();
+            CreateMap<UpdateOfficeVO, Office>();
+
             #endregion Office
 
             #region RoleGroup
             CreateMap<RoleGroup, GetRoleGroupVO>();
-            CreateMap<GetRoleGroupVO, RoleGroup>(); 
+            CreateMap<GetRoleGroupVO, RoleGroup>();
+
+            CreateMap<AddRoleGroupVO, RoleGroup>();
+            CreateMap<UpdateRoleGroupVO, RoleGroup>();
+
+
             #endregion RoleGroup
 
             #region Specialty
             CreateMap<Specialty, GetSpecialtyVO>();
-            CreateMap<GetSpecialtyVO, Specialty>(); 
+            CreateMap<GetSpecialtyVO, Specialty>();
+             
+            CreateMap<AddSpecialtyVO, Specialty>();
+            CreateMap<UpdateSpecialtyVO, Specialty>(); 
             #endregion Specialty
 
             #region USER

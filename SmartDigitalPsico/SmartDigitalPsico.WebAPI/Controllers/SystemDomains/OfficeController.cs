@@ -33,5 +33,45 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
 
             return Ok(await _entityService.FindAll());
         }
+
+        [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<GetOfficeVO>>> GetById(int id)
+        {
+            return Ok(await _entityService.FindByID(id));
+        }
+
+        [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<List<GetOfficeVO>>>> Create(AddOfficeVO newEntity)
+        {
+            return Ok(await _entityService.Create(newEntity));
+        }
+
+        [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<GetOfficeVO>>> Update(UpdateOfficeVO updateEntity)
+        {
+            //return BadRequest("Em construção"); 
+            var response = await _entityService.Update(updateEntity);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
+        {
+            var response = await _entityService.Delete(id);
+            if (response.Data)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
     }
 }

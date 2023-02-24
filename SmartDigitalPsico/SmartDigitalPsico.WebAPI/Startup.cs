@@ -15,6 +15,7 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
@@ -70,7 +71,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             //ORM API
-            addORM(services);
+            addORM(services, TypeDataBase.MSSQL);
 
             //Versioning API
             addVersionning(services);
@@ -252,11 +253,26 @@ namespace SmartDigitalPsico.WebAPI
         #endregion
 
         #region CONTEXTO
-        private void addORM(IServiceCollection services)
-        {
-            services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartDigitalPsicoDBConnection"), b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
-
-
+        private void addORM(IServiceCollection services, TypeDataBase etypeDataBase)
+        { 
+            var connection = string.Empty;
+            bool migreted = false;
+            switch (etypeDataBase)
+            {
+                case TypeDataBase.Mysql:
+                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMySQL");
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
+                    options.UseMySql(connection, ServerVersion.AutoDetect(connection)
+                    , b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
+                    //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
+                    break;
+                case TypeDataBase.MSSQL:
+                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnection");
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI"))); 
+                    break;
+                default:
+                    break;
+            }  
         }
         #endregion
 

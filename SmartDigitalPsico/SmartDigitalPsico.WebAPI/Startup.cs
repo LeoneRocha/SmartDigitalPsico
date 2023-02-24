@@ -17,12 +17,9 @@ using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Enuns;
-using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
-using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Hypermedia.Enricher;
 using SmartDigitalPsico.Model.Mapper;
-using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -33,8 +30,6 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using Swashbuckle.AspNetCore.Filters;
-using System;
-using System.Collections.Generic;
 
 namespace SmartDigitalPsico.WebAPI
 {

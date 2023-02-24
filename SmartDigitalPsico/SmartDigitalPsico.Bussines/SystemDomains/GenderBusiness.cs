@@ -17,9 +17,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
     {
         private readonly IMapper _mapper;
         private readonly IGenderRepository _genericRepository;
-      
-
-
+       
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository)
             : base(mapper, entityRepository) {
 

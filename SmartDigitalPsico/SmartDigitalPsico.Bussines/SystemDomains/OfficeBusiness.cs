@@ -7,7 +7,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
-    public class OfficeBusiness : GenericBusinessEntityBaseSimple<Office, IOfficeRepository, GetOfficeVO>, IOfficeBusiness
+    public class OfficeBusiness : GenericBussinesEntityBaseSimplev2<Office, AddOfficeVO, UpdateOfficeVO, GetOfficeVO, IOfficeRepository>, IOfficeBusiness
 
     {
         public OfficeBusiness(IMapper _mapper, IOfficeRepository entityRepository)

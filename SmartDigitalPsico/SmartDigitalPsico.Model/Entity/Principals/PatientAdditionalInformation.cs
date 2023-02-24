@@ -21,10 +21,12 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         #region Columns 
 
-        [Column("FollowUp_Psychiatric", TypeName = "varchar(max)")]
+        [Column("FollowUp_Psychiatric", TypeName = "varchar(2000)")]
+        [MaxLength(2000)]
         public string? FollowUp_Psychiatric { get; set; }
 
-        [Column("FollowUp_Neurological", TypeName = "varchar(max)")]
+        [Column("FollowUp_Neurological", TypeName = "varchar(2000)")]
+        [MaxLength(2000)]
         public string? FollowUp_Neurological { get; set; }
 
         #endregion Columns 

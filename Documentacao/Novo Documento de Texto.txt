@@ -1,3 +1,21 @@
-+		contentType	{Name = "ServiceResponse`1" FullName = "SmartDigitalPsico.Domains.Hypermedia.Utils.ServiceResponse`1[[System.Collections.Generic.List`1[[SmartDigitalPsico.Model.VO.Domains.GetGenderVO, SmartDigitalPsico.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"}	System.Type {System.RuntimeType}
-+		typeof(T)	{Name = "GetGenderVO" FullName = "SmartDigitalPsico.Model.VO.Domains.GetGenderVO"}	System.Type {System.RuntimeType}
+A schema "dbo" has been set for an object of type "CreateTableOperation" with the name of "Genders". MySQL does not support the EF Core concept of schemas. Any schema property of any "MigrationOperation" must be null. This behavior can be changed by setting the `SchemaBehavior` option in the `UseMySql` call.
 
+
+// Just ignore all schemas:
+
+
+optionsBuilder
+    .UseMySql(
+        connectionString,
+        serverVersion,
+        o => o.SchemaBehavior(MySqlSchemaBehavior.Ignore))
+
+// Translate schemas into a table name prefix like `schema_table`:
+
+
+optionsBuilder
+    .UseMySql(
+        connectionString,
+        serverVersion,
+        o => o.SchemaBehavior(MySqlSchemaBehavior.Translate, (schema, table) => $" 
+        {schema}_{table}"))

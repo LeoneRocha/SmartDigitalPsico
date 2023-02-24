@@ -586,11 +586,13 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnOrder(1);
 
                     b.Property<string>("FollowUp_Neurological")
-                        .HasColumnType("varchar(max)")
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)")
                         .HasColumnName("FollowUp_Neurological");
 
                     b.Property<string>("FollowUp_Psychiatric")
-                        .HasColumnType("varchar(max)")
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)")
                         .HasColumnName("FollowUp_Psychiatric");
 
                     b.Property<DateTime>("LastAccessDate")
@@ -671,7 +673,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Observation")
                         .IsRequired()
-                        .HasColumnType("varchar(max)")
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)")
                         .HasColumnName("Observation");
 
                     b.Property<long>("PatientId")
@@ -802,11 +805,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("LastAccessDate");
 
-                    b.Property<string>("Message")
+                    b.Property<string>("MessagePatient")
                         .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("varchar(2000)")
-                        .HasColumnName("Message ");
+                        .HasColumnName("MessagePatient");
 
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2")
@@ -853,7 +856,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Annotation")
                         .IsRequired()
-                        .HasColumnType("varchar(max)")
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)")
                         .HasColumnName("Annotation");
 
                     b.Property<DateTime>("AnnotationDate")

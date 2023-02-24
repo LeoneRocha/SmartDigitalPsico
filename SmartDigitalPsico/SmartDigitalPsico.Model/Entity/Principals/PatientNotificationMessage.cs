@@ -20,10 +20,10 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #endregion Relationship
 
         #region Columns 
-        [Column("Message ", TypeName = "varchar(2000)")] 
+        [Column("MessagePatient", TypeName = "varchar(2000)")] 
         [MaxLength(2000)]
         [Required]
-        public string Message { get; set; }
+        public string MessagePatient { get; set; }
 
         [Column("IsReaded")]
         public bool IsReaded { get; set; }

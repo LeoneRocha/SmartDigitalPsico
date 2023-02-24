@@ -37,7 +37,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Required]
         public string CID { get; set; }
          
-        [Column("Observation", TypeName = "varchar(max)")]
+        [Column("Observation", TypeName = "varchar(2000)")]
+        [MaxLength(2000)]
         [Required]
         public string Observation { get; set; }
          

@@ -22,7 +22,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Required]
         public string Description { get; set; }
 
-        [Column("Annotation", TypeName = "varchar(max)")] 
+        [Column("Annotation", TypeName = "varchar(2000)")]
+        [MaxLength(2000)]
         [Required]
         public string Annotation { get; set; }
          

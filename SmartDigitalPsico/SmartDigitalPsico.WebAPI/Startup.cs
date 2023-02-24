@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
@@ -71,7 +72,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             //ORM API
-            addORM(services, TypeDataBase.MSSQL);
+            addORM(services, TypeDataBase.MSsqlServer);
 
             //Versioning API
             addVersionning(services);
@@ -174,12 +175,16 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addAutoMigrate(IApplicationBuilder app)
         {
-            //// Migrate latest database changes during startup
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            bool migreted = false;
+            if (!migreted)
             {
-                var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
-                context.Database.Migrate();
-            }
+                //// Migrate latest database changes during startup
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
+                    context.Database.Migrate(); 
+                }
+            } 
         }
 
         #region INTERFACES
@@ -256,19 +261,21 @@ namespace SmartDigitalPsico.WebAPI
         private void addORM(IServiceCollection services, TypeDataBase etypeDataBase)
         { 
             var connection = string.Empty;
-            bool migreted = false;
+           
             switch (etypeDataBase)
             {
                 case TypeDataBase.Mysql:
                     connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMySQL");
                     services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
                     options.UseMySql(connection, ServerVersion.AutoDetect(connection)
-                    , b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
+                    , b => { b.MigrationsAssembly("SmartDigitalPsico.WebAPI");
+                        b.SchemaBehavior(MySqlSchemaBehavior.Ignore); } ));
                     //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
                     break;
-                case TypeDataBase.MSSQL:
+                case TypeDataBase.MSsqlServer:
                     connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnection");
-                    services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI"))); 
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection, 
+                        b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI"))); 
                     break;
                 default:
                     break;

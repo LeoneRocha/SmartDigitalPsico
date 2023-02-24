@@ -6,7 +6,7 @@ namespace SmartDigitalPsico.Domains.Enuns
     {
         Mysql,
         Postgree,
-        MSSQL
+        MSsqlServer
 
     }
 }

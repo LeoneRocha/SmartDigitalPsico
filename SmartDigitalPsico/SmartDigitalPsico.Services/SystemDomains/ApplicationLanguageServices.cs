@@ -1,6 +1,6 @@
 using AutoMapper;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
-using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
@@ -8,14 +8,14 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.SystemDomains
-{
-     public class GenderServices : 
-        GenericServicesEntityBaseSimpleV2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderBusiness>, IGenderServices
+{ 
+    public class ApplicationLanguageServices : 
+        GenericServicesEntityBaseSimpleV2<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO, IApplicationLanguageBusiness>, IApplicationLanguageServices
 
     {
-        private readonly IGenderBusiness _entityBusiness;
+        private readonly IApplicationLanguageBusiness _entityBusiness;
 
-        public GenderServices(IMapper mapper, IGenderBusiness entityBusiness)
+        public ApplicationLanguageServices(IMapper mapper, IApplicationLanguageBusiness entityBusiness)
            : base(mapper, entityBusiness)
         {
             _entityBusiness = entityBusiness;

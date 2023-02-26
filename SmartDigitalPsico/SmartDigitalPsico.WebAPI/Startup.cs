@@ -198,6 +198,9 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientNotificationMessageRepository, PatientNotificationMessageRepository>();
             #endregion PATIENT
 
+            services.AddScoped<IApplicationLanguageRepository, ApplicationLanguageRepository>();
+            services.AddScoped<IApplicationConfigSettingRepository, ApplicationConfigSettingRepository>();
+
             services.AddScoped<IGenderRepository, GenderRepository>();
             services.AddScoped<IOfficeRepository, OfficeRepository>();
             services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
@@ -206,13 +209,16 @@ namespace SmartDigitalPsico.WebAPI
         }
         private void addBusiness(IServiceCollection services)
         {
-            services.AddScoped<IUserBusiness, UserBusiness>();
-            services.AddScoped<IMedicalBusiness, MedicalBusiness>();
+            services.AddScoped<IApplicationLanguageBusiness, ApplicationLanguageBusiness>();
+            services.AddScoped<IApplicationConfigSettingBusiness, ApplicationConfigSettingBusiness>();
+
             services.AddScoped<IOfficeBusiness, OfficeBusiness>();
             services.AddScoped<IRoleGroupBusiness, RoleGroupBusiness>();
             services.AddScoped<IGenderBusiness, GenderBusiness>();
             services.AddScoped<ISpecialtyBusiness, SpecialtyBusiness>();
 
+            services.AddScoped<IUserBusiness, UserBusiness>();
+            services.AddScoped<IMedicalBusiness, MedicalBusiness>();
             #region PATIENT
             services.AddScoped<IPatientBusiness, PatientBusiness>();
             services.AddScoped<IPatientRecordBusiness, PatientRecordBusiness>();
@@ -225,13 +231,16 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addServices(IServiceCollection services)
         {
-            services.AddScoped<IUserServices, UserServices>();
-            services.AddScoped<IMedicalServices, MedicalServices>();
+            services.AddScoped<IApplicationLanguageServices, ApplicationLanguageServices>();
+            services.AddScoped<IApplicationConfigSettingServices, ApplicationConfigSettingServices>();
+             
             services.AddScoped<IGenderServices, GenderServices>();
             services.AddScoped<IOfficeServices, OfficeServices>();
             services.AddScoped<IRoleGroupServices, RoleGroupServices>();
             services.AddScoped<ISpecialtyServices, SpecialtyServices>();
 
+            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IMedicalServices, MedicalServices>();
             #region PATIENT
             services.AddScoped<IPatientServices, PatientServices>();
             services.AddScoped<IPatientRecordServices, PatientRecordServices>();

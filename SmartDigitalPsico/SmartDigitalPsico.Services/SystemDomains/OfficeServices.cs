@@ -9,8 +9,7 @@ using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.SystemDomains
 {
-    // public class  : GenericServicesEntityBaseSimple<, IOfficeBusiness, EntityVOBaseSimple>, IOfficeService
-    public class OfficeServices : GenericServicesEntityBaseSimpleV2<Office, AddOfficeVO, UpdateOfficeVO, GetOfficeVO, IOfficeBusiness>, IOfficeServices
+     public class OfficeServices : GenericServicesEntityBaseSimpleV2<Office, AddOfficeVO, UpdateOfficeVO, GetOfficeVO, IOfficeBusiness>, IOfficeServices
 
     {
         private readonly IOfficeBusiness _entityBusiness;

@@ -9,8 +9,7 @@ using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.SystemDomains
 {
-    // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityVOBaseSimple>, IGenderService
-    public class RoleGroupServices
+     public class RoleGroupServices
         : GenericServicesEntityBaseSimpleV2<RoleGroup, AddRoleGroupVO, UpdateRoleGroupVO, GetRoleGroupVO, IRoleGroupBusiness>, IRoleGroupServices
 
     {

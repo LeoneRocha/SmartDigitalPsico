@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Domains.AddVOs;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
+using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;

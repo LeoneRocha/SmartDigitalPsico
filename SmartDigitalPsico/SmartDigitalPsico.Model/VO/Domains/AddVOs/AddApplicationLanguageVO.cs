@@ -5,18 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.VO.Domains.AddVOs
 {
-    public class AddApplicationConfigSettingVO : EntityVOBaseDomainAdd
+    public class AddApplicationLanguageVO : EntityVOBaseDomainAdd
     {
-        [MaxLength(255)]
-        public string Description { get; set; }
-
         [MaxLength(5)]
         public string Language { get; set; }
 
         [MaxLength(255)]
-        public string EndPointUrl_StorageFiles { get; set; }
+        public string Description { get; set; }
 
         [MaxLength(255)]
-        public string EndPointUrl_Cache { get; set; }
+        public string LanguageKey { get; set; }
+
+        [MaxLength(255)]
+        public string LanguageValue { get; set; }
     }
 }

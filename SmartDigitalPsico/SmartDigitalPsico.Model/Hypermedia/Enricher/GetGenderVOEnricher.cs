@@ -2,7 +2,7 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Constants;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using System.Text;
 
 namespace SmartDigitalPsico.Model.Hypermedia.Enricher

@@ -9,6 +9,7 @@ namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
     public class ApplicationConfigSetting  : EntityBaseSimple, IEntityBaseDomains
     {
         [Column("Description", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string Description { get; set; }
 
         [Column("Language", TypeName = "char(5)")]
@@ -16,9 +17,11 @@ namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
         public string Language { get; set; }
 
         [Column("EndPointUrl_StorageFiles", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string EndPointUrl_StorageFiles { get; set; }
 
         [Column("EndPointUrl_Cache", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string EndPointUrl_Cache { get; set; }
     }
 }

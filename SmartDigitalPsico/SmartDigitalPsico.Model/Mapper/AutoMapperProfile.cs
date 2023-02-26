@@ -11,7 +11,9 @@ using SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
-using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
+using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
+using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 
 namespace SmartDigitalPsico.Model.Mapper
 {

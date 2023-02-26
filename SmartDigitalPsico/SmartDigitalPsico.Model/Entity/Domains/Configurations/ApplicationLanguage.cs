@@ -13,12 +13,15 @@ namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
         public string Language { get; set; }
         
         [Column("Description", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string Description { get; set; }
 
         [Column("LanguageKey", TypeName = "varchar(255)")]
+        [MaxLength(255)]
         public string LanguageKey { get; set; }
 
         [Column("LanguageValue", TypeName = "varchar(1000)")]
+        [MaxLength(1000)]
         public string LanguageValue { get; set; }
     }
 }

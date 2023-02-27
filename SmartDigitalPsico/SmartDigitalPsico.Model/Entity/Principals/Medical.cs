@@ -2,7 +2,6 @@ using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Domains;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -15,6 +15,8 @@ using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
+using SmartDigitalPsico.Model.VO.Patient.PatientFile;
+using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 
 namespace SmartDigitalPsico.Model.Mapper
 {
@@ -49,16 +51,25 @@ namespace SmartDigitalPsico.Model.Mapper
             CreateMap<UpdateApplicationConfigSettingVO, ApplicationLanguage>();
 
             #endregion  ApplicationLanguage
-             
-            #region Gender
-            CreateMap<Gender, GetGenderVO>();
-            CreateMap<GetGenderVO, Gender>();
 
-            CreateMap<AddGenderVO, Gender>();
-            CreateMap<UpdateGenderVO, Gender>();
+            #region PatientFile
+            CreateMap<PatientFile, GetPatientFileVO>();
+            CreateMap<GetPatientFileVO, PatientFile>();
 
-            #endregion  Gender
-              
+            CreateMap<AddPatientFileVO, PatientFile>();
+            CreateMap<UpdatePatientFileVO, PatientFile>();
+
+            #endregion  PatientFile
+
+            #region MedicalFile
+            CreateMap<MedicalFile, GetMedicalFileVO>();
+            CreateMap<GetPatientFileVO, MedicalFile>();
+
+            CreateMap<AddMedicalFileVO, MedicalFile>();
+            CreateMap<UpdateMedicalFileVO, MedicalFile>();
+
+            #endregion  MedicalFile
+
             #region Gender
             CreateMap<Gender, GetGenderVO>();
             CreateMap<GetGenderVO, Gender>();

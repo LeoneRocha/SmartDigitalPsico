@@ -15,8 +15,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Principals
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
-    [Route("api/[controller]/v{version:apiVersion}")]
+    //[Authorize("Bearer")] 
+    [Route("api/medical/v{version:apiVersion}/[controller]")]
 
     public class MedicalController : ControllerBase
     {

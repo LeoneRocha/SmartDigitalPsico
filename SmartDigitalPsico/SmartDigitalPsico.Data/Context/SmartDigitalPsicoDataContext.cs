@@ -4,8 +4,6 @@ using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System.Globalization;
-using System.Reflection.Metadata;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SmartDigitalPsico.Repository.Context
 {
@@ -27,16 +25,14 @@ namespace SmartDigitalPsico.Repository.Context
         //        optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("SmartDigitalPsico.Data"));
         //    }
         //    base.OnConfiguring(optionsBuilder);
-        //}
-
+        //} 
         #region Statics 
-
         public DbSet<Gender> Genders { get; set; }
-
         public DbSet<Office> Offices { get; set; }
-
         public DbSet<RoleGroup> RoleGroups { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
+        public DbSet<ApplicationLanguage> ApplicationLanguages { get; set; }
+        public DbSet<ApplicationConfigSetting> ApplicationConfigSettings { get; set; }
         #endregion
 
         #region Principais
@@ -56,9 +52,9 @@ namespace SmartDigitalPsico.Repository.Context
 
         public DbSet<PatientNotificationMessage> PatientNotificationMessages { get; set; }
 
-        public DbSet<ApplicationLanguage> ApplicationLanguages { get; set; }
+        public DbSet<PatientFile> PatientFiles { get; set; }
 
-        public DbSet<ApplicationConfigSetting> ApplicationConfigSettings { get; set; }
+        public DbSet<MedicalFile> MedicalFiles { get; set; }
 
         #endregion Principais
 

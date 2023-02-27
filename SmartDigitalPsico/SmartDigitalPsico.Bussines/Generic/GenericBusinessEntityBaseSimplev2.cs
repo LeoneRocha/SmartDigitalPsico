@@ -18,6 +18,8 @@ namespace SmartDigitalPsico.Business.Generic
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
+
+
         public GenericBusinessEntityBaseSimplev2(IMapper mapper, Repo UserRepository)
         {
             _mapper = mapper;

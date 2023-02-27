@@ -10,7 +10,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientHospitalizationInformationBusiness : GenericBusinessEntityBaseSimple<PatientHospitalizationInformation, IPatientHospitalizationInformationRepository, GetPatientHospitalizationInformationVO>, IPatientHospitalizationInformationBusiness
+    public class PatientHospitalizationInformationBusiness : GenericBusinessEntityBaseSimplev2<PatientHospitalizationInformation, AddPatientHospitalizationInformationVO, UpdatePatientHospitalizationInformationVO, GetPatientHospitalizationInformationVO,IPatientHospitalizationInformationRepository>, IPatientHospitalizationInformationBusiness
 
     {
         private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ namespace SmartDigitalPsico.Business.Principals
             _patientRepository = patientRepository;
         } 
 
-        public async Task<ServiceResponse<GetPatientHospitalizationInformationVO>> Create(AddPatientHospitalizationInformationVO item)
+        public override async Task<ServiceResponse<GetPatientHospitalizationInformationVO>> Create(AddPatientHospitalizationInformationVO item)
         {
             ServiceResponse<GetPatientHospitalizationInformationVO> response = new ServiceResponse<GetPatientHospitalizationInformationVO>();
 

@@ -28,35 +28,35 @@ namespace SmartDigitalPsico.Business.Principals
             _entityRepository = entityRepository;
             _userRepository = userRepository;
             _patientRepository = patientRepository;
-        } 
+        }
 
-        //public async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Create(AddPatientAdditionalInformationVO item)
-        //{
-        //    ServiceResponse<GetPatientAdditionalInformationVO> response = new ServiceResponse<GetPatientAdditionalInformationVO>();
+        public override async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Create(AddPatientAdditionalInformationVO item)
+        {
+            ServiceResponse<GetPatientAdditionalInformationVO> response = new ServiceResponse<GetPatientAdditionalInformationVO>();
 
-        //    PatientAdditionalInformation entityAdd = _mapper.Map<PatientAdditionalInformation>(item);
-             
-        //    #region Relationship
+            PatientAdditionalInformation entityAdd = _mapper.Map<PatientAdditionalInformation>(item);
 
-        //    User userAction = await _userRepository.FindByID(item.IdUserAction);
-        //    entityAdd.CreatedUser = userAction;
+            #region Relationship
 
-        //    Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
-        //    entityAdd.Patient = patientAdd;
+            User userAction = await _userRepository.FindByID(item.IdUserAction);
+            entityAdd.CreatedUser = userAction;
 
-        //    #endregion
+            Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
+            entityAdd.Patient = patientAdd;
 
-        //    entityAdd.CreatedDate = DateTime.Now;
-        //    entityAdd.ModifyDate = DateTime.Now;
-        //    entityAdd.LastAccessDate = DateTime.Now;
+            #endregion
 
-        //    PatientAdditionalInformation entityResponse = await _entityRepository.Create(entityAdd);
+            entityAdd.CreatedDate = DateTime.Now;
+            entityAdd.ModifyDate = DateTime.Now;
+            entityAdd.LastAccessDate = DateTime.Now;
 
-        //    response.Data = _mapper.Map<GetPatientAdditionalInformationVO>(entityResponse);
-        //    response.Success = true;
-        //    response.Message = "Patient registred.";
-        //    return response;
-        //}
+            PatientAdditionalInformation entityResponse = await _entityRepository.Create(entityAdd);
+
+            response.Data = _mapper.Map<GetPatientAdditionalInformationVO>(entityResponse);
+            response.Success = true;
+            response.Message = "Patient registred.";
+            return response;
+        }
 
         public async Task<ServiceResponse<List<GetPatientAdditionalInformationVO>>> FindAllByPatient(long patientId)
         {

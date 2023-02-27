@@ -4,10 +4,26 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation
 {
-    public class UpdatePatientHospitalizationInformationVO : AddPatientHospitalizationInformationVO
+    public class UpdatePatientHospitalizationInformationVO : EntityVOBase
     {
+
+        #region Columns 
+
+        [MaxLength(255)]
         [Required]
-        public long Id { get; set; }
-        public bool Enable { get; set; }
+        public string Description { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
+        [MaxLength(20)]
+        [Required]
+        public string CID { get; set; }
+
+        [Required]
+        public string Observation { get; set; }
+
+        #endregion Columns 
     }
 }

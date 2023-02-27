@@ -462,70 +462,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.ClinicFile", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("Id")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<long?>("CreatedUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("Description");
-
-                    b.Property<bool?>("Enable")
-                        .HasColumnType("bit")
-                        .HasColumnName("Enable")
-                        .HasColumnOrder(1);
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasMaxLength(2083)
-                        .HasColumnType("varchar(2083)")
-                        .HasColumnName("FilePath");
-
-                    b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastAccessDate");
-
-                    b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("ModifyDate");
-
-                    b.Property<long?>("ModifyUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("PatientFileId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("PatientFileId1")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedUserId");
-
-                    b.HasIndex("ModifyUserId");
-
-                    b.HasIndex("PatientFileId");
-
-                    b.HasIndex("PatientFileId1");
-
-                    b.ToTable("ClinicFile", "dbo");
-                });
-
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
                 {
                     b.Property<long>("Id")
@@ -602,6 +538,65 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Medicals", "dbo");
+                });
+
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.MedicalFile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<long?>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("Description");
+
+                    b.Property<bool?>("Enable")
+                        .HasColumnType("bit")
+                        .HasColumnName("Enable")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasMaxLength(2083)
+                        .HasColumnType("varchar(2083)")
+                        .HasColumnName("FilePath");
+
+                    b.Property<DateTime>("LastAccessDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastAccessDate");
+
+                    b.Property<long>("MedicalId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifyDate");
+
+                    b.Property<long?>("ModifyUserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("MedicalId");
+
+                    b.HasIndex("ModifyUserId");
+
+                    b.ToTable("MedicalFile", "dbo");
                 });
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Patient", b =>
@@ -806,7 +801,50 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<long?>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("Description");
+
+                    b.Property<bool?>("Enable")
+                        .HasColumnType("bit")
+                        .HasColumnName("Enable")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasMaxLength(2083)
+                        .HasColumnType("varchar(2083)")
+                        .HasColumnName("FilePath");
+
+                    b.Property<DateTime>("LastAccessDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastAccessDate");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifyDate");
+
+                    b.Property<long?>("ModifyUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PatientId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ModifyUserId");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("PatientFile", "dbo");
                 });
@@ -1206,29 +1244,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.ClinicFile", b =>
-                {
-                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedUserId");
-
-                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
-                        .WithMany()
-                        .HasForeignKey("ModifyUserId");
-
-                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.PatientFile", null)
-                        .WithMany("ClinicFiles")
-                        .HasForeignKey("PatientFileId");
-
-                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.PatientFile", null)
-                        .WithMany("Patients")
-                        .HasForeignKey("PatientFileId1");
-
-                    b.Navigation("CreatedUser");
-
-                    b.Navigation("ModifyUser");
-                });
-
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
                 {
                     b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
@@ -1256,6 +1271,29 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Navigation("Office");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.MedicalFile", b =>
+                {
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.Medical", "Medical")
+                        .WithMany()
+                        .HasForeignKey("MedicalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
+                        .WithMany()
+                        .HasForeignKey("ModifyUserId");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("Medical");
+
+                    b.Navigation("ModifyUser");
                 });
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Patient", b =>
@@ -1301,6 +1339,29 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.HasOne("SmartDigitalPsico.Model.Entity.Principals.Patient", "Patient")
                         .WithMany("PatientAdditionalInformations")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("ModifyUser");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientFile", b =>
+                {
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
+                        .WithMany()
+                        .HasForeignKey("ModifyUserId");
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.Patient", "Patient")
+                        .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1418,13 +1479,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Navigation("PatientMedicationInformations");
 
                     b.Navigation("PatientRecords");
-                });
-
-            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientFile", b =>
-                {
-                    b.Navigation("ClinicFiles");
-
-                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }

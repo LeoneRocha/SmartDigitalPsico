@@ -189,6 +189,9 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMedicalRepository, MedicalRepository>();
 
+            services.AddScoped<IPatientFileRepository, PatientFileRepository>();
+            services.AddScoped<IMedicalFileRepository, MedicalFileRepository>();
+
             #region PATIENT
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IPatientRecordRepository, PatientRecordRepository>();
@@ -219,6 +222,10 @@ namespace SmartDigitalPsico.WebAPI
 
             services.AddScoped<IUserBusiness, UserBusiness>();
             services.AddScoped<IMedicalBusiness, MedicalBusiness>();
+
+            services.AddScoped<IPatientFileBusiness, PatientFileBusiness>();
+            services.AddScoped<IMedicalFileBusiness, MedicalFileBusiness>();
+
             #region PATIENT
             services.AddScoped<IPatientBusiness, PatientBusiness>();
             services.AddScoped<IPatientRecordBusiness, PatientRecordBusiness>();
@@ -241,6 +248,9 @@ namespace SmartDigitalPsico.WebAPI
 
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IMedicalServices, MedicalServices>();
+
+            services.AddScoped<IPatientFileServices, PatientFileServices>();
+            services.AddScoped<IMedicalFileServices, MedicalFileServices>(); 
             #region PATIENT
             services.AddScoped<IPatientServices, PatientServices>();
             services.AddScoped<IPatientRecordServices, PatientRecordServices>();
@@ -249,8 +259,6 @@ namespace SmartDigitalPsico.WebAPI
             services.AddScoped<IPatientAdditionalInformationServices, PatientAdditionalInformationServices>();
             services.AddScoped<IPatientNotificationMessageServices, PatientNotificationMessageServices>();
             #endregion PATIENT
-
-
         }
 
         private void addDependencies(IServiceCollection services)

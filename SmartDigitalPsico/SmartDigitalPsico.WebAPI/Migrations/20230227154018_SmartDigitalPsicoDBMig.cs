@@ -17,6 +17,48 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
+                name: "ApplicationConfigSetting",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false),
+                    EndPointUrl_StorageFiles = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    EndPointUrl_Cache = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationConfigSetting", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationLanguage",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    Language = table.Column<string>(type: "char(5)", maxLength: 5, nullable: false),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    LanguageKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    LanguageValue = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationLanguage", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Genders",
                 schema: "dbo",
                 columns: table => new
@@ -194,6 +236,47 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MedicalFile",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    MedicalId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicalFile", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MedicalFile_Medicals_MedicalId",
+                        column: x => x.MedicalId,
+                        principalSchema: "dbo",
+                        principalTable: "Medicals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MedicalFile_Users_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MedicalFile_Users_ModifyUserId",
+                        column: x => x.ModifyUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MedicalSpecialty",
                 schema: "dbo",
                 columns: table => new
@@ -317,6 +400,47 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PatientAdditionalInformations_Users_ModifyUserId",
+                        column: x => x.ModifyUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PatientFile",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    PatientId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientFile", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PatientFile_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalSchema: "dbo",
+                        principalTable: "Patients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PatientFile_Users_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalSchema: "dbo",
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PatientFile_Users_ModifyUserId",
                         column: x => x.ModifyUserId,
                         principalSchema: "dbo",
                         principalTable: "Users",
@@ -535,6 +659,24 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_MedicalFile_CreatedUserId",
+                schema: "dbo",
+                table: "MedicalFile",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MedicalFile_MedicalId",
+                schema: "dbo",
+                table: "MedicalFile",
+                column: "MedicalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MedicalFile_ModifyUserId",
+                schema: "dbo",
+                table: "MedicalFile",
+                column: "ModifyUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Medicals_CreatedUserId",
                 schema: "dbo",
                 table: "Medicals",
@@ -580,6 +722,24 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                 name: "IX_PatientAdditionalInformations_PatientId",
                 schema: "dbo",
                 table: "PatientAdditionalInformations",
+                column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientFile_CreatedUserId",
+                schema: "dbo",
+                table: "PatientFile",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientFile_ModifyUserId",
+                schema: "dbo",
+                table: "PatientFile",
+                column: "ModifyUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientFile_PatientId",
+                schema: "dbo",
+                table: "PatientFile",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
@@ -689,11 +849,27 @@ namespace SmartDigitalPsico.WebAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ApplicationConfigSetting",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationLanguage",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "MedicalFile",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
                 name: "MedicalSpecialty",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "PatientAdditionalInformations",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "PatientFile",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

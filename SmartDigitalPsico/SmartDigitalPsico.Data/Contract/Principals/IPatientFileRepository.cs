@@ -5,7 +5,6 @@ using SmartDigitalPsico.Repository.Generic.Contracts;
 namespace SmartDigitalPsico.Repository.Contract.Principals
 {
     public interface IPatientFileRepository : IRepositoryEntityBaseSimple<PatientFile>
-    {
-        Task<PatientFile> FindByPatient(PatientFile info);
+    { 
     }
 }

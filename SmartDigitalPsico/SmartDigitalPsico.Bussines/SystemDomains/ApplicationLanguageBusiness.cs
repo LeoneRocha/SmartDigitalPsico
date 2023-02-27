@@ -10,7 +10,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 namespace SmartDigitalPsico.Business.SystemDomains
 {
     public class ApplicationLanguageBusiness
-      : GenericBussinesEntityBaseSimplev2<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO, IApplicationLanguageRepository>, IApplicationLanguageBusiness
+      : GenericBusinessEntityBaseSimplev2<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO, IApplicationLanguageRepository>, IApplicationLanguageBusiness
     {
         private readonly IMapper _mapper;
         private readonly IApplicationLanguageRepository _genericRepository;

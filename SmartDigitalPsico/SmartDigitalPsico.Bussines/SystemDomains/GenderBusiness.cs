@@ -11,7 +11,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 namespace SmartDigitalPsico.Business.SystemDomains
 {
     public class GenderBusiness
-      : GenericBussinesEntityBaseSimplev2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderRepository>, IGenderBusiness
+      : GenericBusinessEntityBaseSimplev2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderRepository>, IGenderBusiness
     {
         private readonly IMapper _mapper;
         private readonly IGenderRepository _genericRepository;

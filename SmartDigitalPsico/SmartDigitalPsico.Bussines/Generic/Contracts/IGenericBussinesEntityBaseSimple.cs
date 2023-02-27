@@ -15,7 +15,7 @@ namespace SmartDigitalPsico.Business.Generic.Contracts
         Task<ServiceResponse<List<EntityVO>>> FindWithPagedSearch(string query);
         Task<ServiceResponse<int>> GetCount(string query);
         Task<ServiceResponse<bool>> EnableOrDisable(long id);
-      
+
 
     }
 }

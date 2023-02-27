@@ -8,7 +8,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class MedicalFileBusiness : GenericBussinesEntityBaseSimplev2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileRepository>, IMedicalFileBusiness
+    public class MedicalFileBusiness : GenericBusinessEntityBaseSimplev2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileRepository>, IMedicalFileBusiness
 
     {
         private readonly IMapper _mapper;

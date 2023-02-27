@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -10,7 +11,8 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientAdditionalInformationBusiness : GenericBusinessEntityBaseSimple<PatientAdditionalInformation, IPatientAdditionalInformationRepository, GetPatientAdditionalInformationVO>, IPatientAdditionalInformationBusiness
+    public class PatientAdditionalInformationBusiness : GenericBusinessEntityBaseSimplev2<PatientAdditionalInformation, AddPatientAdditionalInformationVO, UpdatePatientAdditionalInformationVO, GetPatientAdditionalInformationVO
+        , IPatientAdditionalInformationRepository>, IPatientAdditionalInformationBusiness
 
     {
         private readonly IMapper _mapper;
@@ -28,33 +30,33 @@ namespace SmartDigitalPsico.Business.Principals
             _patientRepository = patientRepository;
         } 
 
-        public async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Create(AddPatientAdditionalInformationVO item)
-        {
-            ServiceResponse<GetPatientAdditionalInformationVO> response = new ServiceResponse<GetPatientAdditionalInformationVO>();
+        //public async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Create(AddPatientAdditionalInformationVO item)
+        //{
+        //    ServiceResponse<GetPatientAdditionalInformationVO> response = new ServiceResponse<GetPatientAdditionalInformationVO>();
 
-            PatientAdditionalInformation entityAdd = _mapper.Map<PatientAdditionalInformation>(item);
+        //    PatientAdditionalInformation entityAdd = _mapper.Map<PatientAdditionalInformation>(item);
              
-            #region Relationship
+        //    #region Relationship
 
-            User userAction = await _userRepository.FindByID(item.IdUserAction);
-            entityAdd.CreatedUser = userAction;
+        //    User userAction = await _userRepository.FindByID(item.IdUserAction);
+        //    entityAdd.CreatedUser = userAction;
 
-            Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
-            entityAdd.Patient = patientAdd;
+        //    Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
+        //    entityAdd.Patient = patientAdd;
 
-            #endregion
+        //    #endregion
 
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
+        //    entityAdd.CreatedDate = DateTime.Now;
+        //    entityAdd.ModifyDate = DateTime.Now;
+        //    entityAdd.LastAccessDate = DateTime.Now;
 
-            PatientAdditionalInformation entityResponse = await _entityRepository.Create(entityAdd);
+        //    PatientAdditionalInformation entityResponse = await _entityRepository.Create(entityAdd);
 
-            response.Data = _mapper.Map<GetPatientAdditionalInformationVO>(entityResponse);
-            response.Success = true;
-            response.Message = "Patient registred.";
-            return response;
-        }
+        //    response.Data = _mapper.Map<GetPatientAdditionalInformationVO>(entityResponse);
+        //    response.Success = true;
+        //    response.Message = "Patient registred.";
+        //    return response;
+        //}
 
         public async Task<ServiceResponse<List<GetPatientAdditionalInformationVO>>> FindAllByPatient(long patientId)
         {

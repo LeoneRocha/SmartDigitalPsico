@@ -7,7 +7,7 @@ using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Generic
 {
-    public class GenericBussinesEntityBaseSimplev2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult, Repo>
+    public class GenericBusinessEntityBaseSimplev2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult, Repo>
         : IGenericBusinessEntityBaseSimpleV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
         where TEntity : EntityBaseSimple
         where TEntityAdd : IEntityVOAdd
@@ -18,7 +18,7 @@ namespace SmartDigitalPsico.Business.Generic
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
-        public GenericBussinesEntityBaseSimplev2(IMapper mapper, Repo UserRepository)
+        public GenericBusinessEntityBaseSimplev2(IMapper mapper, Repo UserRepository)
         {
             _mapper = mapper;
             _genericRepository = UserRepository;

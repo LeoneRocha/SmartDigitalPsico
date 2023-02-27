@@ -6,12 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation
 {
-    public class AddPatientAdditionalInformationVO : ISupportsHyperMedia, IEntityVOUserLog
-    {
-        [Required]
-        public long IdUserAction { get; set; }
-
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+    public class AddPatientAdditionalInformationVO : IEntityVOAdd
+    { 
+         
         #region Relationship 
         [Required]
         public long PatientId { get; set; }
@@ -19,9 +16,9 @@ namespace SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation
         #endregion Relationship
 
         #region Columns 
-         
+
         public string FollowUp_Psychiatric { get; set; }
-         
+
         public string FollowUp_Neurological { get; set; }
 
         #endregion Columns 

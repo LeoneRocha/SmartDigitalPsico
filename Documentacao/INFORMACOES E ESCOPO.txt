@@ -1,0 +1,38 @@
+
+Portifolio Projto FIcha Psicologia
+Features / ESCOPO
+- em .net Core 
+
+0) WEB API 
+-  
+- Code First / Migration 
+- SQL SERVER 
+- MIGRAR PARA MYSQL -  Local Podemo migrar para Google Cloud
+
+1) Agular (Backofice e administrativo) 
+- Autenticacao Azure Directory 
+- Azure CosmoDB SQL NO SQL / Azure Cache Redis ( Informacoes estaticas dos sistem) sistema de cache 
+* No local MongoDB 
+
+-- Azure Storage Blob - Para upload de arquivos, receituario, etc 
+*** Mas a versao final usaremos o S3 Amazon 
+
+* No local  MYSQL/SQL SERVER GUARDA NA TABELA 
+
+- Em container do docker
+- Testes automatizados UNIT 
+
+- (Menssageria) Azure Service Bus / HUB de EVENTOS (Modulo de recebimento de menssagens de pacientes via dispositivos moveis ou website)
+
+-- INPUT 
+- PROCESS
+-- OUT PUT Enviar notificacao (
+
+2) Centro de menssagens cliente movel em REACT + NATIVE gerar app movel 
+- 
+
+3) DEPLOY AUTOMATICO 
+
+ 
+
+ 

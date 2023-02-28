@@ -1,26 +1,11 @@
 
-Portifolio Projto FIcha Psicologia
-Features / ESCOPO
-- em .net Core 
+--------------REMOVE 
+dotnet ef database update 0
+dotnet ef migrations remove
 
-0) WEB API 
--  
-- Code First / Migration 
-- SQL SERVER 
-- MIGRAR PARA MYSQL -  Local Podemo migrar para Google Cloud
 
-1) Agular (Backofice e administrativo) 
-- Autenticacao Azure Directory 
-- Azure CosmoDB SQL NO SQL  / Azure Cache Redis ( Informacoes estaticas dos sistem) sistema de cache 
--- Azure Storage Blob - Para upload de arquivos, receituario, etc 
-*** Mas a versao final usaremos o S3 Amazon 
 
-- Em container do docker
-- Testes automatizados UNIT 
 
-- Azure Service Bus / HUB de EVENTOS (Modulo de recebimento de menssagens de pacientes via dispositivos moveis ou website)
-2) Centro de menssagens cliente movel em REACT + NATIVE gerar app movel 
--
 
 
 a - Criando a migra??o
@@ -40,19 +25,6 @@ dotnet ef migrations add NomeDaMigra??o [options]
 Para este comando funcionar temos instalar a ferramenta de linha de comando do EF Core globalmente usando o comando:
 
 dotnet tool install --global dotnet-ef
-
-
-
-
-
-3) DEPLOY AUTOMATICO 
-
-
-
---------------REMOVE 
-dotnet ef database update 0
-dotnet ef migrations remove
-
 
 
 https://localhost:5001/swagger/index.html
@@ -149,3 +121,126 @@ dotnet ef migrations add Role
             //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetMedicalVO>());
             //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetPatientVO>>());
             //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetPatientVO>());
+
+
+
+a - Criando a migra??o
+
+Para criar a migra??o no VS 2019 Community podemos abrir a janela do Package Manager Console (PMC) e digitar o comando:   
+
+Add-Migration  SmartDigitalPsicoDBMig [options]
+
+dotnet ef migrations add SmartDigitalPsicoDBMig [options]
+
+Este comando precisa do pacote Microsoft.EntityFrameworkCore.Tools instalado para funcionar.
+
+Usando o VS Code e a ferramenta de linha de comando CLI o comando ?:
+
+dotnet ef migrations add NomeDaMigra??o [options]
+
+Para este comando funcionar temos instalar a ferramenta de linha de comando do EF Core globalmente usando o comando:
+
+dotnet tool install --global dotnet-ef
+
+
+  
+
+ 
+Psicologia Social 
+ 
+  
+
+
+=== Medico EMPRESA
+
+Nome: 
+Cargo:
+Especialidades:
+CRP/CRM: 
+
+ 
+Name:
+Office:
+Specialties:
+CRP/CRM:
+
+
+
+=== IDENTIFICACAO 
+
+PACIENTE (NOME) 
+
+DATA DE NASCIMENTO : 
+GÊNEREO: 
+CPF: 
+RG: 
+Profissão 
+ESCOLARIDADE:  
+Estado civil 
+Telefone
+EMAIL 
+ENDERECO 
+BAIRRO 
+CIDADE 
+ESTADO  
+
+Contato emergencia (nome): 
+Telefone: 
+
+
+PATIENT (NAME)
+
+DATE OF BIRTH :
+GENDER:
+CPF:
+RG:
+Profession XXXXXXXXXXXXXXXXXXXXXX
+EDUCATION:
+marital status
+Telephone
+EMAIL
+ADDRESS
+NEIGHBORHOOD
+CITY
+STATE
+
+Emergency contact (name):
+Telephone:
+
+Emergency contact (name):
+Telephone:
+
+
+
+=== INFORMAÇÔES COMPLEMENTARES 
+
+Acompanhamento pisiquiatrico:
+Acompanhamento neurologico:
+
+#Lista de medicação#
+Medicação: | Inicio:(DATA) 
+
+#Lista de INTERNACOES#
+
+Descrição: | Inicio:(DATA)  Fim:(DATA)   CID: 
+
+OBSERVACOES. 
+*******************************************************************
+Psychiatric follow-up:
+Neurological follow-up:
+
+# Medication list#
+Medication: | Start: (DATE)
+
+# INTERNATIONAL LIST#
+
+Description: | Start:(DATE) End:(DATE) CID:
+
+COMMENTS.
+*********************************************************************
+
+=== INFORMAÇÔES COMPLEMENTARES 
+
+PRONTUARIO 
+
+DATA: QUEIXA INICIAL 

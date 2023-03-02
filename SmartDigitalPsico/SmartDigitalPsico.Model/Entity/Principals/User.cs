@@ -14,6 +14,10 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Relationship
         public List<RoleGroup> RoleGroups { get; set; }
 
+        public List<Medical> MedicalsCreateds { get; set; }
+
+        public List<Medical> MedicalModifies { get; set; }
+
         #endregion Relationship
 
         #region Columns 

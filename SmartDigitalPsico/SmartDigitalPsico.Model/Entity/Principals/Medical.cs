@@ -17,10 +17,20 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public Office Office { get; set; } 
         
         public User? User { get; set; }
+       /// public long? UserId { get; set; }
+         
         public List<Specialty> Specialties { get; set; }
+        //public List<long> SpecialtyIds { get; set; }
+
         public List<Patient> Patienties { get; set; }
+        //public List<long> PatientIds { get; set; }
+
         public User? CreatedUser { get; set; }
+        public long? CreatedUserId { get; set; }
+
         public User? ModifyUser { get; set; }
+        public long? ModifyUserId { get; set; }
+
         #endregion Relationship
 
         #region Columns

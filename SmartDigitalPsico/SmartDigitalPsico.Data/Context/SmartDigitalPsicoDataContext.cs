@@ -6,6 +6,7 @@ using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System.Globalization;
+using System.Reflection.Metadata;
 
 namespace SmartDigitalPsico.Repository.Context
 {
@@ -151,8 +152,8 @@ namespace SmartDigitalPsico.Repository.Context
                 Accreditation = "123456",
                 TypeAccreditation = Domains.Enuns.ETypeAccreditation.CRM,
                 //CreatedUser = newAddUser,
-                OfficeId = 3
-
+                OfficeId = 3,                
+                CreatedUserId = 1 
             };
 
             modelBuilder.Entity<Medical>().HasData(newAddMedical);
@@ -163,15 +164,30 @@ namespace SmartDigitalPsico.Repository.Context
                      .WithMany(b => b.Medicals)
                      .HasForeignKey("OfficeId")
                      .IsRequired();
-            /*
-            modelBuilder.Entity<Medical>() 
-                .HasRequired<Office>(s => s.)
-                .WithMany(g => g.Students)
-                .HasForeignKey<int>(s => s.CurrentGradeId);
-            */
+
+            // configures one-to-many relationship
+            //modelBuilder.Entity<Medical>().HasOne(p => p.CreatedUser).WithOne();
+
+            //modelBuilder.Entity<Medical>().Navigation(b => b.CreatedUser).UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            // configures one-to-many relationship
+            modelBuilder.Entity<Medical>()
+                     .HasOne(p => p.CreatedUser)
+                     .WithMany(b => b.MedicalsCreateds)
+                     .HasForeignKey(t => t.CreatedUserId)
+                     .OnDelete(DeleteBehavior.NoAction)
+                     .IsRequired(false);
+
+            modelBuilder.Entity<Medical>()
+                     .HasOne(p => p.ModifyUser)
+                     .WithMany(b => b.MedicalModifies)
+                     .HasForeignKey(t => t.ModifyUserId)
+                     .OnDelete(DeleteBehavior.NoAction)
+                     .IsRequired(false);
 
 
-            #endregion v
+
+            #endregion Medical
 
             #endregion MOCK
 

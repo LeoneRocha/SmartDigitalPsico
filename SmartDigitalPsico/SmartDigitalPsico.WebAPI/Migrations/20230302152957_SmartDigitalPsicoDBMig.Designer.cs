@@ -12,7 +12,7 @@ using SmartDigitalPsico.Repository.Context;
 namespace SmartDigitalPsico.WebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
-    [Migration("20230302145614_SmartDigitalPsicoDBMig")]
+    [Migration("20230302152957_SmartDigitalPsicoDBMig")]
     partial class SmartDigitalPsicoDBMig
     {
         /// <inheritdoc />
@@ -603,11 +603,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Accreditation = "123456",
-                            CreatedDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(6392),
+                            CreatedDate = new DateTime(2023, 3, 2, 12, 29, 57, 557, DateTimeKind.Local).AddTicks(8451),
+                            CreatedUserId = 1L,
                             Email = "medical@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(6396),
-                            ModifyDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(6397),
+                            LastAccessDate = new DateTime(2023, 3, 2, 12, 29, 57, 557, DateTimeKind.Local).AddTicks(8454),
+                            ModifyDate = new DateTime(2023, 3, 2, 12, 29, 57, 557, DateTimeKind.Local).AddTicks(8455),
                             Name = "Medical MOCK ",
                             OfficeId = 3L,
                             TypeAccreditation = 0
@@ -1298,15 +1299,15 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            CreatedDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(4974),
+                            CreatedDate = new DateTime(2023, 3, 2, 12, 29, 57, 557, DateTimeKind.Local).AddTicks(6868),
                             Email = "admin@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(4992),
+                            LastAccessDate = new DateTime(2023, 3, 2, 12, 29, 57, 557, DateTimeKind.Local).AddTicks(6885),
                             Login = "admin",
-                            ModifyDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(4994),
+                            ModifyDate = new DateTime(2023, 3, 2, 12, 29, 57, 557, DateTimeKind.Local).AddTicks(6888),
                             Name = "User MOCK ",
-                            PasswordHash = new byte[] { 118, 95, 119, 98, 10, 215, 114, 243, 14, 231, 143, 170, 27, 96, 105, 184, 144, 198, 163, 2, 172, 244, 164, 43, 98, 246, 5, 118, 4, 110, 127, 106, 143, 6, 214, 196, 14, 100, 125, 141, 34, 89, 16, 142, 35, 157, 133, 255, 252, 243, 55, 98, 236, 193, 9, 254, 50, 243, 251, 122, 36, 72, 196, 81 },
-                            PasswordSalt = new byte[] { 141, 234, 200, 136, 22, 130, 165, 128, 0, 23, 254, 203, 137, 128, 114, 120, 111, 233, 231, 219, 22, 160, 167, 246, 68, 165, 180, 142, 107, 181, 208, 68, 122, 250, 77, 34, 152, 20, 53, 118, 182, 251, 211, 41, 236, 28, 57, 138, 89, 198, 196, 126, 130, 117, 32, 91, 135, 92, 232, 161, 204, 214, 117, 162, 124, 248, 226, 209, 163, 25, 203, 26, 121, 103, 45, 99, 68, 109, 52, 217, 237, 67, 196, 107, 127, 131, 168, 51, 51, 120, 133, 6, 33, 178, 112, 34, 223, 135, 212, 212, 11, 180, 104, 167, 178, 171, 40, 44, 105, 44, 194, 191, 233, 83, 35, 145, 230, 63, 46, 38, 57, 107, 81, 105, 160, 63, 147, 69 },
+                            PasswordHash = new byte[] { 62, 214, 12, 242, 18, 231, 20, 165, 157, 9, 189, 221, 8, 123, 224, 111, 209, 178, 49, 81, 218, 149, 253, 89, 169, 214, 36, 235, 56, 69, 3, 139, 199, 0, 127, 156, 134, 90, 148, 25, 26, 87, 21, 128, 190, 169, 136, 58, 240, 10, 174, 244, 14, 200, 186, 194, 142, 178, 21, 213, 51, 120, 74, 11 },
+                            PasswordSalt = new byte[] { 144, 91, 202, 79, 75, 37, 187, 162, 207, 107, 227, 152, 218, 119, 90, 142, 155, 6, 40, 165, 8, 179, 49, 6, 226, 56, 32, 77, 139, 67, 147, 172, 165, 153, 119, 204, 181, 83, 22, 207, 182, 157, 5, 58, 141, 160, 139, 35, 197, 175, 165, 132, 185, 66, 119, 26, 60, 131, 136, 100, 196, 251, 14, 202, 31, 94, 176, 137, 152, 130, 41, 130, 24, 204, 229, 217, 200, 110, 191, 109, 21, 91, 160, 48, 141, 67, 154, 219, 179, 31, 160, 14, 210, 53, 190, 40, 32, 11, 184, 58, 20, 81, 55, 146, 38, 135, 40, 97, 148, 169, 31, 81, 126, 23, 36, 250, 84, 168, 115, 101, 89, 162, 65, 224, 149, 8, 205, 234 },
                             Role = "Admin"
                         });
                 });
@@ -1344,12 +1345,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
                 {
                     b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedUserId");
+                        .WithMany("MedicalsCreateds")
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
-                        .WithMany()
-                        .HasForeignKey("ModifyUserId");
+                        .WithMany("MedicalModifies")
+                        .HasForeignKey("ModifyUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SmartDigitalPsico.Model.Entity.Domains.Office", "Office")
                         .WithMany("Medicals")
@@ -1581,6 +1584,13 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Navigation("PatientMedicationInformations");
 
                     b.Navigation("PatientRecords");
+                });
+
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.User", b =>
+                {
+                    b.Navigation("MedicalModifies");
+
+                    b.Navigation("MedicalsCreateds");
                 });
 #pragma warning restore 612, 618
         }

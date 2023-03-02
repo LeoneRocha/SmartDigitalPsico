@@ -8,19 +8,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("Medicals", Schema = "dbo")]
-    public class Medical : EntityBase, IEntityBaseLogUser    
+    public class Medical : EntityBase, IEntityBaseLogUser
     {
         #region Relationship
-         
+
         public long OfficeId { get; set; }
-        
-        public Office Office { get; set; } 
-        
+
+        public Office Office { get; set; }
+
         public User? User { get; set; }
-       /// public long? UserId { get; set; }
-         
-        public List<Specialty> Specialties { get; set; }
-        //public List<long> SpecialtyIds { get; set; }
+        public long? UserId { get; set; }
+
+        public List<Specialty> Specialties { get; set; } 
 
         public List<Patient> Patienties { get; set; }
         //public List<long> PatientIds { get; set; }
@@ -42,7 +41,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         [Column("TypeAccreditation")]
         public ETypeAccreditation TypeAccreditation { get; set; }
- 
+
         #endregion Columns 
     }
 }

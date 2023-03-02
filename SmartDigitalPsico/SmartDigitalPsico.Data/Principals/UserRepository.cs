@@ -30,7 +30,13 @@ namespace SmartDigitalPsico.Repository.Principals
                 return true;
             }
             return false;
-        } 
+        }
+
+        public async override Task<List<User>> FindAll()
+        {
+            return await dataset.Include(e=> e.RoleGroups).ToListAsync();
+        }
+
         #region DISPOSE
         private bool disposed = false;
 

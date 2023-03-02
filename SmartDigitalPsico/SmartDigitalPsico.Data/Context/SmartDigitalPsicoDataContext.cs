@@ -40,8 +40,6 @@ namespace SmartDigitalPsico.Repository.Context
 
         #region Principais
 
-        public DbSet<User> Users { get; set; }
-
         public DbSet<Medical> Medicals { get; set; }
 
         public DbSet<Patient> Patients { get; set; }
@@ -63,10 +61,98 @@ namespace SmartDigitalPsico.Repository.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            string valorbr = new CultureInfo("pt-BR").Name;
+            configureProprieties(modelBuilder);
 
+            generateMock(modelBuilder);
+
+            configureRelations(modelBuilder);
+
+            configureDefaultValues(modelBuilder);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        private void configureProprieties(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Patient>().Property(b => b.Profession).IsRequired(false);//optinal case
+        }
 
+        private void configureDefaultValues(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property(u => u.Role).HasDefaultValue("Admin");
+            bool valorPadraoEnable = true;
+
+            #region Domains  DEFAULTs VALUEs
+            modelBuilder.Entity<Gender>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Specialty>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Office>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<RoleGroup>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+
+            #endregion Domains  DEFAULTs VALUEs
+
+            #region Principals  DEFAULTs VALUEs
+
+            modelBuilder.Entity<User>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Medical>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<Patient>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+
+            modelBuilder.Entity<PatientAdditionalInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientHospitalizationInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientMedicationInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientNotificationMessage>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+            modelBuilder.Entity<PatientRecord>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
+
+            #endregion Principals  DEFAULTs VALUEs
+        }
+
+        private void configureRelations(ModelBuilder modelBuilder)
+        {
+            //https://learn.microsoft.com/en-us/ef/ef6/modeling/code-first/fluent/relationships
+
+            #region Medical
+            // configures one-to-many relationship
+            modelBuilder.Entity<Medical>()
+                     .HasOne(p => p.Office)
+                     .WithMany(b => b.Medicals)
+                     .HasForeignKey("OfficeId")
+                     .IsRequired();
+
+            // configures one-to-many relationship
+            //modelBuilder.Entity<Medical>().HasOne(p => p.CreatedUser).WithOne();
+
+            //modelBuilder.Entity<Medical>().Navigation(b => b.CreatedUser).UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            // configures one-to-many relationship
+            modelBuilder.Entity<Medical>()
+                  .HasOne(p => p.User)
+                  .WithMany(b => b.MedicalsUsers)
+                  .HasForeignKey(t => t.UserId)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .IsRequired(false);
+
+            modelBuilder.Entity<Medical>()
+                     .HasOne(p => p.CreatedUser)
+                     .WithMany(b => b.MedicalsCreateds)
+                     .HasForeignKey(t => t.CreatedUserId)
+                     .OnDelete(DeleteBehavior.NoAction)
+                     .IsRequired(false);
+
+            modelBuilder.Entity<Medical>()
+                     .HasOne(p => p.ModifyUser)
+                     .WithMany(b => b.MedicalModifies)
+                     .HasForeignKey(t => t.ModifyUserId)
+                     .OnDelete(DeleteBehavior.NoAction)
+                     .IsRequired(false);
+
+            //Specialties 
+            //modelBuilder.Entity<Medical>().HasMany(p => p.Specialties).WithMany(p => p.Medicals).UsingEntity(j => j.ToTable("MedicalSpecialties"));
+
+            #endregion Medical
+        }
+
+        private void generateMock(ModelBuilder modelBuilder)
+        {
+            string valorbr = new CultureInfo("pt-BR").Name;
             #region MOCK
 
             #region Gender
@@ -88,16 +174,17 @@ namespace SmartDigitalPsico.Repository.Context
             #endregion
 
             #region Specialty
+            var specialtySAdd = new List<Specialty>();
 
-            modelBuilder.Entity<Specialty>().HasData(
-              new Specialty { Id = 1, Description = "Psicologia Clínica", Language = valorbr },
-              new Specialty { Id = 2, Description = "Psicologia Social", Language = valorbr },
-              new Specialty { Id = 3, Description = "Psicologia educacional", Language = valorbr },
-              new Specialty { Id = 4, Description = "Psicologia Esportiva ", Language = valorbr },
-              new Specialty { Id = 5, Description = "Psicologia organizacional", Language = valorbr },
-              new Specialty { Id = 6, Description = "Psicologia hospitalar", Language = valorbr },
-              new Specialty { Id = 7, Description = "Psicologia do trânsito", Language = valorbr }
-              );
+            specialtySAdd.Add(new Specialty { Id = 1, Description = "Psicologia Clínica", Language = valorbr });
+            specialtySAdd.Add(new Specialty { Id = 2, Description = "Psicologia Social", Language = valorbr });
+            specialtySAdd.Add(new Specialty { Id = 3, Description = "Psicologia educacional", Language = valorbr });
+            specialtySAdd.Add(new Specialty { Id = 4, Description = "Psicologia Esportiva ", Language = valorbr });
+            specialtySAdd.Add(new Specialty { Id = 5, Description = "Psicologia organizacional", Language = valorbr });
+            specialtySAdd.Add(new Specialty { Id = 6, Description = "Psicologia hospitalar", Language = valorbr });
+            specialtySAdd.Add(new Specialty { Id = 7, Description = "Psicologia do trânsito", Language = valorbr });
+
+            modelBuilder.Entity<Specialty>().HasData(specialtySAdd);
             #endregion Specialty
 
             #region RoleGroup
@@ -132,13 +219,38 @@ namespace SmartDigitalPsico.Repository.Context
             newAddUser.PasswordHash = passwordHash;
             newAddUser.PasswordSalt = passwordSalt;
 
-            newAddUser.RoleGroups = new List<RoleGroup>();
-            //newAddUser.RoleGroups.Add(rolesAdd.First(et => et.Id == 1));
+            newAddUser.RoleGroups = new List<RoleGroup>(); 
 
             modelBuilder.Entity<User>().HasData(newAddUser);
-            #endregion 
+
+            var newAddUserMedical = new User
+            {
+                Id = 2,
+                Name = "User Medical",
+                Login = "doctor",
+                Admin = false,
+                Email = "doctor@sistemas.com",
+                CreatedDate = DateTime.Now,
+                Enable = true,
+                LastAccessDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                Role = "Medical",
+
+            };
+            SecurityHelper.CreatePasswordHash("doctor123", out byte[] passwordHashM, out byte[] passwordSaltM);
+            newAddUserMedical.PasswordHash = passwordHashM;
+            newAddUserMedical.PasswordSalt = passwordSaltM;
+
+            modelBuilder.Entity<User>().HasData(newAddUserMedical);
+
+            modelBuilder.Entity<User>().HasMany(p => p.RoleGroups).WithMany(p => p.Users).UsingEntity(j => j.HasData(new
+            { RoleGroupsId = (long)1, UsersId = (long)1 }));
+             
+            #endregion
 
             #region Medical
+            var medicalSpecialtyS = new List<Specialty>();
+            medicalSpecialtyS.Add(specialtySAdd.First());
 
             var newAddMedical = new Medical
             {
@@ -151,84 +263,18 @@ namespace SmartDigitalPsico.Repository.Context
                 ModifyDate = DateTime.Now,
                 Accreditation = "123456",
                 TypeAccreditation = Domains.Enuns.ETypeAccreditation.CRM,
-                //CreatedUser = newAddUser,
-                OfficeId = 3,                
-                CreatedUserId = 1 
+                OfficeId = 3,
+                CreatedUserId = 1,
+                UserId = 2, 
             };
-
+            modelBuilder.Entity<Medical>().HasMany(p => p.Specialties).WithMany(p => p.Medicals).UsingEntity(j => j.HasData(new
+            { SpecialtiesId = (long)1, MedicalsId = (long)1 }));
+             
             modelBuilder.Entity<Medical>().HasData(newAddMedical);
-
-            // configures one-to-many relationship
-            modelBuilder.Entity<Medical>()
-                     .HasOne(p => p.Office)
-                     .WithMany(b => b.Medicals)
-                     .HasForeignKey("OfficeId")
-                     .IsRequired();
-
-            // configures one-to-many relationship
-            //modelBuilder.Entity<Medical>().HasOne(p => p.CreatedUser).WithOne();
-
-            //modelBuilder.Entity<Medical>().Navigation(b => b.CreatedUser).UsePropertyAccessMode(PropertyAccessMode.Property);
-
-            // configures one-to-many relationship
-            modelBuilder.Entity<Medical>()
-                     .HasOne(p => p.CreatedUser)
-                     .WithMany(b => b.MedicalsCreateds)
-                     .HasForeignKey(t => t.CreatedUserId)
-                     .OnDelete(DeleteBehavior.NoAction)
-                     .IsRequired(false);
-
-            modelBuilder.Entity<Medical>()
-                     .HasOne(p => p.ModifyUser)
-                     .WithMany(b => b.MedicalModifies)
-                     .HasForeignKey(t => t.ModifyUserId)
-                     .OnDelete(DeleteBehavior.NoAction)
-                     .IsRequired(false);
-
-
 
             #endregion Medical
 
             #endregion MOCK
-
-            modelBuilder.Entity<User>().Property(u => u.Role).HasDefaultValue("Admin");
-            bool valorPadraoEnable = true;
-
-            #region Domains  DEFAULTs VALUEs
-            modelBuilder.Entity<Gender>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<Specialty>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<Office>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<RoleGroup>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-
-            #endregion Domains  DEFAULTs VALUEs
-
-            #region Principals  DEFAULTs VALUEs
-
-            modelBuilder.Entity<User>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<Medical>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<Patient>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-
-            modelBuilder.Entity<PatientAdditionalInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<PatientHospitalizationInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<PatientMedicationInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<PatientNotificationMessage>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-            modelBuilder.Entity<PatientRecord>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
-
-            #endregion Principals  DEFAULTs VALUEs
-
-
-            //modelBuilder.Entity<User>()
-            //   .HasMany(p => p.RoleGroups)
-            //   .WithMany(t => t.Users)
-            //   .UsingEntity<Dictionary<string, object>>(
-            //       "UserRoleGroup",  
-            //    r => r.HasOne<User>().WithMany().HasForeignKey("RoleId"),
-
-            //       l => l.HasOne<RoleGroup>().WithMany().HasForeignKey("UserId") );
-
-
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

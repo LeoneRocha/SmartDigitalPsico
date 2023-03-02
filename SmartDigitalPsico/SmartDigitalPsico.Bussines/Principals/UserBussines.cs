@@ -101,7 +101,7 @@ namespace SmartDigitalPsico.Business.Principals
             User entityResponse = await _userRepository.Update(entityUpdate);
             response.Success = true;
             response.Data = _mapper.Map<GetUserVO>(entityResponse);
-
+              
             if (response.Success)
                 response.Message = "User Updated.";
 

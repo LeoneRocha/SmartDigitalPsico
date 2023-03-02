@@ -1,0 +1,60 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using SmartDigitalPsico.Domains.Hypermedia;
+using SmartDigitalPsico.Domains.Hypermedia.Constants;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
+using SmartDigitalPsico.Model.VO.User;
+using System.Text;
+
+namespace SmartDigitalPsico.Model.Hypermedia.Enricher
+{
+    public class GetUserVOEnricher : ContentResponseEnricher<GetUserVO> 
+         
+    {
+        private readonly object _lock = new object();
+        protected override Task EnrichModel(GetUserVO content, IUrlHelper urlHelper)
+        {
+            var path = "api/user/v1";
+            string link = GetLink(content.Id, urlHelper, path);
+
+            content.Links.Add(new HyperMediaLink()
+            {
+                Action = HttpActionVerb.GET,
+                Href = link,
+                Rel = RelationType.self,
+                Type = ResponseTypeFormat.DefaultGet
+            });
+            content.Links.Add(new HyperMediaLink()
+            {
+                Action = HttpActionVerb.POST,
+                Href = link,
+                Rel = RelationType.self,
+                Type = ResponseTypeFormat.DefaultPost
+            });
+            content.Links.Add(new HyperMediaLink()
+            {
+                Action = HttpActionVerb.PUT,
+                Href = link,
+                Rel = RelationType.self,
+                Type = ResponseTypeFormat.DefaultPut
+            });
+            content.Links.Add(new HyperMediaLink()
+            {
+                Action = HttpActionVerb.DELETE,
+                Href = link,
+                Rel = RelationType.self,
+                Type = "long"
+            });
+            return Task.Run(() => { });//Ajuste para o resultado não lancar erro de objeto nullo
+        }
+
+        private string GetLink(long id, IUrlHelper urlHelper, string path)
+        {
+            lock (_lock)
+            {
+                var url = new { controller = path, id };
+                return new StringBuilder(urlHelper.Link("DefaultApi", url)).Replace("%2F", "/").ToString();
+            };
+        }
+    }
+}

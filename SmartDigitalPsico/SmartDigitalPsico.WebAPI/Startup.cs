@@ -81,6 +81,8 @@ namespace SmartDigitalPsico.WebAPI
             var filterOptions = new HyperMediaFilterOptions();
 
             filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
+            
+            filterOptions.ContentResponseEnricherList.Add(new GetUserVOEnricher());
 
             services.AddSingleton(filterOptions);
         }

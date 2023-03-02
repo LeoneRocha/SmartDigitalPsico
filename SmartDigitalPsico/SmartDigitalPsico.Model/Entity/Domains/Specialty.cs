@@ -17,6 +17,6 @@ namespace SmartDigitalPsico.Model.Entity.Domains
         [MaxLength(5)]
         public string Language { get; set; }
 
-        public List<Medical> Medicals { get; set; }
+        public List<Medical> Medicals { get; set; } 
     }
 }

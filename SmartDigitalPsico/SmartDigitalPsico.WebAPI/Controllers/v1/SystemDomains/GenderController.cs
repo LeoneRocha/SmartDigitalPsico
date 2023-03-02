@@ -8,7 +8,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
@@ -16,11 +16,11 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class RoleGroupController : ControllerBase
+    public class GenderController : ControllerBase
     {
-        private readonly IRoleGroupServices _entityService;
+        private readonly IGenderServices _entityService;
 
-        public RoleGroupController(IRoleGroupServices entityService)
+        public GenderController(IGenderServices entityService)
         {
             _entityService = entityService;
         }
@@ -28,30 +28,30 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
         //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetRoleGroupVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Get()
         {
+            var result = _entityService.FindAll();
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            return Ok(await _entityService.FindAll());
+            return Ok(await result);
         }
-
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> GetById(int id)
         {
             return Ok(await _entityService.FindByID(id));
         }
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetRoleGroupVO>>>> Create(AddRoleGroupVO newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Create(AddGenderVO newEntity)
         {
             return Ok(await _entityService.Create(newEntity));
         }
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> Update(UpdateRoleGroupVO updateEntity)
+        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Update(UpdateGenderVO updateEntity)
         {
             //return BadRequest("Em construção"); 
             var response = await _entityService.Update(updateEntity);

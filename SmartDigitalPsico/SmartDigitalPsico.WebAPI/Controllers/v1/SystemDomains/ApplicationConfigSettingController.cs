@@ -8,7 +8,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
@@ -30,7 +30,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetApplicationConfigSettingVO>>>> Get()
         {
-            var result = _entityService.FindAll(); 
+            var result = _entityService.FindAll();
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
             return Ok(await result);

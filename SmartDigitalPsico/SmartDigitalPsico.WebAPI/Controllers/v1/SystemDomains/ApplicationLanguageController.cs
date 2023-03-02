@@ -8,7 +8,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
@@ -16,11 +16,11 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class SpecialtyController : ControllerBase
+    public class ApplicationLanguageController : ControllerBase
     {
-        private readonly ISpecialtyServices _entityService;
+        private readonly IApplicationLanguageServices _entityService;
 
-        public SpecialtyController(ISpecialtyServices entityService)
+        public ApplicationLanguageController(IApplicationLanguageServices entityService)
         {
             _entityService = entityService;
         }
@@ -28,30 +28,30 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
         //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetSpecialtyVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetApplicationLanguageVO>>>> Get()
         {
+            var result = _entityService.FindAll();
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            return Ok(await _entityService.FindAll());
+            return Ok(await result);
         }
-
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetSpecialtyVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> GetById(int id)
         {
             return Ok(await _entityService.FindByID(id));
         }
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetSpecialtyVO>>>> Create(AddSpecialtyVO newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetApplicationLanguageVO>>>> Create(AddApplicationLanguageVO newEntity)
         {
             return Ok(await _entityService.Create(newEntity));
         }
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetSpecialtyVO>>> Update(UpdateSpecialtyVO updateEntity)
+        public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> Update(UpdateApplicationLanguageVO updateEntity)
         {
             //return BadRequest("Em construção"); 
             var response = await _entityService.Update(updateEntity);

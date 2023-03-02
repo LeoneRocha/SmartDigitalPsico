@@ -5,7 +5,7 @@ using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.Auth
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.Auth
 {
     [ApiController]
     [ApiVersion("1")]

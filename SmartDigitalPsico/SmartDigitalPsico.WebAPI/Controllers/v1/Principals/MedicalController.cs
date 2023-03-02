@@ -1,55 +1,58 @@
+using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.Patient
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
-    [Route("api/patient/v{version:apiVersion}/[controller]")]
+    //[Authorize("Bearer")] 
+    [Route("api/medical/v{version:apiVersion}/[controller]")]
 
-    public class PatientController : ControllerBase
+    public class MedicalController : ControllerBase
     {
-        private readonly IPatientServices _entitytService;
+        private readonly IMedicalServices _medicalService;
 
-        public PatientController(IPatientServices PatientService)
+        public MedicalController(IMedicalServices medicalService)
         {
-            _entitytService = PatientService;
+            _medicalService = medicalService;
         }
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetPatientVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Get()
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            return Ok(await _entitytService.FindAll());
+            return Ok(await _medicalService.FindAll());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetPatientVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> GetById(int id)
         {
-            return Ok(await _entitytService.FindByID(id));
+            return Ok(await _medicalService.FindByID(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetPatientVO>>>> Create(AddPatientVO newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Create(AddMedicalVO newEntity)
         {
-            return Ok(await _entitytService.Create(newEntity));
+            return Ok(await _medicalService.Create(newEntity));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetPatientVO>>> Update(UpdatePatientVO UpdateEntity)
+        public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> Update(UpdateMedicalVO UpdateEntity)
         {
             return BadRequest("Em construção");  // Ok(new EmptyResult());
-            //var response = await _entitytService.Update(UpdateEntity);
+            //var response = await _medicalService.Update(UpdateEntity);
             //if (response.Data == null)
             //{
             //    return NotFound(response);
@@ -61,7 +64,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Patient
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            var response = await _entitytService.Delete(id);
+            var response = await _medicalService.Delete(id);
             if (response.Data)
             {
                 return NotFound(response);

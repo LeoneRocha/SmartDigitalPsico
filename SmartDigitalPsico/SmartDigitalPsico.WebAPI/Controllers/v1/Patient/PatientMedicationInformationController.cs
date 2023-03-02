@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
+using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.Patient
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
@@ -15,18 +15,18 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Patient
     //[Authorize("Bearer")]
     [Route("api/patient/v{version:apiVersion}/[controller]")]
 
-    public class PatientHospitalizationInformationController : ControllerBase
+    public class PatientMedicationInformationController : ControllerBase
     {
-        private readonly IPatientHospitalizationInformationServices _entitytService;
+        private readonly IPatientMedicationInformationServices _entitytService;
 
-        public PatientHospitalizationInformationController(IPatientHospitalizationInformationServices PatientHospitalizationInformationService)
+        public PatientMedicationInformationController(IPatientMedicationInformationServices PatientMedicationInformationService)
         {
-            _entitytService = PatientHospitalizationInformationService;
+            _entitytService = PatientMedicationInformationService;
         }
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetPatientHospitalizationInformationVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetPatientMedicationInformationVO>>>> Get()
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
@@ -34,19 +34,19 @@ namespace SmartDigitalPsico.WebAPI.Controllers.Patient
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetPatientHospitalizationInformationVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetPatientMedicationInformationVO>>> GetById(int id)
         {
             return Ok(await _entitytService.FindByID(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetPatientHospitalizationInformationVO>>>> Create(AddPatientHospitalizationInformationVO newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetPatientMedicationInformationVO>>>> Create(AddPatientMedicationInformationVO newEntity)
         {
             return Ok(await _entitytService.Create(newEntity));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetPatientHospitalizationInformationVO>>> Update(UpdatePatientHospitalizationInformationVO UpdateEntity)
+        public async Task<ActionResult<ServiceResponse<GetPatientMedicationInformationVO>>> Update(UpdatePatientMedicationInformationVO UpdateEntity)
         {
             return BadRequest("Em construção");  // Ok(new EmptyResult());
             //var response = await _entitytService.Update(UpdateEntity);

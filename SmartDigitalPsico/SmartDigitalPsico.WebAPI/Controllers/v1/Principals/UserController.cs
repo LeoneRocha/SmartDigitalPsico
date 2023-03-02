@@ -7,7 +7,7 @@ using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.Principals
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]

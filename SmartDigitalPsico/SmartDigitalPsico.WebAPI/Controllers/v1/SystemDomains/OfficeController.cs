@@ -8,7 +8,7 @@ using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
@@ -16,11 +16,11 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class GenderController : ControllerBase
+    public class OfficeController : ControllerBase
     {
-        private readonly IGenderServices _entityService;
+        private readonly IOfficeServices _entityService;
 
-        public GenderController(IGenderServices entityService)
+        public OfficeController(IOfficeServices entityService)
         {
             _entityService = entityService;
         }
@@ -28,30 +28,30 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
         //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetOfficeVO>>>> Get()
         {
-            var result = _entityService.FindAll(); 
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            return Ok(await result);
+            return Ok(await _entityService.FindAll());
         }
+
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetOfficeVO>>> GetById(int id)
         {
             return Ok(await _entityService.FindByID(id));
         }
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Create(AddGenderVO newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetOfficeVO>>>> Create(AddOfficeVO newEntity)
         {
             return Ok(await _entityService.Create(newEntity));
         }
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Update(UpdateGenderVO updateEntity)
+        public async Task<ActionResult<ServiceResponse<GetOfficeVO>>> Update(UpdateOfficeVO updateEntity)
         {
             //return BadRequest("Em construção"); 
             var response = await _entityService.Update(updateEntity);
@@ -73,5 +73,6 @@ namespace SmartDigitalPsico.WebAPI.Controllers.SystemDomains
             }
             return Ok(response);
         }
+
     }
 }

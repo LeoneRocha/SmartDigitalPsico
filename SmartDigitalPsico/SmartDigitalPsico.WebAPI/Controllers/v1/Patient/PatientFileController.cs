@@ -1,50 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
+using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.WebAPI.Controllers.MedicalFile
+namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
     //[Authorize("Bearer")]
-    [Route("api/medical/v{version:apiVersion}/[controller]")]
+    [Route("api/patient/v{version:apiVersion}/[controller]")]
 
-    public class MedicalFileController : ControllerBase
+    public class PatientFileController : ControllerBase
     {
-        private readonly IMedicalFileServices _entitytService;
+        private readonly IPatientFileServices _entitytService;
 
-        public MedicalFileController(IMedicalFileServices entitytService)
+        public PatientFileController(IPatientFileServices entitytService)
         {
             _entitytService = entitytService;
         }
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalFileVO>>>> Get()
-        { 
+        public async Task<ActionResult<ServiceResponse<List<GetPatientFileVO>>>> Get()
+        {
             return Ok(await _entitytService.FindAll());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetMedicalFileVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetPatientFileVO>>> GetById(int id)
         {
             return Ok(await _entitytService.FindByID(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalFileVO>>>> Create(AddMedicalFileVO newEntity)
+        public async Task<ActionResult<ServiceResponse<List<GetPatientFileVO>>>> Create(AddPatientFileVO newEntity)
         {
             return Ok(await _entitytService.Create(newEntity));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetMedicalFileVO>>> Update(UpdateMedicalFileVO UpdateEntity)
-        { 
+        public async Task<ActionResult<ServiceResponse<GetPatientFileVO>>> Update(UpdatePatientFileVO UpdateEntity)
+        {
             var response = await _entitytService.Update(UpdateEntity);
             if (response.Data == null)
             {

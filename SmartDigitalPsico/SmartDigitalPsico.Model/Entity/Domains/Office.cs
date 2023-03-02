@@ -1,5 +1,6 @@
 ﻿using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
+using SmartDigitalPsico.Model.Entity.Principals;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,5 +16,7 @@ namespace SmartDigitalPsico.Model.Entity.Domains
         [Column("Language", TypeName = "char(5)")]
         [MaxLength(5)]
         public string Language { get; set; }
+         
+        public List<Medical> Medicals { get; set; }
     }
 }

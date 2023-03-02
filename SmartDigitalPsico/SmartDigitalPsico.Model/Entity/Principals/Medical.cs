@@ -11,8 +11,11 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class Medical : EntityBase, IEntityBaseLogUser    
     {
         #region Relationship
-        [Required] 
-        public Office Office { get; set; }       
+         
+        public long OfficeId { get; set; }
+        
+        public Office Office { get; set; } 
+        
         public User? User { get; set; }
         public List<Specialty> Specialties { get; set; }
         public List<Patient> Patienties { get; set; }

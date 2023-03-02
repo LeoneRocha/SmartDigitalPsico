@@ -77,11 +77,12 @@ namespace SmartDigitalPsico.Repository.Context
 
             #region Office
 
-            modelBuilder.Entity<Office>().HasData(
-           new Office { Id = 1, Description = "Psicólogo", Language = valorbr },
-           new Office { Id = 2, Description = "Psicóloga", Language = valorbr },
-           new Office { Id = 3, Description = "Clínico", Language = valorbr }
-           );
+            List<Office> officeAdd = new List<Office>();
+            officeAdd.Add(new Office { Id = 1, Description = "Psicólogo", Language = valorbr });
+            officeAdd.Add(new Office { Id = 2, Description = "Psicóloga", Language = valorbr });
+            officeAdd.Add(new Office { Id = 3, Description = "Clínico", Language = valorbr });
+
+            modelBuilder.Entity<Office>().HasData(officeAdd);
 
             #endregion
 
@@ -133,11 +134,44 @@ namespace SmartDigitalPsico.Repository.Context
             newAddUser.RoleGroups = new List<RoleGroup>();
             //newAddUser.RoleGroups.Add(rolesAdd.First(et => et.Id == 1));
 
-
-
             modelBuilder.Entity<User>().HasData(newAddUser);
-            #endregion User
+            #endregion 
 
+            #region Medical
+
+            var newAddMedical = new Medical
+            {
+                Id = 1,
+                Name = "Medical MOCK ",
+                Email = "medical@sistemas.com",
+                CreatedDate = DateTime.Now,
+                Enable = true,
+                LastAccessDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                Accreditation = "123456",
+                TypeAccreditation = Domains.Enuns.ETypeAccreditation.CRM,
+                //CreatedUser = newAddUser,
+                OfficeId = 3
+
+            };
+
+            modelBuilder.Entity<Medical>().HasData(newAddMedical);
+
+            // configures one-to-many relationship
+            modelBuilder.Entity<Medical>()
+                     .HasOne(p => p.Office)
+                     .WithMany(b => b.Medicals)
+                     .HasForeignKey("OfficeId")
+                     .IsRequired();
+            /*
+            modelBuilder.Entity<Medical>() 
+                .HasRequired<Office>(s => s.)
+                .WithMany(g => g.Students)
+                .HasForeignKey<int>(s => s.CurrentGradeId);
+            */
+
+
+            #endregion v
 
             #endregion MOCK
 

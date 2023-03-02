@@ -594,6 +594,21 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Medicals", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Accreditation = "123456",
+                            CreatedDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(6392),
+                            Email = "medical@sistemas.com",
+                            Enable = true,
+                            LastAccessDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(6396),
+                            ModifyDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(6397),
+                            Name = "Medical MOCK ",
+                            OfficeId = 3L,
+                            TypeAccreditation = 0
+                        });
                 });
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.MedicalFile", b =>
@@ -1280,15 +1295,15 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            CreatedDate = new DateTime(2023, 3, 2, 11, 15, 35, 440, DateTimeKind.Local).AddTicks(6182),
+                            CreatedDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(4974),
                             Email = "admin@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 2, 11, 15, 35, 440, DateTimeKind.Local).AddTicks(6210),
+                            LastAccessDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(4992),
                             Login = "admin",
-                            ModifyDate = new DateTime(2023, 3, 2, 11, 15, 35, 440, DateTimeKind.Local).AddTicks(6212),
+                            ModifyDate = new DateTime(2023, 3, 2, 11, 56, 13, 836, DateTimeKind.Local).AddTicks(4994),
                             Name = "User MOCK ",
-                            PasswordHash = new byte[] { 136, 116, 221, 212, 225, 51, 110, 34, 123, 108, 114, 0, 1, 189, 228, 6, 51, 217, 195, 220, 42, 122, 53, 0, 120, 28, 198, 152, 146, 220, 152, 51, 120, 55, 216, 194, 183, 126, 9, 195, 206, 144, 189, 117, 173, 44, 82, 193, 50, 247, 58, 208, 42, 247, 201, 53, 195, 90, 189, 46, 236, 199, 19, 159 },
-                            PasswordSalt = new byte[] { 144, 49, 242, 182, 106, 188, 173, 200, 18, 5, 101, 55, 218, 166, 79, 246, 175, 83, 159, 37, 85, 94, 105, 196, 2, 26, 157, 204, 92, 108, 54, 204, 155, 33, 120, 1, 15, 227, 162, 181, 209, 162, 255, 10, 148, 3, 247, 3, 7, 213, 156, 243, 251, 42, 52, 69, 215, 93, 113, 88, 62, 98, 8, 209, 106, 61, 217, 151, 174, 117, 112, 251, 102, 33, 162, 230, 81, 122, 71, 119, 223, 185, 207, 135, 35, 12, 152, 55, 107, 60, 123, 224, 222, 97, 231, 139, 62, 53, 222, 156, 110, 90, 252, 46, 152, 7, 184, 109, 212, 148, 152, 248, 10, 0, 104, 240, 131, 211, 164, 123, 124, 146, 161, 112, 228, 127, 146, 71 },
+                            PasswordHash = new byte[] { 118, 95, 119, 98, 10, 215, 114, 243, 14, 231, 143, 170, 27, 96, 105, 184, 144, 198, 163, 2, 172, 244, 164, 43, 98, 246, 5, 118, 4, 110, 127, 106, 143, 6, 214, 196, 14, 100, 125, 141, 34, 89, 16, 142, 35, 157, 133, 255, 252, 243, 55, 98, 236, 193, 9, 254, 50, 243, 251, 122, 36, 72, 196, 81 },
+                            PasswordSalt = new byte[] { 141, 234, 200, 136, 22, 130, 165, 128, 0, 23, 254, 203, 137, 128, 114, 120, 111, 233, 231, 219, 22, 160, 167, 246, 68, 165, 180, 142, 107, 181, 208, 68, 122, 250, 77, 34, 152, 20, 53, 118, 182, 251, 211, 41, 236, 28, 57, 138, 89, 198, 196, 126, 130, 117, 32, 91, 135, 92, 232, 161, 204, 214, 117, 162, 124, 248, 226, 209, 163, 25, 203, 26, 121, 103, 45, 99, 68, 109, 52, 217, 237, 67, 196, 107, 127, 131, 168, 51, 51, 120, 133, 6, 33, 178, 112, 34, 223, 135, 212, 212, 11, 180, 104, 167, 178, 171, 40, 44, 105, 44, 194, 191, 233, 83, 35, 145, 230, 63, 46, 38, 57, 107, 81, 105, 160, 63, 147, 69 },
                             Role = "Admin"
                         });
                 });
@@ -1334,7 +1349,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasForeignKey("ModifyUserId");
 
                     b.HasOne("SmartDigitalPsico.Model.Entity.Domains.Office", "Office")
-                        .WithMany()
+                        .WithMany("Medicals")
                         .HasForeignKey("OfficeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1542,6 +1557,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Navigation("ModifyUser");
 
                     b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Domains.Office", b =>
+                {
+                    b.Navigation("Medicals");
                 });
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>

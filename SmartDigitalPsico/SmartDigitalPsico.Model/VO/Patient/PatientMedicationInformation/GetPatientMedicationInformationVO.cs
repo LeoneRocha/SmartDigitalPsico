@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation
 {
-    public class GetPatientMedicationInformationVO : ISupportsHyperMedia
+    public class GetPatientMedicationInformationVO : EntityVOBase, ISupportsHyperMedia
     {
         public long Id { get; set; }
         //MUDAR AS RELACOES PARA OBJETOS  

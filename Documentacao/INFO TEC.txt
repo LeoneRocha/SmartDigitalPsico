@@ -1,4 +1,7 @@
 
+
+dotnet ef migrations add SmartDigitalPsicoDBMig
+
 --------------REMOVE 
 dotnet ef database update 0
 dotnet ef migrations remove

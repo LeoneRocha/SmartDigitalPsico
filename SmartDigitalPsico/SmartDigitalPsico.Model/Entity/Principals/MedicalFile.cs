@@ -22,9 +22,13 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public string? Description { get; set; }
          
         [Column("FilePath", TypeName = "varchar(2083)")]
-        [MaxLength(2083)]
-        [Required]
-        public string FilePath { get; set; } 
+        [MaxLength(2083)]        
+        public string? FilePath { get; set; }
+
+        [Column("FileData")]
+        public byte[]? FileData { get; set; }
+
+
         #endregion Columns 
     }
 }

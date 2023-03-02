@@ -10,6 +10,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Domains.Security;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -37,7 +38,7 @@ namespace SmartDigitalPsico.Business.Principals
                 response.Success = false;
                 response.Message = "User not found.";
             }
-            else if (!verifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            else if (!SecurityHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
                 response.Message = "Wrong password.";
@@ -61,7 +62,7 @@ namespace SmartDigitalPsico.Business.Principals
                 response.Message = "User already exists.";
                 return response;
             }
-            createPasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            SecurityHelper.CreatePasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
             User entityAdd = _mapper.Map<User>(userRegisterVO);
 
@@ -131,52 +132,13 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
         }
 
-        private void createPasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-        private bool verifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != passwordHash[i])
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
+
 
         private GetUserVO createToken(User user)
         {
             GetUserVO response = _mapper.Map<GetUserVO>(user);
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Role, user.Role)
-            };
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var tokendDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokendDescriptor);
-            response.TokenAuth = tokenHandler.WriteToken(token);
+            var key = _configuration.GetSection("AppSettings:Token").Value;
+            response.TokenAuth = SecurityHelper.CreateToken(new SecurityVO() { Name = user.Name, Role = user.Role, SecurityKeyConfig = key });
             return response;
         }
     }

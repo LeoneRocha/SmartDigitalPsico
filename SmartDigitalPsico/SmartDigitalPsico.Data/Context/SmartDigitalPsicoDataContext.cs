@@ -1,5 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -66,16 +68,24 @@ namespace SmartDigitalPsico.Repository.Context
 
             #region MOCK
 
+            #region Gender
             modelBuilder.Entity<Gender>().HasData(
-               new Gender { Id = 1, Description = "Masculino", Language = valorbr },
-               new Gender { Id = 2, Description = "Feminino", Language = valorbr }
-               );
+            new Gender { Id = 1, Description = "Masculino", Language = valorbr },
+            new Gender { Id = 2, Description = "Feminino", Language = valorbr }
+            );
+            #endregion
+
+            #region Office
 
             modelBuilder.Entity<Office>().HasData(
-               new Office { Id = 1, Description = "Psicólogo", Language = valorbr },
-               new Office { Id = 2, Description = "Psicóloga", Language = valorbr },
-               new Office { Id = 3, Description = "Clínico", Language = valorbr }
-               );
+           new Office { Id = 1, Description = "Psicólogo", Language = valorbr },
+           new Office { Id = 2, Description = "Psicóloga", Language = valorbr },
+           new Office { Id = 3, Description = "Clínico", Language = valorbr }
+           );
+
+            #endregion
+
+            #region Specialty
 
             modelBuilder.Entity<Specialty>().HasData(
               new Specialty { Id = 1, Description = "Psicologia Clínica", Language = valorbr },
@@ -86,10 +96,54 @@ namespace SmartDigitalPsico.Repository.Context
               new Specialty { Id = 6, Description = "Psicologia hospitalar", Language = valorbr },
               new Specialty { Id = 7, Description = "Psicologia do trânsito", Language = valorbr }
               );
-            #endregion
+            #endregion Specialty
+
+            #region RoleGroup
+            List<RoleGroup> rolesAdd = new List<RoleGroup>();
+            rolesAdd.Add(new RoleGroup { Id = 1, Description = "Administrador", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 2, Description = "Medico", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 3, Description = "Recepcionista", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 4, Description = "Paciente", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 5, Description = "Leitura", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 6, Description = "Escrita", Language = valorbr });
+
+            modelBuilder.Entity<RoleGroup>().HasData(rolesAdd);
+            #endregion RoleGroup
+
+            #region User
+
+            var newAddUser = new User
+            {
+                Id = 1,
+                Name = "User MOCK ",
+                Login = "admin",
+                Admin = true,
+                Email = "admin@sistemas.com",
+                CreatedDate = DateTime.Now,
+                Enable = true,
+                LastAccessDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                Role = "Admin",
+
+            };
+            SecurityHelper.CreatePasswordHash("mock123adm", out byte[] passwordHash, out byte[] passwordSalt);
+            newAddUser.PasswordHash = passwordHash;
+            newAddUser.PasswordSalt = passwordSalt;
+
+            newAddUser.RoleGroups = new List<RoleGroup>();
+            //newAddUser.RoleGroups.Add(rolesAdd.First(et => et.Id == 1));
+
+
+
+            modelBuilder.Entity<User>().HasData(newAddUser);
+            #endregion User
+
+
+            #endregion MOCK
 
             modelBuilder.Entity<User>().Property(u => u.Role).HasDefaultValue("Admin");
             bool valorPadraoEnable = true;
+
             #region Domains  DEFAULTs VALUEs
             modelBuilder.Entity<Gender>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
             modelBuilder.Entity<Specialty>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
@@ -111,6 +165,18 @@ namespace SmartDigitalPsico.Repository.Context
             modelBuilder.Entity<PatientRecord>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
 
             #endregion Principals  DEFAULTs VALUEs
+
+
+            //modelBuilder.Entity<User>()
+            //   .HasMany(p => p.RoleGroups)
+            //   .WithMany(t => t.Users)
+            //   .UsingEntity<Dictionary<string, object>>(
+            //       "UserRoleGroup",  
+            //    r => r.HasOne<User>().WithMany().HasForeignKey("RoleId"),
+
+            //       l => l.HasOne<RoleGroup>().WithMany().HasForeignKey("UserId") );
+
+
 
             base.OnModelCreating(modelBuilder);
         }

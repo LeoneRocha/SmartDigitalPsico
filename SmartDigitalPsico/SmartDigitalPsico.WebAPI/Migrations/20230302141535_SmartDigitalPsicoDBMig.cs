@@ -247,7 +247,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
                     Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: false),
+                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true),
+                    FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -418,7 +419,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
                     Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: false),
+                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true),
+                    FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -645,6 +647,20 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
             migrationBuilder.InsertData(
                 schema: "dbo",
+                table: "RoleGroups",
+                columns: new[] { "Id", "CreatedDate", "Description", "Language", "LastAccessDate", "ModifyDate" },
+                values: new object[,]
+                {
+                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Administrador", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Medico", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Recepcionista", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paciente", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Leitura", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Escrita", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
                 table: "Specialties",
                 columns: new[] { "Id", "CreatedDate", "Description", "Language", "LastAccessDate", "ModifyDate" },
                 values: new object[,]
@@ -657,6 +673,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     { 6L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia hospitalar", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 7L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Psicologia do trânsito", "pt-BR", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "Users",
+                columns: new[] { "Id", "Admin", "CreatedDate", "Email", "Enable", "LastAccessDate", "Login", "ModifyDate", "Name", "PasswordHash", "PasswordSalt", "Role" },
+                values: new object[] { 1L, true, new DateTime(2023, 3, 2, 11, 15, 35, 440, DateTimeKind.Local).AddTicks(6182), "admin@sistemas.com", true, new DateTime(2023, 3, 2, 11, 15, 35, 440, DateTimeKind.Local).AddTicks(6210), "admin", new DateTime(2023, 3, 2, 11, 15, 35, 440, DateTimeKind.Local).AddTicks(6212), "User MOCK ", new byte[] { 136, 116, 221, 212, 225, 51, 110, 34, 123, 108, 114, 0, 1, 189, 228, 6, 51, 217, 195, 220, 42, 122, 53, 0, 120, 28, 198, 152, 146, 220, 152, 51, 120, 55, 216, 194, 183, 126, 9, 195, 206, 144, 189, 117, 173, 44, 82, 193, 50, 247, 58, 208, 42, 247, 201, 53, 195, 90, 189, 46, 236, 199, 19, 159 }, new byte[] { 144, 49, 242, 182, 106, 188, 173, 200, 18, 5, 101, 55, 218, 166, 79, 246, 175, 83, 159, 37, 85, 94, 105, 196, 2, 26, 157, 204, 92, 108, 54, 204, 155, 33, 120, 1, 15, 227, 162, 181, 209, 162, 255, 10, 148, 3, 247, 3, 7, 213, 156, 243, 251, 42, 52, 69, 215, 93, 113, 88, 62, 98, 8, 209, 106, 61, 217, 151, 174, 117, 112, 251, 102, 33, 162, 230, 81, 122, 71, 119, 223, 185, 207, 135, 35, 12, 152, 55, 107, 60, 123, 224, 222, 97, 231, 139, 62, 53, 222, 156, 110, 90, 252, 46, 152, 7, 184, 109, 212, 148, 152, 248, 10, 0, 104, 240, 131, 211, 164, 123, 124, 146, 161, 112, 228, 127, 146, 71 }, "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MedicalFile_CreatedUserId",

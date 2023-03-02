@@ -10,7 +10,8 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientNotificationMessageBusiness : GenericBusinessEntityBaseSimple<PatientNotificationMessage, IPatientNotificationMessageRepository, GetPatientNotificationMessageVO>, IPatientNotificationMessageBusiness
+    public class PatientNotificationMessageBusiness
+        : GenericBusinessEntityBaseSimplev2<PatientNotificationMessage, AddPatientNotificationMessageVO, UpdatePatientNotificationMessageVO, GetPatientNotificationMessageVO, IPatientNotificationMessageRepository>, IPatientNotificationMessageBusiness
 
     {
         private readonly IMapper _mapper;
@@ -27,7 +28,7 @@ namespace SmartDigitalPsico.Business.Principals
             _userRepository = userRepository;
             _patientRepository = patientRepository;
         }
-        public async Task<ServiceResponse<GetPatientNotificationMessageVO>> Create(AddPatientNotificationMessageVO item)
+        public override async Task<ServiceResponse<GetPatientNotificationMessageVO>> Create(AddPatientNotificationMessageVO item)
         {
             ServiceResponse<GetPatientNotificationMessageVO> response = new ServiceResponse<GetPatientNotificationMessageVO>();
 

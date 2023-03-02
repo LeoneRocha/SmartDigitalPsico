@@ -6,9 +6,10 @@ using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IPatientNotificationMessageBusiness : IGenericBusinessEntityBaseSimple<PatientNotificationMessage, GetPatientNotificationMessageVO>
+    public interface IPatientNotificationMessageBusiness : IGenericBusinessEntityBaseSimpleV2<PatientNotificationMessage
+        ,AddPatientNotificationMessageVO,UpdatePatientNotificationMessageVO, GetPatientNotificationMessageVO>
     {
-        Task<ServiceResponse<GetPatientNotificationMessageVO>> Create(AddPatientNotificationMessageVO item);
+        
         Task<ServiceResponse<List<GetPatientNotificationMessageVO>>> FindAllByPatient(long patientId);
     }
 }

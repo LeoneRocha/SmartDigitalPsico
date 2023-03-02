@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage
 {
-    public class GetPatientNotificationMessageVO : ISupportsHyperMedia
+    public class GetPatientNotificationMessageVO : EntityVOBase, ISupportsHyperMedia
     {
-        public long Id { get; set; }
+     
         //MUDAR AS RELACOES PARA OBJETOS  
         #region Relationship  
         public GetPatientVO Patient { get; set; }

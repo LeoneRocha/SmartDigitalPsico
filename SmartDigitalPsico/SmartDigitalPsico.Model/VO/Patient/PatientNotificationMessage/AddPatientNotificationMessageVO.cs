@@ -6,12 +6,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage
 {
-    public class AddPatientNotificationMessageVO : ISupportsHyperMedia, IEntityVOUserLog
+    public class AddPatientNotificationMessageVO : IEntityVOAdd
     {
         [Required]
         public long IdUserAction { get; set; }
 
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
         #region Columns  
         [MaxLength(2000)]

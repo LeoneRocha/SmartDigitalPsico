@@ -56,7 +56,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
 
-            if (await UserExists(userRegisterVO.Name))
+            if (await UserExists(userRegisterVO.Login))
             {
                 response.Success = false;
                 response.Message = "User already exists.";
@@ -66,13 +66,14 @@ namespace SmartDigitalPsico.Business.Principals
 
             User entityAdd = _mapper.Map<User>(userRegisterVO);
 
-            entityAdd.Role = "ADMIN";
+            entityAdd.Role = "Pendente";
+            entityAdd.Admin = false;
             entityAdd.PasswordHash = passwordHash;
             entityAdd.PasswordSalt = passwordSalt;
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;
             entityAdd.LastAccessDate = DateTime.Now;
-
+             
             User entityResponse = await _userRepository.Register(entityAdd);
 
             response.Data = _mapper.Map<GetUserVO>(entityResponse);
@@ -101,7 +102,7 @@ namespace SmartDigitalPsico.Business.Principals
             User entityResponse = await _userRepository.Update(entityUpdate);
             response.Success = true;
             response.Data = _mapper.Map<GetUserVO>(entityResponse);
-              
+
             if (response.Success)
                 response.Message = "User Updated.";
 

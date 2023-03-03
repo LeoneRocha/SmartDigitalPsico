@@ -5,12 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientRecord
 {
-    public class AddPatientRecordVO : ISupportsHyperMedia, IEntityVOUserLog
+    public class AddPatientRecordVO : IEntityVOAdd
     {
         [Required]
         public long IdUserAction { get; set; }
-
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+         
         #region Relationship 
         [Required]
         public long PatientId { get; set; }

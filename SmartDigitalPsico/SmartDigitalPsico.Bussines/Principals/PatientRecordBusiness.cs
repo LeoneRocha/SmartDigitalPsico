@@ -10,7 +10,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientRecordBusiness : GenericBusinessEntityBaseSimple<PatientRecord, IPatientRecordRepository, GetPatientRecordVO>, IPatientRecordBusiness
+    public class PatientRecordBusiness : GenericBusinessEntityBaseSimplev2<PatientRecord, AddPatientRecordVO, UpdatePatientRecordVO, GetPatientRecordVO, IPatientRecordRepository>, IPatientRecordBusiness
 
     {
         private readonly IMapper _mapper;
@@ -26,13 +26,13 @@ namespace SmartDigitalPsico.Business.Principals
             _entityRepository = entityRepository;
             _userRepository = userRepository;
             _patientRepository = patientRepository;
-        } 
-        public async Task<ServiceResponse<GetPatientRecordVO>> Create(AddPatientRecordVO item)
+        }
+        public override async Task<ServiceResponse<GetPatientRecordVO>> Create(AddPatientRecordVO item)
         {
             ServiceResponse<GetPatientRecordVO> response = new ServiceResponse<GetPatientRecordVO>();
 
             PatientRecord entityAdd = _mapper.Map<PatientRecord>(item);
-             
+
             #region Relationship
 
             User userAction = await _userRepository.FindByID(item.IdUserAction);
@@ -67,7 +67,7 @@ namespace SmartDigitalPsico.Business.Principals
                 response.Message = "Patients not found.";
                 return response;
             }
-            response.Data = listResult.Select(c => _mapper.Map<GetPatientRecordVO>(c)).ToList();  
+            response.Data = listResult.Select(c => _mapper.Map<GetPatientRecordVO>(c)).ToList();
             response.Success = true;
             response.Message = "Patients finded.";
             return response;

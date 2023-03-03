@@ -8,7 +8,7 @@ using SmartDigitalPsico.Domains.Hypermedia.Utils;
 
 namespace SmartDigitalPsico.Services.Contracts.Principals
 {
-    public interface IPatientServices : IGenericServicesEntityBaseSimple<Patient, GetPatientVO>
+    public interface IPatientServices : IGenericServicesEntityBase<Patient, GetPatientVO>
     {
         Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item);
 

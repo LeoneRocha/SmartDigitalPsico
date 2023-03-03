@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("PatientFile", Schema = "dbo")]
-    public class PatientFile : EntityBaseSimple, IEntityBaseLogUser
+    public class PatientFile : FileBase,IEntityBaseLogUser
     {
         #region Relationship 
         //[Required]
@@ -14,19 +14,6 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
         #endregion Relationship
-
-        #region Columns  
-        [Column("Description", TypeName = "varchar(255)")]
-        [MaxLength(255)] 
-        public string? Description { get; set; }
          
-        [Column("FilePath", TypeName = "varchar(2083)")]
-        [MaxLength(2083)] 
-        public string? FilePath { get; set; }
-
-        [Column("FileData")]
-        public byte[]? FileData { get; set; }
-     
-        #endregion Columns 
     }
 }

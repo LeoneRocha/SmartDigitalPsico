@@ -614,12 +614,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Accreditation = "123456",
-                            CreatedDate = new DateTime(2023, 3, 2, 13, 54, 30, 176, DateTimeKind.Local).AddTicks(768),
+                            CreatedDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(6163),
                             CreatedUserId = 1L,
                             Email = "medical@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 2, 13, 54, 30, 176, DateTimeKind.Local).AddTicks(770),
-                            ModifyDate = new DateTime(2023, 3, 2, 13, 54, 30, 176, DateTimeKind.Local).AddTicks(772),
+                            LastAccessDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(6164),
+                            ModifyDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(6164),
                             Name = "Medical MOCK ",
                             OfficeId = 3L,
                             TypeAccreditation = 0,
@@ -645,7 +645,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("Description");
@@ -655,14 +654,28 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
+                    b.Property<string>("FileContentType")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("FileContentType");
+
                     b.Property<byte[]>("FileData")
                         .HasColumnType("varbinary(max)")
                         .HasColumnName("FileData");
+
+                    b.Property<string>("FileExtension")
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)")
+                        .HasColumnName("FileExtension");
 
                     b.Property<string>("FilePath")
                         .HasMaxLength(2083)
                         .HasColumnType("varchar(2083)")
                         .HasColumnName("FilePath");
+
+                    b.Property<long>("FileSizeKB")
+                        .HasColumnType("bigint")
+                        .HasColumnName("FileSizeKB");
 
                     b.Property<DateTime>("LastAccessDate")
                         .HasColumnType("datetime2")
@@ -908,14 +921,28 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
+                    b.Property<string>("FileContentType")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("FileContentType");
+
                     b.Property<byte[]>("FileData")
                         .HasColumnType("varbinary(max)")
                         .HasColumnName("FileData");
+
+                    b.Property<string>("FileExtension")
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)")
+                        .HasColumnName("FileExtension");
 
                     b.Property<string>("FilePath")
                         .HasMaxLength(2083)
                         .HasColumnType("varchar(2083)")
                         .HasColumnName("FilePath");
+
+                    b.Property<long>("FileSizeKB")
+                        .HasColumnType("bigint")
+                        .HasColumnName("FileSizeKB");
 
                     b.Property<DateTime>("LastAccessDate")
                         .HasColumnType("datetime2")
@@ -1178,8 +1205,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Annotation")
                         .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("varchar(2000)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Annotation");
 
                     b.Property<DateTime>("AnnotationDate")
@@ -1311,30 +1337,30 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            CreatedDate = new DateTime(2023, 3, 2, 13, 54, 30, 175, DateTimeKind.Local).AddTicks(9814),
+                            CreatedDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(5718),
                             Email = "admin@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 2, 13, 54, 30, 175, DateTimeKind.Local).AddTicks(9827),
+                            LastAccessDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(5730),
                             Login = "admin",
-                            ModifyDate = new DateTime(2023, 3, 2, 13, 54, 30, 175, DateTimeKind.Local).AddTicks(9829),
+                            ModifyDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(5730),
                             Name = "User MOCK ",
-                            PasswordHash = new byte[] { 69, 105, 161, 177, 153, 113, 21, 141, 115, 150, 181, 200, 148, 252, 77, 162, 227, 99, 34, 137, 16, 128, 135, 219, 43, 164, 155, 111, 119, 148, 103, 143, 100, 75, 252, 76, 241, 188, 96, 25, 159, 124, 155, 54, 250, 8, 207, 207, 213, 48, 140, 228, 153, 59, 246, 187, 220, 183, 229, 195, 241, 146, 84, 15 },
-                            PasswordSalt = new byte[] { 151, 211, 194, 61, 85, 56, 29, 55, 188, 170, 240, 157, 100, 56, 162, 20, 79, 12, 191, 133, 214, 137, 117, 219, 157, 65, 152, 213, 118, 32, 77, 77, 23, 191, 182, 93, 195, 195, 71, 102, 168, 0, 255, 130, 196, 120, 153, 230, 180, 12, 20, 51, 126, 1, 11, 22, 38, 215, 225, 118, 166, 18, 166, 144, 6, 68, 81, 130, 147, 226, 179, 233, 131, 115, 226, 9, 154, 28, 81, 173, 128, 95, 59, 91, 11, 175, 62, 92, 118, 25, 21, 242, 173, 119, 234, 182, 90, 209, 232, 84, 147, 175, 72, 54, 123, 142, 137, 24, 222, 141, 129, 72, 234, 209, 135, 168, 50, 12, 71, 228, 80, 3, 135, 136, 144, 184, 32, 158 },
+                            PasswordHash = new byte[] { 228, 212, 244, 240, 193, 50, 178, 207, 32, 74, 166, 53, 183, 253, 77, 69, 128, 95, 136, 44, 96, 92, 54, 63, 202, 190, 185, 116, 38, 53, 129, 170, 245, 5, 244, 136, 17, 36, 170, 195, 235, 110, 66, 225, 111, 182, 110, 198, 11, 210, 70, 48, 210, 8, 214, 86, 165, 2, 38, 216, 180, 12, 2, 209 },
+                            PasswordSalt = new byte[] { 128, 151, 145, 56, 108, 114, 217, 147, 139, 45, 160, 248, 151, 159, 42, 225, 21, 26, 77, 79, 22, 26, 68, 202, 98, 216, 249, 21, 252, 168, 140, 242, 165, 130, 229, 55, 66, 242, 165, 98, 105, 24, 83, 188, 47, 154, 115, 108, 16, 213, 174, 52, 145, 181, 213, 237, 99, 201, 150, 140, 48, 143, 250, 153, 157, 146, 96, 11, 1, 81, 200, 101, 17, 0, 72, 35, 222, 244, 1, 190, 253, 23, 116, 248, 178, 148, 40, 35, 204, 167, 20, 76, 65, 137, 47, 253, 27, 87, 57, 39, 209, 211, 197, 6, 198, 209, 1, 50, 115, 139, 162, 97, 205, 159, 54, 164, 5, 80, 190, 30, 198, 246, 199, 45, 127, 64, 65, 170 },
                             Role = "Admin"
                         },
                         new
                         {
                             Id = 2L,
                             Admin = false,
-                            CreatedDate = new DateTime(2023, 3, 2, 13, 54, 30, 176, DateTimeKind.Local).AddTicks(290),
+                            CreatedDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(5934),
                             Email = "doctor@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 2, 13, 54, 30, 176, DateTimeKind.Local).AddTicks(292),
+                            LastAccessDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(5934),
                             Login = "doctor",
-                            ModifyDate = new DateTime(2023, 3, 2, 13, 54, 30, 176, DateTimeKind.Local).AddTicks(293),
+                            ModifyDate = new DateTime(2023, 3, 3, 13, 9, 48, 591, DateTimeKind.Local).AddTicks(5935),
                             Name = "User Medical",
-                            PasswordHash = new byte[] { 204, 29, 162, 210, 50, 176, 70, 124, 84, 163, 21, 220, 136, 94, 48, 177, 156, 73, 144, 117, 174, 245, 15, 123, 172, 181, 23, 50, 157, 34, 189, 140, 131, 241, 163, 126, 194, 156, 204, 108, 113, 179, 121, 127, 71, 130, 58, 96, 18, 241, 132, 84, 249, 254, 115, 60, 170, 1, 111, 109, 119, 87, 197, 139 },
-                            PasswordSalt = new byte[] { 236, 224, 177, 232, 247, 246, 130, 204, 168, 198, 200, 71, 228, 29, 112, 164, 196, 45, 82, 192, 111, 124, 216, 91, 46, 225, 196, 15, 225, 181, 168, 237, 252, 83, 162, 49, 109, 123, 19, 185, 212, 33, 115, 26, 98, 204, 184, 135, 230, 92, 69, 244, 5, 33, 155, 9, 189, 69, 25, 178, 126, 224, 220, 48, 158, 89, 156, 155, 38, 69, 254, 35, 204, 38, 24, 120, 48, 123, 22, 196, 131, 232, 251, 249, 15, 197, 167, 56, 153, 226, 60, 239, 159, 114, 179, 202, 154, 68, 96, 243, 109, 87, 100, 157, 70, 154, 48, 117, 20, 122, 246, 104, 77, 53, 50, 111, 30, 212, 125, 136, 224, 174, 190, 28, 179, 76, 110, 74 },
+                            PasswordHash = new byte[] { 188, 61, 59, 50, 28, 232, 24, 78, 222, 44, 13, 227, 61, 73, 51, 119, 229, 134, 91, 221, 53, 85, 39, 218, 213, 108, 57, 42, 85, 163, 88, 46, 245, 2, 94, 12, 70, 65, 78, 69, 242, 245, 142, 189, 163, 135, 194, 80, 132, 41, 50, 124, 33, 122, 94, 161, 249, 6, 200, 164, 150, 221, 151, 111 },
+                            PasswordSalt = new byte[] { 45, 132, 14, 56, 248, 13, 188, 172, 242, 253, 73, 109, 192, 13, 150, 235, 241, 72, 210, 11, 2, 108, 38, 25, 183, 59, 228, 245, 224, 201, 254, 105, 120, 109, 90, 233, 30, 88, 140, 202, 248, 245, 152, 43, 67, 139, 178, 238, 78, 121, 25, 216, 53, 16, 149, 159, 16, 35, 227, 67, 119, 219, 46, 19, 43, 57, 127, 155, 154, 59, 29, 20, 164, 196, 26, 160, 255, 6, 117, 75, 58, 61, 98, 165, 137, 242, 1, 172, 82, 210, 78, 215, 247, 234, 194, 134, 203, 255, 63, 201, 69, 129, 128, 156, 135, 165, 156, 220, 156, 26, 8, 193, 129, 57, 77, 78, 93, 243, 145, 44, 164, 92, 63, 57, 218, 0, 15, 206 },
                             Role = "Medical"
                         });
                 });

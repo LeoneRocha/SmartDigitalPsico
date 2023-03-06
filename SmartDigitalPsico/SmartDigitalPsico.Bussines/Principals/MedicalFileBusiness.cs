@@ -37,17 +37,17 @@ namespace SmartDigitalPsico.Business.Principals
             var addMedicalFileVO = new AddMedicalFileVO();
             if (entity != null)
             {
-              
+
                 addMedicalFileVO.Description = entity.Description;
-                addMedicalFileVO.MedicalId = entity.MedicalId; 
+                addMedicalFileVO.MedicalId = entity.MedicalId;
                 var fileData = entity.FileDetails;
                 if (fileData != null)
-                { 
-                    string extensioFile = fileData.ContentType.Split('/').Last(); 
+                {
+                    string extensioFile = fileData.ContentType.Split('/').Last();
                     addMedicalFileVO.Description = fileData.FileName;
                     addMedicalFileVO.FilePath = fileData.FileName;
                     addMedicalFileVO.FileContentType = fileData.ContentType;
-                    addMedicalFileVO.FileExtension = extensioFile.Substring(0,3);
+                    addMedicalFileVO.FileExtension = extensioFile.Substring(0, 3);
                     addMedicalFileVO.FileSizeKB = fileData.Length / 1024;
 
                     using (var stream = new MemoryStream())
@@ -56,30 +56,31 @@ namespace SmartDigitalPsico.Business.Principals
                         addMedicalFileVO.FileData = stream.ToArray();
                     }
                 }
-            } 
+            }
 
             MedicalFile entityAdd = _mapper.Map<MedicalFile>(addMedicalFileVO);
 
             #region Relationship
 
             entityAdd.Medical = await _medicalRepository.FindByID(addMedicalFileVO.MedicalId);
-              
+
             #endregion Relationship
 
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;
             entityAdd.LastAccessDate = DateTime.Now;
+            entityAdd.Enable = true;
 
             User userAction = await _userRepository.FindByID(_IdUserAction);
             entityAdd.CreatedUser = userAction;
 
             MedicalFile entityResponse = await _entityRepository.Create(entityAdd);
-                  
+
             return true;
         }
 
         public async Task<bool> DownloadFileById(long fileId)
-        { 
+        {
             var fileEntity = await _entityRepository.FindByID(fileId);
 
             if (fileEntity != null)
@@ -96,13 +97,13 @@ namespace SmartDigitalPsico.Business.Principals
             }
 
             return false;
-        } 
+        }
         private async Task copyStream(MemoryStream stream, string downloadPath)
         {
             using (var fileStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write))
             {
                 await stream.CopyToAsync(fileStream);
             }
-        } 
+        }
     }
 }

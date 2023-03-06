@@ -25,43 +25,22 @@ namespace SmartDigitalPsico.Services.Principals
         public async Task<bool> DownloadFileById(long fileId)
         {
             try
-            {
-                var file = await _entityBusiness.FindByID(fileId);
-
-                if (file.Data != null) {
-                    var content = new System.IO.MemoryStream(file?.Data?.FileData);
-
-                    var path = Path.Combine(
-                       Directory.GetCurrentDirectory(), "ResourcesTemp",
-                       file?.Data?.Description);
-
-                    await copyStream(content, path);
-
-                    return true;
-                } 
+            { 
+                return await _entityBusiness.DownloadFileById(fileId); 
             }
             catch (Exception)
             {
                 throw;
-            }
-
+            } 
             return false;
         }
 
-        private async Task copyStream(MemoryStream stream, string downloadPath)
-        {
-            using (var fileStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write))
-            {
-                await stream.CopyToAsync(fileStream);
-            }
-        }
-
+      
         public async Task<bool> PostFileAsync(AddMedicalFileVOUpload entity)
         {
             try
             { 
-                return await _entityBusiness.PostFileAsync(entity);
-
+                return await _entityBusiness.PostFileAsync(entity); 
                 //var result = dbContextClass.FileDetails.Add(fileDetails);
                 //await dbContextClass.SaveChangesAsync();
             }

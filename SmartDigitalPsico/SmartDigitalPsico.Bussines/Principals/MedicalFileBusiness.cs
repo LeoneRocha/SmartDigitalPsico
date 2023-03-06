@@ -42,12 +42,10 @@ namespace SmartDigitalPsico.Business.Principals
                 addMedicalFileVO.MedicalId = entity.MedicalId; 
                 var fileData = entity.FileDetails;
                 if (fileData != null)
-                {
-
-                    string extensioFile = fileData.ContentType.Split('/').Last();
-                      
+                { 
+                    string extensioFile = fileData.ContentType.Split('/').Last(); 
                     addMedicalFileVO.Description = fileData.FileName;
-                    addMedicalFileVO.FilePath = fileData.Name;
+                    addMedicalFileVO.FilePath = fileData.FileName;
                     addMedicalFileVO.FileContentType = fileData.ContentType;
                     addMedicalFileVO.FileExtension = extensioFile.Substring(0,3);
                     addMedicalFileVO.FileSizeKB = fileData.Length / 1024;
@@ -79,5 +77,32 @@ namespace SmartDigitalPsico.Business.Principals
                   
             return true;
         }
+
+        public async Task<bool> DownloadFileById(long fileId)
+        { 
+            var fileEntity = await _entityRepository.FindByID(fileId);
+
+            if (fileEntity != null)
+            {
+                var content = new System.IO.MemoryStream(fileEntity.FileData);
+
+                var path = Path.Combine(
+                   Directory.GetCurrentDirectory(), "ResourcesTemp",
+                   fileEntity.Description);
+
+                await copyStream(content, path);
+
+                return true;
+            }
+
+            return false;
+        } 
+        private async Task copyStream(MemoryStream stream, string downloadPath)
+        {
+            using (var fileStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write))
+            {
+                await stream.CopyToAsync(fileStream);
+            }
+        } 
     }
 }

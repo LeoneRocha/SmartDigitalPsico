@@ -33,7 +33,7 @@ namespace SmartDigitalPsico.Business.Generic
 
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now; 
+            entityAdd.LastAccessDate = DateTime.Now;
 
             TEntity entityResponse = await _genericRepository.Create(entityAdd);
 
@@ -66,8 +66,8 @@ namespace SmartDigitalPsico.Business.Generic
             }
 
             var entityUpdate = _mapper.Map<TEntity>(item);
-             
-            entityUpdate.ModifyDate = DateTime.Now;  
+
+            entityUpdate.ModifyDate = DateTime.Now;
 
             TEntity entityResponse = await _genericRepository.Update(entityUpdate);
 
@@ -103,9 +103,14 @@ namespace SmartDigitalPsico.Business.Generic
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
             TEntity entityResponse = await _genericRepository.FindByID(id);
 
-            response.Data = _mapper.Map<TEntityResult>(entityResponse);
+            if (entityResponse != null)
+            {
+                response.Data = _mapper.Map<TEntityResult>(entityResponse);
+                response.Success = true;
+                response.Message = "Register find.";
+            }
             response.Success = true;
-            response.Message = "Register find.";
+            response.Message = "Register not find.";
             return response;
         }
         public async Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query)

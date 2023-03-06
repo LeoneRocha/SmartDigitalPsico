@@ -7,10 +7,13 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 {
     
     public abstract class FileBase : EntityBaseSimple 
-    { 
+    {
         #region Columns  
+        /// <summary>
+        /// Name File
+        /// </summary>
         [Column("Description", TypeName = "varchar(255)")]
-        [MaxLength(255)] 
+        [MaxLength(255)]          
         public string? Description { get; set; }
          
         [Column("FilePath", TypeName = "varchar(2083)")]

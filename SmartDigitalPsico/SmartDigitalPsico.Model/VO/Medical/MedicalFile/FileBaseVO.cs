@@ -17,13 +17,16 @@ namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
         public string? FilePath { get; set; }
          
         public byte[]? FileData { get; set; }
-         
+
+        public string? FileData64 { get; set; }
+
+
         [MaxLength(3)]
         public string? FileExtension { get; set; }
          
         [MaxLength(100)]
         public string? FileContentType { get; set; }
          
-        public long FileSizeKB { get; set; }
+        public long? FileSizeKB { get; set; }
     }
 }

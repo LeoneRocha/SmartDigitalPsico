@@ -10,6 +10,9 @@ namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
 {
     public abstract class FileBaseIDVO : EntityVOBase
     {
+        /// <summary>
+        /// Name File
+        /// </summary>
         [MaxLength(255)]
         public string? Description { get; set; }
 

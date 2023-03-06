@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
@@ -31,6 +32,7 @@ using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
+using System.IO;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -86,7 +88,14 @@ namespace SmartDigitalPsico.WebAPI
             //// Migrate latest database changes during startup
             addAutoMigrate(app);
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection(); 
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"ResourcesTemp")),
+                RequestPath = new PathString("/ResourcesTemp")
+            });
 
             app.UseRouting();
 
@@ -109,6 +118,8 @@ namespace SmartDigitalPsico.WebAPI
                 //HyperMedia
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
+
+
         }
 
         #region PRIVATES

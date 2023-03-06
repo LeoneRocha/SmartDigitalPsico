@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
@@ -9,6 +10,6 @@ namespace SmartDigitalPsico.Business.Contracts.Principals
 {
     public interface IMedicalFileBusiness : IGenericBusinessEntityBaseSimpleV2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO>
     {
-       
+        Task<bool> PostFileAsync(AddMedicalFileVOUpload entity);
     }
 }

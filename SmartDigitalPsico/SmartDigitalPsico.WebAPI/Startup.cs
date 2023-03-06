@@ -76,47 +76,6 @@ namespace SmartDigitalPsico.WebAPI
             //Dependency Injection
             DependenciesInjectionHelper.AddDependenciesInjection(services);
         }
-          
-        private void addAcceptHeader(IServiceCollection services)
-        {
-            //AcceptHeader
-            services.AddMvc(options =>
-            {
-                options.RespectBrowserAcceptHeader = true;
-
-                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
-                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
-            })
-            .AddXmlSerializerFormatters();
-        }
-
-        private void addCors(IServiceCollection services)
-        {
-            services.AddCors(options => options.AddDefaultPolicy(builder =>
-            {
-                builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            }));
-        }
-         
-        private void addVersionning(IServiceCollection services)
-        {
-            services.AddApiVersioning();
-            //services.AddApiVersioning(options =>
-            //{
-            //    options.ReportApiVersions = true;
-            //    options.AssumeDefaultVersionWhenUnspecified = true;
-            //    options.DefaultApiVersion = new ApiVersion(1, 0);
-            //}); 
-            //services.AddVersionedApiExplorer(options =>
-            //{
-            //    options.GroupNameFormat = "'v'V";
-            //    options.SubstituteApiVersionInUrl = true;
-            //});
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -152,6 +111,80 @@ namespace SmartDigitalPsico.WebAPI
             });
         }
 
+        #region PRIVATES
+
+        #region AcceptHeader
+        private void addAcceptHeader(IServiceCollection services)
+        {
+            //AcceptHeader
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+            .AddXmlSerializerFormatters();
+        }
+        #endregion
+
+        #region Cors
+        private void addCors(IServiceCollection services)
+        {
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+        }
+        #endregion
+
+        #region Version
+        private void addVersionning(IServiceCollection services)
+        {
+            services.AddApiVersioning();
+            //services.AddApiVersioning(options =>
+            //{
+            //    options.ReportApiVersions = true;
+            //    options.AssumeDefaultVersionWhenUnspecified = true;
+            //    options.DefaultApiVersion = new ApiVersion(1, 0);
+            //}); 
+            //services.AddVersionedApiExplorer(options =>
+            //{
+            //    options.GroupNameFormat = "'v'V";
+            //    options.SubstituteApiVersionInUrl = true;
+            //});
+        }
+        #endregion
+
+        #region CONTEXTO
+        private void addORM(IServiceCollection services, TypeDataBase etypeDataBase)
+        {
+            var connection = string.Empty;
+
+            switch (etypeDataBase)
+            {
+                case TypeDataBase.Mysql:
+                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMySQL");
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
+                    options.UseMySql(connection, ServerVersion.AutoDetect(connection)
+                    , b =>
+                    {
+                        b.MigrationsAssembly("SmartDigitalPsico.WebAPI");
+                        b.SchemaBehavior(MySqlSchemaBehavior.Ignore);
+                    }));
+                    //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
+                    break;
+                case TypeDataBase.MSsqlServer:
+                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnection");
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection,
+                        b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
+                    break;
+                default:
+                    break;
+            }
+        }
         private void addAutoMigrate(IApplicationBuilder app)
         {
             bool migreted = false;
@@ -161,34 +194,9 @@ namespace SmartDigitalPsico.WebAPI
                 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
                     var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
-                    context.Database.Migrate(); 
+                    context.Database.Migrate();
                 }
-            } 
-        }
-         
-        #region CONTEXTO
-        private void addORM(IServiceCollection services, TypeDataBase etypeDataBase)
-        { 
-            var connection = string.Empty;
-           
-            switch (etypeDataBase)
-            {
-                case TypeDataBase.Mysql:
-                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMySQL");
-                    services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
-                    options.UseMySql(connection, ServerVersion.AutoDetect(connection)
-                    , b => { b.MigrationsAssembly("SmartDigitalPsico.WebAPI");
-                        b.SchemaBehavior(MySqlSchemaBehavior.Ignore); } ));
-                    //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
-                    break;
-                case TypeDataBase.MSsqlServer:
-                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnection");
-                    services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection, 
-                        b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI"))); 
-                    break;
-                default:
-                    break;
-            }  
+            }
         }
         #endregion
 
@@ -254,7 +262,9 @@ namespace SmartDigitalPsico.WebAPI
 
 
         }
-         
+
+        #endregion
+
         #endregion
     }
 }

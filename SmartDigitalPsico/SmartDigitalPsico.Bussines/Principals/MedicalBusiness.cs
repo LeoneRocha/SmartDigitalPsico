@@ -76,5 +76,10 @@ namespace SmartDigitalPsico.Business.Principals
 
             return entityResponse;
         }
+
+        public override Task<ServiceResponse<bool>> Delete(long id)
+        {
+            return base.EnableOrDisable(id);
+        }
     }
 }

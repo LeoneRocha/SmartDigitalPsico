@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Org.BouncyCastle.Utilities;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
@@ -104,6 +105,11 @@ namespace SmartDigitalPsico.Business.Principals
             {
                 await stream.CopyToAsync(fileStream);
             }
+        }
+
+        public override Task<ServiceResponse<bool>> Delete(long id)
+        { 
+            return base.EnableOrDisable(id);    
         }
     }
 }

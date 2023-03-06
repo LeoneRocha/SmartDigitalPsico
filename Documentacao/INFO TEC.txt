@@ -1,3 +1,17 @@
+------------------ IMPLANTAR UPLLOAD ARQUIVO 
+
+https://www.c-sharpcorner.com/article/upload-single-and-multiple-files-using-the-net-core-6-web-api/
+https://www.macoratti.net/20/02/aspc_apimgup1.htm
+https://learn.microsoft.com/pt-br/aspnet/core/mvc/models/file-uploads?view=aspnetcore-7.0
+
+https://www.google.com/search?q=c%23+net+core+rest+api+upload+file+example&rlz=1C1VDKB_pt-PTBR1004BR1004&sxsrf=AJOqlzVArmRliuU5u7dG8LEOGkNV7Ou9PA%3A1678108826645&ei=mugFZMz-JqXf1sQPqviE2Aw&ved=0ahUKEwjMs4bEssf9AhWlr5UCHSo8AcsQ4dUDCA8&uact=5&oq=c%23+net+core+rest+api+upload+file+example&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIICCEQoAEQwwQ6CggAEEcQ1gQQsAM6BwgjELACECc6CggAEAgQHhANEBM6CgghEKABEMMEEAo6BQgAEKIESgQIQRgAUOMLWJ8iYJspaAJwAXgAgAG8AYgBiwySAQQwLjEwmAEAoAEByAEIwAEB&sclient=gws-wiz-serp
+
+------------------ IMPLANTAR CRIPTOGRAFIA ARQUIVO E NAS COLUNAS DE DADOS PESSOAIS DO PACIENTE E DAS ANOTACOES.
+
+
+------------------  
+
+
 https://fullcalendar.io/
 
 dotnet ef migrations add SmartDigitalPsicoDBMig

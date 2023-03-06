@@ -41,6 +41,10 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         [Column("TypeAccreditation")]
         public ETypeAccreditation TypeAccreditation { get; set; }
+         
+        [Column("SecurityKey", TypeName = "varchar(255)")]
+        [MaxLength(255)] 
+        public string? SecurityKey { get; set; }
 
         #endregion Columns 
     }

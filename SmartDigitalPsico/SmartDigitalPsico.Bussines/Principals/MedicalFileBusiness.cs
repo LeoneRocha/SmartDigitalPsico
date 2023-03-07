@@ -20,7 +20,7 @@ namespace SmartDigitalPsico.Business.Principals
     public class MedicalFileBusiness : GenericBusinessEntityBaseSimplev2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileRepository>, IMedicalFileBusiness
 
     {
-        private ETypeLocationSaveFiles _localSalvar = ETypeLocationSaveFiles.DataBase;
+        private ETypeLocationSaveFiles _localSalvar = ETypeLocationSaveFiles.Disk;
         private readonly IMapper _mapper;
         IConfiguration _configuration;
         private long _IdUserAction = 1;
@@ -58,7 +58,7 @@ namespace SmartDigitalPsico.Business.Principals
                     addMedicalFileVO.FileExtension = extensioFile.Substring(0, 3);
                     addMedicalFileVO.FileSizeKB = fileData.Length / 1024;
 
-                    persistFile(entity, fileData, addMedicalFileVO);
+                    addMedicalFileVO.FilePath = await persistFile(entity, fileData, addMedicalFileVO);
                 }
             }
 
@@ -83,12 +83,12 @@ namespace SmartDigitalPsico.Business.Principals
             return true;
         }
 
-        private async void persistFile(AddMedicalFileVOUpload entity, IFormFile fileData, AddMedicalFileVO addMedicalFileVO)
+        private async Task<string?> persistFile(AddMedicalFileVOUpload entity, IFormFile fileData, AddMedicalFileVO addMedicalFileVO)
         {
             ///MUDAR PARA BUSCAR NA TABELAS DE CONFIGURACOES  
             string pathDomainBussines = Path.Combine(Directory.GetCurrentDirectory(), "ResourcesFileSave");
-            string folderDest = Path.Combine(pathDomainBussines, entity.MedicalId.ToString());             
-            var pathSave = Path.Combine(folderDest, fileData.FileName); 
+            string? folderDest = Path.Combine(pathDomainBussines, entity.MedicalId.ToString());
+            var pathSave = Path.Combine(folderDest, fileData.FileName);
 
             byte[] fileDataSave = null;
             using (var stream = new MemoryStream())
@@ -100,6 +100,7 @@ namespace SmartDigitalPsico.Business.Principals
             if (_localSalvar == ETypeLocationSaveFiles.DataBase)
             {
                 addMedicalFileVO.FileData = fileDataSave;
+                folderDest = null;
             }
 
             if (_localSalvar == ETypeLocationSaveFiles.Disk)
@@ -110,9 +111,9 @@ namespace SmartDigitalPsico.Business.Principals
                     FileData = fileDataSave,
                     FileName = fileData.FileName,
                     FilePath = pathSave
-
-                }); 
+                });
             }
+            return folderDest;
         }
 
         public async Task<bool> DownloadFileById(long fileId)
@@ -121,19 +122,41 @@ namespace SmartDigitalPsico.Business.Principals
 
             if (fileEntity != null)
             {
-                var content = new System.IO.MemoryStream(fileEntity.FileData);
+                if (_localSalvar == ETypeLocationSaveFiles.DataBase)
+                {
+                    getFromByteSaveTemp(fileEntity.FileData, fileEntity.Description);
+                }
 
-                var path = Path.Combine(
-                   Directory.GetCurrentDirectory(), "ResourcesTemp",
-                   fileEntity.Description);
+                if (_localSalvar == ETypeLocationSaveFiles.Disk)
+                {
+                    fileEntity.FileData = await getFromDisk(fileEntity);
 
-                await copyStream(content, path);
-
-                return true;
+                    getFromByteSaveTemp(fileEntity.FileData, fileEntity.Description);
+                }
             }
 
-            return false;
+            return true;
         }
+
+        private async Task<byte[]> getFromDisk(MedicalFile fileEntity)
+        {
+            return await _repositoryFileDisk.Get(new FileData() { FilePath = fileEntity.FilePath, FileName = fileEntity.Description });
+        }
+
+        private async void getFromByteSaveTemp(byte[] filedata, string fileName)
+        {
+            if (filedata != null)
+            {
+                var content = new System.IO.MemoryStream(filedata);
+
+                //MUDAR PARA BAIXAR NO NAVEGADOR ou retornar url ou retornar o bytes **QUANDO TIVER FAZENDO O FRONT
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "ResourcesTemp", fileName);
+
+
+                await copyStream(content, path);
+            } 
+        }
+
         private async Task copyStream(MemoryStream stream, string downloadPath)
         {
             using (var fileStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write))

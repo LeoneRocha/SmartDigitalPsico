@@ -3,7 +3,7 @@ using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Repository.FileManager
 {
-    public class RepositoryFileDisk: IRepositoryFileDisk  
+    public class RepositoryFileDisk : IRepositoryFileDisk
     {
         public RepositoryFileDisk()
         {
@@ -35,13 +35,16 @@ namespace SmartDigitalPsico.Repository.FileManager
             byte[] dataArray = item.FileData;
 
             string folder = string.Format(@"{0}", item.FolderDestination);
-            string arquivo = Path.Combine(folder, item.FileName); 
+            string arquivo = Path.Combine(folder, item.FileName);
 
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
             }
-
+            if (File.Exists(arquivo))
+            {
+                File.Delete(arquivo);
+            }
             using (FileStream fileStream = new FileStream(string.Format(@"{0}\{1}", item.FolderDestination, item.FileName), FileMode.Create))
             {
                 // Write the data to the file, byte by byte.
@@ -60,7 +63,7 @@ namespace SmartDigitalPsico.Repository.FileManager
                         throw new Exception("Error writing data.");
                     }
                 }
-                //throw new Exception(string.Format(@"The data was written to {0} " + "and verified.", fileStream.Name));                 
+                //throw new Exception(string.Format(@"The data was written to {0} " + "and verified.", fileStream.Name));  
             }
             return true;
         }
@@ -87,6 +90,28 @@ namespace SmartDigitalPsico.Repository.FileManager
             return true;
         }
 
+        public async Task<byte[]?> Get(FileData fileCriteria)
+        {
+            byte[]? result = null;
+            string pathFile = String.IsNullOrEmpty(fileCriteria.FilePath) ? string.Empty : fileCriteria.FilePath;
 
+            string fileInfo = Path.Combine(pathFile, fileCriteria.FileName);
+
+            if (File.Exists(fileInfo))
+            {
+                using (FileStream SourceStream = File.Open(fileInfo, FileMode.Open))
+                {
+                    result = new byte[SourceStream.Length];
+                    await SourceStream.ReadAsync(result, 0, (int)SourceStream.Length);
+                }
+            }
+            return result;
+            //UserInput.Text = System.Text.Encoding.ASCII.GetString(result);
+        }
+
+        public Task Delete(FileData fileCriteria)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

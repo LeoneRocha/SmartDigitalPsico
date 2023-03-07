@@ -6,5 +6,9 @@ namespace SmartDigitalPsico.Repository.FileManager
     public interface IRepositoryFileDisk //: IRepositoryFileBase<FileData>
     {
         Task<bool> Save(FileData item);
+
+        Task<byte[]?> Get(FileData fileCriteria);
+        Task Delete(FileData fileCriteria);
     }
 }
+

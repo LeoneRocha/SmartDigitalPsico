@@ -50,14 +50,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
             return Ok("Downloaded");
         }
 
-        [HttpPost]
-        public async Task<ActionResult<string>>
-            Create([FromForm] AddMedicalFileVOUpload newEntity)
+        [HttpPost("Upload")]
+        public async Task<ActionResult<string>> Create([FromForm] AddMedicalFileVOUpload newEntity)
         {
             try
             {
-                await _entitytService.PostFileAsync(newEntity);
-
+                await _entitytService.PostFileAsync(newEntity); 
             }
             catch (Exception ex)
             {

@@ -7,6 +7,7 @@ using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
+using SmartDigitalPsico.Repository.FileManager;
 using SmartDigitalPsico.Repository.Principals;
 using SmartDigitalPsico.Repository.SystemDomains;
 using SmartDigitalPsico.Services.Contracts.Principals;
@@ -30,6 +31,8 @@ namespace SmartDigitalPsico.WebAPI.Helper
         #region INTERFACES
         private static void addRepositories(IServiceCollection services)
         {
+            services.AddScoped<IRepositoryFileDisk, RepositoryFileDisk>();
+
             //services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMedicalRepository, MedicalRepository>();

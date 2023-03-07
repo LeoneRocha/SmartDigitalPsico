@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="dbmigration\" />
+    <Folder Include="ResourcesFileSave\" />
     <Folder Include="ResourcesTemp\FilesUpaload\" />
   </ItemGroup>
 

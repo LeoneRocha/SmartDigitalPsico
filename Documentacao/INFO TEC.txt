@@ -10,7 +10,16 @@ https://code-maze.com/upload-files-dot-net-core-angular/
 https://stackoverflow.com/questions/50223606/aspnetcore-uploading-a-file-through-rest
 ------------------ IMPLANTAR CRIPTOGRAFIA ARQUIVO E NAS COLUNAS DE DADOS PESSOAIS DO PACIENTE E DAS ANOTACOES.
 
+https://github.com/matthewschrager/Repository/tree/master/Repository.Azure
 
+1) CRIAR REPOSITORIO DE SALVAR ARQUIVO E RECUPERAR ARQUIVO E LER E JOGAR EM MEMORIA BYTE[]
+07/03/23
+2) CRIAR CAMADA DE NEGOCIO PARA GERAR O OBJETO DE CACHE E TRANSFORMAR EM JSON E SALVAR EM ARQUIVO 
+08/03/23
+
+3) TERMINAR O MEDICAL FILE E PATIENTE FILE 
+
+4) 
 ------------------  
 
 

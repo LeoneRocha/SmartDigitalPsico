@@ -43,12 +43,13 @@ namespace SmartDigitalPsico.Business.Principals
         public async Task<bool> PostFileAsync(AddMedicalFileVOUpload entity)
         {
             var addMedicalFileVO = new AddMedicalFileVO();
+            IFormFile fileData = null;
             if (entity != null)
             {
 
                 addMedicalFileVO.Description = entity.Description;
                 addMedicalFileVO.MedicalId = entity.MedicalId;
-                var fileData = entity.FileDetails;
+                fileData = entity.FileDetails;
                 if (fileData != null)
                 {
                     string extensioFile = fileData.ContentType.Split('/').Last();
@@ -56,13 +57,13 @@ namespace SmartDigitalPsico.Business.Principals
                     addMedicalFileVO.FilePath = fileData.FileName;
                     addMedicalFileVO.FileContentType = fileData.ContentType;
                     addMedicalFileVO.FileExtension = extensioFile.Substring(0, 3);
-                    addMedicalFileVO.FileSizeKB = fileData.Length / 1024;
-
-                    addMedicalFileVO.FilePath = await persistFile(entity, fileData, addMedicalFileVO);
+                    addMedicalFileVO.FileSizeKB = fileData.Length / 1024;                    
                 }
             }
 
             MedicalFile entityAdd = _mapper.Map<MedicalFile>(addMedicalFileVO);
+
+            entityAdd.FilePath = await persistFile(entity, fileData, entityAdd);
 
             #region Relationship
 
@@ -83,7 +84,7 @@ namespace SmartDigitalPsico.Business.Principals
             return true;
         }
 
-        private async Task<string?> persistFile(AddMedicalFileVOUpload entity, IFormFile fileData, AddMedicalFileVO addMedicalFileVO)
+        private async Task<string?> persistFile(AddMedicalFileVOUpload entity, IFormFile fileData, MedicalFile entityAdd)
         {
             ///MUDAR PARA BUSCAR NA TABELAS DE CONFIGURACOES  
             string pathDomainBussines = Path.Combine(Directory.GetCurrentDirectory(), "ResourcesFileSave");
@@ -99,7 +100,8 @@ namespace SmartDigitalPsico.Business.Principals
 
             if (_localSalvar == ETypeLocationSaveFiles.DataBase)
             {
-                addMedicalFileVO.FileData = fileDataSave;
+                entityAdd.FileData = fileDataSave;
+                entityAdd.TypeLocationSaveFile = ETypeLocationSaveFiles.DataBase;
                 folderDest = null;
             }
 
@@ -112,6 +114,7 @@ namespace SmartDigitalPsico.Business.Principals
                     FileName = fileData.FileName,
                     FilePath = pathSave
                 });
+                entityAdd.TypeLocationSaveFile = ETypeLocationSaveFiles.Disk;
             }
             return folderDest;
         }
@@ -122,12 +125,12 @@ namespace SmartDigitalPsico.Business.Principals
 
             if (fileEntity != null)
             {
-                if (_localSalvar == ETypeLocationSaveFiles.DataBase)
+                if (_localSalvar == ETypeLocationSaveFiles.DataBase && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.DataBase)
                 {
                     getFromByteSaveTemp(fileEntity.FileData, fileEntity.Description);
                 }
 
-                if (_localSalvar == ETypeLocationSaveFiles.Disk)
+                if (_localSalvar == ETypeLocationSaveFiles.Disk && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.Disk)
                 {
                     fileEntity.FileData = await getFromDisk(fileEntity);
 
@@ -154,7 +157,7 @@ namespace SmartDigitalPsico.Business.Principals
 
 
                 await copyStream(content, path);
-            } 
+            }
         }
 
         private async Task copyStream(MemoryStream stream, string downloadPath)

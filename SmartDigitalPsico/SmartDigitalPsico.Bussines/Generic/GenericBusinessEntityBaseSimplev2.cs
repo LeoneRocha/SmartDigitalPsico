@@ -18,8 +18,7 @@ namespace SmartDigitalPsico.Business.Generic
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
-
-
+         
         public GenericBusinessEntityBaseSimplev2(IMapper mapper, Repo UserRepository)
         {
             _mapper = mapper;
@@ -77,7 +76,7 @@ namespace SmartDigitalPsico.Business.Generic
             return response;
         }
 
-        public async Task<ServiceResponse<bool>> Exists(long id)
+        public virtual async Task<ServiceResponse<bool>> Exists(long id)
         {
             ServiceResponse<bool> response = new ServiceResponse<bool>();
             bool entityResponse = await _genericRepository.Exists(id);
@@ -87,7 +86,7 @@ namespace SmartDigitalPsico.Business.Generic
             response.Message = "Register exist.";
             return response;
         }
-        public async Task<ServiceResponse<List<TEntityResult>>> FindAll()
+        public virtual async Task<ServiceResponse<List<TEntityResult>>> FindAll()
         {
             ServiceResponse<List<TEntityResult>> response = new ServiceResponse<List<TEntityResult>>();
             List<TEntity> entityResponse = await _genericRepository.FindAll();
@@ -98,7 +97,7 @@ namespace SmartDigitalPsico.Business.Generic
             response.Message = "Register exist.";
             return response;
         }
-        public async Task<ServiceResponse<TEntityResult>> FindByID(long id)
+        public virtual async Task<ServiceResponse<TEntityResult>> FindByID(long id)
         {
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
             TEntity entityResponse = await _genericRepository.FindByID(id);
@@ -113,7 +112,7 @@ namespace SmartDigitalPsico.Business.Generic
             response.Message = "Register not find.";
             return response;
         }
-        public async Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query)
+        public virtual async Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query)
         {
             ServiceResponse<List<TEntityResult>> response = new ServiceResponse<List<TEntityResult>>();
             List<TEntity> entityResponse = await _genericRepository.FindWithPagedSearch(query);
@@ -123,7 +122,7 @@ namespace SmartDigitalPsico.Business.Generic
             response.Message = "Register find.";
             return response;
         }
-        public async Task<ServiceResponse<int>> GetCount(string query)
+        public virtual async Task<ServiceResponse<int>> GetCount(string query)
         {
             ServiceResponse<int> response = new ServiceResponse<int>();
             int entityResponse = await _genericRepository.GetCount(query);

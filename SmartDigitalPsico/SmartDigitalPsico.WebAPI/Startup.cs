@@ -19,6 +19,7 @@ using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Hypermedia.Enricher;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Repository.Context;
@@ -32,6 +33,7 @@ using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
 using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.IO;
 
 namespace SmartDigitalPsico.WebAPI
@@ -48,6 +50,9 @@ namespace SmartDigitalPsico.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //For In-Memory Caching
+            addCaching(services);
+
             //Security API
             addSecurity(services);
 
@@ -78,6 +83,13 @@ namespace SmartDigitalPsico.WebAPI
             //Dependency Injection
             DependenciesInjectionHelper.AddDependenciesInjection(services);
         }
+
+        private void addCaching(IServiceCollection services)
+        {
+            services.Configure<CacheConfiguration>(Configuration.GetSection("CacheConfiguration"));
+            services.AddMemoryCache();
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

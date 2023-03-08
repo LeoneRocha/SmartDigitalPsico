@@ -19,7 +19,7 @@ https://github.com/matthewschrager/Repository/tree/master/Repository.Azure
 
 3) TERMINAR O MEDICAL FILE E PATIENTE FILE 
 
-4) 
+4) FAZER O MOCK DE CONFIG 
 ------------------  
 
 

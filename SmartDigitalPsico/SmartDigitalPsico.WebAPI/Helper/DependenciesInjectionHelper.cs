@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Repository.CacheManager;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.FileManager;
@@ -14,6 +16,7 @@ using SmartDigitalPsico.Services.Contracts.Principals;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
+using System;
 
 namespace SmartDigitalPsico.WebAPI.Helper
 {
@@ -32,6 +35,8 @@ namespace SmartDigitalPsico.WebAPI.Helper
         private static void addRepositories(IServiceCollection services)
         {
             services.AddScoped<IRepositoryFileDisk, RepositoryFileDisk>();
+            services.AddScoped<IMemoryCacheRepository, MemoryCacheRepository>();
+          
 
             //services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -60,6 +65,23 @@ namespace SmartDigitalPsico.WebAPI.Helper
         }
         private static void addBusiness(IServiceCollection services)
         {
+            services.AddScoped<ICacheBusiness, CacheBusiness>();
+
+            //services.AddTransient<Func<CacheTech, ICacheService>>(serviceProvider => key =>
+            //{
+            //    switch (key)
+            //    {
+            //        case CacheTech.Memory:
+            //            return serviceProvider.GetService<MemoryCacheService>();
+            //        case CacheTech.Redis:
+            //            return serviceProvider.GetService<RedisCacheService>();
+            //        default:
+            //            return serviceProvider.GetService<MemoryCacheService>();
+            //    }
+            //});
+
+
+
             services.AddScoped<IApplicationLanguageBusiness, ApplicationLanguageBusiness>();
             services.AddScoped<IApplicationConfigSettingBusiness, ApplicationConfigSettingBusiness>();
 

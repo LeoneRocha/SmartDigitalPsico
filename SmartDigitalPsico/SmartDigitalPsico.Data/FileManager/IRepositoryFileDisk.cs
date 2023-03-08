@@ -9,6 +9,8 @@ namespace SmartDigitalPsico.Repository.FileManager
 
         Task<byte[]?> Get(FileData fileCriteria);
         Task Delete(FileData fileCriteria);
+
+        bool Exists(FileData fileCriteria);
     }
 }
 

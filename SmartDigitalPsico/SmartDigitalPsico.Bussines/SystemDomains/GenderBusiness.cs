@@ -7,6 +7,7 @@ using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
@@ -21,14 +22,11 @@ namespace SmartDigitalPsico.Business.SystemDomains
     {
         private readonly IMapper _mapper;
         private readonly IGenderRepository _genericRepository;
-        private readonly static ETypeLocationCache cacheTech = ETypeLocationCache.Memory;
         private readonly ICacheBusiness _cacheBusiness;
-
 
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository, ICacheBusiness cacheBusiness)
             : base(mapper, entityRepository)
-        {
-
+        { 
             _mapper = mapper;
             _genericRepository = entityRepository;
             _cacheBusiness = cacheBusiness;
@@ -38,15 +36,26 @@ namespace SmartDigitalPsico.Business.SystemDomains
         {
             ServiceResponse<List<GetGenderVO>> result = new ServiceResponse<List<GetGenderVO>>();
 
-            bool existsCache = _cacheBusiness.TryGet<ServiceResponse<List<GetGenderVO>>>(null, out ServiceResponse<List<GetGenderVO>> cachedResult);
+
+            List<GetGenderVO> listEntity = new List<GetGenderVO>();
+
+            bool existsCache = _cacheBusiness.TryGet<ServiceResponseCache<List<GetGenderVO>>>("FindAll_GetGenderVO",
+                out ServiceResponseCache<List<GetGenderVO>> cachedResult);
             if (!existsCache)
             {
                 result = await base.FindAll();
-                bool resultAction = _cacheBusiness.Set<ServiceResponse<List<GetGenderVO>>>(null, result); 
+
+                ServiceResponseCache<List<GetGenderVO>> cacheSave = new ServiceResponseCache<List<GetGenderVO>>();
+                cacheSave.Data = result.Data;
+                cacheSave.Success = result.Success;
+                cacheSave.Message = result.Message;
+                _cacheBusiness.CalculateSlidingExpiration(cacheSave);
+
+                bool resultAction = _cacheBusiness.Set<ServiceResponseCache<List<GetGenderVO>>>("FindAll_GetGenderVO", cacheSave );
             }
             else
             {
-                result = cachedResult;
+                result.Data = cachedResult.Data;
             }
             return result;
         }

@@ -1,4 +1,5 @@
-﻿using SmartDigitalPsico.Model.Entity.Principals;
+﻿using MySqlX.XDevAPI.Common;
+using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Repository.FileManager
@@ -109,9 +110,35 @@ namespace SmartDigitalPsico.Repository.FileManager
             //UserInput.Text = System.Text.Encoding.ASCII.GetString(result);
         }
 
-        public Task Delete(FileData fileCriteria)
+        public async Task Delete(FileData fileCriteria)
         {
-            throw new NotImplementedException();
+            string pathFile = String.IsNullOrEmpty(fileCriteria.FilePath) ? string.Empty : fileCriteria.FilePath;
+            string fileInfo = Path.Combine(pathFile, fileCriteria.FileName);
+
+            bool result = false;
+            if (Directory.Exists(pathFile))
+            {
+                result = File.Exists(fileInfo);
+                if (result)
+                {
+                    await File.AppendAllTextAsync(fileInfo, "");
+                    File.Delete(fileInfo);
+                }
+            }
+        }
+
+        public bool Exists(FileData fileCriteria)
+        {
+            string pathFile = String.IsNullOrEmpty(fileCriteria.FilePath) ? string.Empty : fileCriteria.FilePath;
+            string fileInfo = Path.Combine(pathFile, fileCriteria.FileName);
+
+            bool result = false;
+            if (Directory.Exists(pathFile))
+            {
+                result = File.Exists(fileInfo);
+            }
+
+            return result;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartDigitalPsico.Model.Entity.Domains.Configurations;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,6 @@ namespace SmartDigitalPsico.Business.CacheManager
         bool TryGet<T>(string? cacheKey, out T value) where T : new();
         bool Set<T>(string? cacheKey, T value);
         bool Remove<T>(string? cacheKey);
+        void CalculateSlidingExpiration(ServiceResponseCache<List<GetGenderVO>> cacheSave);
     }
-
 }

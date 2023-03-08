@@ -31,6 +31,7 @@
     <Folder Include="dbmigration\" />
     <Folder Include="ResourcesFileSave\" />
     <Folder Include="ResourcesTemp\FilesUpaload\" />
+    <Folder Include="ResourcesTemp\Cache\" />
   </ItemGroup>
 
 </Project>

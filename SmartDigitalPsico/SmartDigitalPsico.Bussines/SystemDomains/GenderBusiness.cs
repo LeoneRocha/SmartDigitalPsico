@@ -58,9 +58,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
                 result.Data = cachedResult.Data;
             }
             return result;
-        }
-
-
+        } 
         public override async Task<ServiceResponse<GetGenderVO>> Update(UpdateGenderVO item)
         {
             ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();

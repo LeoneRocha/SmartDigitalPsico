@@ -20,6 +20,8 @@ namespace SmartDigitalPsico.Repository.Context
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<ApplicationLanguage> ApplicationLanguages { get; set; }
         public DbSet<ApplicationConfigSetting> ApplicationConfigSettings { get; set; }
+
+        public DbSet<ApplicationCacheLog> ApplicationCacheLogs { get; set; }
         #endregion
 
         #region Principais

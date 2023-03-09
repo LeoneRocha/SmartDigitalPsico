@@ -9,9 +9,11 @@ namespace SmartDigitalPsico.Model.VO.Domains
         {
 
         }
-        public ServiceResponseCacheVO(IServiceResponse<T> serviceResponse, DateTime dateTimeSlidingExpiration)
+        public ServiceResponseCacheVO(IServiceResponse<T> serviceResponse
+            , string cacheKey, DateTime dateTimeSlidingExpiration)
         {
-            CacheKey = Guid.NewGuid().ToString();
+            CacheKey = cacheKey;
+            CacheId = Guid.NewGuid().ToString();
             DateTimeSlidingExpiration = dateTimeSlidingExpiration;
             Data = serviceResponse.Data;
             Success = serviceResponse.Success;
@@ -19,5 +21,7 @@ namespace SmartDigitalPsico.Model.VO.Domains
         }
         public DateTime DateTimeSlidingExpiration { get; set; }
         public string CacheKey { get; set; }
+        public string CacheId { get; set; }
+
     }
 }

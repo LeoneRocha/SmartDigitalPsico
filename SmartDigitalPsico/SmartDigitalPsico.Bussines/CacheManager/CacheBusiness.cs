@@ -1,13 +1,11 @@
 using AutoMapper;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using MySqlX.XDevAPI.Common;
 using SmartDigitalPsico.Domains.Enuns;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.VO.Domains;
-using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Repository.CacheManager;
-using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using System.Reflection;
 
 namespace SmartDigitalPsico.Business.CacheManager
@@ -20,17 +18,20 @@ namespace SmartDigitalPsico.Business.CacheManager
         private readonly IMemoryCacheRepository _memoryCacheRepository;
         private readonly IDiskCacheRepository _diskCacheRepository;
         private readonly CacheConfigurationVO _cacheConfig;
-
         private static ETypeLocationCache typeCache;
+        private readonly IApplicationCacheLogRepository _applicationCacheLogRepository;
 
         public CacheBusiness(IMapper mapper, IConfiguration configuration
             , IMemoryCacheRepository memoryCacheRepository
-            , IDiskCacheRepository diskCacheRepository, IOptions<CacheConfigurationVO> cacheConfig)
+            , IDiskCacheRepository diskCacheRepository
+            , IApplicationCacheLogRepository applicationCacheLogRepository
+            , IOptions<CacheConfigurationVO> cacheConfig)
         {
             _mapper = mapper;
             _configuration = configuration;
             _memoryCacheRepository = memoryCacheRepository;
             _diskCacheRepository = diskCacheRepository;
+            _applicationCacheLogRepository = applicationCacheLogRepository;
             _cacheConfig = cacheConfig.Value;
             typeCache = getTypeCache();
         }
@@ -69,7 +70,7 @@ namespace SmartDigitalPsico.Business.CacheManager
             switch (typeCache)
             {
                 case ETypeLocationCache.Disk:
-                    result = _diskCacheRepository.SetAsync(cacheKey, value).GetAwaiter().GetResult();
+                    result = processCacheRepositoryDisk(cacheKey, value); 
                     break;
                 case ETypeLocationCache.Memory:
                     result = _memoryCacheRepository.Set(cacheKey, value);
@@ -87,8 +88,7 @@ namespace SmartDigitalPsico.Business.CacheManager
                     break;
             }
             return result;
-        }
-
+        } 
         public bool TryGet<T>(string? cacheKey, out T valueResult) where T : new()
         {
             T _valueResult = new();
@@ -101,8 +101,8 @@ namespace SmartDigitalPsico.Business.CacheManager
                 {
                     case ETypeLocationCache.Disk:
                         var resultDisk = _diskCacheRepository.TryGetAsync<T>(cacheKey).GetAwaiter().GetResult();
-                        result = checkCacheIsValid(resultDisk);
-                        _valueResult = checkCacheIsValid(resultDisk) ? resultDisk.Value : _valueResult;
+                        result = checkCacheIsValid(resultDisk, cacheKey);
+                        _valueResult = checkCacheIsValid(resultDisk, cacheKey) ? resultDisk.Value : _valueResult;
                         break;
                     case ETypeLocationCache.Memory:
                         result = _memoryCacheRepository.TryGet(cacheKey, out _valueResult);
@@ -128,7 +128,6 @@ namespace SmartDigitalPsico.Business.CacheManager
             return result;
         }
 
-
         public bool IsEnable()
         {
             bool isEnable = _cacheConfig.IsEnable;
@@ -142,8 +141,32 @@ namespace SmartDigitalPsico.Business.CacheManager
         }
 
         #region PRIVATES
-         
-        private bool checkCacheIsValid<T>(KeyValuePair<bool, T> resultDisk) where T : new()
+        private bool processCacheRepositoryDisk<T>(string cacheKey, T? value)
+        {
+            bool result = false;
+
+            result = _diskCacheRepository.SetAsync(cacheKey, value).GetAwaiter().GetResult();
+
+            DateTime dateTimeSlidingExpiration;
+
+            DateTime.TryParse(getPropValue(value, "DateTimeSlidingExpiration").ToString(), out dateTimeSlidingExpiration);
+            string _cacheId = getPropValue(value, "CacheId").ToString();
+            var addLogCache = new ApplicationCacheLog()
+            {
+                CacheKey = cacheKey,
+                CacheId = _cacheId,
+                CreatedDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                LastAccessDate = DateTime.Now,
+                DateTimeSlidingExpiration = dateTimeSlidingExpiration,
+                Enable = true
+            };
+            _applicationCacheLogRepository.Create(addLogCache);
+
+            return result;
+        }
+
+        private bool checkCacheIsValid<T>(KeyValuePair<bool, T> resultDisk, string cacheKey) where T : new()
         {
             if (resultDisk.Value != null)
             {
@@ -157,6 +180,10 @@ namespace SmartDigitalPsico.Business.CacheManager
                     bool temData = DateTime.TryParse(valorExpiracao.ToString(), out dataExpiracao);
                     if (temData && dataExpiracao != DateTime.MinValue && DateTime.Now >= dataExpiracao)
                     {
+                        bool resultCacheLogDisk = _diskCacheRepository.RemoveAsync(cacheKey).GetAwaiter().GetResult();
+
+                        bool resultCacheLog = _applicationCacheLogRepository.Delete(cacheKey).GetAwaiter().GetResult();
+
                         return false;
                     }
                     return true;

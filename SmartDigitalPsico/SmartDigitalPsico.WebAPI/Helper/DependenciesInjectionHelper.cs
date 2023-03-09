@@ -56,6 +56,8 @@ namespace SmartDigitalPsico.WebAPI.Helper
 
             services.AddScoped<IApplicationLanguageRepository, ApplicationLanguageRepository>();
             services.AddScoped<IApplicationConfigSettingRepository, ApplicationConfigSettingRepository>();
+            services.AddScoped<IApplicationCacheLogRepository, ApplicationCacheLogRepository>();
+
 
             services.AddScoped<IGenderRepository, GenderRepository>();
             services.AddScoped<IOfficeRepository, OfficeRepository>();

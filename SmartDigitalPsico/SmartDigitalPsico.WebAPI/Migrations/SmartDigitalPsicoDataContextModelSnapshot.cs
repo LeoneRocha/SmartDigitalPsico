@@ -66,6 +66,53 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Domains.Configurations.ApplicationCacheLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CacheId")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("CacheId");
+
+                    b.Property<string>("CacheKey")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("CacheKey");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime>("DateTimeSlidingExpiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("Enable")
+                        .HasColumnType("bit")
+                        .HasColumnName("Enable")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime>("LastAccessDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastAccessDate");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifyDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationCacheLogs", "dbo");
+                });
+
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Domains.Configurations.ApplicationConfigSetting", b =>
                 {
                     b.Property<long>("Id")
@@ -631,12 +678,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Accreditation = "123456",
-                            CreatedDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(7965),
+                            CreatedDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(2551),
                             CreatedUserId = 1L,
                             Email = "medical@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(7968),
-                            ModifyDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(7969),
+                            LastAccessDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(2555),
+                            ModifyDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(2556),
                             Name = "Medical MOCK ",
                             OfficeId = 3L,
                             TypeAccreditation = 0,
@@ -1362,30 +1409,30 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            CreatedDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(6914),
+                            CreatedDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(1284),
                             Email = "admin@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(6929),
+                            LastAccessDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(1298),
                             Login = "admin",
-                            ModifyDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(6930),
+                            ModifyDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(1301),
                             Name = "User MOCK ",
-                            PasswordHash = new byte[] { 155, 234, 55, 52, 23, 30, 121, 156, 138, 247, 100, 111, 31, 165, 36, 166, 94, 181, 114, 214, 119, 78, 146, 136, 4, 94, 219, 41, 130, 72, 211, 65, 32, 189, 219, 125, 108, 100, 159, 61, 12, 111, 143, 33, 71, 13, 242, 18, 205, 123, 198, 231, 23, 151, 221, 27, 93, 46, 158, 111, 202, 49, 117, 62 },
-                            PasswordSalt = new byte[] { 180, 216, 189, 112, 89, 64, 223, 181, 61, 74, 72, 18, 249, 199, 142, 205, 5, 172, 55, 64, 52, 57, 41, 39, 84, 42, 199, 153, 155, 251, 107, 79, 169, 153, 155, 9, 217, 111, 123, 149, 123, 38, 48, 245, 11, 232, 177, 147, 82, 71, 158, 22, 250, 21, 78, 215, 28, 27, 176, 164, 182, 61, 67, 154, 7, 186, 108, 81, 28, 47, 124, 16, 219, 42, 2, 249, 163, 199, 117, 118, 77, 39, 104, 227, 58, 23, 156, 196, 236, 198, 119, 148, 235, 136, 101, 170, 138, 228, 196, 237, 132, 105, 150, 198, 7, 238, 5, 178, 82, 34, 90, 88, 136, 243, 48, 128, 0, 170, 199, 194, 98, 7, 164, 245, 216, 164, 222, 136 },
+                            PasswordHash = new byte[] { 1, 90, 20, 24, 9, 21, 177, 33, 119, 34, 240, 13, 143, 219, 95, 132, 7, 232, 161, 81, 14, 234, 50, 185, 203, 216, 72, 46, 39, 66, 163, 113, 168, 33, 35, 227, 28, 99, 231, 14, 132, 60, 199, 125, 254, 160, 173, 207, 224, 58, 33, 210, 129, 127, 199, 62, 240, 65, 45, 4, 160, 38, 114, 102 },
+                            PasswordSalt = new byte[] { 241, 238, 37, 248, 117, 43, 140, 190, 203, 104, 25, 79, 190, 32, 125, 18, 46, 111, 40, 112, 184, 177, 22, 225, 112, 189, 94, 227, 108, 114, 179, 182, 206, 35, 187, 71, 134, 65, 12, 249, 109, 230, 130, 239, 27, 115, 57, 0, 38, 25, 124, 110, 98, 245, 131, 217, 8, 77, 164, 37, 237, 44, 197, 149, 205, 83, 33, 250, 24, 218, 111, 106, 12, 164, 6, 189, 191, 111, 43, 40, 0, 100, 80, 126, 60, 58, 244, 214, 200, 183, 12, 167, 121, 137, 71, 7, 1, 178, 63, 77, 182, 39, 59, 190, 130, 231, 232, 46, 106, 6, 222, 241, 40, 206, 26, 58, 73, 222, 135, 17, 237, 20, 189, 113, 232, 56, 195, 93 },
                             Role = "Admin"
                         },
                         new
                         {
                             Id = 2L,
                             Admin = false,
-                            CreatedDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(7399),
+                            CreatedDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(1914),
                             Email = "doctor@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(7401),
+                            LastAccessDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(1917),
                             Login = "doctor",
-                            ModifyDate = new DateTime(2023, 3, 7, 14, 53, 49, 352, DateTimeKind.Local).AddTicks(7402),
+                            ModifyDate = new DateTime(2023, 3, 9, 18, 24, 48, 448, DateTimeKind.Local).AddTicks(1918),
                             Name = "User Medical",
-                            PasswordHash = new byte[] { 251, 44, 57, 63, 147, 77, 170, 68, 14, 41, 214, 120, 81, 128, 189, 223, 159, 148, 218, 35, 238, 133, 180, 51, 23, 27, 225, 155, 129, 79, 84, 205, 211, 116, 245, 176, 203, 159, 7, 60, 113, 203, 48, 60, 78, 107, 6, 146, 139, 80, 121, 20, 154, 144, 138, 99, 79, 209, 112, 47, 251, 85, 107, 185 },
-                            PasswordSalt = new byte[] { 18, 39, 47, 218, 226, 197, 112, 239, 198, 93, 98, 68, 76, 18, 105, 207, 68, 234, 70, 18, 70, 189, 218, 139, 254, 215, 206, 171, 109, 129, 61, 178, 204, 16, 238, 19, 100, 110, 5, 85, 16, 10, 1, 136, 182, 218, 202, 170, 128, 226, 116, 123, 92, 238, 36, 75, 13, 222, 79, 224, 150, 7, 139, 65, 217, 205, 44, 236, 211, 203, 172, 234, 32, 251, 143, 187, 140, 164, 133, 156, 41, 131, 2, 2, 74, 249, 115, 164, 115, 237, 137, 72, 119, 108, 5, 2, 222, 233, 36, 167, 13, 52, 212, 117, 110, 207, 216, 236, 40, 114, 155, 143, 230, 8, 86, 158, 35, 129, 226, 136, 243, 72, 142, 9, 39, 152, 82, 124 },
+                            PasswordHash = new byte[] { 64, 94, 150, 182, 108, 34, 26, 149, 56, 79, 95, 112, 99, 178, 191, 207, 21, 101, 105, 55, 4, 184, 147, 133, 181, 202, 97, 100, 141, 79, 150, 31, 167, 241, 159, 40, 124, 215, 236, 236, 129, 21, 29, 250, 205, 64, 101, 221, 244, 96, 102, 234, 139, 130, 4, 230, 244, 167, 111, 164, 209, 202, 10, 65 },
+                            PasswordSalt = new byte[] { 92, 49, 143, 179, 100, 104, 153, 120, 129, 38, 101, 67, 126, 214, 181, 196, 235, 135, 149, 59, 204, 82, 250, 115, 209, 158, 154, 112, 10, 205, 60, 196, 71, 40, 235, 171, 61, 27, 93, 250, 143, 86, 51, 115, 87, 87, 169, 133, 161, 55, 203, 172, 211, 132, 18, 85, 48, 31, 3, 71, 129, 67, 156, 47, 14, 250, 142, 161, 249, 16, 202, 1, 138, 76, 138, 56, 251, 213, 141, 25, 3, 24, 123, 194, 199, 66, 89, 186, 140, 56, 40, 20, 50, 206, 51, 7, 241, 124, 2, 186, 240, 223, 11, 102, 196, 124, 245, 159, 47, 235, 239, 58, 45, 166, 57, 211, 153, 246, 100, 195, 217, 241, 24, 183, 189, 28, 244, 105 },
                             Role = "Medical"
                         });
                 });

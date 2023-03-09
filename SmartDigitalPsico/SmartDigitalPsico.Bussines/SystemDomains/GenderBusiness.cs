@@ -34,19 +34,20 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
         public override async Task<ServiceResponse<List<GetGenderVO>>> FindAll()
         {
+            string keyCache = "FindAll_GetGenderVO";
+
             ServiceResponse<List<GetGenderVO>> result = new ServiceResponse<List<GetGenderVO>>();
             List<GetGenderVO> listEntity = new List<GetGenderVO>();
-             
+
             if (_cacheBusiness.IsEnable())
             {
-                bool existsCache = _cacheBusiness.TryGet<ServiceResponseCacheVO<List<GetGenderVO>>>("FindAll_GetGenderVO",
-              out ServiceResponseCacheVO<List<GetGenderVO>> cachedResult);
+                bool existsCache = _cacheBusiness.TryGet<ServiceResponseCacheVO<List<GetGenderVO>>>(keyCache, out ServiceResponseCacheVO<List<GetGenderVO>> cachedResult);
                 if (!existsCache)
                 {
                     result = await base.FindAll();
-                    ServiceResponseCacheVO<List<GetGenderVO>> cacheSave = new ServiceResponseCacheVO<List<GetGenderVO>>(result, _cacheBusiness.GetSlidingExpiration());
+                    ServiceResponseCacheVO<List<GetGenderVO>> cacheSave = new ServiceResponseCacheVO<List<GetGenderVO>>(result, keyCache, _cacheBusiness.GetSlidingExpiration());
 
-                    bool resultAction = _cacheBusiness.Set<ServiceResponseCacheVO<List<GetGenderVO>>>("FindAll_GetGenderVO", cacheSave);
+                    bool resultAction = _cacheBusiness.Set<ServiceResponseCacheVO<List<GetGenderVO>>>(keyCache, cacheSave);
                 }
                 else
                 {

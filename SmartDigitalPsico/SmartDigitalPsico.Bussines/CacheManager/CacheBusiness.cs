@@ -136,14 +136,13 @@ namespace SmartDigitalPsico.Business.CacheManager
             return isEnable;
         }
 
-
-        #region PRIVATES
-
         public DateTime GetSlidingExpiration()
         {
             return DateTime.Now.AddHours(_cacheConfig.AbsoluteExpirationInHours).AddMinutes(_cacheConfig.SlidingExpirationInMinutes);
         }
 
+        #region PRIVATES
+         
         private bool checkCacheIsValid<T>(KeyValuePair<bool, T> resultDisk) where T : new()
         {
             if (resultDisk.Value != null)
@@ -166,7 +165,7 @@ namespace SmartDigitalPsico.Business.CacheManager
             return false;
         }
 
-        public static object getPropValue(object source, string propertyName)
+        private static object getPropValue(object source, string propertyName)
         {
             var property = source.GetType().GetRuntimeProperties().FirstOrDefault(p => string.Equals(p.Name, propertyName, StringComparison.OrdinalIgnoreCase));
             return property?.GetValue(source);

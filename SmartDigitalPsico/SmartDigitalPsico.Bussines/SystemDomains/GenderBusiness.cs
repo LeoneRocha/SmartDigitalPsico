@@ -7,7 +7,7 @@ using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.Entity.Domains.Configurations;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
@@ -26,7 +26,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository, ICacheBusiness cacheBusiness)
             : base(mapper, entityRepository)
-        { 
+        {
             _mapper = mapper;
             _genericRepository = entityRepository;
             _cacheBusiness = cacheBusiness;
@@ -35,30 +35,31 @@ namespace SmartDigitalPsico.Business.SystemDomains
         public override async Task<ServiceResponse<List<GetGenderVO>>> FindAll()
         {
             ServiceResponse<List<GetGenderVO>> result = new ServiceResponse<List<GetGenderVO>>();
-
-
             List<GetGenderVO> listEntity = new List<GetGenderVO>();
 
-            bool existsCache = _cacheBusiness.TryGet<ServiceResponseCache<List<GetGenderVO>>>("FindAll_GetGenderVO",
-                out ServiceResponseCache<List<GetGenderVO>> cachedResult);
-            if (!existsCache)
+            if (_cacheBusiness.IsEnable())
             {
-                result = await base.FindAll();
+                bool existsCache = _cacheBusiness.TryGet<ServiceResponseCacheVO<List<GetGenderVO>>>("FindAll_GetGenderVO",
+              out ServiceResponseCacheVO<List<GetGenderVO>> cachedResult);
+                if (!existsCache)
+                {
+                    result = await base.FindAll();
+                    ServiceResponseCacheVO<List<GetGenderVO>> cacheSave = new ServiceResponseCacheVO<List<GetGenderVO>>(result, _cacheBusiness.GetSlidingExpiration());
 
-                ServiceResponseCache<List<GetGenderVO>> cacheSave = new ServiceResponseCache<List<GetGenderVO>>();
-                cacheSave.Data = result.Data;
-                cacheSave.Success = result.Success;
-                cacheSave.Message = result.Message;
-                _cacheBusiness.CalculateSlidingExpiration(cacheSave);
-
-                bool resultAction = _cacheBusiness.Set<ServiceResponseCache<List<GetGenderVO>>>("FindAll_GetGenderVO", cacheSave );
+                    bool resultAction = _cacheBusiness.Set<ServiceResponseCacheVO<List<GetGenderVO>>>("FindAll_GetGenderVO", cacheSave);
+                }
+                else
+                {
+                    result.Data = cachedResult.Data;
+                }
             }
             else
             {
-                result.Data = cachedResult.Data;
+                result = await base.FindAll();
             }
+
             return result;
-        } 
+        }
         public override async Task<ServiceResponse<GetGenderVO>> Update(UpdateGenderVO item)
         {
             ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();

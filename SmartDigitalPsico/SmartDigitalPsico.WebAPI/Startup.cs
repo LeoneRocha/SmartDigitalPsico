@@ -6,34 +6,18 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using SmartDigitalPsico.Business.Contracts.Principals;
-using SmartDigitalPsico.Business.Contracts.SystemDomains;
-using SmartDigitalPsico.Business.Principals;
-using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Enuns;
-using SmartDigitalPsico.Domains.Hypermedia.Filters;
-using SmartDigitalPsico.Model.Entity.Domains.Configurations;
-using SmartDigitalPsico.Model.Hypermedia.Enricher;
 using SmartDigitalPsico.Model.Mapper;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.Context;
-using SmartDigitalPsico.Repository.Contract.Principals;
-using SmartDigitalPsico.Repository.Contract.SystemDomains;
-using SmartDigitalPsico.Repository.Principals;
-using SmartDigitalPsico.Repository.SystemDomains;
-using SmartDigitalPsico.Services.Contracts.Principals;
-using SmartDigitalPsico.Services.Contracts.SystemDomains;
-using SmartDigitalPsico.Services.Principals;
-using SmartDigitalPsico.Services.SystemDomains;
 using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
-using System;
 using System.IO;
 
 namespace SmartDigitalPsico.WebAPI
@@ -86,7 +70,7 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addCaching(IServiceCollection services)
         {
-            services.Configure<CacheConfiguration>(Configuration.GetSection("CacheConfiguration"));
+            services.Configure<CacheConfigurationVO>(Configuration.GetSection("CacheConfiguration"));
             services.AddMemoryCache();
         }
 

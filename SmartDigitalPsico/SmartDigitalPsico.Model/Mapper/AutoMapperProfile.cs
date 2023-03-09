@@ -17,6 +17,7 @@ using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 
 namespace SmartDigitalPsico.Model.Mapper
 {
@@ -31,6 +32,7 @@ namespace SmartDigitalPsico.Model.Mapper
 
             CreateMap<EntityBaseSimple, EntityVOBaseDomain>();
             CreateMap<EntityVOBaseDomain, EntityBaseSimple>();
+             
 
             #endregion
 

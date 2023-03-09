@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Org.BouncyCastle.Utilities;
-using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.FileManager;
 using System;
 using System.Collections.Generic;
@@ -16,9 +16,9 @@ namespace SmartDigitalPsico.Repository.CacheManager
     public class DiskCacheRepository : IDiskCacheRepository
     {
         private readonly IRepositoryFileDisk _repositoryFileDisk;
-        private readonly CacheConfiguration _cacheConfig;
+        private readonly CacheConfigurationVO _cacheConfig;
 
-        public DiskCacheRepository(IRepositoryFileDisk repositoryFileDisk, IOptions<CacheConfiguration> cacheConfig)
+        public DiskCacheRepository(IRepositoryFileDisk repositoryFileDisk, IOptions<CacheConfigurationVO> cacheConfig)
         {
             _repositoryFileDisk = repositoryFileDisk;
             _cacheConfig = cacheConfig.Value;

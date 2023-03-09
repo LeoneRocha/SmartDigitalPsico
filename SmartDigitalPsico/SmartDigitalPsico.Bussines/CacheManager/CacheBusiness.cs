@@ -3,7 +3,7 @@ using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Enuns;
-using SmartDigitalPsico.Model.Entity.Domains.Configurations;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Repository.CacheManager;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -18,20 +18,24 @@ namespace SmartDigitalPsico.Business.CacheManager
         private readonly string _cacheKey = string.Empty;
         private readonly IMemoryCacheRepository _memoryCacheRepository;
         private readonly IDiskCacheRepository _diskCacheRepository;
-        private readonly CacheConfiguration _cacheConfig;
+        private readonly CacheConfigurationVO _cacheConfig;
 
-        private readonly static ETypeLocationCache typeCache = ETypeLocationCache.Disk;
+        private static ETypeLocationCache typeCache;
 
         public CacheBusiness(IMapper mapper, IConfiguration configuration
             , IMemoryCacheRepository memoryCacheRepository
-            , IDiskCacheRepository diskCacheRepository, IOptions<CacheConfiguration> cacheConfig)
+            , IDiskCacheRepository diskCacheRepository, IOptions<CacheConfigurationVO> cacheConfig)
         {
             _mapper = mapper;
             _configuration = configuration;
             _memoryCacheRepository = memoryCacheRepository;
             _diskCacheRepository = diskCacheRepository;
             _cacheConfig = cacheConfig.Value;
+            typeCache = getTypeCache();
         }
+
+
+
         public bool Remove<T>(string? cacheKey)
         {
             bool result = false;
@@ -126,8 +130,19 @@ namespace SmartDigitalPsico.Business.CacheManager
         }
 
 
+        public bool IsEnable()
+        {
+            bool isEnable = _cacheConfig.IsEnable;
 
+            return isEnable;
+        }
         #region PRIVATES
+
+        public DateTime GetSlidingExpiration()
+        {
+            return DateTime.Now.AddHours(_cacheConfig.AbsoluteExpirationInHours).AddMinutes(_cacheConfig.SlidingExpirationInMinutes);
+        }
+
         private bool checkCacheIsValid<T>(KeyValuePair<bool, T> resultDisk) where T : new()
         {
             if (resultDisk.Value != null)
@@ -140,12 +155,12 @@ namespace SmartDigitalPsico.Business.CacheManager
                     DateTime dataExpiracao = DateTime.MinValue;
 
                     bool temData = DateTime.TryParse(valorExpiracao.ToString(), out dataExpiracao);
-                    if (temData &&  DateTime.Now >= dataExpiracao)
+                    if (temData && dataExpiracao != DateTime.MinValue && DateTime.Now >= dataExpiracao)
                     {
                         return false;
                     }
                     return true;
-                } 
+                }
             }
             return false;
         }
@@ -164,13 +179,12 @@ namespace SmartDigitalPsico.Business.CacheManager
             }
             return cacheKey;
         }
-
-        public void CalculateSlidingExpiration(ServiceResponseCache<List<GetGenderVO>> cacheSave)
+        private ETypeLocationCache getTypeCache()
         {
-            cacheSave.DateTimeSlidingExpiration = DateTime.Now.AddHours(_cacheConfig.AbsoluteExpirationInHours).AddMinutes(_cacheConfig.SlidingExpirationInMinutes);
+            ETypeLocationCache typeCache = _cacheConfig.TypeCache;
+
+            return typeCache;
         }
-
-
         #endregion
 
 

@@ -1,14 +1,13 @@
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Contracts.Interface;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
+namespace SmartDigitalPsico.Model.Contracts.Interface
 {
 
-    public interface IEntityDataCache<T>
+    public interface IDataCacheVO<T>
     {
+        public string CacheKey { get; set; }
         public DateTime DateTimeSlidingExpiration { get; set; }
 
         public T Data { get; set; }

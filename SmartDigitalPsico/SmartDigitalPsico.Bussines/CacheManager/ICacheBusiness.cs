@@ -13,6 +13,7 @@ namespace SmartDigitalPsico.Business.CacheManager
         bool TryGet<T>(string? cacheKey, out T value) where T : new();
         bool Set<T>(string? cacheKey, T value);
         bool Remove<T>(string? cacheKey);
-        void CalculateSlidingExpiration(ServiceResponseCache<List<GetGenderVO>> cacheSave);
+        DateTime GetSlidingExpiration();
+        bool IsEnable();
     }
 }

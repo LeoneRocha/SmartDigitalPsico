@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using SmartDigitalPsico.Model.Entity.Domains.Configurations;
+using SmartDigitalPsico.Model.VO.Domains;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +12,10 @@ namespace SmartDigitalPsico.Repository.CacheManager
     public class MemoryCacheRepository : IMemoryCacheRepository
     {
         private readonly IMemoryCache _memoryCache;
-        private readonly CacheConfiguration _cacheConfig;
+        private readonly CacheConfigurationVO _cacheConfig;
         private MemoryCacheEntryOptions _cacheOptions;
         //https://learn.microsoft.com/en-us/dotnet/core/extensions/caching
-        public MemoryCacheRepository(IMemoryCache memoryCache, IOptions<CacheConfiguration> cacheConfig)
+        public MemoryCacheRepository(IMemoryCache memoryCache, IOptions<CacheConfigurationVO> cacheConfig)
         {
             _memoryCache = memoryCache;// host.Services.GetRequiredService<IMemoryCache>();
             _cacheConfig = cacheConfig.Value;

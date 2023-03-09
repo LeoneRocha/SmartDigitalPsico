@@ -2,6 +2,7 @@ using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using MySqlX.XDevAPI.Common;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
@@ -33,8 +34,6 @@ namespace SmartDigitalPsico.Business.CacheManager
             _cacheConfig = cacheConfig.Value;
             typeCache = getTypeCache();
         }
-
-
 
         public bool Remove<T>(string? cacheKey)
         {
@@ -136,6 +135,8 @@ namespace SmartDigitalPsico.Business.CacheManager
 
             return isEnable;
         }
+
+
         #region PRIVATES
 
         public DateTime GetSlidingExpiration()
@@ -185,9 +186,8 @@ namespace SmartDigitalPsico.Business.CacheManager
 
             return typeCache;
         }
+
+
         #endregion
-
-
-
     }
 }

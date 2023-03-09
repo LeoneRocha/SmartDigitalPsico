@@ -36,7 +36,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
         {
             ServiceResponse<List<GetGenderVO>> result = new ServiceResponse<List<GetGenderVO>>();
             List<GetGenderVO> listEntity = new List<GetGenderVO>();
-
+             
             if (_cacheBusiness.IsEnable())
             {
                 bool existsCache = _cacheBusiness.TryGet<ServiceResponseCacheVO<List<GetGenderVO>>>("FindAll_GetGenderVO",

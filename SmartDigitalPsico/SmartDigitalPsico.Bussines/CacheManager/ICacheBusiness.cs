@@ -1,4 +1,5 @@
-﻿using SmartDigitalPsico.Model.Entity.Domains.Configurations;
+﻿using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace SmartDigitalPsico.Business.CacheManager
         bool Remove<T>(string? cacheKey);
         DateTime GetSlidingExpiration();
         bool IsEnable();
+        //T ProcessCache<T>(string  cacheKey, Task<T> task);
     }
 }

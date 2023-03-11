@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using System;
@@ -17,6 +19,15 @@ namespace SmartDigitalPsico.Repository.Context.Helper
         static string valorbr = new CultureInfo("pt-BR").Name;
         internal static void GenerateMock(ModelBuilder modelBuilder)
         {
+            #region ApplicationConfigSetting
+            addMockApplicationConfigSetting(modelBuilder);
+            #endregion
+
+            #region ApplicationLanguage
+            addMockApplicationLanguage(modelBuilder);
+            #endregion
+
+
             #region Gender
             addMockGender(modelBuilder);
             #endregion
@@ -46,6 +57,50 @@ namespace SmartDigitalPsico.Repository.Context.Helper
 
             #endregion Medical
 
+        }
+
+        private static void addMockApplicationLanguage(ModelBuilder modelBuilder)
+        {
+            List<ApplicationLanguage> addRegisters = new List<ApplicationLanguage>();
+            addRegisters.Add(gerateNewLanguage(1, "Default", valorbr, "Default_ptbr", "Padrão"));
+            modelBuilder.Entity<ApplicationLanguage>().HasData(addRegisters);
+        }
+
+        private static ApplicationLanguage gerateNewLanguage(long id, string description, string valueLanguage, string languageKey, string languageValue)
+        {
+            return new ApplicationLanguage
+            {
+                Id = id,
+                Description = description,
+                Language = valueLanguage,
+                LanguageKey = languageKey,
+                LanguageValue = languageValue,
+                CreatedDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                LastAccessDate = DateTime.Now,
+                Enable = true,
+            };
+        }
+
+        private static void addMockApplicationConfigSetting(ModelBuilder modelBuilder)
+        {
+            List<ApplicationConfigSetting> addRegisters = new List<ApplicationConfigSetting>();
+            addRegisters.Add(new ApplicationConfigSetting
+            {
+                Id = 1,
+                Description = "Default",
+                Language = valorbr,
+                CreatedDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                LastAccessDate = DateTime.Now,
+                TypeLocationCache = Domains.Enuns.ETypeLocationCache.Memory,
+                TypeLocationSaveFiles = Domains.Enuns.ETypeLocationSaveFiles.DataBase,
+                TypeLocationQueeMessaging = Domains.Enuns.ETypeLocationQueeMessaging.MongoDB,
+                EndPointUrl_Cache = string.Empty,
+                EndPointUrl_StorageFiles = string.Empty,
+                Enable = true,
+            });
+            modelBuilder.Entity<ApplicationConfigSetting>().HasData(addRegisters);
         }
 
         private static void addMockMedical(ModelBuilder modelBuilder, List<Specialty> specialtySAdd)

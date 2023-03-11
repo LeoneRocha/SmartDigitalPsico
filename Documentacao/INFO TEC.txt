@@ -26,10 +26,16 @@ https://github.com/matthewschrager/Repository/tree/master/Repository.Azure
 
 3) TERMINAR O MEDICAL FILE E PATIENTE FILE   ---------- ok
 
-4) FAZER O MOCK DE CONFIG  -------- XXXXXXXXXXXXXXXXXXXXX 
+4) FAZER O MOCK DE CONFIG   ---------- ok
 
 5) ARRUMAR HATEOS 
+*** ADD -- ARRUMAS OS OBJETOS ADD DA API PRA SEGUIR IGUAL AO FILE 
+*** UPDATE -- ARRUMAS OS OBJETOS ADD DA API PRA SEGUIR IGUAL AO FILE 
+*** GET -  ARRUMAR AS RESPOSTAS DA API COM O HEATOES E OS RELACIONAMENTOS
 
+6) ARRUMAR O EF DAS ENTIDADES PRINCIPAIS PARA SEGUIR IGUAL AS DE DOMAINS E SYSTEM
+GenericServicesEntityBaseSimpleV2 === GenericServicesEntityBase
+Com os objetos indivitual para cada acao
 
 ------------------  
 

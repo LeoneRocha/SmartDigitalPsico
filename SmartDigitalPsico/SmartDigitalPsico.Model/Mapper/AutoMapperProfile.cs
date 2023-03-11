@@ -54,6 +54,8 @@ namespace SmartDigitalPsico.Model.Mapper
             #endregion  ApplicationLanguage
 
             #region PatientFile
+            CreateMap<AddPatientFileVOService, AddPatientFileVO>();
+
             CreateMap<PatientFile, GetPatientFileVO>();
             CreateMap<GetPatientFileVO, PatientFile>();
 

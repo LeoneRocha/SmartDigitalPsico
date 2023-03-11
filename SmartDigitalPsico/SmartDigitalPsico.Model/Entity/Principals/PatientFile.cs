@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("PatientFile", Schema = "dbo")]
-    public class PatientFile : FileBase,IEntityBaseLogUser
+    public class PatientFile : FileBase, IEntityBaseLogUser
     {
         #region Relationship 
         //[Required]
@@ -14,6 +14,6 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
         #endregion Relationship
-         
+
     }
 }

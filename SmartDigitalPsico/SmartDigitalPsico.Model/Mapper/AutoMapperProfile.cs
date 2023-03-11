@@ -32,8 +32,7 @@ namespace SmartDigitalPsico.Model.Mapper
 
             CreateMap<EntityBaseSimple, EntityVOBaseDomain>();
             CreateMap<EntityVOBaseDomain, EntityBaseSimple>();
-             
-
+              
             #endregion
 
             #region ApplicationConfigSetting
@@ -64,6 +63,9 @@ namespace SmartDigitalPsico.Model.Mapper
             #endregion  PatientFile
 
             #region MedicalFile
+            CreateMap<AddMedicalFileVOService, AddMedicalFileVO>();
+
+
             CreateMap<MedicalFile, GetMedicalFileVO>();
             CreateMap<GetPatientFileVO, MedicalFile>();
 

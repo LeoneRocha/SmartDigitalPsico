@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
 {
-    public class AddMedicalFileVOUpload : IEntityVOAdd
+    public class AddMedicalFileVOService : IEntityVOAdd
     // FileBaseVO, 
     {
         #region Relationship 
@@ -17,7 +17,7 @@ namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
         public IFormFile FileDetails { get; set; }
 
         [MaxLength(255)]
-        public string? Description { get; set; }
+        public string? Description { get; set; } 
 
         #endregion Relationship 
     }

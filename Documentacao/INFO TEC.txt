@@ -1,3 +1,10 @@
+https://github.com/AndrewJBateman/angular-api-project#camera-screenshots
+
+
+https://github.com/rakesh-kumar-t/AngularDotnetCore
+
+https://github.com/bezkoder/angular-15-crud-example
+
 ------------------ IMPLANTAR UPLLOAD ARQUIVO 
 
 https://www.c-sharpcorner.com/article/upload-single-and-multiple-files-using-the-net-core-6-web-api/
@@ -17,9 +24,13 @@ https://github.com/matthewschrager/Repository/tree/master/Repository.Azure
 2) CRIAR CAMADA DE NEGOCIO PARA GERAR O OBJETO DE CACHE E TRANSFORMAR EM JSON E SALVAR EM ARQUIVO 
 08/03/23 ---------- ok 
 
-3) TERMINAR O MEDICAL FILE E PATIENTE FILE 
+3) TERMINAR O MEDICAL FILE E PATIENTE FILE XXXXXXXXXX
 
 4) FAZER O MOCK DE CONFIG 
+
+5) ARRUMAR HATEOS 
+
+
 ------------------  
 
 

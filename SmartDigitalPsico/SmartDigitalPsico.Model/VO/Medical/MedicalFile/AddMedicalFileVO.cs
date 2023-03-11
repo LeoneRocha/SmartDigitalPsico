@@ -14,7 +14,9 @@ namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
         [Required]
         public long MedicalId { get; set; }
         public IFormFile FileDetails { get; set; }
-   
+        
+        public long IdUserAction { get; set; }
+
 
         #endregion Relationship 
     }

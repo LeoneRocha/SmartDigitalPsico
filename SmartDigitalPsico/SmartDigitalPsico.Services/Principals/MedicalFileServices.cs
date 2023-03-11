@@ -14,10 +14,12 @@ namespace SmartDigitalPsico.Services.Principals
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMedicalFileBusiness _entityBusiness;
+        private readonly IMapper _mapper;
         //private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); 
         public MedicalFileServices(IMapper mapper, IMedicalFileBusiness entityBusiness, IHttpContextAccessor httpContextAccessor)
             : base(mapper, entityBusiness)
         {
+            _mapper = mapper;
             _entityBusiness = entityBusiness;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -36,13 +38,13 @@ namespace SmartDigitalPsico.Services.Principals
         }
 
       
-        public async Task<bool> PostFileAsync(AddMedicalFileVOUpload entity)
+        public async Task<bool> PostFileAsync(AddMedicalFileVOService entity)
         {
             try
-            { 
-                return await _entityBusiness.PostFileAsync(entity); 
-                //var result = dbContextClass.FileDetails.Add(fileDetails);
-                //await dbContextClass.SaveChangesAsync();
+            {
+                AddMedicalFileVO entityAdd = _mapper.Map<AddMedicalFileVO>(entity);
+                entityAdd.IdUserAction = 1;//>>>>>>>>_httpContextAccessor 
+                return await _entityBusiness.PostFileAsync(entityAdd); 
             }
             catch (Exception)
             {

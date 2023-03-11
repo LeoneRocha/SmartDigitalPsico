@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Services.Contracts.Principals;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,25 +37,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         {
             return Ok(await _entitytService.FindByID(id));
         }
-
-        [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetPatientFileVO>>>> Create(AddPatientFileVO newEntity)
-        {
-            return Ok(await _entitytService.Create(newEntity));
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetPatientFileVO>>> Update(UpdatePatientFileVO UpdateEntity)
-        {
-            var response = await _entitytService.Update(UpdateEntity);
-            if (response.Data == null)
-            {
-                return NotFound(response);
-            }
-            return Ok(response);
-        }
-
-
+          
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
@@ -63,6 +47,30 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
                 return NotFound(response);
             }
             return Ok(response);
+        }
+
+
+        [HttpGet("Download/{id}")]
+        public async Task<ActionResult<ServiceResponse<GetPatientFileVO>>> DownloadFileById(long id)
+        {
+            var result = await _entitytService.DownloadFileById(id);
+
+            return Ok("Downloaded");
+        }
+
+        [HttpPost("Upload")]
+        public async Task<ActionResult<string>> Create([FromForm] AddPatientFileVOService newEntity)
+        {
+            try
+            {
+                await _entitytService.PostFileAsync(newEntity);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+
+            return Ok($"Upload Succed");
         }
 
     }

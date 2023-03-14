@@ -1,3 +1,13 @@
+https://www.creative-tim.com/product/light-bootstrap-dashboard-pro-angular2
+
+https://www.wrappixel.com/templates/materialpro-angular-dashboard/#demos
+
+
+https://www.codeproject.com/Articles/5348357/Localizing-ASP-NET-Core-MVC-Applications-from-Data
+******
+https://www.wrappixel.com/
+
+
 https://github.com/AndrewJBateman/angular-api-project#camera-screenshots
 
 

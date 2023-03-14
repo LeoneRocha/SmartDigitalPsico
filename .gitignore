@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+SmartDigitalPsico/SmartDigitalPsico.UI.DashBoard/.angular/
+SmartDigitalPsico/SmartDigitalPsico.UI.DashBoard/dist/
+SmartDigitalPsico/SmartDigitalPsico.UI.DashBoard/node_modules

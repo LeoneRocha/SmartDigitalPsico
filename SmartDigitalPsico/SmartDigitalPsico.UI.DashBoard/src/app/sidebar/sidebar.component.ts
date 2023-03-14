@@ -21,10 +21,11 @@ export interface ChildrenItems {
 //Menu Items
 export const ROUTES: RouteInfo[] = [{
         path: '/dashboard',
-        title: 'Dashboard',
+        title: 'Inicio',
         type: 'link',
         icontype: 'pe-7s-graph'
-    },{
+    },
+    /*{
         path: '/components',
         title: 'Components',
         type: 'sub',
@@ -80,9 +81,9 @@ export const ROUTES: RouteInfo[] = [{
         title: 'Calendar',
         type: 'link',
         icontype: 'pe-7s-date'
-    },{
+    },*/{
         path: '/pages',
-        title: 'Pages',
+        title: 'Modelos',
         type: 'sub',
         icontype: 'pe-7s-gift',
         children: [
@@ -90,6 +91,14 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'login', title: 'Login Page', ab:'LP'},
             {path: 'register', title: 'Register Page', ab:'RP'},
             {path: 'lock', title: 'Lock Screen Page', ab:'LSP'}
+        ]
+    },{
+        path: '/appsettings',
+        title: 'Configurações',
+        type: 'sub',
+        icontype: 'pe-7s-tools',
+        children: [
+            {path: 'gender', title: 'Gender', ab:'G'}, 
         ]
     }
 ];

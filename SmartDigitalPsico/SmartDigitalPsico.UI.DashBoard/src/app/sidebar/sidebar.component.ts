@@ -93,7 +93,7 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'lock', title: 'Lock Screen Page', ab:'LSP'}
         ]
     },{
-        path: '/appsettings',
+        path: '/pages',
         title: 'Configurações',
         type: 'sub',
         icontype: 'pe-7s-tools',

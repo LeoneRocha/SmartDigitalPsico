@@ -30,8 +30,8 @@
   <ItemGroup>
     <Folder Include="dbmigration\" />
     <Folder Include="ResourcesFileSave\" />
-    <Folder Include="ResourcesTemp\FilesUpaload\" />
     <Folder Include="ResourcesTemp\Cache\" />
+    <Folder Include="ResourcesTemp\FilesUpaload\" />
   </ItemGroup>
 
 </Project>

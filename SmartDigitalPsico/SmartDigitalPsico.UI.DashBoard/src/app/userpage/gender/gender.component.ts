@@ -8,7 +8,7 @@ declare interface TableData {
 }
 @Component({
     moduleId: module.id,
-    selector: 'admingender',
+    selector: 'genderlist',
     templateUrl: 'gender.component.html'
     //styleUrls: ['./gender.component.css']
 })

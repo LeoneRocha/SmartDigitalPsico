@@ -81,7 +81,48 @@ export const ROUTES: RouteInfo[] = [{
         title: 'Calendar',
         type: 'link',
         icontype: 'pe-7s-date'
-    },*/{
+    },*/ 
+    {
+        path: '/pages',
+        title: 'Usuários',
+        type: 'sub',
+        icontype: 'pe-7s-users',
+        children: [
+            {path: 'users', title: 'Usuários', ab:'U'} 
+        ]
+    },
+    {
+        path: '/pages',
+        title: 'Médicos',
+        type: 'sub',
+        icontype: 'pe-7s-users',
+        children: [
+            {path: 'medical', title: 'Médicos', ab:'M'},
+            {path: 'patientrecord', title: 'Pontuarios', ab:'PP'}, 
+        ]
+    },
+    {
+        path: '/pages',
+        title: 'Pacientes',
+        type: 'sub',
+        icontype: 'pe-7s-users',
+        children: [
+            {path: 'patient', title: 'Paciente', ab:'P'},
+            {path: 'patientrecord', title: 'Pontuarios', ab:'PP'}, 
+        ]
+    },{
+        path: '/pages',
+        title: 'Configurações',
+        type: 'sub',
+        icontype: 'pe-7s-tools',
+        children: [
+            {path: 'gender', title: 'Gender', ab:'G'}, 
+            {path: 'office', title: 'Office', ab:'O'}, 
+            {path: 'rolegroup', title: 'RoleGroup', ab:'RG'}, 
+            {path: 'applicationsetting', title: 'Configurações Sistema', ab:'CS'}, 
+            {path: 'applicationlanguage', title: 'Idiomas', ab:'I'}, 
+        ]
+    },{
         path: '/pages',
         title: 'Modelos',
         type: 'sub',
@@ -91,14 +132,6 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'login', title: 'Login Page', ab:'LP'},
             {path: 'register', title: 'Register Page', ab:'RP'},
             {path: 'lock', title: 'Lock Screen Page', ab:'LSP'}
-        ]
-    },{
-        path: '/pages',
-        title: 'Configurações',
-        type: 'sub',
-        icontype: 'pe-7s-tools',
-        children: [
-            {path: 'gender', title: 'Gender', ab:'G'}, 
         ]
     }
 ];

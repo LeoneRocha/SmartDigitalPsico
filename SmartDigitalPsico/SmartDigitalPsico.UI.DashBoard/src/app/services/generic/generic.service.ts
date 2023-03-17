@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { GenericServiceModel } from 'app/models/GenericServiceModel';
 import { Observable } from 'rxjs';
 import { Inject } from '@angular/core';
-import { ApiEndPoints } from 'app/models/GenderModel';
+ 
 
 export class GenericService<T, ID> implements GenericServiceModel<T, ID> {
   constructor(@Inject(HttpClient) private http: HttpClient, private baseUrl: string, private urlgetAll: string) { }

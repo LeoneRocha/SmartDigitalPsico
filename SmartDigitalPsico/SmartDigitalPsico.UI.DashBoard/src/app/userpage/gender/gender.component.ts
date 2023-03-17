@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GenderService } from 'app/services/general/gender.service';
 import { Inject } from '@angular/core';
-import { GenderModel, ServiceResponse } from 'app/models/GenderModel';
+import { GenderModel } from 'app/models/GenderModel';
+import { ActivatedRoute, Router } from '@angular/router';
 declare interface TableData {
     headerRow: string[];
     dataRows: string[][];
@@ -17,19 +18,19 @@ export class GenderComponent implements OnInit {
     public tableData1: TableData;
     public tableData3: TableData;
     state_plain: boolean = true;
-
     public listResult: GenderModel[];
 
-
-    constructor(@Inject(GenderService) private genderService: GenderService) { }
-
+    constructor(@Inject(GenderService) private genderService: GenderService, @Inject(Router) private router: Router) { }
     ngOnInit() {
         this.retrieveList();
         this.tableData1 = {
             headerRow: ['#', 'Description', 'Language', 'Enable', 'Actions'],
             dataRows: []
         };
-    } 
+    }
+    newRegister(): void {
+        this.router.navigate(['/pages/genderaction']);
+    }
     retrieveList(): void {
         this.genderService.getAll()
             .subscribe({
@@ -40,8 +41,6 @@ export class GenderComponent implements OnInit {
                 error: (e) => console.error(e)
             });
     }
-
     ngAfterViewInit() {
-
     }
 }

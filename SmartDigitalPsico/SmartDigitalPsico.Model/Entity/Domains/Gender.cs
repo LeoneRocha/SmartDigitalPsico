@@ -8,8 +8,8 @@ namespace SmartDigitalPsico.Model.Entity.Domains
     [Table("Genders", Schema = "dbo")]
     public class Gender : EntityBaseSimple , IEntityBaseDomains
     {
-        [Column("Description", TypeName = "varchar(255)")]
-        [MaxLength(255)]
+        [Column("Description", TypeName = "varchar(50)")]
+        [MaxLength(50)]
         public string Description { get; set; }
 
         [Column("Language", TypeName = "char(5)")]

@@ -10,7 +10,8 @@ import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.compon
     imports: [
         CommonModule,
         RouterModule.forChild(GenderRoutes),
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [GenderComponent, AddEditGenderComponent],
     providers: [

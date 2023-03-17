@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { GenericServiceModel } from 'app/models/GenericServiceModel';
 import { Observable } from 'rxjs';
 import { Inject } from '@angular/core';
- 
 
-export class GenericService<T, ID> implements GenericServiceModel<T, ID> {
+
+export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
   constructor(@Inject(HttpClient) private http: HttpClient, private baseUrl: string, private urlgetAll: string) { }
 
-  add(t: T): Observable<any> {
+  add(t: E): Observable<any> {
     return this.http.post<T>(this.baseUrl, t);
   }
 
-  update(t: T): Observable<T> {
+  update(t: E): Observable<T> {
     return this.http.put<T>(`${this.baseUrl}/`, t);
   }
 

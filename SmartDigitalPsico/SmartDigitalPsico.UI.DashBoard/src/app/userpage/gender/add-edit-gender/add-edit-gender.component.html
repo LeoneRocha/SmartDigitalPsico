@@ -20,7 +20,7 @@
                                         <div class="form-group">
                                             <label for="description">Description:</label> <span class="star">*</span>
                                             <input type="text" class="form-control" id="description" name="description"
-                                                formControlName="description" maxlength="50" />
+                                                formControlName="description" maxlength="50" [ngClass]="!isValidFormDescription() ? '' : 'error'" />
                                             <small [hidden]="!isValidFormDescription()" class="text-danger">
                                                 Description is required
                                             </small>
@@ -30,7 +30,7 @@
                                         <div class="form-group">
                                             <label for="language">Language:</label> <span class="star">*</span>
                                             <select formControlName="language" required name="language"
-                                                class="form-control" data-style="btn-default btn-block"
+                                                class="form-control" data-style="btn-default btn-block" [ngClass]="!isValidFormLanguage() ? '' : 'error'" 
                                                 data-title="Select" data-menu-style="dropdown-blue">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let c of languages" [value]="c.code">{{ c.name }}

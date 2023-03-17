@@ -1,5 +1,5 @@
 export interface ServiceResponse<T>    {
-    data: T[];
+    data: T; 
     success: boolean; 
     message: string; 
   } 

@@ -108,8 +108,11 @@ namespace SmartDigitalPsico.Business.Generic
                 response.Success = true;
                 response.Message = "Register find.";
             }
-            response.Success = true;
-            response.Message = "Register not find.";
+            else
+            {
+                response.Success = false;
+                response.Message = "Register not found.";
+            }   
             return response;
         }
         public virtual async Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query)

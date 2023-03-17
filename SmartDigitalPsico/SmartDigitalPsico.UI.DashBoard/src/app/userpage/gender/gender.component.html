@@ -29,13 +29,13 @@
                                     <td>{{ row.language }}</td>
                                     <td>{{ row.enable }}</td>
                                     <td class="td-actions text-right">
-                                        <a rel="tooltip" title="View Profile" class="btn btn-info btn-simple btn-xs">
+                                        <a rel="tooltip" title="View" class="btn btn-info btn-simple btn-xs" (click)="viewRegister(row.id)">
                                             <i class="fa fa-user"></i>
                                         </a>
-                                        <a rel="tooltip" title="Edit Profile" class="btn btn-success btn-simple btn-xs">
+                                        <a rel="tooltip" title="Edit" class="btn btn-success btn-simple btn-xs" (click)="editRegister(row.id)">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="removeRegister(row.id)"> 
                                             <i class="fa fa-times"></i>
                                         </a>
                                     </td>

@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { GenderModel } from 'app/models/GenderModel';
 import { NgForm } from '@angular/forms';
 import { ServiceResponse } from 'app/models/ServiceResponse';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -20,9 +21,10 @@ import { ServiceResponse } from 'app/models/ServiceResponse';
 //5- Arrumar navegacao e botoes da lista
 
 export class AddEditGenderComponent implements OnInit {
-    registerId: number = 20001;
+    registerId: number;
     registerForm: FormGroup;
-    isUpdateGender: boolean = false;
+    isUpdateRegister: boolean = false;
+    isModeViewForm: boolean = false;
     public registerModel: GenderModel;
     serviceResponse: ServiceResponse<GenderModel>
 
@@ -30,21 +32,36 @@ export class AddEditGenderComponent implements OnInit {
         { code: 'pt-BR', name: 'pt-BR' },
         { code: 'pt-BR', name: 'en-US' }
     ];
-    constructor(
-        @Inject(GenderService) private registerService: GenderService
-        , private fb: FormBuilder) {
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+        @Inject(GenderService) private registerService: GenderService,
+        private fb: FormBuilder) {
         this.gerateFormRegister();
     }
+
     ngOnInit() {
 
-        this.loadRegister();
+        this.loadFormRegister();
 
-        //if (!this.registerModel.id)
-        this.createEmptyRegister();
+        if (this.registerId)
+            this.loadRegister();
+
+        if (this.registerModel?.id)
+            this.createEmptyRegister();
     }
+    loadFormRegister() {
+        let paramsUrl = this.route.snapshot.paramMap;
+        this.isModeViewForm = paramsUrl.get('modeForm') === 'view';
+        if (this.isModeViewForm) {
+            this.registerForm.controls['description'].disable();
+            this.registerForm.controls['language'].disable();
+        }
+        this.registerId = Number(paramsUrl.get('id'));
+    }
+
     ngAfterViewInit() {
 
     }
+
     addRegister() {
         this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
@@ -77,14 +94,11 @@ export class AddEditGenderComponent implements OnInit {
     }
 
     loadRegister() {
-
-        let idLoaded: number;
-        let descriptionLoaded: string;
-        let languageLoaded: string;
-
         this.registerService.getById(this.registerId).subscribe({
             next: (response) => {
                 this.serviceResponse = response;
+                this.fillFieldsForm();
+                this.isUpdateRegister = true && !this.isModeViewForm;
                 console.log(response);
             },
             error: (err) => {
@@ -93,15 +107,20 @@ export class AddEditGenderComponent implements OnInit {
             },
         });
 
-        this.registerModel = {
-            id: idLoaded,
-            description: descriptionLoaded,
-            language: languageLoaded
-        };
-        this.registerForm.controls['description'].setValue(descriptionLoaded);
-        this.registerForm.controls['language'].setValue(descriptionLoaded);
-    }
 
+    }
+    fillFieldsForm(): void {
+
+        let responseData: any = this.serviceResponse?.data;
+
+        this.registerModel = {
+            id: responseData?.id,
+            description: responseData?.description,
+            language: responseData?.language
+        };
+        this.registerForm.controls['description'].setValue(this.registerModel?.description);
+        this.registerForm.controls['language'].setValue(this.registerModel?.language);
+    }
     isValidFormDescription(): boolean {
 
         let isValid = this.registerForm.get('description').errors?.required;

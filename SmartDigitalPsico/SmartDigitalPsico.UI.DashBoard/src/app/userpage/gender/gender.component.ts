@@ -30,7 +30,17 @@ export class GenderComponent implements OnInit {
     }
     newRegister(): void {
         this.router.navigate(['/pages/genderaction']);
+    } 
+    viewRegister(idRegister: number): void {
+        this.router.navigate(['/pages/genderaction', { modeForm: 'view', id: idRegister }]);
+    } 
+    editRegister(idRegister: number): void {
+        this.router.navigate(['/pages/genderaction', { modeForm: 'edit', id: idRegister }]);
     }
+    removeRegister(idRegister: number): void {
+        //this.router.navigate(['/pages/genderaction']);
+        alert('Not implemented');
+    } 
     retrieveList(): void {
         this.genderService.getAll()
             .subscribe({

@@ -14,7 +14,7 @@ import { CaptureTologFunc } from 'app/common/app-error-handler';
     templateUrl: 'add-edit-gender.component.html'
     //styleUrls: ['./gender.component.css']
 })
-//3- tratativa de menssagem  generico se possivel e cptura do erro.  Validador dos campos- tratativa de menssagem  generico se possivel e cptura do erro.
+//3- enable 
 //5-  a lista
 
 export class AddEditGenderComponent implements OnInit {
@@ -24,7 +24,7 @@ export class AddEditGenderComponent implements OnInit {
     isModeViewForm: boolean = false;
     registerModel: GenderModel;
     serviceResponse: ServiceResponse<GenderModel>;
-    public languages = LanguageOptions;
+    public languages = LanguageOptions; 
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(GenderService) private registerService: GenderService,
@@ -52,10 +52,22 @@ export class AddEditGenderComponent implements OnInit {
     }
     ngAfterViewInit() {
     }
+    loadRegister() {
+        this.registerService.getById(this.registerId).subscribe({
+            next: (response) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
+        });
+    }
     addRegister() {
         this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
             next: (response) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
+        });
+    }
+    updateRegister() {
+        this.getValuesForm();
+        //CaptureTologFunc('updateRegister-gender', this.registerModel);
+        this.registerService.update(this.registerModel).subscribe({
+            next: (response) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
     }
     processAddRegister(response: any) {
@@ -68,12 +80,7 @@ export class AddEditGenderComponent implements OnInit {
         CaptureTologFunc('processAddRegisterErro-gender', response);
         this.modalErroAlert("Error adding!");
     }
-    updateRegister() {
-        this.getValuesForm();
-        this.registerService.update(this.registerModel).subscribe({
-            next: (response) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
-        });
-    }
+
     processUpdateRegister(response: any) {
         CaptureTologFunc('processUpdateRegister-gender', response);
         this.serviceResponse = response;
@@ -83,11 +90,7 @@ export class AddEditGenderComponent implements OnInit {
         CaptureTologFunc('processUpdateRegisterErro-gender', response);
         this.modalErroAlert("Error update!");
     }
-    loadRegister() {
-        this.registerService.getById(this.registerId).subscribe({
-            next: (response) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
-        });
-    }
+
     processLoadRegister(response: any) {
         CaptureTologFunc('processLoadRegister-gender', response);
         this.serviceResponse = response;
@@ -104,11 +107,14 @@ export class AddEditGenderComponent implements OnInit {
         this.registerModel = {
             id: responseData?.id,
             description: responseData?.description,
-            language: responseData?.language
+            language: responseData?.language,
+            enable: responseData?.enable,
         };
         let modelEntity = this.registerModel;
         formsElement.controls['description'].setValue(modelEntity?.description);
         formsElement.controls['language'].setValue(modelEntity?.language);
+        //this.registerModel_Enable = modelEntity?.enable;
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
     }
     isValidFormDescription(): boolean {
         let isValid = this.registerForm.get('description').errors?.required;
@@ -122,7 +128,8 @@ export class AddEditGenderComponent implements OnInit {
         this.registerForm = this.fb.group({
             id: new FormControl(),
             description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            language: new FormControl('', Validators.required)
+            language: new FormControl('', Validators.required),
+            enableOpt: new FormControl(false, Validators.required),
         });
     }
     getValuesForm() {
@@ -130,14 +137,16 @@ export class AddEditGenderComponent implements OnInit {
         this.registerModel = {
             id: this.registerId ? this.registerId : 0,
             description: formElement.controls['description']?.value,
-            language: formElement.controls['language']?.value
+            language: formElement.controls['language']?.value,
+            enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable,
         };
     }
     createEmptyRegister(): void {
         this.registerModel = {
             id: 0,
             description: '',
-            language: ''
+            language: '',
+            enable: false
         }
     }
     onSelect(selectedValue: string) {

@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location } from '@angular/common';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { filter, Subscription } from 'rxjs';
-
+import { filter, Subscription } from 'rxjs'; 
 declare var $: any;
 
 @Component({

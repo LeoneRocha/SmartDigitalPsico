@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GenderService } from 'app/services/general/gender.service';
 import { Inject } from '@angular/core';
 import { GenderModel } from 'app/models/GenderModel';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
-
-
+import { CaptureTologFunc } from 'app/common/app-error-handler';
 declare interface TableData {
     headerRow: string[];
     dataRows: string[][];
@@ -44,32 +43,18 @@ export class GenderComponent implements OnInit {
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
-        //this.router.navigate(['/pages/genderaction']);
-        //alert('Not implemented');
+        //this.router.navigate(['/pages/genderaction']); 
+        //TODO: REMOVER SEM PRECISAR RECARREGAR
     }
     retrieveList(): void {
-        this.registerService.getAll()
-            .subscribe({
-                next: (response) => {
-                    this.listResult = response["data"];
-                    console.log(this.listResult);
-                },
-                error: (e) => console.error(e)
-            });
+        this.registerService.getAll().subscribe((response: any) => { this.listResult = response["data"]; CaptureTologFunc('retrieveList-gender',response); })
     }
     executeDeleteRegister(idRegister: number) {
         this.registerService.delete(idRegister).subscribe({
-            next: (response) => {
-                this.modalAlertDeleted();
-                console.log(response);
-            },
-            error: (err) => {
-                console.log(err);
-                // this.toastr.error('Error Fetching Data, Please try again');
-            },
+            next: (response: any) => { CaptureTologFunc('executeDeleteRegister-gender',response); this.modalAlertDeleted(); },
+            error: (err) => { this.modalErroAlert('Error of delete.'); }
         });
     }
-
     modalAlertRemove(idRegister: number) {
         swal.fire({
             title: 'Are you sure?',
@@ -106,6 +91,17 @@ export class GenderComponent implements OnInit {
         swal.fire({
             title: 'Cancelled',
             text: 'Your imaginary file is safe :)',
+            icon: 'error',
+            customClass: {
+                confirmButton: "btn btn-fill btn-info",
+            },
+            buttonsStyling: false
+        });
+    }
+    modalErroAlert(msgErro: string) {
+        swal.fire({
+            title: 'Error!',
+            text: msgErro,
             icon: 'error',
             customClass: {
                 confirmButton: "btn btn-fill btn-info",

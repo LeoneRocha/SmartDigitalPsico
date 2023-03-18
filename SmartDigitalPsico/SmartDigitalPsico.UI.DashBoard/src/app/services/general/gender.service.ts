@@ -4,14 +4,14 @@ import { Inject } from '@angular/core';
 import { GenderModel } from 'app/models/GenderModel';
 import { GenericService } from '../generic/generic.service';
 import { ServiceResponse } from 'app/models/ServiceResponse';
+import { environment } from 'environments/environment';
 
-const baseUrl = 'https://localhost:61949/api/Gender/v1';
-
+const basePathUrl = '/Gender/v1';
 @Injectable()
 export class GenderService extends GenericService<ServiceResponse<GenderModel>, GenderModel, number> {
 
   constructor(@Inject(HttpClient) http: HttpClient) {
-    super(http, `${'https://localhost:61949/api/Gender/v1'}`, '/GetAll');
+    super(http, `${environment.APIUrl + basePathUrl}`, '/GetAll');
   }
 
 }

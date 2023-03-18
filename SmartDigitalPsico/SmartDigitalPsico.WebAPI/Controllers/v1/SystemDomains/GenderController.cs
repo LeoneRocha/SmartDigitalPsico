@@ -67,7 +67,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
             var response = await _entityService.Delete(id);
-            if (response.Data)
+            if (!response.Data)
             {
                 return NotFound(response);
             }

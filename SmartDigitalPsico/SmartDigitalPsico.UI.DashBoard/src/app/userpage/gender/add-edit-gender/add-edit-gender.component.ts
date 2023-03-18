@@ -5,8 +5,8 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { GenderModel } from 'app/models/GenderModel';
 import { NgForm } from '@angular/forms';
 import { ServiceResponse } from 'app/models/ServiceResponse';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import swal from 'sweetalert2';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-gender',
@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 //1- fazer funcionar o create - ok 
-//2- fazer funcionar o update
+//2- fazer funcionar o update - ok 
 //3- tratativa de menssagem  generico se possivel e cptura do erro.
 //4- Validador dos campos- tratativa de menssagem  generico se possivel e cptura do erro.
 //5- Arrumar navegacao e botoes da lista
@@ -30,11 +30,11 @@ export class AddEditGenderComponent implements OnInit {
 
     public languages = [
         { code: 'pt-BR', name: 'pt-BR' },
-        { code: 'pt-BR', name: 'en-US' }
+        { code: 'en-US', name: 'en-US' }
     ];
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(GenderService) private registerService: GenderService,
-        private fb: FormBuilder) {
+        private fb: FormBuilder, @Inject(Router) private router: Router) {
         this.gerateFormRegister();
     }
 
@@ -57,42 +57,71 @@ export class AddEditGenderComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
-
     ngAfterViewInit() {
 
     }
-
+    goBackToList() {
+        this.router.navigate(['/pages/gender']);
+    }
+    modalSuccessAlert() {
+        swal.fire({
+            title: "Register is saved!",
+            text: "I will close in 5 seconds.",
+            timer: 5000,
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: "btn btn-fill btn-success",
+            },
+            icon: "success"
+        });
+    }
+    modalErroAlert(msgErro: string) {
+        swal.fire({
+            title: 'Error!',
+            text: msgErro,
+            icon: 'error',
+            customClass: {
+                confirmButton: "btn btn-fill btn-info",
+            },
+            buttonsStyling: false
+        });
+    }
     addRegister() {
         this.getValuesForm();
+
+        console.log(this.registerModel);
+
         this.registerService.add(this.registerModel).subscribe({
             next: (response) => {
                 this.serviceResponse = response;
                 console.log(this.serviceResponse);
-                //this.toastr.success('Employee Added successfully', 'Add New Employee');
-                //this.CloseDialog();
+                this.modalSuccessAlert();
+                this.goBackToList();
             },
             error: (err) => {
                 console.log(err);
+                this.modalErroAlert("Error adding!");
                 //this.toastr.error('Error adding employee', 'Add New Employee');
             },
         });
     }
     updateRegister() {
         this.getValuesForm();
-        this.registerService.add(this.registerModel).subscribe({
+        this.registerService.update(this.registerModel).subscribe({
             next: (response) => {
                 this.serviceResponse = response;
                 console.log(this.serviceResponse);
+                this.modalSuccessAlert();
                 //this.toastr.success('Employee Added successfully', 'Add New Employee');
                 //this.CloseDialog();
             },
             error: (err) => {
                 console.log(err);
+                this.modalErroAlert("Error update!");
                 //this.toastr.error('Error adding employee', 'Add New Employee');
             },
         });
     }
-
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
             next: (response) => {
@@ -103,11 +132,10 @@ export class AddEditGenderComponent implements OnInit {
             },
             error: (err) => {
                 console.log(err);
+                this.modalErroAlert("Error load!");
                 // this.toastr.error('Error Fetching Data, Please try again');
             },
         });
-
-
     }
     fillFieldsForm(): void {
 
@@ -138,10 +166,11 @@ export class AddEditGenderComponent implements OnInit {
         });
     }
     getValuesForm() {
+        let formElement = this.registerForm;
         this.registerModel = {
-            id: 0,
-            description: this.registerForm?.controls['description']?.value,
-            language: this.registerForm?.controls['language']?.value
+            id: this.registerId ? this.registerId : 0,
+            description: formElement.controls['description']?.value,
+            language: formElement.controls['language']?.value
         };
     }
     createEmptyRegister(): void {
@@ -150,6 +179,10 @@ export class AddEditGenderComponent implements OnInit {
             description: '',
             language: ''
         }
+    }
+    onSelect(selectedValue: string) {
+        //console.log(selectedValue);
+        //demo
     }
 }
 

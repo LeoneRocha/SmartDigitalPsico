@@ -35,7 +35,7 @@
                                             <select formControlName="language" required name="language"
                                                 class="form-control" data-style="btn-default btn-block"
                                                 [ngClass]="!isValidFormLanguage() ? '' : 'error'" data-title="Select"
-                                                data-menu-style="dropdown-blue">
+                                                data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let c of languages" [value]="c.code">{{ c.name }}
                                                 </option>

@@ -16,7 +16,7 @@ export class NotificationsComponent{
         var color = Math.floor((Math.random() * 4) + 1);
 
     	$.notify({
-        	icon: "pe-7s-gift",
+        	icon: "pe-7s-attention",
         	message: "<b>Light Bootstrap Dashboard PRO</b> - forget about boring dashboards."
 
         },{

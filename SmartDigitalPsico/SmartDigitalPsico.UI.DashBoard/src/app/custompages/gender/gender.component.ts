@@ -10,6 +10,7 @@ declare interface TableData {
     headerRow: string[];
     dataRows: string[][];
 }
+declare var $: any;
 @Component({
     moduleId: module.id,
     selector: 'genderlist',
@@ -47,11 +48,14 @@ export class GenderComponent implements OnInit {
         //TODO: REMOVER SEM PRECISAR RECARREGAR
     }
     retrieveList(): void {
-        this.registerService.getAll().subscribe((response: any) => { this.listResult = response["data"]; CaptureTologFunc('retrieveList-gender',response); })
+        this.registerService.getAll().subscribe({
+            next: (response: any) => { this.listResult = response["data"]; CaptureTologFunc('retrieveList-gender', response); },
+            error: (err) => {  this.showNotification('top','center','Erro ao conectar!', 'danger');}
+        });
     }
     executeDeleteRegister(idRegister: number) {
         this.registerService.delete(idRegister).subscribe({
-            next: (response: any) => { CaptureTologFunc('executeDeleteRegister-gender',response); this.modalAlertDeleted(); },
+            next: (response: any) => { CaptureTologFunc('executeDeleteRegister-gender', response); this.modalAlertDeleted(); },
             error: (err) => { this.modalErroAlert('Error of delete.'); }
         });
     }
@@ -107,6 +111,20 @@ export class GenderComponent implements OnInit {
                 confirmButton: "btn btn-fill btn-info",
             },
             buttonsStyling: false
+        });
+    }
+    showNotification(from, align, messageCustom: string, colorType: string) {
+        //var type = ['','info','success','warning','danger']; 
+        $.notify({
+            icon: "pe-7s-attention",
+            message: messageCustom
+        }, {
+            type: colorType,
+            timer: 4000,
+            placement: {
+                from: from,
+                align: align
+            }
         });
     }
 } 

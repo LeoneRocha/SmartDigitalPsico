@@ -7,8 +7,10 @@ namespace SmartDigitalPsico.Model.Contracts
 {
     public abstract class EntityBaseSimple : IEntityBaseLog
     {
+        
         [Column("Id", Order = 0)]
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [Column("Enable", Order = 1)]

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { GenderComponent } from './gender/gender.component';
+import { GenderComponent } from '../custompages/gender/gender.component';
 
 import { UserComponent } from './user.component';
 

@@ -35,7 +35,7 @@ export const AppRoutes: Routes = [{
             loadChildren: () => import('./userpage/user.module').then(x=>x.UserModule)
         },{
             path: '',
-            loadChildren: () => import('./userpage/gender/gender.module').then(x=>x.GenderModule)
+            loadChildren: () => import('./custompages/gender/gender.module').then(x=>x.GenderModule)
         }]
         },{
             path: '',

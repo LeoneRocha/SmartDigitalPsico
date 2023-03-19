@@ -48,7 +48,7 @@ export class GenderComponent implements OnInit {
         this.router.navigate(['/pages/genderaction', { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
-        this.modalAlertRemove(idRegister); 
+        this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
         this.registerService.getAll().subscribe({
@@ -97,7 +97,8 @@ export class GenderComponent implements OnInit {
     modalAlertDeleted() {
         swal.fire({
             title: 'Deleted!',
-            text: 'Your imaginary file has been deleted.',
+            text: 'Register has been deleted. I will close in 5 seconds.',
+            timer: 5000,
             icon: 'success',
             customClass: {
                 confirmButton: "btn btn-fill btn-success",
@@ -108,7 +109,7 @@ export class GenderComponent implements OnInit {
     modalAlertCancelled() {
         swal.fire({
             title: 'Cancelled',
-            text: 'Your imaginary file is safe :)',
+            text: "Register hasn't been deleted",
             icon: 'error',
             customClass: {
                 confirmButton: "btn btn-fill btn-info",

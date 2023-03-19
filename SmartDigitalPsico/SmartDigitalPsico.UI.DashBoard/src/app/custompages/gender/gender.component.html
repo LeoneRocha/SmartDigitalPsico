@@ -1,49 +1,68 @@
 <div class="main-content">
     <div class="container-fluid">
-
-       
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="header">
+                    <div class="content">
                         <h4 class="title">Lista de Gender</h4>
-                        <p class="category">Configuração de gender</p> 
-                        <br/>
-                        <button type="button" class="btn btn-info btn-fill pull-left" (click)="newRegister()">Novo</button><br/>
+                        <p class="category">Configuração de gender</p>
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <div class="content table-responsive table-full-width">
+                                <button type="button" class="btn btn-info btn-fill pull-left"
+                                    (click)="newRegister()">Novo</button>
+                            </div>
+                        </div>
+                        <div class="fresh-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover"
+                                cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>{{ dataTable.headerRow[0] }}</th>
+                                        <th>{{ dataTable.headerRow[1] }}</th>
+                                        <th>{{ dataTable.headerRow[2] }}</th>
+                                        <th>{{ dataTable.headerRow[3] }}</th>
+                                        <th class="disabled-sorting text-right">{{ dataTable.headerRow[4] }}</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>{{ dataTable.footerRow[0] }}</th>
+                                        <th>{{ dataTable.footerRow[1] }}</th>
+                                        <th>{{ dataTable.footerRow[2] }}</th>
+                                        <th>{{ dataTable.footerRow[3] }}</th>
+                                        <th class="text-right">{{ dataTable.footerRow[4] }}</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr *ngFor="let row of listResult">
+                                        <td class="text-center">{{ row.id }}</td>
+                                        <td>{{ row.description }}</td>
+                                        <td>{{ row.language }}</td>
+                                        <td>{{ row.enable }}</td>
+                                        <td class="text-right">
+                                            <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon eye"
+                                                (click)="viewRegister(row.id)">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a rel="tooltip" title="Edit"
+                                                class="btn btn-simple btn-warning btn-icon edit"
+                                                (click)="editRegister(row.id)">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a rel="tooltip" title="Remove"
+                                                class="btn btn-simple btn-danger btn-icon remove">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="content table-responsive table-full-width">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">{{ tableData1.headerRow[0] }}</th>
-                                    <th>{{ tableData1.headerRow[1] }}</th>
-                                    <th>{{ tableData1.headerRow[2] }}</th>
-                                    <th>{{ tableData1.headerRow[3] }}</th>
-                                    <th class="text-right">{{ tableData1.headerRow[4] }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let row of listResult">
-                                    <td class="text-center">{{ row.id }}</td>
-                                    <td>{{ row.description }}</td>
-                                    <td>{{ row.language }}</td>
-                                    <td>{{ row.enable }}</td>
-                                    <td class="td-actions text-right">
-                                        <a rel="tooltip" title="View" class="btn btn-info btn-simple btn-xs" (click)="viewRegister(row.id)">
-                                            <i class="fa fa-user"></i>
-                                        </a>
-                                        <a rel="tooltip" title="Edit" class="btn btn-success btn-simple btn-xs" (click)="editRegister(row.id)">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="removeRegister(row.id)"> 
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <!-- end content  -->
                 </div>
+                <!--  end card  -->
             </div>
         </div>
     </div>

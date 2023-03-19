@@ -15,7 +15,7 @@ import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
         ReactiveFormsModule,        
         JwBootstrapSwitchNg2Module,
     ],
-    declarations: [GenderComponent, AddEditGenderComponent],
+    declarations: [GenderComponent, AddEditGenderComponent, ],
     providers: [
         GenderService
     ],

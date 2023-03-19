@@ -48,9 +48,7 @@ export class GenderComponent implements OnInit {
         this.router.navigate(['/pages/genderaction', { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
-        this.modalAlertRemove(idRegister);
-        //this.router.navigate(['/pages/genderaction']); 
-        //TODO: REMOVER SEM PRECISAR RECARREGAR
+        this.modalAlertRemove(idRegister); 
     }
     retrieveList(): void {
         this.registerService.getAll().subscribe({

@@ -13,8 +13,7 @@ import { CaptureTologFunc } from 'app/common/app-error-handler';
     selector: 'add-edit-gender',
     templateUrl: 'add-edit-gender.component.html'
     //styleUrls: ['./gender.component.css']
-})
-//3- enable 
+}) 
 //5-  a lista
 
 export class AddEditGenderComponent implements OnInit {
@@ -47,6 +46,7 @@ export class AddEditGenderComponent implements OnInit {
         if (this.isModeViewForm) {
             formsElement.controls['description'].disable();
             formsElement.controls['language'].disable();
+            formsElement.controls['enableOpt'].disable();
         }
         this.registerId = Number(paramsUrl.get('id'));
     }

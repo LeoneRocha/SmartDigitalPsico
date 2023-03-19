@@ -59,10 +59,21 @@ export class GenderComponent implements OnInit {
         });
     }
     executeDeleteRegister(idRegister: number) {
+
         this.registerService.delete(idRegister).subscribe({
-            next: (response: any) => { CaptureTologFunc('executeDeleteRegister-gender', response); this.modalAlertDeleted(); },
+            next: (response: any) => {
+                CaptureTologFunc('executeDeleteRegister-gender', response);
+                this.listResult = this.removeItemFromList<GenderModel>(this.listResult, idRegister);
+                this.modalAlertDeleted();
+            },
             error: (err) => { this.modalErroAlert('Error of delete.'); }
         });
+    }
+    removeItemFromList<T>(lista: Array<T>, idRemove: number): Array<T> {
+        const registerFinded = lista.find(p => p["id"] === idRemove);
+        let indexReg = lista.indexOf(registerFinded);
+        lista.splice(indexReg, 1);
+        return lista;
     }
     modalAlertRemove(idRegister: number) {
         swal.fire({
@@ -134,9 +145,9 @@ export class GenderComponent implements OnInit {
     }
     //TODO - https://stackoverflow.com/questions/38321634/change-boolean-values-to-text-in-angular-2-client-side
     loadConfigDataTablesLazzy(): void {
-        setTimeout(() => { 
-            this.loadConfigDataTables(); 
-          }, 500);
+        setTimeout(() => {
+            this.loadConfigDataTables();
+        }, 500);
     }
     loadConfigDataTables(): void {
         $('#datatables').DataTable({
@@ -165,7 +176,7 @@ export class GenderComponent implements OnInit {
         });
         //Like record
         table.on('click', '.like', function () {
-           // alert('You clicked on Like button');
+            // alert('You clicked on Like button');
         });
     }
     loadFakeDataSimple() {

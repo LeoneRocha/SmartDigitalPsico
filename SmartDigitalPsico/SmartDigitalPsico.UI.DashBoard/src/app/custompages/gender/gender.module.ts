@@ -7,6 +7,7 @@ import { GenderComponent } from './gender.component';
 import { GenderRoutes } from './gender.routing';
 import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
+import { CountDownTimerComponent } from 'app/common/countdowntimer/countdowntimer.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -15,7 +16,7 @@ import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
         ReactiveFormsModule,        
         JwBootstrapSwitchNg2Module,
     ],
-    declarations: [GenderComponent, AddEditGenderComponent, ],
+    declarations: [GenderComponent, AddEditGenderComponent, CountDownTimerComponent],
     providers: [
         GenderService
     ],

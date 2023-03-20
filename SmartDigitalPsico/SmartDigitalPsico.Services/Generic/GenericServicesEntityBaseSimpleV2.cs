@@ -19,6 +19,7 @@ namespace SmartDigitalPsico.Services.Generic
     {
         private readonly IMapper _mapper;
         private readonly Business _genericBusiness;
+        protected long UserId { get; private set; }
         public GenericServicesEntityBaseSimpleV2(IMapper mapper, Business genericBusiness)
         {
             _mapper = mapper;
@@ -98,6 +99,10 @@ namespace SmartDigitalPsico.Services.Generic
             serviceResponse = await _genericBusiness.Update(item);
 
             return serviceResponse;
+        }
+        public void SetUserId(long id)
+        {
+            this.UserId = id;
         }
     }
 }

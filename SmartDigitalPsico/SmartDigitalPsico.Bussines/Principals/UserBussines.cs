@@ -167,7 +167,10 @@ namespace SmartDigitalPsico.Business.Principals
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.Name)
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.Login),
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Name, user.Name),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email)                
             };
 
             var accessToken = _tokenService.GenerateAccessToken(claims);
@@ -175,8 +178,7 @@ namespace SmartDigitalPsico.Business.Principals
 
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.Now.AddDays(_configurationToken.DaysToExpiry);
-
-
+             
             _userRepository.RefreshUserInfo(user);
 
             DateTime createDate = DateTime.Now;

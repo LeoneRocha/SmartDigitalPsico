@@ -15,6 +15,7 @@ namespace SmartDigitalPsico.Business.Generic
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
+        protected long UserId { get; private set; }
         public GenericBusinessEntityBase(IMapper mapper, Repo UserRepository)
         {
             _mapper = mapper;
@@ -143,6 +144,10 @@ namespace SmartDigitalPsico.Business.Generic
             }
 
             return response;
+        }
+        public void SetUserId(long id)
+        {
+            this.UserId = id;
         }
     }
 }

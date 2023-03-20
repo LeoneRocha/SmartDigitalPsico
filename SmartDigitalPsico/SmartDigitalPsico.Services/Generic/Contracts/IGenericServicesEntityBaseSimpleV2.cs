@@ -16,5 +16,7 @@ namespace SmartDigitalPsico.Services.Generic.Contracts
         Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query);
         Task<ServiceResponse<int>> GetCount(string query);
 
+        void SetUserId(long id);
+
     }
 }

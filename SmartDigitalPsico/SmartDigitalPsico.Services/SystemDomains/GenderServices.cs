@@ -17,7 +17,7 @@ namespace SmartDigitalPsico.Services.SystemDomains
 
         public GenderServices(IMapper mapper, IGenderBusiness entityBusiness)
            : base(mapper, entityBusiness)
-        {
+        { 
             _entityBusiness = entityBusiness;
         }
 

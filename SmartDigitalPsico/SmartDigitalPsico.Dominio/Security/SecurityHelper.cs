@@ -59,6 +59,6 @@ namespace SmartDigitalPsico.Domains.Security
             var token = tokenHandler.CreateToken(tokendDescriptor);
 
             return tokenHandler.WriteToken(token); ;
-        }
+        } 
     }
 }

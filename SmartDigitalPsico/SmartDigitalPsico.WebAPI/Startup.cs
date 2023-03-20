@@ -81,7 +81,11 @@ namespace SmartDigitalPsico.WebAPI
 
         private void addGetAppConfig(IServiceCollection services, TokenConfiguration tokenConfigurations)
         {
+
             services.Configure<CacheConfigurationVO>(Configuration.GetSection("CacheConfiguration"));
+
+            services.Configure<AuthConfigurationVO>(Configuration.GetSection("AuthConfiguration"));
+
 
             new ConfigureFromConfigurationOptions<TokenConfiguration>(Configuration.GetSection("TokenConfigurations"))
                 .Configure(tokenConfigurations);

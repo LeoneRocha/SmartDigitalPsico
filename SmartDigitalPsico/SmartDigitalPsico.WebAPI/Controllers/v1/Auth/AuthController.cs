@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Services.Contracts.Principals;
@@ -10,8 +9,7 @@ using System.Threading.Tasks;
 namespace SmartDigitalPsico.WebAPI.Controllers.v1.Auth
 {
     [ApiController]
-    [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [ApiVersion("1")] 
     [Route("api/[controller]/v{version:apiVersion}")]
     public class AuthController : ControllerBase
     {

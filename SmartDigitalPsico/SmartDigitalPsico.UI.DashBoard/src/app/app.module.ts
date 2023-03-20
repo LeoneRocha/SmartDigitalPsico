@@ -12,6 +12,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AppRoutes } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth/auth.service';
 //import { GenderService } from './services/general/gender.service';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     bootstrap: [AppComponent],
     providers: [
         //GenderService
+        AuthService
     ],
 })
 

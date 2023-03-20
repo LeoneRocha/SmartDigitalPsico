@@ -39,8 +39,9 @@ export class LoginComponent implements OnInit {
     signIn(credentials) {
         this.authService.login(credentials)
           .subscribe(result => { 
-            if (result)
-              this.router.navigate(['/']);
+            if (result){                
+                this.router.navigate(['/adminpages/dashboard']);
+            }
             else  
               this.invalidLogin = true; 
           });

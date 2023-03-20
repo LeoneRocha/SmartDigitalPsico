@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Domains.Security;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
@@ -25,19 +27,20 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     public class GenderController : ControllerBase
     {
         private readonly IGenderServices _entityService;
-
-        public GenderController(IGenderServices entityService)
+        AuthConfigurationVO _configurationAuth;
+        public GenderController(IGenderServices entityService, IOptions<AuthConfigurationVO> configurationAuth)
         {
             _entityService = entityService;
+            _configurationAuth = configurationAuth.Value;
+            long idUser = SecurityHelperApi.GetUserIdApi(User, _configurationAuth.TypeApiCredential);
+            _entityService.SetUserId(idUser);
         }
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Get()
-        {
-            long idUser = SecurityHelperApi.GetUserIdApi(User);            
-            _entityService.SetUserId(idUser);
+        { 
             var result = _entityService.FindAll();
 
             return Ok(await result);

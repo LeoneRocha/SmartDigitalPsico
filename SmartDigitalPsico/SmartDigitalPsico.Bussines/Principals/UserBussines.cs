@@ -1,11 +1,13 @@
 using AutoMapper;
 using Azure;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -23,9 +25,10 @@ namespace SmartDigitalPsico.Business.Principals
         IConfiguration _configuration;
         ITokenConfiguration _configurationToken;
         private readonly ITokenService _tokenService;
+        AuthConfigurationVO _configurationAuth;
 
         public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
-            , ITokenConfiguration configurationToken, ITokenService tokenService)
+            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth)
             : base(mapper, entityRepository)
         {
             _mapper = mapper;
@@ -33,36 +36,33 @@ namespace SmartDigitalPsico.Business.Principals
             _configuration = configuration;
             _configurationToken = configurationToken;
             _tokenService = tokenService;
+            _configurationAuth = configurationAuth.Value;
         }
 
         public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string login, string password)
         {
             var response = new ServiceResponse<GetUserAuthenticatedVO>();
-            
-            response = await executeLoginJwt(login, password);
-
-            return response;
-        }
-
-        private async Task<ServiceResponse<GetUserAuthenticatedVO>> executeLoginJwt(string login, string password)
-        {
-            var response = new ServiceResponse<GetUserAuthenticatedVO>();
+          
             var user = await _userRepository.FindByLogin(login);
             if (user == null)
             {
                 response.Success = false;
                 response.Message = "User not found.";
+                return response;
             }
             else if (!SecurityHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
                 response.Message = "Wrong password.";
+                return response;
             }
-            else
+        
+            if (_configurationAuth.TypeApiCredential == Domains.Enuns.ETypeApiCredential.Jwt)
             {
-                response.Data = createToken(user);
-                response.Message = "User Logged.";
+                response.Data = await executeLoginJwt(user);                
             }
+            response.Success = true;
+            response.Message = "User Logged.";
             return response;
         }
 
@@ -147,30 +147,24 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
         }
 
-
-
-        private GetUserAuthenticatedVO createToken(User user)
+        private async Task<GetUserAuthenticatedVO> executeLoginJwt(User user)
         {
-            var key = _configuration.GetSection("AppSettings:Token").Value;
-            SecurityVO securityVO = new SecurityVO() { Name = user.Name, Role = user.Role, SecurityKeyConfig = key };
-
-            TokenVO token = ValidateCredentials(user);
+            TokenVO token = await validateCredentials(user);
             GetUserAuthenticatedVO response = _mapper.Map<GetUserAuthenticatedVO>(user);
             response.TokenAuth = token;
-
             return response;
         }
 
-        private TokenVO ValidateCredentials(User user)
+        private async Task<TokenVO> validateCredentials(User user)
         {
-            if (user == null) return null;
+            if (user == null) return new TokenVO();
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.Login),
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, user.Name),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email)                
+                new Claim(JwtRegisteredClaimNames.Email, user.Email)
             };
 
             var accessToken = _tokenService.GenerateAccessToken(claims);
@@ -178,8 +172,8 @@ namespace SmartDigitalPsico.Business.Principals
 
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.Now.AddDays(_configurationToken.DaysToExpiry);
-             
-            _userRepository.RefreshUserInfo(user);
+
+            await _userRepository.RefreshUserInfo(user);
 
             DateTime createDate = DateTime.Now;
             DateTime expirationDate = createDate.AddMinutes(_configurationToken.Minutes);
@@ -191,37 +185,41 @@ namespace SmartDigitalPsico.Business.Principals
                 );
         }
 
-        //public TokenVO ValidateCredentials(TokenVO token)
-        //{
-        //    var accessToken = token.AccessToken;
-        //    var refreshToken = token.RefreshToken;
+        public async Task<TokenVO> validateCredentials(TokenVO token)
+        {
+            var accessToken = token.AccessToken;
+            var refreshToken = token.RefreshToken;
 
-        //    var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
+            var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
 
-        //    var username = principal.Identity.Name;
+            var username = principal?.Identity?.Name;
 
-        //    var user = _repository.ValidateCredentials(username);
+            long idUser = 0;
 
-        //    if (user == null ||
-        //        user.RefreshToken != refreshToken ||
-        //        user.RefreshTokenExpiryTime <= DateTime.Now) return null;
+            long.TryParse(username, out idUser);
 
-        //    accessToken = _tokenService.GenerateAccessToken(principal.Claims);
-        //    refreshToken = _tokenService.GenerateRefreshToken();
+            var user = await _userRepository.FindByID(idUser);
 
-        //    user.RefreshToken = refreshToken;
+            if (user == null ||
+                user.RefreshToken != refreshToken ||
+                user.RefreshTokenExpiryTime <= DateTime.Now) return null;
 
-        //    _repository.RefreshUserInfo(user);
+            accessToken = _tokenService.GenerateAccessToken(principal.Claims);
+            refreshToken = _tokenService.GenerateRefreshToken();
 
-        //    DateTime createDate = DateTime.Now;
-        //    DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
-        //    return new TokenVO(
-        //    true,
-        //        createDate.ToString(DATE_FORMAT),
-        //        expirationDate.ToString(DATE_FORMAT),
-        //        accessToken,
-        //        refreshToken
-        //        );
-        //}
+            user.RefreshToken = refreshToken;
+
+            await _userRepository.RefreshUserInfo(user);
+
+            DateTime createDate = DateTime.Now;
+            DateTime expirationDate = createDate.AddMinutes(_configurationToken.Minutes);
+            return new TokenVO(
+            true,
+                createDate.ToString(DATE_FORMAT),
+                expirationDate.ToString(DATE_FORMAT),
+                accessToken,
+                refreshToken
+                );
+        }
     }
 }

@@ -75,12 +75,14 @@ namespace SmartDigitalPsico.Repository.CacheManager
                 //Gerando cache 
                 string jsonString =   JsonSerializer.Serialize(value);
                 byte[] bytesString = Encoding.UTF8.GetBytes(jsonString);
+                
+                string pathSaveCache = Path.Combine(Directory.GetCurrentDirectory(), _cacheConfig.PathCache); ;
 
                 var fileDataSave = new FileData()
                 {
-                    FilePath = _cacheConfig.PathCache,
+                    FilePath = pathSaveCache,
                     FileName = filename,
-                    FolderDestination = _cacheConfig.PathCache,
+                    FolderDestination = pathSaveCache,
                     FileData = bytesString
                 };
 

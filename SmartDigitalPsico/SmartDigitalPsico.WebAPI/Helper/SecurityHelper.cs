@@ -15,16 +15,16 @@ namespace SmartDigitalPsico.WebAPI.Helper
 {
     public class SecurityHelperApi
     {
-        public static long GetUserIdApi(ClaimsPrincipal user)
+        public static long GetUserIdApi(ClaimsPrincipal user, Domains.Enuns.ETypeApiCredential typeApiCredential)
         {
             long idUser = 0;
 
-            var userApi = user;
-
-            long.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out idUser);
-
+            if (typeApiCredential == Domains.Enuns.ETypeApiCredential.Jwt)
+            {
+                var userApi = user;
+                long.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out idUser);
+            }
             return idUser;
-
         }
     }
 }

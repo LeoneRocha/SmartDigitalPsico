@@ -1,4 +1,5 @@
 using AutoMapper;
+using Azure;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
@@ -37,9 +38,16 @@ namespace SmartDigitalPsico.Business.Principals
         public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string login, string password)
         {
             var response = new ServiceResponse<GetUserAuthenticatedVO>();
+            
+            response = await executeLoginJwt(login, password);
 
+            return response;
+        }
+
+        private async Task<ServiceResponse<GetUserAuthenticatedVO>> executeLoginJwt(string login, string password)
+        {
+            var response = new ServiceResponse<GetUserAuthenticatedVO>();
             var user = await _userRepository.FindByLogin(login);
-
             if (user == null)
             {
                 response.Success = false;
@@ -55,7 +63,6 @@ namespace SmartDigitalPsico.Business.Principals
                 response.Data = createToken(user);
                 response.Message = "User Logged.";
             }
-
             return response;
         }
 
@@ -143,7 +150,7 @@ namespace SmartDigitalPsico.Business.Principals
 
 
         private GetUserAuthenticatedVO createToken(User user)
-        { 
+        {
             var key = _configuration.GetSection("AppSettings:Token").Value;
             SecurityVO securityVO = new SecurityVO() { Name = user.Name, Role = user.Role, SecurityKeyConfig = key };
 
@@ -161,7 +168,7 @@ namespace SmartDigitalPsico.Business.Principals
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.Name)
-            }; 
+            };
 
             var accessToken = _tokenService.GenerateAccessToken(claims);
             var refreshToken = _tokenService.GenerateRefreshToken();

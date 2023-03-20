@@ -3,6 +3,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Generic;
+using System.Data;
 
 namespace SmartDigitalPsico.Repository.Principals
 {
@@ -75,8 +76,8 @@ namespace SmartDigitalPsico.Repository.Principals
             {
                 try
                 {
-                    _context.Entry(result).CurrentValues.SetValues(user);
-                    await _context.SaveChangesAsync();
+                    dataset.Entry(result).CurrentValues.SetValues(user);
+                    //await _context.SaveChangesAsync();
                     return result;
                 }
                 catch (Exception)

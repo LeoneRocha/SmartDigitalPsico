@@ -13,13 +13,9 @@ namespace SmartDigitalPsico.Model.VO.User
         public GetUserAuthenticatedVO()
         {
             TokenAuth = new TokenVO();
-        }
-        public TokenVO TokenAuth { get; set; }
-
-        [MaxLength(100)]
-        public string Email { get; set; }
-
-        public List<GetRoleGroupVO> RoleGroups { get; set; }
+        }          
         public string Name { get; set; }
+        public TokenVO TokenAuth { get; set; }
+        public List<GetRoleGroupVO> RoleGroups { get; set; }
     }
 }

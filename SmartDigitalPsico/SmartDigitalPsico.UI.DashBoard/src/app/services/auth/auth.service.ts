@@ -5,6 +5,9 @@ import { GenericService } from '../generic/generic.service';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { environment } from 'environments/environment';
 import { UserAutenticateModel, UserLoginModel } from 'app/models/UserLoginModel';
+import { catchError, map, throwError } from 'rxjs';
+import { AppError } from 'app/common/app-error';
+import { Token } from '@angular/compiler';
 
 //'https://localhost:61949/api/Auth/v1/Login
 const basePathUrl = '/Auth/v1';
@@ -21,7 +24,16 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     console.log(urlAut);
     //urlAut = '/api/authenticate'//Test Mock
     //JSON.stringify(credentials) 
-    return this.httpLocal.post(urlAut, credentials);
+    return this.httpLocal.post<ServiceResponse<UserAutenticateModel>>(urlAut, credentials).pipe(map(response => {
+      //console.log(response);
+      let userAutenticate = response?.data;
+      let token = userAutenticate.tokenAuth;
+      if (token && token?.authenticated && token.accessToken) {
+        localStorage.setItem('tokenjwt', token.accessToken);
+        return true;
+      }
+      return false;
+    }), catchError(this.customHandleErrorAuthService));
   }
 
   logout() {
@@ -29,6 +41,19 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
 
   isLoggedIn() {
     return false;
+  }
+
+  private customHandleErrorAuthService(error: Response) {
+    console.log('customHandleError-AuthService');
+    /*if (error.status === 400)
+      return throwError(() => new BadInput(error.json()));
+
+    if (error.status === 404)
+      return throwError(() => new NotFoundError());
+*/
+    //return Observable.throw(new AppError(error));
+    // Return an observable with a user-facing error message.
+    return throwError(() => new AppError(error));
   }
 
 }

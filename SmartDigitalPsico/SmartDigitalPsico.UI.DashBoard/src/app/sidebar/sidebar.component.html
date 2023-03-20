@@ -28,6 +28,10 @@
 							<span class="sidebar-mini">MP</span>
 							<span class="sidebar-normal">My Profile</span>
 						</a>
+                        <a href="#" (click)="logOut()">
+							<span class="sidebar-mini">LO</span>
+							<span class="sidebar-normal"> Log out</span>
+						</a>  
 					</li>  
 				</ul>
 			</div>
@@ -110,12 +114,12 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#">
+                        <a [routerLink]="['/LockScreen']">
                             <i class="pe-7s-lock"></i> Lock Screen
                         </a>
                     </li>
                     <li>
-                        <a class="text-danger" href="#">
+                        <a class="text-danger"   (click)="authService.logout()">
                             <i class="pe-7s-close-circle"></i>
                             Log out
                         </a>

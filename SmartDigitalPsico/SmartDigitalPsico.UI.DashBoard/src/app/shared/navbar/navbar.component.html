@@ -95,12 +95,12 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#">
+                                <a [routerLink]="['/LockScreen']">
                                     <i class="pe-7s-lock"></i> Lock Screen
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="text-danger">
+                                <a class="text-danger"  (click)="authService.logout()">
                                     <i class="pe-7s-close-circle"></i>
                                     Log out
                                 </a>

@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, Inject } from '@angular/core';
+import { AuthService } from 'app/services/auth/auth.service';
 
 declare var $: any;
 //Metadata
@@ -93,13 +94,21 @@ export const ROUTES: RouteInfo[] = [{
 })
 
 export class SidebarComponent {
+
     public menuItems: any[];
+
     isNotMobileMenu() {
         if ($(window).width() > 991) {
             return false;
         }
         return true;
+    } 
+    constructor(@Inject(AuthService) private authService: AuthService) {
+
     }
+    logOut() : void {
+        this.authService.logout();
+    } 
 
     ngOnInit() {
         var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;

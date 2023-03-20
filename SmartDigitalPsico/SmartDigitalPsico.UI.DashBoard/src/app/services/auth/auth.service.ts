@@ -38,7 +38,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     }), catchError(this.customHandleErrorAuthService));
   }
 
-  logout() {
+  logout() {    
     localStorage.removeItem(this.keyLocalStorage);
   }
 

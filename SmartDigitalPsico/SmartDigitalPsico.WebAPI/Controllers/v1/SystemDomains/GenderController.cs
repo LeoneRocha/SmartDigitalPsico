@@ -32,20 +32,22 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         {
             _entityService = entityService;
             _configurationAuth = configurationAuth.Value;
+        }
+        private void setUserCurrent()
+        {
             long idUser = SecurityHelperApi.GetUserIdApi(User, _configurationAuth.TypeApiCredential);
             _entityService.SetUserId(idUser);
         }
-
         //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Get()
-        { 
+        {
+            setUserCurrent();
             var result = _entityService.FindAll();
-
             return Ok(await result);
         }
-         
+
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> GetById(int id)

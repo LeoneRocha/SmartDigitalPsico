@@ -19,7 +19,7 @@ namespace SmartDigitalPsico.WebAPI.Helper
         {
             long idUser = 0;
 
-            if (typeApiCredential == Domains.Enuns.ETypeApiCredential.Jwt)
+            if (user != null && typeApiCredential == Domains.Enuns.ETypeApiCredential.Jwt)
             {
                 var userApi = user;
                 long.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out idUser);

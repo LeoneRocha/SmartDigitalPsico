@@ -14,6 +14,19 @@ namespace SmartDigitalPsico.Repository.Principals
         {
             return await dataset.Where(x => x.Patient.Id == patientId).ToListAsync();
         }
+         
+        public async override Task<PatientHospitalizationInformation> FindByID(long id)
+        {
+            return await dataset
+                .Include(e => e.Patient)
+                .SingleOrDefaultAsync(p => p.Id.Equals(id));
+        }
+        public async override Task<List<PatientHospitalizationInformation>> FindAll()
+        {
+            return await dataset
+                .Include(e => e.Patient)
+                .ToListAsync();
+        }
 
     }
 }

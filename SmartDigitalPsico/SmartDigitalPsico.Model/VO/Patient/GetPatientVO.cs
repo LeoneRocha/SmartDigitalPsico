@@ -1,11 +1,9 @@
-using SmartDigitalPsico.Domains.Enuns;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using SmartDigitalPsico.Model.Contracts.Interface;
-using SmartDigitalPsico.Model.VO.Medical;
-using SmartDigitalPsico.Model.VO.Contracts;
-using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Domains.Hypermedia;
+using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.VO.Contracts;
+using SmartDigitalPsico.Model.VO.Medical;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient
 {
@@ -15,12 +13,12 @@ namespace SmartDigitalPsico.Model.VO.Patient
         #region Relationship
         [Required]
         public GetMedicalVO Medical { get; set; }
-        public List<long> PatientAdditionalInformations { get; set; }
-        public List<long> PatientHospitalizationInformations { get; set; }
-        public List<long> PatientMedicationInformations { get; set; }
-        public List<long> PatientRecords { get; set; }
-        [Required]
-        public long GenderId { get; set; }
+        //public List<GetPatientAdditionalInformationVO> PatientAdditionalInformations { get; set; }
+        //public List<GetPatientHospitalizationInformationVO> PatientHospitalizationInformations { get; set; }
+        //public List<GetPatientMedicationInformationVO> PatientMedicationInformations { get; set; }
+        //public List<GetPatientRecordVO> PatientRecords { get; set; }
+       
+        public Gender Gender  { get; set; }
         #endregion Relationship
 
         #region Columns

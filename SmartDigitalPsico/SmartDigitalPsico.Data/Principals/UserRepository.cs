@@ -32,9 +32,18 @@ namespace SmartDigitalPsico.Repository.Principals
             return false;
         }
 
+        public async override Task<User> FindByID(long id)
+        {
+            return await dataset
+                .Include(e => e.RoleGroups)
+                .SingleOrDefaultAsync(p => p.Id.Equals(id));
+        }
+
         public async override Task<List<User>> FindAll()
         {
-            return await dataset.Include(e=> e.RoleGroups).ToListAsync();
+            return await dataset
+                .Include(e=> e.RoleGroups)                
+                .ToListAsync();
         }
 
         #region DISPOSE

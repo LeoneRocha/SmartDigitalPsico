@@ -15,5 +15,19 @@ namespace SmartDigitalPsico.Repository.Principals
         {
             return await dataset.AnyAsync(x => x.Accreditation.ToLower().Equals(accreditation.ToLower()));
         }
+        public async override Task<Medical> FindByID(long id)
+        {
+            return await dataset
+                .Include(e => e.Office)
+                .Include(e => e.Specialties)
+                .SingleOrDefaultAsync(p => p.Id.Equals(id));
+        }
+        public async override Task<List<Medical>> FindAll()
+        {
+            return await dataset
+                .Include(e => e.Office)
+                .Include(e => e.Specialties)
+                .ToListAsync();
+        }
     }
 }

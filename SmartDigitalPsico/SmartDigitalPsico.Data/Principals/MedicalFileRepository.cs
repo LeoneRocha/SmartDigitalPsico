@@ -9,12 +9,10 @@ namespace SmartDigitalPsico.Repository.Principals
     public class MedicalFileRepository : GenericRepositoryEntityBaseSimple<MedicalFile>, IMedicalFileRepository
     {
         public MedicalFileRepository(SmartDigitalPsicoDataContext context) : base(context) { }
-
-
+         
         public async override Task<List<MedicalFile>> FindAll()
         {
-            return await dataset.Where(entity => entity.Enable == true).ToListAsync();
-        }
-
+            return await dataset.Include(e => e.Medical).ToListAsync();
+        } 
     }
 }

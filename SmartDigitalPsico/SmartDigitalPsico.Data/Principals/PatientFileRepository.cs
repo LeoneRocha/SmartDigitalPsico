@@ -8,7 +8,20 @@ namespace SmartDigitalPsico.Repository.Principals
 {
     public class PatientFileRepository : GenericRepositoryEntityBaseSimple<PatientFile>, IPatientFileRepository
     {
-        public PatientFileRepository(SmartDigitalPsicoDataContext context) : base(context) { } 
-        
+        public PatientFileRepository(SmartDigitalPsicoDataContext context) : base(context) { }
+
+        public async override Task<PatientFile> FindByID(long id)
+        {
+            return await dataset
+                .Include(e => e.Patient)
+                .SingleOrDefaultAsync(p => p.Id.Equals(id));
+        }
+        public async override Task<List<PatientFile>> FindAll()
+        {
+            return await dataset
+                .Include(e => e.Patient)
+                .ToListAsync();
+        }
+
     }
 }

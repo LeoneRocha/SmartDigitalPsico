@@ -20,7 +20,7 @@ export interface ChildrenItems {
 
 //Menu Items
 export const ROUTES: RouteInfo[] = [{
-        path: '/dashboard',
+        path: '/adminpages/dashboard',
         title: 'Inicio',
         type: 'link',
         icontype: 'pe-7s-graph'
@@ -54,7 +54,7 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'patientrecord', title: 'Pontuarios', ab:'PP'}, 
         ]
     },{
-        path: '/pages',
+        path: '/adminpages',
         title: 'Configurações',
         type: 'sub',
         icontype: 'pe-7s-tools',

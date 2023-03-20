@@ -9,11 +9,14 @@ export const AppRoutes: Routes = [
         pathMatch: 'full',
     },*/
     {
-        path: 'dashboard',
+        path: 'adminpages',
         component: AdminLayoutComponent,
         children: [{
-            path: '',
+            path: 'dashboard',
             loadChildren: () => import('./dashboard/dashboard.module').then(x => x.DashboardModule)
+        }, {
+            path: 'gender',
+            loadChildren: () => import('./custompages/gender/gender.module').then(x => x.GenderModule)
         }]
     },
     {
@@ -22,9 +25,6 @@ export const AppRoutes: Routes = [
         children: [{
             path: '',
             loadChildren: () => import('./userpage/user.module').then(x => x.UserModule)
-        }, {
-            path: '',
-            loadChildren: () => import('./custompages/gender/gender.module').then(x => x.GenderModule)
         }]
     }, {
         path: '',

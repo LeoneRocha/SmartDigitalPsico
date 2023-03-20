@@ -43,8 +43,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         public bool Admin { get; set; }
 
-        [Column("Language", TypeName = "char(5)")]
-        [MaxLength(5)]
+        [Column("Language", TypeName = "varchar(10)")]
+        [MaxLength(10)]
         public string? Language { get; set; }
 
         [Column("TimeZone", TypeName = "varchar(255)")]

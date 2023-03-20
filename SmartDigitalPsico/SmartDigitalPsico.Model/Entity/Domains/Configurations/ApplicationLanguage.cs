@@ -8,10 +8,10 @@ namespace SmartDigitalPsico.Model.Entity.Domains.Configurations
     [Table("ApplicationLanguage", Schema = "dbo")]
     public class ApplicationLanguage : EntityBaseSimple, IEntityBaseDomains
     {
-        [Column("Language", TypeName = "char(5)")]
-        [MaxLength(5)]
+        [Column("Language", TypeName = "varchar(10)")]
+        [MaxLength(10)]
         public string Language { get; set; }
-        
+
         [Column("Description", TypeName = "varchar(255)")]
         [MaxLength(255)]
         public string Description { get; set; }

@@ -4,18 +4,22 @@ using SmartDigitalPsico.Model.VO.Contracts;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Utils;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace SmartDigitalPsico.Model.VO.User
 {
-    public class GetUserVO : EntityVOBase, ISupportsHyperMedia
-    {   
+    public class GetUserAuthenticatedVO : EntityVOBase 
+    {
+        public GetUserAuthenticatedVO()
+        {
+            TokenAuth = new TokenVO();
+        }
+        public TokenVO TokenAuth { get; set; }
 
         [MaxLength(100)]
         public string Email { get; set; }
 
         public List<GetRoleGroupVO> RoleGroups { get; set; }
-         
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
-
+        public string Name { get; set; }
     }
 }

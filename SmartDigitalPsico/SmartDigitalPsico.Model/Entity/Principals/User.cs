@@ -50,6 +50,12 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("TimeZone", TypeName = "varchar(255)")]
         [MaxLength(255)]
         public string? TimeZone { get; set; }
+        
+        [Column("Refresh_token")]
+        public string? RefreshToken { get; set; }
+
+        [Column("Refresh_token_expiry_time")]
+        public DateTime? RefreshTokenExpiryTime { get; set; }
 
         #endregion Columns 
     }

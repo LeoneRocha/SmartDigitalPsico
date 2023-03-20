@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,17 +9,22 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using SmartDigitalPsico.Domains.Enuns;
+using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
+using System;
+using System.Configuration;
 using System.IO;
+using System.Text;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -34,11 +40,16 @@ namespace SmartDigitalPsico.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var tokenConfigurations = new TokenConfiguration();
+            //
+            addGetAppConfig(services, tokenConfigurations);
+
             //For In-Memory Caching
             addCaching(services);
 
             //Security API
-            addSecurity(services);
+            addSecurity(services, tokenConfigurations);
 
             //AcceptHeader 
             services.AddControllers();
@@ -68,9 +79,17 @@ namespace SmartDigitalPsico.WebAPI
             DependenciesInjectionHelper.AddDependenciesInjection(services);
         }
 
-        private void addCaching(IServiceCollection services)
+        private void addGetAppConfig(IServiceCollection services, TokenConfiguration tokenConfigurations)
         {
             services.Configure<CacheConfigurationVO>(Configuration.GetSection("CacheConfiguration"));
+
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(Configuration.GetSection("TokenConfigurations"))
+                .Configure(tokenConfigurations);
+            services.AddSingleton(tokenConfigurations);
+        }
+
+        private void addCaching(IServiceCollection services)
+        {
             services.AddMemoryCache();
         }
 
@@ -84,7 +103,7 @@ namespace SmartDigitalPsico.WebAPI
             //// Migrate latest database changes during startup
             addAutoMigrate(app);
 
-            app.UseHttpsRedirection(); 
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
@@ -226,19 +245,44 @@ namespace SmartDigitalPsico.WebAPI
         #endregion
 
         #region SEGURANCA
-        private void addSecurity(IServiceCollection services)
+        private void addSecurity(IServiceCollection services, TokenConfiguration tokenConfigurations)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-              .AddJwtBearer(options =>
-              {
-                  options.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidateIssuerSigningKey = true,
-                      IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                      ValidateIssuer = false,
-                      ValidateAudience = false
-                  };
-              });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = tokenConfigurations.Issuer,
+                ValidAudience = tokenConfigurations.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+            };
+        });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //  .AddJwtBearer(options =>
+            //  {
+            //      options.TokenValidationParameters = new TokenValidationParameters
+            //      {
+            //          ValidateIssuerSigningKey = true,
+            //          IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+            //          ValidateIssuer = false,
+            //          ValidateAudience = false
+            //      };
+            //  });
 
 
             //   services.AddAuthentication(options =>

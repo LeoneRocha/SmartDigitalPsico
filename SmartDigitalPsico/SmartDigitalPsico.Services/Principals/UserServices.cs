@@ -29,9 +29,9 @@ namespace SmartDigitalPsico.Services.Principals
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserVO>> Login(string username, string password)
+        public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string username, string password)
         {
-            var serviceResponse = new ServiceResponse<GetUserVO>();
+            var serviceResponse = new ServiceResponse<GetUserAuthenticatedVO>();
 
             serviceResponse = await _userBusiness.Login(username, password);
 

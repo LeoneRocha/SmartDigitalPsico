@@ -15,7 +15,7 @@ namespace SmartDigitalPsico.Repository.Principals
             User userResult = await dataset.FirstOrDefaultAsync(p => p.Login.Equals(login));
 
             return userResult;
-        } 
+        }
         public async Task<User> Register(User entityAdd)
         {
             dataset.Add(entityAdd);
@@ -42,7 +42,7 @@ namespace SmartDigitalPsico.Repository.Principals
         public async override Task<List<User>> FindAll()
         {
             return await dataset
-                .Include(e=> e.RoleGroups)                
+                .Include(e => e.RoleGroups)
                 .ToListAsync();
         }
 
@@ -64,6 +64,27 @@ namespace SmartDigitalPsico.Repository.Principals
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public async Task<User> RefreshUserInfo(User user)
+        {
+            if (!dataset.Any(u => u.Id.Equals(user.Id))) return null;
+
+            var result = await dataset.SingleOrDefaultAsync(p => p.Id.Equals(user.Id));
+            if (result != null)
+            {
+                try
+                {
+                    _context.Entry(result).CurrentValues.SetValues(user);
+                    await _context.SaveChangesAsync();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return result;
         }
         #endregion
     }

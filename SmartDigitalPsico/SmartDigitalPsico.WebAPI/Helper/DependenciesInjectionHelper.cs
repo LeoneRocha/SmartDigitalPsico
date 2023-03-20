@@ -6,6 +6,7 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Repository.CacheManager;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -137,6 +138,9 @@ namespace SmartDigitalPsico.WebAPI.Helper
         {
             // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped<ITokenConfiguration, TokenConfiguration>();
+            services.AddScoped<ITokenService, TokenService>();
         }
 
         #endregion

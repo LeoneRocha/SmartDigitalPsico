@@ -32,11 +32,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Auth
         }
 
         [HttpPost("Authenticate")]
-        public async Task<ActionResult<ServiceResponse<string>>> Authenticate(UserLoginVO request)
+        public async Task<ActionResult<ServiceResponse<GetUserAuthenticatedVO>>> Authenticate(UserLoginVO request)
         {
-            var response = await _userService.Login(request.Login, request.Password
-            );
+            var response = await _userService.Login(request.Login, request.Password);
 
+            response.Success = true;
+            response.Data = new GetUserAuthenticatedVO() { Id = 1, Email= "teste@gmail.com"};
             if (!response.Success)
             {
                 return Unauthorized(response);

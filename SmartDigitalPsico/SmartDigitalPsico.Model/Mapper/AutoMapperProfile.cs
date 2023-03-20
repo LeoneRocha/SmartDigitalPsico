@@ -114,7 +114,8 @@ namespace SmartDigitalPsico.Model.Mapper
             #endregion Specialty
 
             #region USER
-            CreateMap<User, GetUserVO>();
+            CreateMap<User, GetUserVO>(); 
+            CreateMap<User, GetUserAuthenticatedVO>();
             CreateMap<GetUserVO, User>();
             CreateMap<UpdateUserVO, User>();
             CreateMap<UserLoginVO, User>();

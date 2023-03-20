@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/adminpages/dashboard',
     title: 'Inicio',
     type: 'link',
-    icontype: 'pe-7s-graph'
+    icontype: 'pe-7s-home'
 },
 {
     path: '/medical',

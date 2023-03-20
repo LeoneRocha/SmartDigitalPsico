@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         }, 700)
     }
     signIn() {
-        console.log(this.userLoginModel);
+        //console.log(this.userLoginModel);
         this.authService.login(this.userLoginModel).subscribe({
             next: (response: any) => {                
                 this.router.navigate(['/adminpages/dashboard']);

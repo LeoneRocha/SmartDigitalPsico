@@ -14,6 +14,8 @@ const basePathUrl = '/Auth/v1';
 @Injectable()
 export class AuthService extends GenericService<ServiceResponse<UserAutenticateModel>, UserLoginModel, number> {
 
+  private keyLocalStorage: string = "tokenjwt";
+
   constructor(@Inject(HttpClient) http: HttpClient) {
 
     super(http, `${environment.APIUrl + basePathUrl}`, '/');
@@ -25,11 +27,11 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     //urlAut = '/api/authenticate'//Test Mock
     //JSON.stringify(credentials) 
     return this.httpLocal.post<ServiceResponse<UserAutenticateModel>>(urlAut, credentials).pipe(map(response => {
-      //console.log(response);
+      console.log(response);
       let userAutenticate = response?.data;
       let token = userAutenticate.tokenAuth;
       if (token && token?.authenticated && token.accessToken) {
-        localStorage.setItem('tokenjwt', token.accessToken);
+        localStorage.setItem(this.keyLocalStorage, token.accessToken);
         return true;
       }
       return false;
@@ -37,10 +39,18 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
   }
 
   logout() {
+    localStorage.removeItem(this.keyLocalStorage);
   }
 
   isLoggedIn() {
-    return false;
+    let sessionTokenActive = false;
+    let cacheTokenLS = localStorage.getItem(this.keyLocalStorage);
+    if (cacheTokenLS && cacheTokenLS !='cacheTokenLS') 
+    {
+      sessionTokenActive = true;
+    }
+
+    return sessionTokenActive;
   }
 
   private customHandleErrorAuthService(error: Response) {

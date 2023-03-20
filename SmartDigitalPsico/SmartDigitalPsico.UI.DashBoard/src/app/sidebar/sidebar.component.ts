@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
 
-declare var $:any;
+declare var $: any;
 //Metadata
 export interface RouteInfo {
     path: string;
@@ -20,63 +20,70 @@ export interface ChildrenItems {
 
 //Menu Items
 export const ROUTES: RouteInfo[] = [{
-        path: '/adminpages/dashboard',
-        title: 'Inicio',
-        type: 'link',
-        icontype: 'pe-7s-graph'
-    }, 
-    {
-        path: '/pages',
-        title: 'Usuários',
-        type: 'sub',
-        icontype: 'pe-7s-users',
-        children: [
-            {path: 'users', title: 'Usuários', ab:'U'} 
-        ]
-    },
-    {
-        path: '/pages',
-        title: 'Médicos',
-        type: 'sub',
-        icontype: 'pe-7s-users',
-        children: [
-            {path: 'medical', title: 'Médicos', ab:'M'},
-            {path: 'patientrecord', title: 'Pontuarios', ab:'PP'}, 
-        ]
-    },
-    {
-        path: '/pages',
-        title: 'Pacientes',
-        type: 'sub',
-        icontype: 'pe-7s-users',
-        children: [
-            {path: 'patient', title: 'Paciente', ab:'P'},
-            {path: 'patientrecord', title: 'Pontuarios', ab:'PP'}, 
-        ]
-    },{
-        path: '/adminpages',
-        title: 'Configurações',
-        type: 'sub',
-        icontype: 'pe-7s-tools',
-        children: [
-            {path: 'gender', title: 'Gender', ab:'G'}, 
-            {path: 'office', title: 'Office', ab:'O'}, 
-            {path: 'rolegroup', title: 'RoleGroup', ab:'RG'}, 
-            {path: 'applicationsetting', title: 'Configurações Sistema', ab:'CS'}, 
-            {path: 'applicationlanguage', title: 'Idiomas', ab:'I'}, 
-        ]
-    },{
-        path: '/pages',
-        title: 'Modelos',
-        type: 'sub',
-        icontype: 'pe-7s-gift',
-        children: [
-            {path: 'user', title: 'User Page', ab:'UP'},
-            {path: 'login', title: 'Login Page', ab:'LP'},
-            {path: 'register', title: 'Register Page', ab:'RP'},
-            {path: 'lock', title: 'Lock Screen Page', ab:'LSP'}
-        ]
-    }
+    path: '/adminpages/dashboard',
+    title: 'Inicio',
+    type: 'link',
+    icontype: 'pe-7s-graph'
+},
+{
+    path: '/medical',
+    title: 'Médicos',
+    type: 'sub',
+    icontype: 'pe-7s-users',
+    children: [
+        { path: '', title: 'Médicos', ab: 'M' },
+        { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
+    ]
+},
+{
+    path: '/patient',
+    title: 'Pacientes',
+    type: 'sub',
+    icontype: 'pe-7s-users',
+    children: [
+        { path: 'patient', title: 'Paciente', ab: 'P' },
+        { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
+    ]
+},
+{
+    path: '/pages',
+    title: 'Usuários',
+    type: 'sub',
+    icontype: 'pe-7s-users',
+    children: [
+        { path: 'users', title: 'Usuários', ab: 'U' }
+    ]
+}, {
+    path: '/adminpages',
+    title: 'Configurações',
+    type: 'sub',
+    icontype: 'pe-7s-tools',
+    children: [
+        { path: 'gender', title: 'Gender', ab: 'G' },
+        { path: 'office', title: 'Office', ab: 'O' },
+        { path: 'rolegroup', title: 'RoleGroup', ab: 'RG' },
+        { path: 'applicationsetting', title: 'Configurações Sistema', ab: 'CS' },
+        { path: 'applicationlanguage', title: 'Idiomas', ab: 'I' },
+    ]
+}, {
+    path: '/pages',
+    title: 'Cadastros',
+    type: 'sub',
+    icontype: 'pe-7s-gift',
+    children: [
+        { path: 'user', title: 'User Page', ab: 'UP' },
+    ]
+}, {
+    path: '/authpages',
+    title: 'Modelos',
+    type: 'sub',
+    icontype: 'pe-7s-gift',
+    children: [
+        { path: 'login', title: 'Login Page', ab: 'LP' },
+        { path: 'register', title: 'Register Page', ab: 'RP' },
+        { path: 'lock', title: 'Lock Screen Page', ab: 'LSP' }
+    ]
+}
 ];
 
 @Component({
@@ -87,8 +94,8 @@ export const ROUTES: RouteInfo[] = [{
 
 export class SidebarComponent {
     public menuItems: any[];
-    isNotMobileMenu(){
-        if($(window).width() > 991){
+    isNotMobileMenu() {
+        if ($(window).width() > 991) {
             return false;
         }
         return true;
@@ -100,15 +107,15 @@ export class SidebarComponent {
 
         isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-        if (isWindows){
-           // if we are on windows OS we activate the perfectScrollbar function
-           $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-           $('html').addClass('perfect-scrollbar-on');
-       } else {
-           $('html').addClass('perfect-scrollbar-off');
-       }
+        if (isWindows) {
+            // if we are on windows OS we activate the perfectScrollbar function
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+            $('html').addClass('perfect-scrollbar-on');
+        } else {
+            $('html').addClass('perfect-scrollbar-off');
+        }
     }
-    ngAfterViewInit(){
+    ngAfterViewInit() {
         var $sidebarParent = $('.sidebar .nav > li.active .collapse li.active > a').parent().parent().parent();
 
         var collapseId = $sidebarParent.siblings('a').attr("href");

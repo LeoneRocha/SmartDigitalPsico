@@ -3,11 +3,11 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 export const AppRoutes: Routes = [
-    /*{
+    {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'adminpages/dashboard',
         pathMatch: 'full',
-    },*/
+    },
     {
         path: 'adminpages',
         component: AdminLayoutComponent,
@@ -20,17 +20,17 @@ export const AppRoutes: Routes = [
         }]
     },
     {
-        path: '',
+        path: 'pages',
         component: AdminLayoutComponent,
         children: [{
-            path: '',
+            path: 'user',
             loadChildren: () => import('./userpage/user.module').then(x => x.UserModule)
         }]
     }, {
-        path: '',
+        path: 'authpages',
         component: AuthLayoutComponent,
         children: [{
-            path: 'pages',
+            path: '',
             loadChildren: () => import('./pages/pages.module').then(x => x.PagesModule)
         }]
     }

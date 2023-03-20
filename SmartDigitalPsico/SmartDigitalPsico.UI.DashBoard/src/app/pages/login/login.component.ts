@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserLoginModel } from 'app/models/UserLoginModel';
 import { AuthService } from 'app/services/auth/auth.service';
 
 declare var $: any;
@@ -13,10 +14,14 @@ declare var $: any;
 export class LoginComponent implements OnInit {
     test: Date = new Date();
     invalidLogin: boolean;
+    public userLoginModel: UserLoginModel;
 
     constructor(
         @Inject(Router) private router: Router,
-        @Inject(AuthService) private authService: AuthService) { }
+        @Inject(AuthService) private authService: AuthService) {
+
+
+    }
 
     checkFullPageBackgroundImage() {
         var $page = $('.full-page');
@@ -29,21 +34,25 @@ export class LoginComponent implements OnInit {
     };
 
     ngOnInit() {
+        this.userLoginModel = {
+            login: '', password: ''
+        };
         this.checkFullPageBackgroundImage();
 
         setTimeout(function () {
             // after 1000 ms we add the class animated to the login/register card
             $('.card').removeClass('card-hidden');
         }, 700)
-    }  
-    signIn(credentials) {
-        this.authService.login(credentials)
-          .subscribe(result => { 
-            if (result){                
+    }
+    signIn() {
+        console.log(this.userLoginModel);
+        this.authService.login(this.userLoginModel).subscribe({
+            next: (response: any) => {                
                 this.router.navigate(['/adminpages/dashboard']);
-            }
-            else  
-              this.invalidLogin = true; 
-          });
-      }
+            },
+            error: (err) => { this.invalidLogin = true; }
+        });
+        //value="admin"
+        //value="mock123adm"
+    }
 }

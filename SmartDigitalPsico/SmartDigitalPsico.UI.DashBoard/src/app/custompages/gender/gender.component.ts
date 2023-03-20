@@ -47,7 +47,7 @@ export class GenderComponent implements OnInit {
     }
     retrieveList(): void {
         this.registerService.getAll().subscribe({
-            next: (response: any) => { this.listResult = response["data"];; this.loadConfigDataTablesLazzy(); CaptureTologFunc('retrieveList-gender', response); },
+            next: (response: any) => { this.listResult = response["data"]; this.loadConfigDataTablesLazzy(); CaptureTologFunc('retrieveList-gender', response); },
             error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
         });
     }

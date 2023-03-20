@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form method="#" action="#">
+                        <form #fLogin="ngForm" (ngSubmit)="signIn()">
 
                         <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                             <div class="card card-hidden">
@@ -14,11 +14,11 @@
                                 <div class="content">
                                     <div class="form-group">
                                         <label>Login</label>
-                                        <input type="text" placeholder="Enter Login" class="form-control">
+                                        <input type="text"   [(ngModel)]="userLoginModel.login" placeholder="Enter Login" class="form-control" >
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" placeholder="Password" class="form-control">
+                                        <input type="password"  [(ngModel)]="userLoginModel.password" placeholder="Enter Password" class="form-control"> 
                                     </div>
                                     
                                     <div class="form-group">
@@ -33,10 +33,9 @@
                                 <div class="footer text-center">
                                     <button type="submit" class="btn btn-fill btn-danger btn-wd">Login</button>
                                 </div>
-                            </div>
-
+                            </div> 
                         </form>
-
+                        <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username and/or password.</div>
                     </div>
                 </div>
             </div>

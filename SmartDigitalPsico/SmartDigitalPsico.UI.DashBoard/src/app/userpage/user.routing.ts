@@ -8,8 +8,5 @@ export const UserRoutes: Routes = [{
     children: [{
         path: 'pages/user',
         component: UserComponent
-    },{
-        path: 'pages/gender',
-        component: GenderComponent
-    }]
+    } ]
 }];

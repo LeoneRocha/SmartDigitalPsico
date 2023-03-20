@@ -1,48 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Hypermedia;
-using SmartDigitalPsico.Domains.Hypermedia.Constants;
-using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.VO.Domains.GetVOs;
-using SmartDigitalPsico.Model.VO.User;
+using SmartDigitalPsico.Domains.Hypermedia.Constants; 
+using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using System.Text;
 
-namespace SmartDigitalPsico.Model.Hypermedia.Enricher
+namespace SmartDigitalPsico.Model.Hypermedia.Enricher.Principals.Patient
 {
-    public class GetUserVOEnricher : ContentResponseEnricher<GetUserVO> 
-         
+    public class GetPatientHospitalizationInformationVOEnricher : ContentResponseEnricher<GetPatientHospitalizationInformationVO>
+
     {
         private readonly object _lock = new object();
-        protected override Task EnrichModel(GetUserVO content, IUrlHelper urlHelper)
+        protected override Task EnrichModel(GetPatientHospitalizationInformationVO content, IUrlHelper urlHelper)
         {
-            var path = "api/user/v1";
+            var path = "api/Patient/v1/PatientHospitalizationInformation/".ToLower();
             string link = GetLink(content.Id, urlHelper, path);
 
             content.Links.Add(new HyperMediaLink()
             {
-                Action = HttpActionVerb.GET,
+                Method = HttpActionVerb.GET,
                 Href = link,
                 Rel = RelationType.self,
                 Type = ResponseTypeFormat.DefaultGet
             });
             content.Links.Add(new HyperMediaLink()
             {
-                Action = HttpActionVerb.POST,
+                Method = HttpActionVerb.POST,
                 Href = link,
-                Rel = RelationType.self,
+                Rel = RelationType.post,
                 Type = ResponseTypeFormat.DefaultPost
             });
             content.Links.Add(new HyperMediaLink()
             {
-                Action = HttpActionVerb.PUT,
+                Method = HttpActionVerb.PUT,
                 Href = link,
-                Rel = RelationType.self,
+                Rel = RelationType.put,
                 Type = ResponseTypeFormat.DefaultPut
             });
             content.Links.Add(new HyperMediaLink()
             {
-                Action = HttpActionVerb.DELETE,
+                Method = HttpActionVerb.DELETE,
                 Href = link,
-                Rel = RelationType.self,
+                Rel = RelationType.delete,
                 Type = "long"
             });
             return Task.Run(() => { });//Ajuste para o resultado não lancar erro de objeto nullo

@@ -24,6 +24,6 @@ namespace SmartDigitalPsico.Domains.Hypermedia
             }
         }
         public string Type { get; set; }
-        public string Action { get; set; }
+        public string Method { get; set; }
     }
 }

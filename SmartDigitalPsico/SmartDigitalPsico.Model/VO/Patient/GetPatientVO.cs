@@ -3,10 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.Contracts;
+using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using SmartDigitalPsico.Domains.Hypermedia;
 
 namespace SmartDigitalPsico.Model.VO.Patient
 {
-    public class GetPatientVO : EntityVOBase 
+    public class GetPatientVO : EntityVOBase, ISupportsHyperMedia
     {
         //MUDAR AS RELACOES PARA OBJETOS 
         #region Relationship
@@ -63,5 +66,6 @@ namespace SmartDigitalPsico.Model.VO.Patient
         public string Email { get; set; }
         #endregion
 
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

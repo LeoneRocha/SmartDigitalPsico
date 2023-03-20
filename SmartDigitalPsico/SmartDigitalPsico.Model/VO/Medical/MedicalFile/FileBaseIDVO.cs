@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SmartDigitalPsico.Model.VO.Contracts;
 
 namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
 {

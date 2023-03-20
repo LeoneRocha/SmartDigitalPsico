@@ -51,6 +51,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
             return Ok(response);
         }
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
             var response = await _userService.Delete(id);

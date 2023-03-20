@@ -3,7 +3,6 @@ using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
@@ -18,6 +17,7 @@ using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Contracts;
 
 namespace SmartDigitalPsico.Model.Mapper
 {

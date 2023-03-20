@@ -1,6 +1,7 @@
 using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.Medical;
@@ -29,6 +30,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Get()
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
@@ -37,18 +39,21 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> GetById(int id)
         {
             return Ok(await _medicalService.FindByID(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Create(AddMedicalVO newEntity)
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> Create(AddMedicalVO newEntity)
         {
             return Ok(await _medicalService.Create(newEntity));
         }
 
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> Update(UpdateMedicalVO UpdateEntity)
         {
             return BadRequest("Em construção");  // Ok(new EmptyResult());
@@ -62,6 +67,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
             var response = await _medicalService.Delete(id);

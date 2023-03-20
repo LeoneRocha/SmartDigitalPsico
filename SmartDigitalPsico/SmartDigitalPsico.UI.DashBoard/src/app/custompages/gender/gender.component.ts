@@ -6,10 +6,7 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-declare interface TableData {
-    headerRow: string[];
-    dataRows: string[][];
-}
+
 declare var $: any;
 declare interface DataTable {
     headerRow: string[];
@@ -25,7 +22,6 @@ declare interface DataTable {
 })
 
 export class GenderComponent implements OnInit {
-    public tableData1: TableData;
     public listResult: GenderModel[];
     serviceResponse: ServiceResponse<GenderModel>;
     public dataTable: DataTable;
@@ -33,8 +29,7 @@ export class GenderComponent implements OnInit {
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router) { }
     ngOnInit() {
         this.retrieveList();
-        this.loadFakeDataSimple();
-        this.loadFakeData();
+        this.loadHeaderFooterDataTable();
     }
     ngAfterViewInit() {
     }
@@ -142,7 +137,6 @@ export class GenderComponent implements OnInit {
             }
         });
     }
-    //TODO - https://stackoverflow.com/questions/38321634/change-boolean-values-to-text-in-angular-2-client-side
     loadConfigDataTablesLazzy(): void {
         setTimeout(() => {
             this.loadConfigDataTables();
@@ -178,13 +172,7 @@ export class GenderComponent implements OnInit {
             // alert('You clicked on Like button');
         });
     }
-    loadFakeDataSimple() {
-        this.tableData1 = {
-            headerRow: ['#', 'Description', 'Language', 'Enable', 'Actions'],
-            dataRows: []
-        };
-    }
-    loadFakeData() {
+    loadHeaderFooterDataTable() {
         this.dataTable = {
             headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
             footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],

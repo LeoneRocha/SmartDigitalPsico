@@ -1,5 +1,6 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using SmartDigitalPsico.Model.VO.Contracts;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using System.ComponentModel.DataAnnotations;
 

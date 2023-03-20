@@ -1,5 +1,6 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using SmartDigitalPsico.Model.VO.Contracts;
 
 namespace SmartDigitalPsico.Model.VO.Patient
 {

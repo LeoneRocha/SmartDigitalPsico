@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
@@ -26,6 +27,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
 
         //[AllowAnonymous]
         [HttpGet("GetAll")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetPatientNotificationMessageVO>>>> Get()
         {
             //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
@@ -34,18 +36,21 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientNotificationMessageVO>>> GetById(int id)
         {
             return Ok(await _entitytService.FindByID(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetPatientNotificationMessageVO>>>> Create(AddPatientNotificationMessageVO newEntity)
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<GetPatientNotificationMessageVO>>> Create(AddPatientNotificationMessageVO newEntity)
         {
             return Ok(await _entitytService.Create(newEntity));
         }
 
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientNotificationMessageVO>>> Update(UpdatePatientNotificationMessageVO UpdateEntity)
         {
             return BadRequest("Em construção");  // Ok(new EmptyResult());
@@ -59,6 +64,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
 
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
             var response = await _entitytService.Delete(id);

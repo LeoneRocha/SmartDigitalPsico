@@ -44,7 +44,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetApplicationLanguageVO>>>> Create(AddApplicationLanguageVO newEntity)
+        public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> Create(AddApplicationLanguageVO newEntity)
         {
             return Ok(await _entityService.Create(newEntity));
         }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using SmartDigitalPsico.Model.VO.Contracts;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientFile
 {

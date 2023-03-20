@@ -44,7 +44,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetRoleGroupVO>>>> Create(AddRoleGroupVO newEntity)
+        public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> Create(AddRoleGroupVO newEntity)
         {
             return Ok(await _entityService.Create(newEntity));
         }

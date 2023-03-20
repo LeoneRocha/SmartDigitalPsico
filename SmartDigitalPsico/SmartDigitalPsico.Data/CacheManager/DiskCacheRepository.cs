@@ -73,10 +73,10 @@ namespace SmartDigitalPsico.Repository.CacheManager
                 }
 
                 //Gerando cache 
-                string jsonString =   JsonSerializer.Serialize(value);
+                string jsonString = JsonSerializer.Serialize(value);
                 byte[] bytesString = Encoding.UTF8.GetBytes(jsonString);
-                
-                string pathSaveCache = Path.Combine(Directory.GetCurrentDirectory(), _cacheConfig.PathCache); ;
+
+                string pathSaveCache = getPathSaveCache(_cacheConfig.PathCache);
 
                 var fileDataSave = new FileData()
                 {
@@ -105,8 +105,10 @@ namespace SmartDigitalPsico.Repository.CacheManager
         {
             bool result = false;
             string filename = string.Concat(cacheKey, _cacheConfig.ExtensionCache);
+             
+            string pathSaveCache = getPathSaveCache(_cacheConfig.PathCache);
 
-            var criteriaFind = new FileData() { FilePath = _cacheConfig.PathCache, FileName = filename };
+            var criteriaFind = new FileData() { FilePath = pathSaveCache, FileName = filename };
 
             bool exists = _repositoryFileDisk.Exists(criteriaFind);
 
@@ -125,6 +127,20 @@ namespace SmartDigitalPsico.Repository.CacheManager
                 }
             }
             return new KeyValuePair<bool, T>(result, new());
+        }
+
+        private string getPathSaveCache(string pathCache)
+        { 
+            string currentDir = Directory.GetCurrentDirectory();
+            string[] dirs = pathCache.Split('\\');
+
+            string pathToSaveCache = Path.Combine(currentDir, dirs[0]);
+            for (int i = 1; i < dirs.Length; i++)
+            {
+                pathToSaveCache = Path.Combine(pathToSaveCache, dirs[i]);
+            }
+            return pathToSaveCache;
+
         }
     }
 }

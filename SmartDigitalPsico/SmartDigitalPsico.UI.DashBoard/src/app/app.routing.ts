@@ -10,7 +10,7 @@ export const AppRoutes: Routes = [/*{
         path: '',
         component: AdminLayoutComponent,
         children: [{
-            path: '',
+            path: 'dashboard',
             loadChildren: () => import('./dashboard/dashboard.module').then(x => x.DashboardModule)
         }, {
             path: '',

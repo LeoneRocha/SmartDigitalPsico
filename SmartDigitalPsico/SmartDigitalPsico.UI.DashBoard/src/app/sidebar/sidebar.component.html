@@ -28,7 +28,7 @@
 							<span class="sidebar-mini">MP</span>
 							<span class="sidebar-normal">My Profile</span>
 						</a>
-                        <a href="#" (click)="logOut()">
+                        <a *ngIf="isLoggedIn()" href="#" (click)="logOut()">
 							<span class="sidebar-mini">LO</span>
 							<span class="sidebar-normal"> Log out</span>
 						</a>  

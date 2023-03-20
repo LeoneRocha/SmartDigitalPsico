@@ -9,7 +9,11 @@ import { CaptureTologFunc } from 'app/common/app-error-handler';
 
 
 export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
-  constructor(@Inject(HttpClient) private http: HttpClient, private baseUrl: string, private urlgetAll: string) { }
+
+  protected httpLocal: HttpClient;
+  constructor(@Inject(HttpClient) private http: HttpClient, private baseUrl: string, private urlgetAll: string) {
+    this.httpLocal = http;
+  }
 
   add(t: E): Observable<any> {
     return this.http.post<T>(this.baseUrl, t).pipe(map(response => { response; CaptureTologFunc('GenericService-add', response); }), catchError(this.customHandleError));

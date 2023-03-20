@@ -31,8 +31,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Auth
             return Ok(response);
         }
 
-        [HttpPost("Login")]
-        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginVO request)
+        [HttpPost("Authenticate")]
+        public async Task<ActionResult<ServiceResponse<string>>> Authenticate(UserLoginVO request)
         {
             var response = await _userService.Login(request.Login, request.Password
             );

@@ -14,8 +14,7 @@ namespace SmartDigitalPsico.Model.VO.User
         public string Email { get; set; }
 
         public List<GetRoleGroupVO> RoleGroups { get; set; }
-
-
+         
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
     }

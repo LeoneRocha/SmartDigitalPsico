@@ -46,15 +46,14 @@ export class LoginComponent implements OnInit {
         //console.log(isLoged);
         if (isLoged) {
             let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-            this.router.navigate([returnUrl || '/adminpages/dashboard']);
+            this.router.navigate([returnUrl || '/administrative/dashboard']);
          }
-
     }
     signIn() {
         this.authService.login(this.userLoginModel).subscribe({
             next: (response: any) => {
                 let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-                this.router.navigate([returnUrl || '/adminpages/dashboard']);
+                this.router.navigate([returnUrl || '/administrative/dashboard']);
             },
             error: (err) => { this.invalidLogin = true; }
         });

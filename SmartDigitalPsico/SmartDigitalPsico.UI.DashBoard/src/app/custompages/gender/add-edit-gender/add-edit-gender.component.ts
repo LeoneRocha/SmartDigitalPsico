@@ -154,7 +154,7 @@ export class AddEditGenderComponent implements OnInit {
         //demo
     }
     goBackToList() {
-        this.router.navigate(['/adminpages/gender']);
+        this.router.navigate(['/administrative/gender']);
     }
     modalSuccessAlert() {
         swal.fire({

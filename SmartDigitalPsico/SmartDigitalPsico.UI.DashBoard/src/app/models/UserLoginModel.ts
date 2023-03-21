@@ -25,5 +25,5 @@ export interface UserLoginModel{
   export interface RoleGroup {
     id: number 
     description: string
-    rolepolicyclaimcode: string 
+    rolePolicyClaimCode: string 
   } 

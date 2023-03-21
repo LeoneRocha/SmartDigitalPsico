@@ -32,9 +32,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     this.userAutenticate = response?.data;
     let token = this.userAutenticate.tokenAuth;
     if (token && token?.authenticated && token.accessToken) {
-
       this.setLocalStorageUser(token);
-      this.getLocalStorageUser();
       return true;
     }
     return false;
@@ -57,22 +55,25 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     //console.log(strUserAutenticate);
     let userLoaded: UserAutenticateView
     userLoaded = JSON.parse(strUserAutenticate);
-    console.log(userLoaded);
+    //console.log(userLoaded);
     return userLoaded;
   }
   getRolesUser(): RoleGroup[] {
     let userLoaded: UserAutenticateView = this.getLocalStorageUser();
-    return userLoaded.roleGroups;
+   
+    if (userLoaded != null && userLoaded != undefined)
+      return userLoaded?.roleGroups;
+
+      return null;
   }
 
-  isUserContainsRole(roleCheck: string) : boolean {
+  isUserContainsRole(roleCheck: string): boolean {
     let isUserContainRole: boolean = false;
-    const userRoles: RoleGroup[] = this.getRolesUser();  
-    console.log(userRoles);
-      
-    //const roleFinded: RoleGroup = userRoles.find(role => { role.rolepolicyclaimcode === roleCheck });
+    const userRoles: RoleGroup[] = this.getRolesUser();
+    //const roleFinded: RoleGroup = userRoles.find(role => role?.rolePolicyClaimCode?.toUpperCase().trim() == roleCheck?.toUpperCase().trim());    
     //if (roleFinded) { isUserContainRole = true };
-    isUserContainRole = userRoles.some(role => role.rolepolicyclaimcode === roleCheck);
+    if (userRoles != null && userRoles != undefined)
+      isUserContainRole = userRoles?.some(role => role?.rolePolicyClaimCode === roleCheck);
 
     return isUserContainRole;
   }

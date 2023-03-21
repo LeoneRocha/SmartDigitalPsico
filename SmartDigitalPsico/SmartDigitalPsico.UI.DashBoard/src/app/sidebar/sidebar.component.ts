@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, Inject } from '@angular/core';
 import { AuthService } from 'app/services/auth/auth.service';
 
+
 declare var $: any;
 //Metadata
 export interface RouteInfo {
@@ -8,6 +9,8 @@ export interface RouteInfo {
     title: string;
     type: string;
     icontype: string;
+    visible: boolean;
+    roleaccess: string;
     // icon: string;
     children?: ChildrenItems[];
 }
@@ -21,9 +24,11 @@ export interface ChildrenItems {
 
 //Menu Items
 export const ROUTES: RouteInfo[] = [{
-    path: '/adminpages/dashboard',
+    path: '/administrative/dashboard',
     title: 'Inicio',
     type: 'link',
+    visible: true,
+    roleaccess: 'Read',
     icontype: 'pe-7s-home'
 },
 {
@@ -31,6 +36,8 @@ export const ROUTES: RouteInfo[] = [{
     title: 'Médicos',
     type: 'sub',
     icontype: 'pe-7s-users',
+    visible: true,
+    roleaccess: 'Read',
     children: [
         { path: '', title: 'Médicos', ab: 'M' },
         { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
@@ -41,6 +48,8 @@ export const ROUTES: RouteInfo[] = [{
     title: 'Pacientes',
     type: 'sub',
     icontype: 'pe-7s-users',
+    visible: true,
+    roleaccess: 'Read',
     children: [
         { path: 'patient', title: 'Paciente', ab: 'P' },
         { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
@@ -51,14 +60,18 @@ export const ROUTES: RouteInfo[] = [{
     title: 'Usuários',
     type: 'sub',
     icontype: 'pe-7s-users',
+    visible: true,
+    roleaccess: 'Read',
     children: [
         { path: 'users', title: 'Usuários', ab: 'U' }
     ]
 }, {
-    path: '/adminpages',
+    path: '/administrative',
     title: 'Configurações',
     type: 'sub',
     icontype: 'pe-7s-tools',
+    visible: true,
+    roleaccess: 'Read',
     children: [
         { path: 'gender', title: 'Gender', ab: 'G' },
         { path: 'office', title: 'Office', ab: 'O' },
@@ -71,6 +84,8 @@ export const ROUTES: RouteInfo[] = [{
     title: 'Cadastros',
     type: 'sub',
     icontype: 'pe-7s-gift',
+    visible: true,
+    roleaccess: 'Read',
     children: [
         { path: 'user', title: 'User Page', ab: 'UP' },
     ]
@@ -79,11 +94,14 @@ export const ROUTES: RouteInfo[] = [{
     title: 'Modelos',
     type: 'sub',
     icontype: 'pe-7s-gift',
-    children: [ 
-        { path: 'register', title: 'Register Page', ab: 'RP' } 
+    visible: true,
+    roleaccess: 'Read',
+    children: [
+        { path: 'register', title: 'Register Page', ab: 'RP' }
     ]
 }
 ];
+
 
 @Component({
     moduleId: module.id,
@@ -100,17 +118,30 @@ export class SidebarComponent {
             return false;
         }
         return true;
-    } 
+    }
     constructor(@Inject(AuthService) private authService: AuthService) {
 
     }
-    logOut() : void {
+    logOut(): void {
         this.authService.logout();
-    } 
-    isLoggedIn() : boolean {
+    }
+    checkCanAccess(menuItem: RouteInfo): boolean {
+        let isCanAccess: boolean = true;
+        //console.log(menuItem?.roleaccess);
+        let userCanRoleMenu = this.authService.isUserContainsRole(menuItem?.roleaccess);
+        isCanAccess = userCanRoleMenu;
+        //console.log(userCanRoleMenu);
+        if (menuItem.path.indexOf('administrative') >= 0) {
+            isCanAccess = this.authService.isUserContainsRole('Admin');
+            //console.log('Admin + ' + isCanAccess);
+        }
+        return isCanAccess;
+    }
+    isLoggedIn(): boolean {
         return this.authService.isLoggedIn();
-    } 
+    }
     ngOnInit() {
+
         var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
         this.menuItems = ROUTES.filter(menuItem => menuItem);
 

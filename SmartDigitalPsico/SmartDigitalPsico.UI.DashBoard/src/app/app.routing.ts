@@ -10,7 +10,7 @@ export const AppRoutes: Routes = [
         pathMatch: 'full',
     },
     {
-        path: 'adminpages',
+        path: 'administrative',
         component: AdminLayoutComponent,
         children: [{
             path: 'dashboard',

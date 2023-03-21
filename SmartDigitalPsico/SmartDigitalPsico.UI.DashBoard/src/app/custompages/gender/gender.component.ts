@@ -34,13 +34,13 @@ export class GenderComponent implements OnInit {
     ngAfterViewInit() {
     }
     newRegister(): void {
-        this.router.navigate(['/adminpages/gender/genderaction']);
+        this.router.navigate(['/administrative/gender/genderaction']);
     }
     viewRegister(idRegister: number): void {
-        this.router.navigate(['/adminpages/gender/genderaction', { modeForm: 'view', id: idRegister }]);
+        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'view', id: idRegister }]);
     }
     editRegister(idRegister: number): void {
-        this.router.navigate(['/adminpages/gender/genderaction', { modeForm: 'edit', id: idRegister }]);
+        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);

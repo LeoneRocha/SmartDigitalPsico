@@ -93,14 +93,9 @@
                                     <i class="pe-7s-tools"></i> Settings
                                 </a>
                             </li>
-                            <li class="divider"></li>
+                            <li class="divider"></li> 
                             <li>
-                                <a [routerLink]="['/LockScreen']">
-                                    <i class="pe-7s-lock"></i> Lock Screen
-                                </a>
-                            </li>
-                            <li>
-                                <a class="text-danger"  (click)="authService.logout()">
+                                <a *ngIf="authService.isLoggedIn()" class="text-danger"  (click)="authService.logout()">
                                     <i class="pe-7s-close-circle"></i>
                                     Log out
                                 </a>

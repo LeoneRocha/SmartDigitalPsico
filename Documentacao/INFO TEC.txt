@@ -1,18 +1,16 @@
+
+npm install @auth0/angular-jwt --save
+
+https://www.bezkoder.com/angular-14-jwt-auth/
+
+
 https://www.creative-tim.com/product/light-bootstrap-dashboard-pro-angular2
-
 https://www.wrappixel.com/templates/materialpro-angular-dashboard/#demos
-
-
 https://www.codeproject.com/Articles/5348357/Localizing-ASP-NET-Core-MVC-Applications-from-Data
 ******
 https://www.wrappixel.com/
-
-
 https://github.com/AndrewJBateman/angular-api-project#camera-screenshots
-
-
 https://github.com/rakesh-kumar-t/AngularDotnetCore
-
 https://github.com/bezkoder/angular-15-crud-example
 
 ------------------ IMPLANTAR UPLLOAD ARQUIVO 

@@ -109,7 +109,9 @@ export class SidebarComponent {
     logOut() : void {
         this.authService.logout();
     } 
-
+    isLoggedIn() : boolean {
+        return this.authService.isLoggedIn();
+    } 
     ngOnInit() {
         var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
         this.menuItems = ROUTES.filter(menuItem => menuItem);

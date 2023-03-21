@@ -8,6 +8,7 @@ import { UserAutenticateModel, UserLoginModel } from 'app/models/UserLoginModel'
 import { catchError, map, throwError } from 'rxjs';
 import { AppError } from 'app/common/app-error';
 import { Token } from '@angular/compiler';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 //'https://localhost:61949/api/Auth/v1/Login
 const basePathUrl = '/Auth/v1';
@@ -38,18 +39,29 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     }), catchError(this.customHandleErrorAuthService));
   }
 
-  logout() {    
+  logout() {
     localStorage.removeItem(this.keyLocalStorage);
   }
 
   isLoggedIn() {
     let sessionTokenActive = false;
-    let cacheTokenLS = localStorage.getItem(this.keyLocalStorage);
-    if (cacheTokenLS && cacheTokenLS !='cacheTokenLS') 
-    {
-      sessionTokenActive = true;
-    }
+    sessionTokenActive = this.checkTokenJWT();
+    return sessionTokenActive;
+  }
 
+  private checkTokenJWT(): boolean {
+    let sessionTokenActive = false;
+    let cacheTokenLS: string = localStorage.getItem(this.keyLocalStorage);
+    if (!cacheTokenLS) return sessionTokenActive;
+
+    if (cacheTokenLS && cacheTokenLS != '') {
+      sessionTokenActive = true;
+
+      let jwtHelper = new JwtHelperService(cacheTokenLS);
+      let expirationDate = jwtHelper.getTokenExpirationDate(cacheTokenLS);
+      let isTokenExpired = jwtHelper.isTokenExpired(cacheTokenLS);   
+      sessionTokenActive = !isTokenExpired;
+    }
     return sessionTokenActive;
   }
 

@@ -14,6 +14,7 @@ import { AppRoutes } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './services/auth/auth-guard.service';
+import { AdminAuthGuard } from './services/auth/admin-auth-guard.service';
 //import { GenderService } from './services/general/gender.service';
 
 @NgModule({
@@ -38,7 +39,7 @@ import { AuthGuard } from './services/auth/auth-guard.service';
     bootstrap: [AppComponent],
     providers: [
         //GenderService
-        AuthService, AuthGuard
+        AuthService, AuthGuard, AdminAuthGuard
     ],
 })
 

@@ -14,30 +14,29 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 const basePathUrl = '/Auth/v1';
 @Injectable()
 export class AuthService extends GenericService<ServiceResponse<UserAutenticateModel>, UserLoginModel, number> {
-
   private keyLocalStorage: string = "tokenjwt";
-
   constructor(@Inject(HttpClient) http: HttpClient) {
-
     super(http, `${environment.APIUrl + basePathUrl}`, '/');
   }
 
   login(credentials: UserLoginModel) {
-    let urlAut = `${environment.APIUrl + basePathUrl}/authenticate`;    
+    let urlAut = `${environment.APIUrl + basePathUrl}/authenticate`;
     //urlAut = '/api/authenticate'//Test Mock
     //JSON.stringify(credentials) 
     return this.httpLocal.post<ServiceResponse<UserAutenticateModel>>(urlAut, credentials).pipe(map(response => {
-     
-      let userAutenticate = response?.data;
-      let token = userAutenticate.tokenAuth;
-      if (token && token?.authenticated && token.accessToken) {
-        localStorage.setItem(this.keyLocalStorage, token.accessToken);
-        return true;
-      }
-      return false;
+      return this.processLoginApi(response);
     }), catchError(this.customHandleErrorAuthService));
   }
-
+  processLoginApi(response: ServiceResponse<UserAutenticateModel>) {
+    console.log(response);
+    let userAutenticate = response?.data;
+    let token = userAutenticate.tokenAuth;
+    if (token && token?.authenticated && token.accessToken) {
+      localStorage.setItem(this.keyLocalStorage, token.accessToken);
+      return true;
+    }
+    return false;
+  }
   logout() {
     localStorage.removeItem(this.keyLocalStorage);
   }
@@ -58,7 +57,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
 
       let jwtHelper = new JwtHelperService(cacheTokenLS);
       let expirationDate = jwtHelper.getTokenExpirationDate(cacheTokenLS);
-      let isTokenExpired = jwtHelper.isTokenExpired(cacheTokenLS);   
+      let isTokenExpired = jwtHelper.isTokenExpired(cacheTokenLS);
       sessionTokenActive = !isTokenExpired;
     }
     return sessionTokenActive;

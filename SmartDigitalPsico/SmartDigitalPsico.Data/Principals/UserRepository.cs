@@ -77,7 +77,7 @@ namespace SmartDigitalPsico.Repository.Principals
                 try
                 {
                     dataset.Entry(result).CurrentValues.SetValues(user);
-                    //await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     return result;
                 }
                 catch (Exception)

@@ -52,7 +52,6 @@ export class GenderComponent implements OnInit {
         });
     }
     executeDeleteRegister(idRegister: number) {
-
         this.registerService.delete(idRegister).subscribe({
             next: (response: any) => {
                 CaptureTologFunc('executeDeleteRegister-gender', response);
@@ -140,7 +139,7 @@ export class GenderComponent implements OnInit {
     loadConfigDataTablesLazzy(): void {
         setTimeout(() => {
             this.loadConfigDataTables();
-        }, 500);
+        }, 100);
     }
     loadConfigDataTables(): void {
         $('#datatables').DataTable({

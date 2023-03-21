@@ -21,5 +21,6 @@ export interface UserLoginModel{
     id: number
     enable: boolean
     description: string
+    rolepolicyclaimcode: string
     language: string 
   } 

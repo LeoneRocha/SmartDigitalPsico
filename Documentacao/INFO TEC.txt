@@ -4,6 +4,8 @@ npm install @auth0/angular-jwt --save
 https://www.bezkoder.com/angular-14-jwt-auth/
 
 
+//TODO: 150. Protecting Routes Based on the User's Role
+
 https://www.creative-tim.com/product/light-bootstrap-dashboard-pro-angular2
 https://www.wrappixel.com/templates/materialpro-angular-dashboard/#demos
 https://www.codeproject.com/Articles/5348357/Localizing-ASP-NET-Core-MVC-Applications-from-Data

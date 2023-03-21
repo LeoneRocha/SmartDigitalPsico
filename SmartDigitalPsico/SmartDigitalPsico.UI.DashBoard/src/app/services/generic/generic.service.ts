@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { GenericServiceModel } from 'app/models/GenericServiceModel';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Inject } from '@angular/core';
@@ -9,6 +9,7 @@ import { CaptureTologFunc } from 'app/common/app-error-handler';
 
 
 export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
+   
 
   protected httpLocal: HttpClient;
   constructor(@Inject(HttpClient) private http: HttpClient, private baseUrl: string, private urlgetAll: string) {
@@ -28,7 +29,12 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
   }
 
   getAll(): Observable<T[]> {
-    return this.http.get<T[]>(this.baseUrl + this.urlgetAll).pipe(map(response => response), catchError(this.customHandleError));
+
+    let token = localStorage.getItem('tokenjwt');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<T[]>(this.baseUrl + this.urlgetAll, { headers: headers }).pipe(map(response => response), catchError(this.customHandleError));
   }
 
   delete(id: ID): Observable<any> {

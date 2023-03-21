@@ -46,6 +46,8 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
             ServiceResponse<List<GetGenderVO>> result = new ServiceResponse<List<GetGenderVO>>();
             List<GetGenderVO> listEntity = new List<GetGenderVO>();
+            
+            long idu = this.UserId;
 
             if (_cacheBusiness.IsEnable())
             {

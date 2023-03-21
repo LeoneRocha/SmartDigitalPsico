@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserLoginModel } from 'app/models/UserLoginModel';
 import { AuthService } from 'app/services/auth/auth.service';
 
@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
 
     constructor(
         @Inject(Router) private router: Router,
+        @Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(AuthService) private authService: AuthService) {
-
 
     }
 
@@ -47,8 +47,10 @@ export class LoginComponent implements OnInit {
     signIn() {
         //console.log(this.userLoginModel);
         this.authService.login(this.userLoginModel).subscribe({
-            next: (response: any) => {                
-                this.router.navigate(['/adminpages/dashboard']);
+            next: (response: any) => {               
+                let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
+                this.router.navigate([ returnUrl ||'/adminpages/dashboard']);
             },
             error: (err) => { this.invalidLogin = true; }
         });

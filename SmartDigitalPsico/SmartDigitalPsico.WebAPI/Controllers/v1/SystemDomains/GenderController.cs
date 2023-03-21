@@ -52,6 +52,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> GetById(int id)
         {
+            setUserCurrent();
             return Ok(await _entityService.FindByID(id));
         }
 
@@ -59,6 +60,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Create(AddGenderVO newEntity)
         {
+            setUserCurrent();
             return Ok(await _entityService.Create(newEntity));
         }
 
@@ -66,6 +68,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Update(UpdateGenderVO updateEntity)
         {
+            setUserCurrent();
             //return BadRequest("Em construção"); 
             var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
@@ -79,6 +82,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
+            setUserCurrent();
             var response = await _entityService.Delete(id);
             if (!response.Data)
             {

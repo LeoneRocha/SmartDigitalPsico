@@ -16,6 +16,7 @@ namespace SmartDigitalPsico.Business.Generic.Contracts
         Task<ServiceResponse<int>> GetCount(string query);
         Task<ServiceResponse<bool>> EnableOrDisable(long id);
 
+        void SetUserId(long id);
 
     }
 }

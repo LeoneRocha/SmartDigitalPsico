@@ -27,7 +27,6 @@ namespace SmartDigitalPsico.Repository.Helper
             addMockApplicationLanguage(modelBuilder);
             #endregion
 
-
             #region Gender
             addMockGender(modelBuilder);
             #endregion
@@ -183,12 +182,12 @@ namespace SmartDigitalPsico.Repository.Helper
         private static void addMockRoleGroup(ModelBuilder modelBuilder)
         {
             List<RoleGroup> rolesAdd = new List<RoleGroup>();
-            rolesAdd.Add(new RoleGroup { Id = 1, Description = "Administrador", Language = valorbr });
-            rolesAdd.Add(new RoleGroup { Id = 2, Description = "Medico", Language = valorbr });
-            rolesAdd.Add(new RoleGroup { Id = 3, Description = "Recepcionista", Language = valorbr });
-            rolesAdd.Add(new RoleGroup { Id = 4, Description = "Paciente", Language = valorbr });
-            rolesAdd.Add(new RoleGroup { Id = 5, Description = "Leitura", Language = valorbr });
-            rolesAdd.Add(new RoleGroup { Id = 6, Description = "Escrita", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 1, RolePolicyClaimCode = "Admin", Description = "Administrador", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 2, RolePolicyClaimCode = "Medical", Description = "Medico", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 3, RolePolicyClaimCode = "Staff", Description = "Recepcionista", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 4, RolePolicyClaimCode = "Patient", Description = "Paciente", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 5, RolePolicyClaimCode = "Read", Description = "Leitura", Language = valorbr });
+            rolesAdd.Add(new RoleGroup { Id = 6, RolePolicyClaimCode = "Write", Description = "Escrita", Language = valorbr });
 
             modelBuilder.Entity<RoleGroup>().HasData(rolesAdd);
         }

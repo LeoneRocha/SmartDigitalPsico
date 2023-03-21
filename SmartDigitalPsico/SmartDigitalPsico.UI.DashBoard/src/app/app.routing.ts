@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { AuthGuard } from './services/auth/auth-guard.service';
 
 export const AppRoutes: Routes = [
     {
@@ -13,9 +14,11 @@ export const AppRoutes: Routes = [
         component: AdminLayoutComponent,
         children: [{
             path: 'dashboard',
+            canActivate: [AuthGuard],
             loadChildren: () => import('./dashboard/dashboard.module').then(x => x.DashboardModule)
         }, {
             path: 'gender',
+            canActivate: [AuthGuard],
             loadChildren: () => import('./custompages/gender/gender.module').then(x => x.GenderModule)
         }]
     },

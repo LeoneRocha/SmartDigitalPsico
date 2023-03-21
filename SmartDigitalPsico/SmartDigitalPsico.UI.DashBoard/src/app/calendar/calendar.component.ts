@@ -104,7 +104,7 @@ export class CalendarComponent implements OnInit {
 		};
 	}
 	handleDateClick() {
-		console.log("test");
+		//console.log("test");
 	}
 	addEvent(event) {
 		swal.fire({
@@ -127,6 +127,6 @@ export class CalendarComponent implements OnInit {
 				className: 'event-default'
 			});
 		})
-		console.log(event, "eve")
+		//console.log(event, "eve")
 	}
 }	

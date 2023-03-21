@@ -9,39 +9,56 @@ import { CaptureTologFunc } from 'app/common/app-error-handler';
 
 
 export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
-   
+
 
   protected httpLocal: HttpClient;
-  constructor(@Inject(HttpClient) private http: HttpClient, private baseUrl: string, private urlgetAll: string) {
+  constructor(
+    @Inject(HttpClient) private http: HttpClient, private baseUrl: string, private urlgetAll: string) {
     this.httpLocal = http;
   }
 
   add(t: E): Observable<any> {
-    return this.http.post<T>(this.baseUrl, t).pipe(map(response => { response; CaptureTologFunc('GenericService-add', response); }), catchError(this.customHandleError));
+
+    let headers = this.getHeaders();
+
+    return this.http.post<T>(this.baseUrl, t, { headers: headers }).pipe(map(response => { response; CaptureTologFunc('GenericService-add', response); }), catchError(this.customHandleError));
   }
 
   update(t: E): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/`, t).pipe(map(response => response), catchError(this.customHandleError));
+    let headers = this.getHeaders();
+
+    return this.http.put<T>(`${this.baseUrl}/`, t, { headers: headers }).pipe(map(response => response), catchError(this.customHandleError));
   }
 
   getById(id: ID): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${id}`).pipe(map(response => response), catchError(this.customHandleError));
+
+    let headers = this.getHeaders();
+
+    return this.http.get<T>(`${this.baseUrl}/${id}`, { headers: headers }).pipe(map(response => response), catchError(this.customHandleError));
   }
 
   getAll(): Observable<T[]> {
 
-    let token = localStorage.getItem('tokenjwt');
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`);
+    let headers = this.getHeaders();
 
     return this.http.get<T[]>(this.baseUrl + this.urlgetAll, { headers: headers }).pipe(map(response => response), catchError(this.customHandleError));
   }
 
   delete(id: ID): Observable<any> {
-    return this.http.delete<T>(`${this.baseUrl}/${id}`).pipe(map(response => response), catchError(this.customHandleError));
+
+    let headers = this.getHeaders();
+
+    return this.http.delete<T>(`${this.baseUrl}/${id}`, { headers: headers }).pipe(map(response => response), catchError(this.customHandleError));
   }
 
+  getHeaders(): HttpHeaders {
 
+    let token = localStorage.getItem('tokenjwt');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);
+
+    return headers
+  }
 
   private customHandleError(error: Response) {
     console.log('customHandleError');

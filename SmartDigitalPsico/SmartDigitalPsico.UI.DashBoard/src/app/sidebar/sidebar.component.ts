@@ -79,10 +79,8 @@ export const ROUTES: RouteInfo[] = [{
     title: 'Modelos',
     type: 'sub',
     icontype: 'pe-7s-gift',
-    children: [
-        { path: 'login', title: 'Login Page', ab: 'LP' },
-        { path: 'register', title: 'Register Page', ab: 'RP' },
-        { path: 'lock', title: 'Lock Screen Page', ab: 'LSP' }
+    children: [ 
+        { path: 'register', title: 'Register Page', ab: 'RP' } 
     ]
 }
 ];

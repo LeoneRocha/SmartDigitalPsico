@@ -1,52 +1,52 @@
-
-<div class="logo" >
-	<a href="http://www.creative-tim.com" class="simple-text logo-mini">
-		<div class="logo-img">
-			<img src="../../assets/img/angular2-logo-white.png"/>
-		</div>
-	</a>
-	<a href="http://www.creative-tim.com" class="simple-text logo-normal" title="Smart Digital Psico - Sistema de Psicologia">Smart Digital Psico</a>
+<div class="logo">
+    <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+        <div class="logo-img">
+            <img src="../../assets/img/angular2-logo-white.png" />
+        </div>
+    </a>
+    <a href="http://www.creative-tim.com" class="simple-text logo-normal"
+        title="Smart Digital Psico - Sistema de Psicologia">Smart Digital Psico</a>
 </div>
 
 <div class="sidebar-wrapper">
 
-	<div class="user">
-		<div class="info">
-			<div class="photo">
-				<img src="../assets/img/default-avatar.png" />
-			</div>
-			<a data-toggle="collapse" href="#collapseExample" class="collapsed">
-				<span>
-					Nome do Medico
-					<b class="caret"></b>
-				</span>
-			</a>
-			<div class="collapse" id="collapseExample">
-				<ul class="nav">
-					<li>
-						<a href="#">
-							<span class="sidebar-mini">MP</span>
-							<span class="sidebar-normal">My Profile</span>
-						</a>
-                        <a *ngIf="isLoggedIn()" href="#" (click)="logOut()">
-							<span class="sidebar-mini">LO</span>
-							<span class="sidebar-normal"> Log out</span>
-						</a>  
-					</li>  
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div *ngIf="isNotMobileMenu()">
-		<form class="navbar-form navbar-left navbar-search-form" role="search">
+    <div class="user">
+        <div class="info">
+            <div class="photo">
+                <img src="../assets/img/default-avatar.png" />
+            </div>
+            <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                <span>
+                    Nome do Medico
+                    <b class="caret"></b>
+                </span>
+            </a>
+            <div class="collapse" id="collapseExample">
+                <ul class="nav">
+                    <li>
+                        <a routerLinkActive="active">
+                            <span class="sidebar-mini">MP</span>
+                            <span class="sidebar-normal">My Profile</span>
+                        </a>
+                        <a routerLinkActive="active" *ngIf="isLoggedIn()" (click)="logOut()">
+                            <span class="sidebar-mini">LO</span>
+                            <span class="sidebar-normal"> Log out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isNotMobileMenu()">
+        <form class="navbar-form navbar-left navbar-search-form" role="search">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                 <input class="form-control" placeholder="Search..." type="text" value="">
             </div>
         </form>
-		<ul class="nav nav-mobile-menu">
+        <ul class="nav nav-mobile-menu">
             <li>
-                <a routerLinkActive = "active" [routerLink]="['/charts']">
+                <a routerLinkActive="active" [routerLink]="['/charts']">
                     <i class="fa fa-line-chart"></i>
                     <p>Stats</p>
                 </a>
@@ -119,7 +119,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="text-danger"   (click)="authService.logout()">
+                        <a class="text-danger" (click)="authService.logout()">
                             <i class="pe-7s-close-circle"></i>
                             Log out
                         </a>
@@ -129,31 +129,31 @@
 
         </ul>
     </div>
-        <ul class="nav">
-            <li routerLinkActive="active" *ngFor="let menuitem of menuItems">
-                <!--If is a single link-->
-                <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'">
-                    <i class="{{menuitem.icontype}}"></i>
-                    <p>{{menuitem.title}}</p>
-                </a>
-                <!--If it have a submenu-->
-                <a data-toggle="collapse" href="#{{menuitem.title}}" *ngIf="menuitem.type === 'sub'">
-                    <i class="{{menuitem.icontype}}"></i>
-                    <p>{{menuitem.title}}<b class="caret"></b></p>
-                </a>
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuitem of menuItems">
+            <!--If is a single link-->
+            <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'">
+                <i class="{{menuitem.icontype}}"></i>
+                <p>{{menuitem.title}}</p>
+            </a>
+            <!--If it have a submenu-->
+            <a data-toggle="collapse" href="#{{menuitem.title}}" *ngIf="menuitem.type === 'sub'">
+                <i class="{{menuitem.icontype}}"></i>
+                <p>{{menuitem.title}}<b class="caret"></b></p>
+            </a>
 
-                <!--Display the submenu items-->
-                <div id="{{menuitem.title}}" class="collapse" *ngIf="menuitem.type === 'sub'">
-                    <ul class="nav">
-                        <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
-                            <a [routerLink]="[menuitem.path, childitem.path]">
-                                <span class="sidebar-mini">{{childitem.ab}}</span>
-                                <span class="sidebar-normal">{{childitem.title}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li> 
-        </ul>
+            <!--Display the submenu items-->
+            <div id="{{menuitem.title}}" class="collapse" *ngIf="menuitem.type === 'sub'">
+                <ul class="nav">
+                    <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
+                        <a [routerLink]="[menuitem.path, childitem.path]">
+                            <span class="sidebar-mini">{{childitem.ab}}</span>
+                            <span class="sidebar-normal">{{childitem.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
 
 </div>

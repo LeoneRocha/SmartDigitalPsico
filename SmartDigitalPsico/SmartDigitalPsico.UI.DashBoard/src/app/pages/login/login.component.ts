@@ -44,8 +44,7 @@ export class LoginComponent implements OnInit {
             $('.card').removeClass('card-hidden');
         }, 700)
     }
-    signIn() {
-        //console.log(this.userLoginModel);
+    signIn() { 
         this.authService.login(this.userLoginModel).subscribe({
             next: (response: any) => {               
                 let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');

@@ -48,22 +48,22 @@ export class ValidationFormsComponent{
     save(model: User, isValid: boolean) {
     // call API to save customer
         if(isValid){
-            console.log(model, isValid);
+            //console.log(model, isValid);
         }
     }
     save1(model: User, isValid: boolean) {
     // call API to save customer
         if(isValid){
-            console.log(model, isValid);
+           // console.log(model, isValid);
         }
     }
     save2(model: User, isValid: boolean) {
     // call API to save customer
         if(isValid){
-            console.log(model, isValid);
+            //console.log(model, isValid);
         }
     }
     onSubmit(value: any):void{
-        console.log(value);
+        //console.log(value);
     }
 }

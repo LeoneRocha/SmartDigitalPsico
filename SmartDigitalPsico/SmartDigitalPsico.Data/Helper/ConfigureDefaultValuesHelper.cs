@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.Repository.Context.Helper
+namespace SmartDigitalPsico.Repository.Helper
 {
     internal static class ConfigureDefaultValuesHelper
     {
         static bool valorPadraoEnable = true;
         internal static void Configure(ModelBuilder modelBuilder)
-        { 
+        {
             addConfigureDefaultValues_User(modelBuilder);
             addConfigureDefaultValues_Gender(modelBuilder);
             addConfigureDefaultValues_Specialty(modelBuilder);
@@ -26,8 +26,8 @@ namespace SmartDigitalPsico.Repository.Context.Helper
             addConfigureDefaultValues_PatientMedicationInformation(modelBuilder);
             addConfigureDefaultValues_PatientNotificationMessage(modelBuilder);
             addConfigureDefaultValues_PatientRecord(modelBuilder);
-             
-        } 
+
+        }
         private static void addConfigureDefaultValues_PatientRecord(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PatientRecord>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
@@ -45,7 +45,7 @@ namespace SmartDigitalPsico.Repository.Context.Helper
         }
 
         private static void addConfigureDefaultValues_PatientHospitalizationInformation(ModelBuilder modelBuilder)
-        { 
+        {
             modelBuilder.Entity<PatientHospitalizationInformation>().Property(u => u.Enable).HasDefaultValue(valorPadraoEnable);
         }
 

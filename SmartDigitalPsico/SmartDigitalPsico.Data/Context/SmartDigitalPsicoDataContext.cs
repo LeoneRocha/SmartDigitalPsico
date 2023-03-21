@@ -5,7 +5,7 @@ using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Repository.Context.Helper;
+using SmartDigitalPsico.Repository.Helper;
 using System.Globalization;
 using System.Reflection.Metadata;
 

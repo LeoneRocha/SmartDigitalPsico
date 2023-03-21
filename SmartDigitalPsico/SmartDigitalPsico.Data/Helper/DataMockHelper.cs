@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.Repository.Context.Helper
+namespace SmartDigitalPsico.Repository.Helper
 {
     internal static class DataMockHelper
     {

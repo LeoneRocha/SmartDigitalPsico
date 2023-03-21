@@ -38,18 +38,23 @@ export class LoginComponent implements OnInit {
             login: '', password: ''
         };
         this.checkFullPageBackgroundImage();
-
         setTimeout(function () {
             // after 1000 ms we add the class animated to the login/register card
             $('.card').removeClass('card-hidden');
-        }, 700)
-    }
-    signIn() { 
-        this.authService.login(this.userLoginModel).subscribe({
-            next: (response: any) => {               
-                let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        }, 700);
+        const isLoged: boolean = this.authService.isLoggedIn();
+        //console.log(isLoged);
+        if (isLoged) {
+            let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+            this.router.navigate([returnUrl || '/adminpages/dashboard']);
+         }
 
-                this.router.navigate([ returnUrl ||'/adminpages/dashboard']);
+    }
+    signIn() {
+        this.authService.login(this.userLoginModel).subscribe({
+            next: (response: any) => {
+                let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+                this.router.navigate([returnUrl || '/adminpages/dashboard']);
             },
             error: (err) => { this.invalidLogin = true; }
         });

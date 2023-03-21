@@ -2,9 +2,14 @@ export interface UserLoginModel{
     login: string; 
     password: string;     
   }   
+  export interface UserAutenticateView {
+    id: number 
+    name: string 
+    roleGroups: RoleGroup[]
+  }
+
   export interface UserAutenticateModel {
-    id: number
-    enable: boolean
+    id: number 
     name: string
     tokenAuth: TokenAuth
     roleGroups: RoleGroup[]
@@ -18,9 +23,7 @@ export interface UserLoginModel{
     refreshToken: string
   } 
   export interface RoleGroup {
-    id: number
-    enable: boolean
+    id: number 
     description: string
-    rolepolicyclaimcode: string
-    language: string 
+    rolepolicyclaimcode: string 
   } 

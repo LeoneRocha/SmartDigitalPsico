@@ -61,7 +61,7 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
   }
 
   private customHandleError(error: Response) {
-    console.log('customHandleError');
+    //console.log('customHandleError');
     if (error.status === 400)
       return throwError(() => new BadInput(error.json()));
 

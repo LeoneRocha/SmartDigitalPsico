@@ -21,7 +21,7 @@ import { AuthGuard } from './services/auth/auth-guard.service';
         BrowserAnimationsModule,
         FormsModule,
         RouterModule.forRoot(AppRoutes, {
-            useHash: false//HashLocationStrategy- default true
+            useHash: false//HashLocationStrategy- default true https://www.tektutorialshub.com/angular/angular-location-strategies/
         }),
         SidebarModule,
         NavbarModule,

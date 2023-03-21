@@ -4,10 +4,9 @@ import { Inject } from '@angular/core';
 import { GenericService } from '../generic/generic.service';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { environment } from 'environments/environment';
-import { UserAutenticateModel, UserLoginModel } from 'app/models/UserLoginModel';
+import { RoleGroup, TokenAuth, UserAutenticateModel, UserAutenticateView, UserLoginModel } from 'app/models/UserLoginModel';
 import { catchError, map, throwError } from 'rxjs';
 import { AppError } from 'app/common/app-error';
-import { Token } from '@angular/compiler';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 //'https://localhost:61949/api/Auth/v1/Login
@@ -15,10 +14,11 @@ const basePathUrl = '/Auth/v1';
 @Injectable()
 export class AuthService extends GenericService<ServiceResponse<UserAutenticateModel>, UserLoginModel, number> {
   private keyLocalStorage: string = "tokenjwt";
+  private userAutenticate: UserAutenticateModel;
+
   constructor(@Inject(HttpClient) http: HttpClient) {
     super(http, `${environment.APIUrl + basePathUrl}`, '/');
   }
-
   login(credentials: UserLoginModel) {
     let urlAut = `${environment.APIUrl + basePathUrl}/authenticate`;
     //urlAut = '/api/authenticate'//Test Mock
@@ -28,17 +28,61 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     }), catchError(this.customHandleErrorAuthService));
   }
   processLoginApi(response: ServiceResponse<UserAutenticateModel>) {
-    console.log(response);
-    let userAutenticate = response?.data;
-    let token = userAutenticate.tokenAuth;
+    //console.log(response);
+    this.userAutenticate = response?.data;
+    let token = this.userAutenticate.tokenAuth;
     if (token && token?.authenticated && token.accessToken) {
-      localStorage.setItem(this.keyLocalStorage, token.accessToken);
+
+      this.setLocalStorageUser(token);
+      this.getLocalStorageUser();
       return true;
     }
     return false;
   }
-  logout() {
+  setLocalStorageUser(token: TokenAuth): void {
+    const userLogged = this.userAutenticate;
+    localStorage.setItem(this.keyLocalStorage, token.accessToken);
+    //console.log(this.userAutenticate); 
+    let userCache: UserAutenticateView = {
+      id: userLogged.id,
+      name: userLogged.name,
+      roleGroups: userLogged.roleGroups
+    };
+    const strUserAutenticate = JSON.stringify(userCache);
+    //console.log(strUserAutenticate);
+    localStorage.setItem(this.keyLocalStorage + '_user', strUserAutenticate);
+  }
+  getLocalStorageUser(): UserAutenticateView {
+    const strUserAutenticate = localStorage.getItem(this.keyLocalStorage + '_user');
+    //console.log(strUserAutenticate);
+    let userLoaded: UserAutenticateView
+    userLoaded = JSON.parse(strUserAutenticate);
+    console.log(userLoaded);
+    return userLoaded;
+  }
+  getRolesUser(): RoleGroup[] {
+    let userLoaded: UserAutenticateView = this.getLocalStorageUser();
+    return userLoaded.roleGroups;
+  }
+
+  isUserContainsRole(roleCheck: string) : boolean {
+    let isUserContainRole: boolean = false;
+    const userRoles: RoleGroup[] = this.getRolesUser();  
+    console.log(userRoles);
+      
+    //const roleFinded: RoleGroup = userRoles.find(role => { role.rolepolicyclaimcode === roleCheck });
+    //if (roleFinded) { isUserContainRole = true };
+    isUserContainRole = userRoles.some(role => role.rolepolicyclaimcode === roleCheck);
+
+    return isUserContainRole;
+  }
+
+  removeLocalStorageUser() {
     localStorage.removeItem(this.keyLocalStorage);
+    localStorage.removeItem(this.keyLocalStorage + '_user');
+  }
+  logout() {
+    this.removeLocalStorageUser();
   }
 
   isLoggedIn() {
@@ -64,7 +108,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
   }
 
   private customHandleErrorAuthService(error: Response) {
-    console.log('customHandleError-AuthService');
+    //console.log('customHandleError-AuthService');
     /*if (error.status === 400)
       return throwError(() => new BadInput(error.json()));
 

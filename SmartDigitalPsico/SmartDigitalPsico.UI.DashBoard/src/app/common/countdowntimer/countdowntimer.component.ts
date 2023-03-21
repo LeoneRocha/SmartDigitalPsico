@@ -34,7 +34,7 @@ export class CountDownTimerComponent {
       this.display = `${prefix}${Math.floor(seconds)}:${textSec}`;
 
       if (seconds == 0) {
-        console.log("finished");
+        //console.log("finished");
         clearInterval(timer);
       }
     }, 1000);
@@ -60,7 +60,7 @@ export class CountDownTimerComponent {
       this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
 
       if (seconds == 0) {
-        console.log("finished");
+        //console.log("finished");
         clearInterval(timer);
       }
     }, 1000);

@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './services/auth/auth-guard.service';
 import { AdminAuthGuard } from './services/auth/admin-auth-guard.service';
+import { MedicalAuthGuard } from './services/auth/medical-auth-guard.service';
+import { PatientAuthGuard } from './services/auth/patient-auth-guard.service';
 //import { GenderService } from './services/general/gender.service';
 
 @NgModule({
@@ -39,7 +41,7 @@ import { AdminAuthGuard } from './services/auth/admin-auth-guard.service';
     bootstrap: [AppComponent],
     providers: [
         //GenderService
-        AuthService, AuthGuard, AdminAuthGuard
+        AuthService, AuthGuard, AdminAuthGuard, MedicalAuthGuard, PatientAuthGuard
     ],
 })
 

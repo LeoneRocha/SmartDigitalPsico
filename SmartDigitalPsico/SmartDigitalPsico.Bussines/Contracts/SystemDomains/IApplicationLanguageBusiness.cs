@@ -8,7 +8,7 @@ using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 namespace SmartDigitalPsico.Business.Contracts.SystemDomains
 {
     public interface IApplicationLanguageBusiness 
-        : IGenericBusinessEntityBaseSimpleV2<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO>
+        : IGenericBusinessEntityBaseSimple<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO>
     {
 
     }

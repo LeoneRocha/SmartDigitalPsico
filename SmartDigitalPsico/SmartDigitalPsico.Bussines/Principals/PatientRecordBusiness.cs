@@ -10,7 +10,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientRecordBusiness : GenericBusinessEntityBaseSimplev2<PatientRecord, AddPatientRecordVO, UpdatePatientRecordVO, GetPatientRecordVO, IPatientRecordRepository>, IPatientRecordBusiness
+    public class PatientRecordBusiness : GenericBusinessEntityBaseSimple<PatientRecord, AddPatientRecordVO, UpdatePatientRecordVO, GetPatientRecordVO, IPatientRecordRepository>, IPatientRecordBusiness
 
     {
         private readonly IMapper _mapper;

@@ -18,7 +18,7 @@ using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class MedicalFileBusiness : GenericBusinessEntityBaseSimplev2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileRepository>, IMedicalFileBusiness
+    public class MedicalFileBusiness : GenericBusinessEntityBaseSimple<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileRepository>, IMedicalFileBusiness
 
     {
         private ETypeLocationSaveFiles _localSalvar = ETypeLocationSaveFiles.Disk;

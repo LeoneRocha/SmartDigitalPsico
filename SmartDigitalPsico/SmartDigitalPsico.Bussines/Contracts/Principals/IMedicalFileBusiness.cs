@@ -8,7 +8,7 @@ using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IMedicalFileBusiness : IGenericBusinessEntityBaseSimpleV2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO>
+    public interface IMedicalFileBusiness : IGenericBusinessEntityBaseSimple<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO>
     {
         Task<bool> DownloadFileById(long fileId);
         Task<bool> PostFileAsync(AddMedicalFileVO entity);

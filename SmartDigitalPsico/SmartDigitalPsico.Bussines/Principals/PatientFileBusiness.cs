@@ -14,7 +14,7 @@ using SmartDigitalPsico.Repository.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientFileBusiness : GenericBusinessEntityBaseSimplev2<PatientFile, AddPatientFileVO, UpdatePatientFileVO, GetPatientFileVO, IPatientFileRepository>, IPatientFileBusiness
+    public class PatientFileBusiness : GenericBusinessEntityBaseSimple<PatientFile, AddPatientFileVO, UpdatePatientFileVO, GetPatientFileVO, IPatientFileRepository>, IPatientFileBusiness
 
     {
         private readonly IMapper _mapper;

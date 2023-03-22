@@ -7,7 +7,7 @@ using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 
 namespace SmartDigitalPsico.Business.Contracts.SystemDomains
 {
-    public interface IApplicationConfigSettingBusiness : IGenericBusinessEntityBaseSimpleV2<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO>
+    public interface IApplicationConfigSettingBusiness : IGenericBusinessEntityBaseSimple<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO>
     {
 
     }

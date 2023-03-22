@@ -11,7 +11,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientAdditionalInformationBusiness : GenericBusinessEntityBaseSimplev2<PatientAdditionalInformation, AddPatientAdditionalInformationVO, UpdatePatientAdditionalInformationVO, GetPatientAdditionalInformationVO
+    public class PatientAdditionalInformationBusiness : GenericBusinessEntityBaseSimple<PatientAdditionalInformation, AddPatientAdditionalInformationVO, UpdatePatientAdditionalInformationVO, GetPatientAdditionalInformationVO
         , IPatientAdditionalInformationRepository>, IPatientAdditionalInformationBusiness
 
     {

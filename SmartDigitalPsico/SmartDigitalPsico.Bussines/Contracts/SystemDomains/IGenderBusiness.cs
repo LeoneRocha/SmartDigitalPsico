@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 
 namespace SmartDigitalPsico.Business.Contracts.SystemDomains
 {
-    public interface IGenderBusiness : IGenericBusinessEntityBaseSimpleV2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO>
+    public interface IGenderBusiness : IGenericBusinessEntityBaseSimple<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO>
     {
 
     }

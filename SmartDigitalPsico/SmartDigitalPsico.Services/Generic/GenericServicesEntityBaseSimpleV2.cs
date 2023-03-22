@@ -13,7 +13,7 @@ namespace SmartDigitalPsico.Services.Generic
         where TEntityAdd : IEntityVOAdd
         where TEntityUpdate : IEntityVO
         where TEntityResult : class 
-        where Business : IGenericBusinessEntityBaseSimpleV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
+        where Business : IGenericBusinessEntityBaseSimple<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
         
 
     {

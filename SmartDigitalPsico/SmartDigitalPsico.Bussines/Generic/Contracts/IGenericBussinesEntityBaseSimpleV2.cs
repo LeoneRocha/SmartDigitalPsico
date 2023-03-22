@@ -4,7 +4,7 @@ using SmartDigitalPsico.Model.VO;
 
 namespace SmartDigitalPsico.Business.Generic.Contracts
 {
-    public interface IGenericBusinessEntityBaseSimpleV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
+    public interface IGenericBusinessEntityBaseSimple<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
     {
         Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item);
         Task<ServiceResponse<TEntityResult>> FindByID(long id);

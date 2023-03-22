@@ -12,7 +12,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 namespace SmartDigitalPsico.Business.SystemDomains
 {
     public class ApplicationConfigSettingBusiness
-      : GenericBusinessEntityBaseSimplev2<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO, IApplicationConfigSettingRepository>, IApplicationConfigSettingBusiness
+      : GenericBusinessEntityBaseSimple<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO, IApplicationConfigSettingRepository>, IApplicationConfigSettingBusiness
     {
         private readonly IMapper _mapper;
         private readonly IApplicationConfigSettingRepository _genericRepository;

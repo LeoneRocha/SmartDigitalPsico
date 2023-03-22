@@ -24,7 +24,7 @@ using System.Security.Claims;
 namespace SmartDigitalPsico.Business.SystemDomains
 {
     public class GenderBusiness
-      : GenericBusinessEntityBaseSimplev2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderRepository>, IGenderBusiness
+      : GenericBusinessEntityBaseSimple<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderRepository>, IGenderBusiness
     {
         private readonly IMapper _mapper;
         private readonly IGenderRepository _genericRepository;

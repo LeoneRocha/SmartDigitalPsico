@@ -8,7 +8,7 @@ using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IPatientRecordBusiness : IGenericBusinessEntityBaseSimpleV2<PatientRecord, AddPatientRecordVO,UpdatePatientRecordVO, GetPatientRecordVO>
+    public interface IPatientRecordBusiness : IGenericBusinessEntityBaseSimple<PatientRecord, AddPatientRecordVO,UpdatePatientRecordVO, GetPatientRecordVO>
     { 
         Task<ServiceResponse<List<GetPatientRecordVO>>> FindAllByPatient(long patientId);
     }

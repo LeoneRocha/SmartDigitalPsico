@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IPatientNotificationMessageBusiness : IGenericBusinessEntityBaseSimpleV2<PatientNotificationMessage
+    public interface IPatientNotificationMessageBusiness : IGenericBusinessEntityBaseSimple<PatientNotificationMessage
         ,AddPatientNotificationMessageVO,UpdatePatientNotificationMessageVO, GetPatientNotificationMessageVO>
     {
         

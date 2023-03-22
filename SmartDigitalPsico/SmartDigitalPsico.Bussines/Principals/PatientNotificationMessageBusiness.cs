@@ -11,7 +11,7 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 namespace SmartDigitalPsico.Business.Principals
 {
     public class PatientNotificationMessageBusiness
-        : GenericBusinessEntityBaseSimplev2<PatientNotificationMessage, AddPatientNotificationMessageVO, UpdatePatientNotificationMessageVO, GetPatientNotificationMessageVO, IPatientNotificationMessageRepository>, IPatientNotificationMessageBusiness
+        : GenericBusinessEntityBaseSimple<PatientNotificationMessage, AddPatientNotificationMessageVO, UpdatePatientNotificationMessageVO, GetPatientNotificationMessageVO, IPatientNotificationMessageRepository>, IPatientNotificationMessageBusiness
 
     {
         private readonly IMapper _mapper;

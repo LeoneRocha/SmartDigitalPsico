@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 
 namespace SmartDigitalPsico.Business.Contracts.SystemDomains
 {
-    public interface IRoleGroupBusiness : IGenericBusinessEntityBaseSimpleV2<RoleGroup, AddRoleGroupVO, UpdateRoleGroupVO, GetRoleGroupVO>
+    public interface IRoleGroupBusiness : IGenericBusinessEntityBaseSimple<RoleGroup, AddRoleGroupVO, UpdateRoleGroupVO, GetRoleGroupVO>
     {
 
     }

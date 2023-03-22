@@ -1,17 +1,14 @@
-using SmartDigitalPsico.Business.Generic.Contracts;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Generic.Contracts;
-using SmartDigitalPsico.Model.VO.Medical;
-using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Patient;
+using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Contracts.Principals
 {
     public interface IPatientServices : IGenericServicesEntityBase<Patient, GetPatientVO>
     {
         Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item);
-
         Task<ServiceResponse<GetPatientVO>> FindByPatient(GetPatientVO info);
+        Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId); 
     }
 }

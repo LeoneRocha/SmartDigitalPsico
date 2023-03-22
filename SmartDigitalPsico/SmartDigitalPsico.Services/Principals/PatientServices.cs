@@ -33,6 +33,11 @@ namespace SmartDigitalPsico.Services.Principals
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
+        {
+           return await _entityBusiness.FindAll(medicalId);
+        }
+
         public async Task<ServiceResponse<GetPatientVO>> FindByPatient(GetPatientVO info)
         {
             var serviceResponse = new ServiceResponse<GetPatientVO>();

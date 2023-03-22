@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
@@ -16,29 +18,32 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class ApplicationLanguageController : ControllerBase
+    public class ApplicationLanguageController : ApiBaseController
     {
         private readonly IApplicationLanguageServices _entityService;
 
-        public ApplicationLanguageController(IApplicationLanguageServices entityService)
+        public ApplicationLanguageController(IApplicationLanguageServices entityService
+             , IOptions<AuthConfigurationVO> configurationAuth) : base(configurationAuth)
         {
             _entityService = entityService;
         }
-
-        //[AllowAnonymous]
+        private void SetUserIdCurrent()
+        { 
+            _entityService.SetUserId(base.GetUserIdCurrent());
+        } 
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetApplicationLanguageVO>>>> Get()
         {
-            var result = _entityService.FindAll();
-            //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
+            this.SetUserIdCurrent();
+            var result = _entityService.FindAll(); 
             return Ok(await result);
         }
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> GetById(int id)
         {
+            this.SetUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
         }
 
@@ -46,6 +51,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> Create(AddApplicationLanguageVO newEntity)
         {
+            this.SetUserIdCurrent();
             return Ok(await _entityService.Create(newEntity));
         }
 
@@ -53,7 +59,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> Update(UpdateApplicationLanguageVO updateEntity)
         {
-            //return BadRequest("Em construção"); 
+            this.SetUserIdCurrent();
             var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
@@ -66,6 +72,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
+            this.SetUserIdCurrent();
             var response = await _entityService.Delete(id);
             if (response.Data)
             {

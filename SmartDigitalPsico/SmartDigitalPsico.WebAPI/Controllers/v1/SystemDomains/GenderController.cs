@@ -24,26 +24,24 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     [ApiController]
     [ApiVersion("1")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class GenderController : ControllerBase
+    public class GenderController : ApiBaseController
     {
-        private readonly IGenderServices _entityService;
-        AuthConfigurationVO _configurationAuth;
-        public GenderController(IGenderServices entityService, IOptions<AuthConfigurationVO> configurationAuth)
+        private readonly IGenderServices _entityService; 
+        public GenderController(IGenderServices entityService
+             , IOptions<AuthConfigurationVO> configurationAuth) : base(configurationAuth)
         {
-            _entityService = entityService;
-            _configurationAuth = configurationAuth.Value;
-        }
-        private void setUserCurrent()
+            _entityService = entityService; 
+        } 
+        private void SetUserIdCurrent()
         {
-            long idUser = SecurityHelperApi.GetUserIdApi(User, _configurationAuth.TypeApiCredential);
-            _entityService.SetUserId(idUser);
-        }
-        //[AllowAnonymous]
+            _entityService.SetUserId(base.GetUserIdCurrent());
+        } 
+
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Get()
         {
-            setUserCurrent();
+            this.SetUserIdCurrent();
             var result = _entityService.FindAll();
             return Ok(await result);
         }
@@ -52,7 +50,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> GetById(int id)
         {
-            setUserCurrent();
+            this.SetUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
         }
 
@@ -60,7 +58,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Create(AddGenderVO newEntity)
         {
-            setUserCurrent();
+            this.SetUserIdCurrent();
             return Ok(await _entityService.Create(newEntity));
         }
 
@@ -68,8 +66,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetGenderVO>>> Update(UpdateGenderVO updateEntity)
         {
-            setUserCurrent();
-            //return BadRequest("Em construção"); 
+            this.SetUserIdCurrent(); 
             var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
@@ -78,11 +75,10 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
             return Ok(response);
         }
 
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            setUserCurrent();
+            this.SetUserIdCurrent();
             var response = await _entityService.Delete(id);
             if (!response.Data)
             {

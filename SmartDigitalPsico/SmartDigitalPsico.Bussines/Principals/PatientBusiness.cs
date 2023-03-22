@@ -29,9 +29,7 @@ namespace SmartDigitalPsico.Business.Principals
             _entityRepository = entityRepository;
             _userRepository = userRepository;
             _medicalRepository = medicalRepository;
-        }
-
-
+        } 
         public async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
         {
             ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
@@ -87,6 +85,10 @@ namespace SmartDigitalPsico.Business.Principals
             response.Message = "Patient finded.";
             return response;
 
+        } 
+        public Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

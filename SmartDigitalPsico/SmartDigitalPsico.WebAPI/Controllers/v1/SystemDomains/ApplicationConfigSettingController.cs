@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
-using SmartDigitalPsico.Services.Contracts.SystemDomains;
+using SmartDigitalPsico.Services.Contracts.SystemDomains; 
+using SmartDigitalPsico.WebAPI.Helper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,29 +19,32 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class ApplicationConfigSettingController : ControllerBase
+    public class ApplicationConfigSettingController : ApiBaseController
     {
-        private readonly IApplicationConfigSettingServices _entityService;
-
-        public ApplicationConfigSettingController(IApplicationConfigSettingServices entityService)
+        private readonly IApplicationConfigSettingServices _entityService; 
+        public ApplicationConfigSettingController(IApplicationConfigSettingServices entityService
+            , IOptions<AuthConfigurationVO> configurationAuth) :base (configurationAuth)
         {
-            _entityService = entityService;
+            _entityService = entityService; 
+        }
+        private void SetUserIdCurrent()
+        { 
+            _entityService.SetUserId(base.GetUserIdCurrent());
         }
 
-        //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetApplicationConfigSettingVO>>>> Get()
         {
+            this.SetUserIdCurrent();
             var result = _entityService.FindAll();
-            //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
             return Ok(await result);
         }
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> GetById(int id)
         {
+            this.SetUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
         }
 
@@ -46,6 +52,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> Create(AddApplicationConfigSettingVO newEntity)
         {
+            this.SetUserIdCurrent();
             return Ok(await _entityService.Create(newEntity));
         }
 
@@ -53,7 +60,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> Update(UpdateApplicationConfigSettingVO updateEntity)
         {
-            //return BadRequest("Em construção"); 
+            this.SetUserIdCurrent();
             var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
@@ -62,10 +69,10 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
             return Ok(response);
         }
 
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
+            this.SetUserIdCurrent();
             var response = await _entityService.Delete(id);
             if (response.Data)
             {

@@ -10,12 +10,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
-{
-    //[Authorize(Roles = "Player")]
-    //[Authorize]
+{ 
     [ApiController]
-    [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [ApiVersion("1")] 
     [Route("api/[controller]/v{version:apiVersion}")]
     public class GlobalizationCulturesController : ControllerBase
     {  

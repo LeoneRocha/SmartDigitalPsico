@@ -28,16 +28,14 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetPatientVO>>>> Get()
-        {
-            //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
-            return Ok(await _entitytService.FindAll());
+        public async Task<ActionResult<ServiceResponse<List<GetPatientVO>>>> Get(long medicalId)
+        {  
+            return Ok(await _entitytService.FindAll(medicalId));
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetPatientVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetPatientVO>>> GetById(long id)
         {
             return Ok(await _entitytService.FindByID(id));
         }

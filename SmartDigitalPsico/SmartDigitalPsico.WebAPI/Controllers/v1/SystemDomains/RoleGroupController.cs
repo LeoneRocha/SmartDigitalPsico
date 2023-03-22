@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
@@ -16,22 +18,24 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class RoleGroupController : ControllerBase
+    public class RoleGroupController : ApiBaseController
     {
         private readonly IRoleGroupServices _entityService;
 
-        public RoleGroupController(IRoleGroupServices entityService)
+        public RoleGroupController(IRoleGroupServices entityService
+             , IOptions<AuthConfigurationVO> configurationAuth) : base(configurationAuth)
         {
             _entityService = entityService;
         }
-
-        //[AllowAnonymous]
+        private void SetUserIdCurrent()
+        {
+            _entityService.SetUserId(base.GetUserIdCurrent());
+        } 
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetRoleGroupVO>>>> Get()
         {
-            //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
+            this.SetUserIdCurrent();
             return Ok(await _entityService.FindAll());
         }
 
@@ -39,6 +43,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> GetById(int id)
         {
+            this.SetUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
         }
 
@@ -46,6 +51,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> Create(AddRoleGroupVO newEntity)
         {
+            this.SetUserIdCurrent();
             return Ok(await _entityService.Create(newEntity));
         }
 
@@ -53,19 +59,19 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> Update(UpdateRoleGroupVO updateEntity)
         {
-            //return BadRequest("Em construção"); 
+            this.SetUserIdCurrent();
             var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
                 return NotFound(response);
             }
             return Ok(response);
-        }
-
+        } 
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
+            this.SetUserIdCurrent();
             var response = await _entityService.Delete(id);
             if (response.Data)
             {

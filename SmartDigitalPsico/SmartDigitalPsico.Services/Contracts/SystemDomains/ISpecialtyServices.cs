@@ -8,7 +8,7 @@ using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
-    public interface ISpecialtyServices : IGenericServicesEntityBaseSimpleV2<Specialty, AddSpecialtyVO, UpdateSpecialtyVO, GetSpecialtyVO>
+    public interface ISpecialtyServices : IGenericServicesEntityBaseSimple<Specialty, AddSpecialtyVO, UpdateSpecialtyVO, GetSpecialtyVO>
     {
 
     }

@@ -7,7 +7,7 @@ using SmartDigitalPsico.Services.Generic.Contracts;
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
     public interface IApplicationLanguageServices 
-        : IGenericServicesEntityBaseSimpleV2<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO>
+        : IGenericServicesEntityBaseSimple<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO>
     {
 
     }

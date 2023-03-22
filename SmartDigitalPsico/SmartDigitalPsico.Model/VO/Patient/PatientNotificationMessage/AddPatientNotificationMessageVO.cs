@@ -8,11 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage
 {
     public class AddPatientNotificationMessageVO : IEntityVOAdd
-    {
-        [Required]
-        public long IdUserAction { get; set; }
-
-
+    { 
         #region Columns  
         [MaxLength(2000)]
         [Required]

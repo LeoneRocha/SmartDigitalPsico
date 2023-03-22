@@ -23,8 +23,7 @@ namespace SmartDigitalPsico.Business.Principals
     {
         private ETypeLocationSaveFiles _localSalvar = ETypeLocationSaveFiles.Disk;
         private readonly IMapper _mapper;
-        IConfiguration _configuration;
-        //private long _IdUserAction = 1;
+        IConfiguration _configuration; 
         private readonly IMedicalFileRepository _entityRepository;
         private readonly IMedicalRepository _medicalRepository;
         private readonly IUserRepository _userRepository;
@@ -46,7 +45,8 @@ namespace SmartDigitalPsico.Business.Principals
         }
 
         public async Task<bool> PostFileAsync(AddMedicalFileVO entity)
-        { 
+        {
+          
             IFormFile fileData = null;
             if (entity != null)
             {
@@ -77,7 +77,7 @@ namespace SmartDigitalPsico.Business.Principals
             entityAdd.LastAccessDate = DateTime.Now;
             entityAdd.Enable = true;
 
-            User userAction = await _userRepository.FindByID(entity.IdUserAction);
+            User userAction = await _userRepository.FindByID(this.UserId);
             entityAdd.CreatedUser = userAction;
 
             MedicalFile entityResponse = await _entityRepository.Create(entityAdd);

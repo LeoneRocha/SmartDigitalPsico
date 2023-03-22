@@ -7,20 +7,18 @@ using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Generic
 {
-    public class GenericServicesEntityBaseSimpleV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult, Business>
-        : IGenericServicesEntityBaseSimpleV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
-        where TEntity : EntityBaseSimple
-        where TEntityAdd : IEntityVOAdd
-        where TEntityUpdate : IEntityVO
-        where TEntityResult : class 
-        where Business : IGenericBusinessEntityBaseSimple<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
-        
-
+    public class GenericServicesEntityBaseV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult, Business>
+          : IGenericServicesEntityBaseV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
+          where TEntity : EntityBase
+          where TEntityAdd : IEntityVOAdd
+          where TEntityUpdate : IEntityVO
+          where TEntityResult : class
+          where Business : IGenericBusinessEntityBaseV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
     {
         private readonly IMapper _mapper;
         private readonly Business _genericBusiness;
         protected long UserId { get; private set; }
-        public GenericServicesEntityBaseSimpleV2(IMapper mapper, Business genericBusiness)
+        public GenericServicesEntityBaseV2(IMapper mapper, Business genericBusiness)
         {
             _mapper = mapper;
             _genericBusiness = genericBusiness;
@@ -103,7 +101,6 @@ namespace SmartDigitalPsico.Services.Generic
         public void SetUserId(long id)
         {
             this.UserId = id;
-            _genericBusiness.SetUserId(id);
         }
     }
 }

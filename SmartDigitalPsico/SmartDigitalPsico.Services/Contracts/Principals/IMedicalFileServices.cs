@@ -5,7 +5,7 @@ using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Contracts.Principals
 {
-    public interface IMedicalFileServices : IGenericServicesEntityBaseSimpleV2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO>
+    public interface IMedicalFileServices : IGenericServicesEntityBaseSimple<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO>
     { 
         Task<bool> PostFileAsync(AddMedicalFileVOService entity);
          

@@ -1,25 +1,15 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using MySqlX.XDevAPI.Common;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
-using SmartDigitalPsico.Repository.CacheManager;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Security.Claims;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {

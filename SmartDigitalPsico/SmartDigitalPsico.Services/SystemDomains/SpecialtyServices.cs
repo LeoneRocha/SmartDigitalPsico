@@ -10,7 +10,7 @@ using SmartDigitalPsico.Services.Generic;
 namespace SmartDigitalPsico.Services.SystemDomains
 {
      public class SpecialtyServices 
-        : GenericServicesEntityBaseSimpleV2<Specialty, AddSpecialtyVO, UpdateSpecialtyVO, GetSpecialtyVO, ISpecialtyBusiness>,ISpecialtyServices
+        : GenericServicesEntityBaseSimple<Specialty, AddSpecialtyVO, UpdateSpecialtyVO, GetSpecialtyVO, ISpecialtyBusiness>,ISpecialtyServices
 
     {
         private readonly ISpecialtyBusiness _entityBusiness;

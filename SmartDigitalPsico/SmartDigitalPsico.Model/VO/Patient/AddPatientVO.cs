@@ -5,13 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient
 {
-    public class AddPatientVO : ISupportsHyperMedia, IEntityVOUserLog
+    public class AddPatientVO
     {
-
-        [Required]
-        public long IdUserAction { get; set; }
-
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
         #region Relationship
         [Required]
         public long MedicalId { get; set; }
@@ -72,7 +67,7 @@ namespace SmartDigitalPsico.Model.VO.Patient
         [MaxLength(20)]
         public string? EmergencyContactPhoneNumber { get; set; }
 
-         
-        #endregion 
+
+        #endregion
     }
 }

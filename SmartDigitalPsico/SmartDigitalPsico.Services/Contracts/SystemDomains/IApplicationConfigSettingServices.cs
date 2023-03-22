@@ -7,7 +7,7 @@ using SmartDigitalPsico.Services.Generic.Contracts;
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
     public interface IApplicationConfigSettingServices 
-        : IGenericServicesEntityBaseSimpleV2<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO>
+        : IGenericServicesEntityBaseSimple<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO>
     {
 
     }

@@ -1,20 +1,17 @@
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia;
-using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.Contracts.Interface;
+using SmartDigitalPsico.Model.VO.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Medical
 {
-    public class AddMedicalVO : ISupportsHyperMedia, IEntityVOUserLog
+    public class AddMedicalVO : EntityVOBaseAdd
     {
         #region Relationship
         [Required]
         public long OfficeId { get; set; }
         [MaxLength(20)]
-
-        [Required]
-        public long IdUserAction { get; set; }
 
         [Required]
         public List<long> SpecialtiesIds { get; set; }
@@ -36,7 +33,6 @@ namespace SmartDigitalPsico.Model.VO.Medical
 
         public ETypeAccreditation TypeAccreditation { get; set; }
 
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
         #endregion Columns  
     }
 }

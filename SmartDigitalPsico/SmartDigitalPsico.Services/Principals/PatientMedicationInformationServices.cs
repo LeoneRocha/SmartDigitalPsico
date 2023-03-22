@@ -10,7 +10,7 @@ using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class PatientMedicationInformationServices : GenericServicesEntityBaseSimpleV2<PatientMedicationInformation, AddPatientMedicationInformationVO, UpdatePatientMedicationInformationVO, GetPatientMedicationInformationVO, IPatientMedicationInformationBusiness>, IPatientMedicationInformationServices
+    public class PatientMedicationInformationServices : GenericServicesEntityBaseSimple<PatientMedicationInformation, AddPatientMedicationInformationVO, UpdatePatientMedicationInformationVO, GetPatientMedicationInformationVO, IPatientMedicationInformationBusiness>, IPatientMedicationInformationServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPatientMedicationInformationBusiness _entityBusiness;

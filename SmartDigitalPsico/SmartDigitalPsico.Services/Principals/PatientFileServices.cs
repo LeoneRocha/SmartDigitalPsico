@@ -9,7 +9,7 @@ using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class PatientFileServices : GenericServicesEntityBaseSimpleV2<PatientFile, AddPatientFileVO, UpdatePatientFileVO, GetPatientFileVO, IPatientFileBusiness>, IPatientFileServices
+    public class PatientFileServices : GenericServicesEntityBaseSimple<PatientFile, AddPatientFileVO, UpdatePatientFileVO, GetPatientFileVO, IPatientFileBusiness>, IPatientFileServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPatientFileBusiness _entityBusiness;
@@ -39,9 +39,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             try
             {
-                AddPatientFileVO entityAdd = _mapper.Map<AddPatientFileVO>(entity);
-                entityAdd.IdUserAction = 1;//>>>>>>>>_httpContextAccessor 
-
+                AddPatientFileVO entityAdd = _mapper.Map<AddPatientFileVO>(entity);  
                 return await _entityBusiness.PostFileAsync(entityAdd); 
             }
             catch (Exception)

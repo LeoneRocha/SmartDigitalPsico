@@ -4,7 +4,6 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
@@ -13,7 +12,8 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class MedicalBusiness : GenericBusinessEntityBase<Medical, IMedicalRepository, GetMedicalVO>, IMedicalBusiness
+    public class MedicalBusiness 
+        : GenericBusinessEntityBaseV2<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO, IMedicalRepository>, IMedicalBusiness
 
     {
         private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ namespace SmartDigitalPsico.Business.Principals
             _officeRepository = officeRepository;
             _specialtyRepository = specialtyRepository;
         }
-        public async Task<ServiceResponse<GetMedicalVO>> Create(AddMedicalVO item)
+        public override async Task<ServiceResponse<GetMedicalVO>> Create(AddMedicalVO item)
         {
             ServiceResponse<GetMedicalVO> response = new ServiceResponse<GetMedicalVO>();
 
@@ -57,7 +57,7 @@ namespace SmartDigitalPsico.Business.Principals
             entityAdd.ModifyDate = DateTime.Now;
             entityAdd.LastAccessDate = DateTime.Now;
 
-            User userAction = await _userRepository.FindByID(item.IdUserAction);
+            User userAction = await _userRepository.FindByID(this.UserId);
             entityAdd.CreatedUser = userAction;
 
 

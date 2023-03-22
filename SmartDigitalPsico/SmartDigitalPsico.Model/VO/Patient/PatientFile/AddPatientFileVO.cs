@@ -15,9 +15,7 @@ namespace SmartDigitalPsico.Model.VO.Patient.PatientFile
         [Required]
         public long PatientId { get; set; }
         public IFormFile FileDetails { get; set; }
-
-        public long IdUserAction { get; set; }
-
+         
 
         #endregion Relationship
     }

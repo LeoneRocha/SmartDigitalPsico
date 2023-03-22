@@ -1,10 +1,9 @@
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO;
 
-namespace SmartDigitalPsico.Services.Generic.Contracts
+namespace SmartDigitalPsico.Business.Generic.Contracts
 {
-    public interface IGenericServicesEntityBaseSimpleV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>  
+    public interface IGenericBusinessEntityBaseV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
     {
         Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item);
         Task<ServiceResponse<TEntityResult>> FindByID(long id);

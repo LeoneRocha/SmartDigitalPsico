@@ -11,7 +11,7 @@ using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 namespace SmartDigitalPsico.Services.Contracts.SystemDomains
 {
     public interface IGenderServices 
-        : IGenericServicesEntityBaseSimpleV2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO>
+        : IGenericServicesEntityBaseSimple<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO>
     {
 
     }

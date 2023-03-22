@@ -10,7 +10,7 @@ using SmartDigitalPsico.Services.Generic;
 namespace SmartDigitalPsico.Services.SystemDomains
 { 
     public class ApplicationConfigSettingServices : 
-        GenericServicesEntityBaseSimpleV2<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO, IApplicationConfigSettingBusiness>, IApplicationConfigSettingServices
+        GenericServicesEntityBaseSimple<ApplicationConfigSetting, AddApplicationConfigSettingVO, UpdateApplicationConfigSettingVO, GetApplicationConfigSettingVO, IApplicationConfigSettingBusiness>, IApplicationConfigSettingServices
 
     {
         private readonly IApplicationConfigSettingBusiness _entityBusiness;

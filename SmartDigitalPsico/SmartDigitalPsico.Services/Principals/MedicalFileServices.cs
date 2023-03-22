@@ -3,19 +3,16 @@ using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
-using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using SmartDigitalPsico.Services.Generic;
-using System.IO;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class MedicalFileServices : GenericServicesEntityBaseSimpleV2<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileBusiness>, IMedicalFileServices
+    public class MedicalFileServices : GenericServicesEntityBaseSimple<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileBusiness>, IMedicalFileServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMedicalFileBusiness _entityBusiness;
-        private readonly IMapper _mapper;
-        //private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); 
+        private readonly IMapper _mapper; 
         public MedicalFileServices(IMapper mapper, IMedicalFileBusiness entityBusiness, IHttpContextAccessor httpContextAccessor)
             : base(mapper, entityBusiness)
         {
@@ -42,8 +39,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             try
             {
-                AddMedicalFileVO entityAdd = _mapper.Map<AddMedicalFileVO>(entity);
-                entityAdd.IdUserAction = 1;//>>>>>>>>_httpContextAccessor 
+                AddMedicalFileVO entityAdd = _mapper.Map<AddMedicalFileVO>(entity);                 
                 return await _entityBusiness.PostFileAsync(entityAdd); 
             }
             catch (Exception)

@@ -10,7 +10,7 @@ using SmartDigitalPsico.Services.Generic;
 namespace SmartDigitalPsico.Services.SystemDomains
 { 
     public class ApplicationLanguageServices : 
-        GenericServicesEntityBaseSimpleV2<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO, IApplicationLanguageBusiness>, IApplicationLanguageServices
+        GenericServicesEntityBaseSimple<ApplicationLanguage, AddApplicationLanguageVO, UpdateApplicationLanguageVO, GetApplicationLanguageVO, IApplicationLanguageBusiness>, IApplicationLanguageServices
 
     {
         private readonly IApplicationLanguageBusiness _entityBusiness;

@@ -25,9 +25,7 @@ namespace SmartDigitalPsico.Services.Principals
         public async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
         {
             var serviceResponse = new ServiceResponse<GetPatientVO>();
-
-            // item.IdUserAction = GetUserId();
-
+             
             serviceResponse = await _entityBusiness.Create(item);
 
             return serviceResponse;

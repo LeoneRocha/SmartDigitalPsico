@@ -6,11 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SmartDigitalPsico.Model.VO.Patient.PatientRecord
 {
     public class UpdatePatientRecordVO : EntityVOBase
-    {
-
-        [Required]
-        public long IdUserAction { get; set; }
-
+    { 
         #region Relationship 
         [Required]
         public long PatientId { get; set; }

@@ -7,10 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage
 {
     public class UpdatePatientNotificationMessageVO : EntityVOBase
-    {
-        [Required]
-        public long IdUserAction { get; set; }
-           
+    { 
         #region Columns  
         [MaxLength(2000)]
         [Required]

@@ -10,7 +10,7 @@ using SmartDigitalPsico.Services.Generic;
 namespace SmartDigitalPsico.Services.SystemDomains
 {
      public class GenderServices : 
-        GenericServicesEntityBaseSimpleV2<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderBusiness>, IGenderServices
+        GenericServicesEntityBaseSimple<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderBusiness>, IGenderServices
 
     {
         private readonly IGenderBusiness _entityBusiness;
@@ -19,15 +19,6 @@ namespace SmartDigitalPsico.Services.SystemDomains
            : base(mapper, entityBusiness)
         { 
             _entityBusiness = entityBusiness;
-        }
-
-        /* public async Task<ServiceResponse<List<EntityVOBaseSimple>>> FindAll()
-         {
-             var serviceResponse = new ServiceResponse<List<EntityVOBaseSimple>>();
-
-             serviceResponse = await _entityBusiness.FindAll();
-
-             return serviceResponse;
-         } */
+        } 
     }
 }

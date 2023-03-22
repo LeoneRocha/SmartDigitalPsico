@@ -24,8 +24,7 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IPatientFileRepository _entityRepository;
         private readonly IPatientRepository _patientRepository;
         private readonly IRepositoryFileDisk _repositoryFileDisk;
-
-        //private long _IdUserAction = 1;
+         
         public PatientFileBusiness(IMapper mapper, IPatientFileRepository entityRepository, IConfiguration configuration,
             IUserRepository userRepository, IPatientRepository patientRepository) : base(mapper, entityRepository)
         {
@@ -73,7 +72,7 @@ namespace SmartDigitalPsico.Business.Principals
             entityAdd.LastAccessDate = DateTime.Now;
             entityAdd.Enable = true;
 
-            User userAction = await _userRepository.FindByID(entity.IdUserAction);
+            User userAction = await _userRepository.FindByID(this.UserId);
             entityAdd.CreatedUser = userAction;
 
             PatientFile entityResponse = await _entityRepository.Create(entityAdd);

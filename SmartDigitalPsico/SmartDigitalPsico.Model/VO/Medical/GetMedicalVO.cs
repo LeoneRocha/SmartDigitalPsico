@@ -8,9 +8,7 @@ using SmartDigitalPsico.Model.VO.Patient;
 namespace SmartDigitalPsico.Model.VO.Medical
 {
     public class GetMedicalVO : EntityVOBase, ISupportsHyperMedia
-    {
-        //MUDAR AS RELACOES PARA OBJETOS 
-
+    {  
         #region Relationship
 
         public GetOfficeVO Office { get; set; }

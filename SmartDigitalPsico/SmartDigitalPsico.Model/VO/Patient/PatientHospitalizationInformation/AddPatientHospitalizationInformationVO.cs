@@ -8,9 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation
 {
     public class AddPatientHospitalizationInformationVO : IEntityVOAdd
-    {
-        [Required]
-        public long IdUserAction { get; set; }
+    { 
 
         #region Relationship 
         [Required]

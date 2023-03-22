@@ -38,7 +38,7 @@ namespace SmartDigitalPsico.Business.Principals
 
             #region Relationship
 
-            User userAction = await _userRepository.FindByID(item.IdUserAction);
+            User userAction = await _userRepository.FindByID(this.UserId);
             entityAdd.CreatedUser = userAction;
 
             Patient patientAdd = await _patientRepository.FindByID(item.PatientId);

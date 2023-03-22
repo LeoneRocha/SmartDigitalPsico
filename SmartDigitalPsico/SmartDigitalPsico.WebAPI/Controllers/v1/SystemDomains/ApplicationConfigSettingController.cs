@@ -27,7 +27,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         {
             _entityService = entityService; 
         }
-        private void SetUserIdCurrent()
+        private void setUserIdCurrent()
         { 
             _entityService.SetUserId(base.GetUserIdCurrent());
         }
@@ -36,7 +36,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetApplicationConfigSettingVO>>>> Get()
         {
-            this.SetUserIdCurrent();
+            this.setUserIdCurrent();
             var result = _entityService.FindAll();
             return Ok(await result);
         }
@@ -44,7 +44,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> GetById(int id)
         {
-            this.SetUserIdCurrent();
+            this.setUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
         }
 
@@ -52,7 +52,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> Create(AddApplicationConfigSettingVO newEntity)
         {
-            this.SetUserIdCurrent();
+            this.setUserIdCurrent();
             return Ok(await _entityService.Create(newEntity));
         }
 
@@ -60,7 +60,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> Update(UpdateApplicationConfigSettingVO updateEntity)
         {
-            this.SetUserIdCurrent();
+            this.setUserIdCurrent();
             var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
@@ -72,7 +72,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            this.SetUserIdCurrent();
+            this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
             if (response.Data)
             {

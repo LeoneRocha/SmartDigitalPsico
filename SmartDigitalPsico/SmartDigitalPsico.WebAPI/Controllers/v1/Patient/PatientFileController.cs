@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,35 +20,39 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
     //[Authorize("Bearer")]
     [Route("api/patient/v{version:apiVersion}/[controller]")]
 
-    public class PatientFileController : ControllerBase
+    public class PatientFileController : ApiBaseController
     {
-        private readonly IPatientFileServices _entitytService;
-
-        public PatientFileController(IPatientFileServices entitytService)
+        private readonly IPatientFileServices _entityService; 
+        public PatientFileController(IPatientFileServices entityService, IOptions<AuthConfigurationVO> configurationAuth) : base(configurationAuth)
         {
-            _entitytService = entitytService;
+            _entityService = entityService;
         }
-
-        //[AllowAnonymous]
+        private void setUserIdCurrent()
+        {
+            _entityService.SetUserId(base.GetUserIdCurrent());
+        } 
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetPatientFileVO>>>> Get()
         {
-            return Ok(await _entitytService.FindAll());
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindAll());
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientFileVO>>> GetById(int id)
         {
-            return Ok(await _entitytService.FindByID(id));
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindByID(id));
         }
-          
+
         [HttpDelete("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            var response = await _entitytService.Delete(id);
+            this.setUserIdCurrent();
+            var response = await _entityService.Delete(id);
             if (response.Data)
             {
                 return NotFound(response);
@@ -58,8 +65,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientFileVO>>> DownloadFileById(long id)
         {
-            var result = await _entitytService.DownloadFileById(id);
-
+            this.setUserIdCurrent();
+            var result = await _entityService.DownloadFileById(id);
             return Ok("Downloaded");
         }
 
@@ -67,9 +74,10 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<string>> Create([FromForm] AddPatientFileVOService newEntity)
         {
+            this.setUserIdCurrent();
             try
             {
-                await _entitytService.PostFileAsync(newEntity);
+                await _entityService.PostFileAsync(newEntity);
             }
             catch (Exception ex)
             {

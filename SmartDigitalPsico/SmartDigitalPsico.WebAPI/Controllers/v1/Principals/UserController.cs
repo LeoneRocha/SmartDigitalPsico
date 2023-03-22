@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,35 +18,42 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
     [ApiVersion("1")]
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class UserController : ControllerBase
+    public class UserController : ApiBaseController
     {
-        private readonly IUserServices _userService;
+        private readonly IUserServices _entityService;
 
-        public UserController(IUserServices userService)
+        public UserController(IUserServices entityService
+            , IOptions<AuthConfigurationVO> configurationAuth) : base(configurationAuth)
         {
-            _userService = userService;
+            _entityService = entityService;
         }
+        private void setUserIdCurrent()
+        {
+            _entityService.SetUserId(base.GetUserIdCurrent());
+        } 
 
-        //[AllowAnonymous]
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetUserVO>>>> FindAll()
         {
-            return Ok(await _userService.FindAll());
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindAll());
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetUserVO>>> FindByID(int id)
         {
-            return Ok(await _userService.FindByID(id));
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindByID(id));
         }
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetUserVO>>> UpdateUser(UpdateUserVO updateEntity)
         {
-            var response = await _userService.UpdateUser(updateEntity);
+            this.setUserIdCurrent();
+            var response = await _entityService.UpdateUser(updateEntity);
             if (response.Data == null)
             {
                 return NotFound(response);
@@ -54,15 +64,13 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            var response = await _userService.Delete(id);
+            this.setUserIdCurrent();
+            var response = await _entityService.Delete(id);
             if (!response.Success)
             {
                 return NotFound(response);
             }
             return Ok(response);
-        }
-
-
-
+        } 
     }
 }

@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,57 +19,60 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
     //[Authorize("Bearer")]
     [Route("api/patient/v{version:apiVersion}/[controller]")]
 
-    public class PatientHospitalizationInformationController : ControllerBase
+    public class PatientHospitalizationInformationController : ApiBaseController
     {
-        private readonly IPatientHospitalizationInformationServices _entitytService;
-
-        public PatientHospitalizationInformationController(IPatientHospitalizationInformationServices PatientHospitalizationInformationService)
+        private readonly IPatientHospitalizationInformationServices _entityService;
+        public PatientHospitalizationInformationController(IPatientHospitalizationInformationServices entityService, IOptions<AuthConfigurationVO> configurationAuth) : base(configurationAuth)
         {
-            _entitytService = PatientHospitalizationInformationService;
+            _entityService = entityService;
         }
-
-        //[AllowAnonymous]
+        private void setUserIdCurrent()
+        {
+            _entityService.SetUserId(base.GetUserIdCurrent());
+        } 
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetPatientHospitalizationInformationVO>>>> Get()
         {
-            //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
-            return Ok(await _entitytService.FindAll());
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindAll());
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientHospitalizationInformationVO>>> GetById(int id)
         {
-            return Ok(await _entitytService.FindByID(id));
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindByID(id));
         }
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientHospitalizationInformationVO>>> Create(AddPatientHospitalizationInformationVO newEntity)
         {
-            return Ok(await _entitytService.Create(newEntity));
+            this.setUserIdCurrent();
+            return Ok(await _entityService.Create(newEntity));
         }
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientHospitalizationInformationVO>>> Update(UpdatePatientHospitalizationInformationVO updateEntity)
         {
-            var response = await _entitytService.Update(updateEntity);
+            this.setUserIdCurrent();
+            var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
                 return NotFound(response);
             }
             return Ok(response);
         }
-
-
+         
         [HttpDelete("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            var response = await _entitytService.Delete(id);
+            this.setUserIdCurrent();
+            var response = await _entityService.Delete(id);
             if (response.Data)
             {
                 return NotFound(response);

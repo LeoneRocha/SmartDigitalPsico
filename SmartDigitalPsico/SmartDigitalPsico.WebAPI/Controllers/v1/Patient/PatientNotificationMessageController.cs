@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
 using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,57 +19,61 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
     //[Authorize("Bearer")]
     [Route("api/patient/v{version:apiVersion}/[controller]")]
 
-    public class PatientNotificationMessageController : ControllerBase
+    public class PatientNotificationMessageController : ApiBaseController
     {
-        private readonly IPatientNotificationMessageServices _entitytService;
-
-        public PatientNotificationMessageController(IPatientNotificationMessageServices entitytService)
+        private readonly IPatientNotificationMessageServices _entityService;
+        public PatientNotificationMessageController(IPatientNotificationMessageServices entityService, IOptions<AuthConfigurationVO> configurationAuth) : base(configurationAuth)
         {
-            _entitytService = entitytService;
+            _entityService = entityService;
         }
+        private void setUserIdCurrent()
+        {
+            _entityService.SetUserId(base.GetUserIdCurrent());
+        } 
 
-        //[AllowAnonymous]
         [HttpGet("GetAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetPatientNotificationMessageVO>>>> Get()
         {
-            //int idUser = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
-            return Ok(await _entitytService.FindAll());
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindAll());
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientNotificationMessageVO>>> GetById(int id)
         {
-            return Ok(await _entitytService.FindByID(id));
+            this.setUserIdCurrent();
+            return Ok(await _entityService.FindByID(id));
         }
 
         [HttpPost]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientNotificationMessageVO>>> Create(AddPatientNotificationMessageVO newEntity)
         {
-            return Ok(await _entitytService.Create(newEntity));
+            this.setUserIdCurrent();
+            return Ok(await _entityService.Create(newEntity));
         }
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientNotificationMessageVO>>> Update(UpdatePatientNotificationMessageVO updateEntity)
         {
-            var response = await _entitytService.Update(updateEntity);
+            this.setUserIdCurrent();
+            var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
                 return NotFound(response);
             }
             return Ok(response);
-        }
-
+        } 
 
         [HttpDelete("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            var response = await _entitytService.Delete(id);
+            this.setUserIdCurrent();
+            var response = await _entityService.Delete(id);
             if (response.Data)
             {
                 return NotFound(response);

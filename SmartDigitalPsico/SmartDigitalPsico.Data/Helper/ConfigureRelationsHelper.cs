@@ -36,8 +36,8 @@ namespace SmartDigitalPsico.Repository.Helper
             //configures one-to-one relationship
             modelBuilder.Entity<Medical>()
             .HasOne(b => b.User)
-            .WithOne(i => i.MedicalUser)
-            .HasForeignKey<User>(b => b.MedicalUserId)
+            .WithOne(i => i.Medical)
+            .HasForeignKey<User>(b => b.MedicalId)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
              

@@ -20,16 +20,16 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         public List<Medical> MedicalsUsers { get; set; }
 
-        public Medical? MedicalUser { get; set; }
-        public long? MedicalUserId { get; set; }
+        public Medical? Medical { get; set; }
+        public long? MedicalId { get; set; }
 
         #endregion Relationship
 
         #region Columns 
 
         [Column("Login", Order = 4, TypeName = "varchar(25)")]
-        [MaxLength(25)] 
-        [Required] 
+        [MaxLength(25)]
+        [Required]
         public string Login { get; set; }
 
         [Column("PasswordHash")]
@@ -39,7 +39,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         [Required]
         [Column("Role", TypeName = "varchar(50)")]
-        [MaxLength(50)] 
+        [MaxLength(50)]
 
         public string Role { get; set; }
 
@@ -52,7 +52,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("TimeZone", TypeName = "varchar(255)")]
         [MaxLength(255)]
         public string? TimeZone { get; set; }
-        
+
         [Column("Refresh_token")]
         public string? RefreshToken { get; set; }
 

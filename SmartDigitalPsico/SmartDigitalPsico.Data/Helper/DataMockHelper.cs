@@ -119,12 +119,42 @@ namespace SmartDigitalPsico.Repository.Helper
                 Accreditation = "123456",
                 TypeAccreditation = Domains.Enuns.ETypeAccreditation.CRM,
                 OfficeId = 3,
-                CreatedUserId = 1, 
+                CreatedUserId = 1,
             };
             modelBuilder.Entity<Medical>().HasMany(p => p.Specialties).WithMany(p => p.Medicals).UsingEntity(j => j.HasData(new
             { SpecialtiesId = (long)1, MedicalsId = (long)1 }));
 
             modelBuilder.Entity<Medical>().HasData(newAddMedical);
+
+
+            var newAddUserMedical = new User
+            {
+                Id = 2,
+                Name = "User Medical",
+                Login = "doctor",
+                Admin = false,
+                Email = "doctor@sistemas.com",
+                CreatedDate = DateTime.Now,
+                Enable = true,
+                LastAccessDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                Role = "Medical",
+                MedicalId = 1
+
+            };
+            SecurityHelper.CreatePasswordHash("doctor123", out byte[] passwordHashM, out byte[] passwordSaltM);
+            newAddUserMedical.PasswordHash = passwordHashM;
+            newAddUserMedical.PasswordSalt = passwordSaltM;
+
+            modelBuilder.Entity<User>().HasData(newAddUserMedical);
+
+            modelBuilder.Entity<User>().HasMany(p => p.RoleGroups).WithMany(p => p.Users).UsingEntity(j => j.HasData(
+                new { RoleGroupsId = (long)1, UsersId = (long)1 },
+                new { RoleGroupsId = (long)5, UsersId = (long)1 },
+                new { RoleGroupsId = (long)5, UsersId = (long)2 },
+                new { RoleGroupsId = (long)6, UsersId = (long)1 },
+                new { RoleGroupsId = (long)6, UsersId = (long)2 }));
+
 
         }
 
@@ -153,32 +183,7 @@ namespace SmartDigitalPsico.Repository.Helper
 
             modelBuilder.Entity<User>().HasData(newAddUser);
 
-            var newAddUserMedical = new User
-            {
-                Id = 2,
-                Name = "User Medical",
-                Login = "doctor",
-                Admin = false,
-                Email = "doctor@sistemas.com",
-                CreatedDate = DateTime.Now,
-                Enable = true,
-                LastAccessDate = DateTime.Now,
-                ModifyDate = DateTime.Now,
-                Role = "Medical",
 
-            };
-            SecurityHelper.CreatePasswordHash("doctor123", out byte[] passwordHashM, out byte[] passwordSaltM);
-            newAddUserMedical.PasswordHash = passwordHashM;
-            newAddUserMedical.PasswordSalt = passwordSaltM;
-
-            modelBuilder.Entity<User>().HasData(newAddUserMedical);
-
-            modelBuilder.Entity<User>().HasMany(p => p.RoleGroups).WithMany(p => p.Users).UsingEntity(j => j.HasData(
-                new { RoleGroupsId = (long)1, UsersId = (long)1 }, 
-                new { RoleGroupsId = (long)5, UsersId = (long)1 },
-                new { RoleGroupsId = (long)5, UsersId = (long)2 },
-                new { RoleGroupsId = (long)6, UsersId = (long)1 },
-                new { RoleGroupsId = (long)6, UsersId = (long)2 }));
 
         }
 

@@ -11,7 +11,7 @@ const basePathUrl = '/Gender/v1';
 export class GenderService extends GenericService<ServiceResponse<GenderModel>, GenderModel, number> {
 
   constructor(@Inject(HttpClient) http: HttpClient) {
-    super(http, `${environment.APIUrl + basePathUrl}`, '/GetAll');
+    super(http, `${environment.APIUrl + basePathUrl}`, '/FindAll');
   }
 
 }

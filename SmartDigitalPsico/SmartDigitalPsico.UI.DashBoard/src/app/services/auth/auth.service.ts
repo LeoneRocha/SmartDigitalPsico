@@ -8,8 +8,7 @@ import { RoleGroup, TokenAuth, UserAutenticateModel, UserAutenticateView, UserLo
 import { catchError, map, throwError } from 'rxjs';
 import { AppError } from 'app/common/app-error';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
-//'https://localhost:61949/api/Auth/v1/Login
+ 
 const basePathUrl = '/Auth/v1';
 @Injectable()
 export class AuthService extends GenericService<ServiceResponse<UserAutenticateModel>, UserLoginModel, number> {

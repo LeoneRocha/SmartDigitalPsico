@@ -30,7 +30,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         private void setUserIdCurrent()
         {
             _entityService.SetUserId(base.GetUserIdCurrent());
-        } 
+        }
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetPatientVO>>>> FindAll(long medicalId)
@@ -59,15 +59,14 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetPatientVO>>> Update(UpdatePatientVO UpdateEntity)
         {
-            this.setUserIdCurrent();
-            return BadRequest("Em construção");  // Ok(new EmptyResult());
-            //var response = await _entityService.Update(UpdateEntity);
-            //if (response.Data == null)
-            //{
-            //    return NotFound(response);
-            //}
-            //return Ok(response);
-        } 
+            this.setUserIdCurrent();            
+            var response = await _entityService.Update(UpdateEntity);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
 
         [HttpDelete("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 

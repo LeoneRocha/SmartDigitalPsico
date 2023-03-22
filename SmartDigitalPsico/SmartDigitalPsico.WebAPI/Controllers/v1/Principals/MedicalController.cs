@@ -63,14 +63,13 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> Update(UpdateMedicalVO UpdateEntity)
         {
-            this.setUserIdCurrent();
-            return BadRequest("Em construção");  // Ok(new EmptyResult());
-            //var response = await _medicalService.Update(UpdateEntity);
-            //if (response.Data == null)
-            //{
-            //    return NotFound(response);
-            //}
-            //return Ok(response);
+            this.setUserIdCurrent(); 
+            var response = await _entityService.Update(UpdateEntity);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         } 
 
         [HttpDelete("{id}")]

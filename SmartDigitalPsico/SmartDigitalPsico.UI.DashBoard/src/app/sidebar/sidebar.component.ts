@@ -8,8 +8,7 @@ export interface RouteInfo {
     path: string;
     title: string;
     type: string;
-    icontype: string;
-    visible: boolean;
+    icontype: string; 
     roleaccess: string;
     // icon: string;
     children?: ChildrenItems[];
@@ -26,8 +25,7 @@ export interface ChildrenItems {
 export const ROUTES: RouteInfo[] = [{
     path: '/administrative/dashboard',
     title: 'Inicio',
-    type: 'link',
-    visible: true,
+    type: 'link', 
     roleaccess: 'Read',
     icontype: 'pe-7s-home'
 },
@@ -35,8 +33,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/medical',
     title: 'Médicos',
     type: 'sub',
-    icontype: 'pe-7s-users',
-    visible: true,
+    icontype: 'pe-7s-users', 
     roleaccess: 'Read',
     children: [
         { path: '', title: 'Médicos', ab: 'M' },
@@ -47,8 +44,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/patient',
     title: 'Pacientes',
     type: 'sub',
-    icontype: 'pe-7s-users',
-    visible: true,
+    icontype: 'pe-7s-users', 
     roleaccess: 'Read',
     children: [
         { path: 'patient', title: 'Paciente', ab: 'P' },
@@ -59,8 +55,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/pages',
     title: 'Usuários',
     type: 'sub',
-    icontype: 'pe-7s-users',
-    visible: true,
+    icontype: 'pe-7s-users', 
     roleaccess: 'Read',
     children: [
         { path: 'users', title: 'Usuários', ab: 'U' }
@@ -69,8 +64,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/administrative',
     title: 'Configurações',
     type: 'sub',
-    icontype: 'pe-7s-tools',
-    visible: true,
+    icontype: 'pe-7s-tools', 
     roleaccess: 'Read',
     children: [
         { path: 'gender', title: 'Gender', ab: 'G' },
@@ -83,8 +77,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/pages',
     title: 'Cadastros',
     type: 'sub',
-    icontype: 'pe-7s-gift',
-    visible: true,
+    icontype: 'pe-7s-gift', 
     roleaccess: 'Read',
     children: [
         { path: 'user', title: 'User Page', ab: 'UP' },
@@ -93,8 +86,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/authpages',
     title: 'Modelos',
     type: 'sub',
-    icontype: 'pe-7s-gift',
-    visible: true,
+    icontype: 'pe-7s-gift', 
     roleaccess: 'Read',
     children: [
         { path: 'register', title: 'Register Page', ab: 'RP' }

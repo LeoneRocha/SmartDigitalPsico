@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Mysqlx.Crud;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System;
 using System.Collections.Generic;
@@ -31,14 +32,23 @@ namespace SmartDigitalPsico.Repository.Helper
             //modelBuilder.Entity<Medical>().HasOne(p => p.CreatedUser).WithOne();
 
             //modelBuilder.Entity<Medical>().Navigation(b => b.CreatedUser).UsePropertyAccessMode(PropertyAccessMode.Property);
-
-            // configures one-to-many relationship
+            
+            //configures one-to-one relationship
             modelBuilder.Entity<Medical>()
+            .HasOne(b => b.User)
+            .WithOne(i => i.MedicalUser)
+            .HasForeignKey<User>(b => b.MedicalUserId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Cascade);
+             
+            // configures one-to-many relationship
+            /*modelBuilder.Entity<Medical>()
                   .HasOne(p => p.User)
                   .WithMany(b => b.MedicalsUsers)
                   .HasForeignKey(t => t.UserId)
                   .OnDelete(DeleteBehavior.NoAction)
                   .IsRequired(false);
+            */
 
             modelBuilder.Entity<Medical>()
                      .HasOne(p => p.CreatedUser)

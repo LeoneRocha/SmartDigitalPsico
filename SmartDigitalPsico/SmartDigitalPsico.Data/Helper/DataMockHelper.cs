@@ -119,8 +119,7 @@ namespace SmartDigitalPsico.Repository.Helper
                 Accreditation = "123456",
                 TypeAccreditation = Domains.Enuns.ETypeAccreditation.CRM,
                 OfficeId = 3,
-                CreatedUserId = 1,
-                UserId = 2,
+                CreatedUserId = 1, 
             };
             modelBuilder.Entity<Medical>().HasMany(p => p.Specialties).WithMany(p => p.Medicals).UsingEntity(j => j.HasData(new
             { SpecialtiesId = (long)1, MedicalsId = (long)1 }));

@@ -16,8 +16,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         public Office Office { get; set; }
 
-        public User? User { get; set; }
-        public long? UserId { get; set; }
+        public User? User { get; set; } 
 
         public List<Specialty> Specialties { get; set; } 
 

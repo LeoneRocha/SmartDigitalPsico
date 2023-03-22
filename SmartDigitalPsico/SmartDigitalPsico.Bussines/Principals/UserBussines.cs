@@ -8,6 +8,7 @@ using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -16,7 +17,7 @@ using System.Security.Claims;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class UserBusiness : GenericBusinessEntityBase<User, IUserRepository, GetUserVO>, IUserBusiness
+    public class UserBusiness : GenericBusinessEntityBaseV2<User, AddUserVO, UpdateUserVO, GetUserVO, IUserRepository>, IUserBusiness
 
     {
         private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -42,7 +43,7 @@ namespace SmartDigitalPsico.Business.Principals
         public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string login, string password)
         {
             var response = new ServiceResponse<GetUserAuthenticatedVO>();
-          
+
             var user = await _userRepository.FindByLogin(login);
             if (user == null)
             {
@@ -56,10 +57,10 @@ namespace SmartDigitalPsico.Business.Principals
                 response.Message = "Wrong password.";
                 return response;
             }
-        
+
             if (_configurationAuth.TypeApiCredential == Domains.Enuns.ETypeApiCredential.Jwt)
             {
-                response.Data = await executeLoginJwt(user);                
+                response.Data = await executeLoginJwt(user);
             }
             response.Success = true;
             response.Message = "User Logged.";
@@ -96,7 +97,7 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
         }
 
-        public async Task<ServiceResponse<GetUserVO>> UpdateUser(UpdateUserVO updateUser)
+        public override async Task<ServiceResponse<GetUserVO>> Update(UpdateUserVO updateUser)
         {
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
             User entityUpdate = await _userRepository.FindByID(updateUser.Id);

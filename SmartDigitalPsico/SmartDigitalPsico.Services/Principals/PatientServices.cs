@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Services.Contracts.Principals;
@@ -10,7 +9,7 @@ using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class PatientServices: GenericServicesEntityBase<Patient, IPatientBusiness, GetPatientVO>, IPatientServices
+    public class PatientServices: GenericServicesEntityBaseV2<Patient,AddPatientVO, UpdatePatientVO, GetPatientVO, IPatientBusiness>, IPatientServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPatientBusiness _entityBusiness;
@@ -20,16 +19,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             _entityBusiness = entityBusiness;
             _httpContextAccessor = httpContextAccessor;
-        }
-
-        public async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
-        {
-            var serviceResponse = new ServiceResponse<GetPatientVO>();
-             
-            serviceResponse = await _entityBusiness.Create(item);
-
-            return serviceResponse;
-        }
+        } 
 
         public async Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
         {

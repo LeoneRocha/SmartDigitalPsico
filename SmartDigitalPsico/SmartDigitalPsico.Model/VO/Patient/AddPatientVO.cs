@@ -1,19 +1,16 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.Contracts.Interface;
+using SmartDigitalPsico.Model.VO.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient
 {
-    public class AddPatientVO
+    public class AddPatientVO : EntityVOBaseAdd
     {
         #region Relationship
         [Required]
-        public long MedicalId { get; set; }
-        //public List<long> PatientAdditionalInformations { get; set; }
-        //public List<long> PatientHospitalizationInformations { get; set; }
-        //public List<long> PatientMedicationInformations { get; set; }
-        //public List<long> PatientRecords { get; set; } 
+        public long MedicalId { get; set; } 
         [Required]
         public long GenderId { get; set; }
         #endregion Relationship
@@ -22,8 +19,7 @@ namespace SmartDigitalPsico.Model.VO.Patient
         [MaxLength(255)]
         [Required]
         public string Name { get; set; }
-
-
+         
         [MaxLength(100)]
         [Required]
         public string Email { get; set; }

@@ -1,13 +1,11 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
-using SmartDigitalPsico.Model.VO.Contracts;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
-using SmartDigitalPsico.Model.VO.Utils;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.User
 {
-    public class GetUserVO : EntityVOBase, ISupportsHyperMedia
+    public class GetUserVO : UpdateUserVO, ISupportsHyperMedia
     {   
 
         [MaxLength(100)]

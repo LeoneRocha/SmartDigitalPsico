@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SmartDigitalPsico.Model.VO.Contracts
 {
     public abstract class EntityVOBaseAdd : IEntityVOAdd
-    {
-        public long Id { get; set; }
+    { 
 
         public bool Enable { get; set; }
     }

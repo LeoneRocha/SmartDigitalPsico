@@ -31,9 +31,9 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
             _entityService.SetUserId(base.GetUserIdCurrent());
         } 
 
-        [HttpGet("GetAll")]
+        [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetPatientAdditionalInformationVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetPatientAdditionalInformationVO>>>> FindAll()
         {
             this.setUserIdCurrent();
             return Ok(await _entityService.FindAll());

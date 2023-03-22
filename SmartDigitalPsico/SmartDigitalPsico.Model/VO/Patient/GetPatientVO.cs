@@ -12,11 +12,7 @@ namespace SmartDigitalPsico.Model.VO.Patient
         //MUDAR AS RELACOES PARA OBJETOS 
         #region Relationship
         [Required]
-        public GetMedicalVO Medical { get; set; }
-        //public List<GetPatientAdditionalInformationVO> PatientAdditionalInformations { get; set; }
-        //public List<GetPatientHospitalizationInformationVO> PatientHospitalizationInformations { get; set; }
-        //public List<GetPatientMedicationInformationVO> PatientMedicationInformations { get; set; }
-        //public List<GetPatientRecordVO> PatientRecords { get; set; }
+        public GetMedicalVO Medical { get; set; } 
        
         public Gender Gender  { get; set; }
         #endregion Relationship

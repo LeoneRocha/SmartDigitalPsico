@@ -37,7 +37,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
             _entityService.SetUserId(base.GetUserIdCurrent());
         } 
 
-        [HttpGet("GetAll")]
+        [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetGenderVO>>>> Get()
         {

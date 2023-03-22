@@ -2,18 +2,14 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientBusiness : GenericBusinessEntityBase<Patient, IPatientRepository, GetPatientVO>, IPatientBusiness
+    public class PatientBusiness : GenericBusinessEntityBaseV2<Patient, AddPatientVO, UpdatePatientVO, GetPatientVO, IPatientRepository>, IPatientBusiness
 
     {
         private readonly IMapper _mapper;
@@ -29,8 +25,8 @@ namespace SmartDigitalPsico.Business.Principals
             _entityRepository = entityRepository;
             _userRepository = userRepository;
             _medicalRepository = medicalRepository;
-        } 
-        public async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
+        }
+        public override async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
         {
             ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
 
@@ -43,7 +39,7 @@ namespace SmartDigitalPsico.Business.Principals
                 return response;
             }
             Patient entityAdd = _mapper.Map<Patient>(item);
-              
+
             #region Relationship
 
             User userAction = await _userRepository.FindByID(this.UserId);
@@ -85,7 +81,7 @@ namespace SmartDigitalPsico.Business.Principals
             response.Message = "Patient finded.";
             return response;
 
-        } 
+        }
         public Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
         {
             throw new NotImplementedException();

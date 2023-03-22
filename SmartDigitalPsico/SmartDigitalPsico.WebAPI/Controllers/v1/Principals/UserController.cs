@@ -50,10 +50,10 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetUserVO>>> UpdateUser(UpdateUserVO updateEntity)
+        public async Task<ActionResult<ServiceResponse<GetUserVO>>> Update(UpdateUserVO updateEntity)
         {
             this.setUserIdCurrent();
-            var response = await _entityService.UpdateUser(updateEntity);
+            var response = await _entityService.Update(updateEntity);
             if (response.Data == null)
             {
                 return NotFound(response);

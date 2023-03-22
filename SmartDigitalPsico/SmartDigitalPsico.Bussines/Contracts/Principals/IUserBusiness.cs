@@ -1,16 +1,16 @@
 using SmartDigitalPsico.Business.Generic.Contracts;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO.User;
-using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Patient;
+using SmartDigitalPsico.Model.VO.User;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IUserBusiness : IGenericBusinessEntityBase<User, GetUserVO>
+    public interface IUserBusiness : IGenericBusinessEntityBaseV2<User, AddUserVO, UpdateUserVO, GetUserVO>
     {
         Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string username, string password);
         Task<ServiceResponse<bool>> Logout(string username);
+
         Task<ServiceResponse<GetUserVO>> Register(UserRegisterVO newEntity);
-        Task<ServiceResponse<GetUserVO>> UpdateUser(UpdateUserVO updateEntity);
     }
 }

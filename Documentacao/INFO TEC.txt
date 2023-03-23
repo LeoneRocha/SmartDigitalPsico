@@ -7,6 +7,8 @@ https://pablo-christian.medium.com/%EF%B8%8F-validando-dados-com-fluent-validati
 
 https://blog.christian-schou.dk/how-to-use-fluentvalidation-in-asp-net-core6/
 
+https://stackoverflow.com/questions/13406270/fluentvalidation-unique-name-validation-using-database
+https://stackoverflow.com/questions/63058233/is-it-a-good-practice-to-inject-dbcontext-or-repository-into-fluent-validation-v
 ----------------------------------
 https://refactoring.guru/design-patterns/factory-method
 

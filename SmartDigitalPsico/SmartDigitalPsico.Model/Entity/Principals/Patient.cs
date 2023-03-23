@@ -12,6 +12,10 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Relationship
         [Required]
         public Medical Medical { get; set; }
+        
+        [ForeignKey("MedicalId")]
+        public long MedicalId { get; set; }
+
         public List<PatientAdditionalInformation> PatientAdditionalInformations { get; set; }
         public List<PatientHospitalizationInformation> PatientHospitalizationInformations { get; set; }
         public List<PatientMedicationInformation> PatientMedicationInformations { get; set; }
@@ -22,6 +26,9 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         [Column("Gender")]
         public Gender Gender { get; set; }
+
+        [ForeignKey("GenderId")]
+        public long GenderId { get; set; }
         #endregion Relationship
 
         #region Columns

@@ -13,10 +13,10 @@ namespace SmartDigitalPsico.Business.Validation
             RuleFor(entity => entity.Name)
                 .NotNull().NotEmpty()
                 .WithMessage("A descrição não pode ser vazia.");
-            
+
             RuleFor(entity => entity.MedicalId)
-                .NotNull().NotEmpty()
-                .WithMessage("O medical deve ser informado não pode ser vazia.");
+                .NotNull().LessThanOrEqualTo(0) 
+                .WithMessage("O medical deve ser informado.");
 
             //RuleFor(entity => entity.Language)
             //    .NotNull().NotEmpty()

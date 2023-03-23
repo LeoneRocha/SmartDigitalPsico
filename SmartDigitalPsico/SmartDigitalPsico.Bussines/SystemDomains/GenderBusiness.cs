@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.Validation;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.VO.Domains;
@@ -21,10 +22,8 @@ namespace SmartDigitalPsico.Business.SystemDomains
         private readonly IMapper _mapper;
         private readonly IGenderRepository _genericRepository;
         private readonly ICacheBusiness _cacheBusiness;
-        private readonly IValidator<Gender> _entityValidator;
-
-
         AuthConfigurationVO _configurationAuth;
+        private readonly IValidator<Gender> _entityValidator;
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository, ICacheBusiness cacheBusiness,
             IOptions<AuthConfigurationVO> configurationAuth,
             IValidator<Gender> entityValidator)
@@ -123,16 +122,9 @@ namespace SmartDigitalPsico.Business.SystemDomains
             var validationResult = await _entityValidator.ValidateAsync(entity);
 
             response.Success = validationResult.IsValid;
+            response.Errors = HelperValidation.GetErrosMap(validationResult);
+            response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
 
-            if (!validationResult.IsValid)
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (var failure in validationResult.Errors)
-                {
-                    sb.Append("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
-                }
-                response.Message = sb.ToString();
-            }
             return response;
         }
     }

@@ -151,6 +151,7 @@ namespace SmartDigitalPsico.WebAPI.Helper
         {
             services.AddScoped<IValidator<Gender>, GenderValidator>();
             services.AddScoped<IValidator<Patient>, PatientValidator>();
+            services.AddScoped<IValidator<User>, UserValidator>();
         }
 
         #endregion

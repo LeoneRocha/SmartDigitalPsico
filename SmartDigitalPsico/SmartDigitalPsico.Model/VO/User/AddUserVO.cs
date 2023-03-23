@@ -11,13 +11,12 @@ namespace SmartDigitalPsico.Model.VO.Patient
     public class AddUserVO : EntityVOBaseAdd
     {
         #region Relationship
-        public List<long> RoleGroupsIds { get; set; }
+        public List<long>? RoleGroupsIds { get; set; }
 
         public long? MedicalId { get; set; }
 
         #endregion Relationship
-
-
+         
         public string Name { get; set; }
          
         public string Email { get; set; }
@@ -28,9 +27,9 @@ namespace SmartDigitalPsico.Model.VO.Patient
 
         #region Columns  
           
-        public string Role { get; set; }
+        public string? Role { get; set; }
 
-        public bool Admin { get; set; }
+        public bool? Admin { get; set; }
 
         public string? Language { get; set; }
 

@@ -1,19 +1,24 @@
 using AutoMapper;
 using Azure;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.Validation;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Domains.Security;
+using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -27,9 +32,9 @@ namespace SmartDigitalPsico.Business.Principals
         ITokenConfiguration _configurationToken;
         private readonly ITokenService _tokenService;
         AuthConfigurationVO _configurationAuth;
-
+        private readonly IValidator<User> _entityValidator;
         public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
-            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth)
+            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator)
             : base(mapper, entityRepository)
         {
             _mapper = mapper;
@@ -38,6 +43,7 @@ namespace SmartDigitalPsico.Business.Principals
             _configurationToken = configurationToken;
             _tokenService = tokenService;
             _configurationAuth = configurationAuth.Value;
+            _entityValidator = entityValidator;
         }
 
         public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string login, string password)
@@ -80,20 +86,22 @@ namespace SmartDigitalPsico.Business.Principals
             SecurityHelper.CreatePasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
             User entityAdd = _mapper.Map<User>(userRegisterVO);
-
-            entityAdd.Role = "Pendente";
-            entityAdd.Admin = false;
+             
             entityAdd.PasswordHash = passwordHash;
             entityAdd.PasswordSalt = passwordSalt;
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;
             entityAdd.LastAccessDate = DateTime.Now;
 
-            User entityResponse = await _userRepository.Register(entityAdd);
+            response = await this.Validate(entityAdd);
+            if (response.Success)
+            {
+                User entityResponse = await _userRepository.Register(entityAdd);
 
-            response.Data = _mapper.Map<GetUserVO>(entityResponse);
-            response.Success = true;
-            response.Message = "User registred.";
+                response.Data = _mapper.Map<GetUserVO>(entityResponse); 
+                response.Message = "User registred.";
+            }
+        
             return response;
         }
 
@@ -221,6 +229,22 @@ namespace SmartDigitalPsico.Business.Principals
                 accessToken,
                 refreshToken
                 );
+        }
+         
+        public async override Task<ServiceResponse<GetUserVO>> Validate(User entity)
+        {
+            entity.Role = "Pendente";
+            entity.Admin = false;
+
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
+
+            //var validator = new GenderValidator();
+            var validationResult = await _entityValidator.ValidateAsync(entity);
+
+            response.Success = validationResult.IsValid;
+            response.Errors = HelperValidation.GetErrosMap(validationResult);
+            response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
+            return response;
         }
     }
 }

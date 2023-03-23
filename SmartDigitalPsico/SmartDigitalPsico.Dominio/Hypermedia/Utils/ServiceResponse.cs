@@ -1,13 +1,22 @@
-﻿using SmartDigitalPsico.Domains.Hypermedia;
-using SmartDigitalPsico.Domains.Hypermedia.Abstract;
-
-namespace SmartDigitalPsico.Domains.Hypermedia.Utils
+﻿namespace SmartDigitalPsico.Domains.Hypermedia.Utils
 {
     public class ServiceResponse<T> : IServiceResponse<T>
     {
+        public ServiceResponse()
+        {
+            Errors = new List<ErrorResponse>();
+        }
         public T Data { get; set; }
         public bool Success { get; set; } = true;
-        public string Message { get; set; } = null;
+        public string Message { get; set; }
+        public List<ErrorResponse> Errors { get; set; } 
+    }
+
+    public class ErrorResponse
+    {
+        public string Name { get; set; }
+
+        public string Message { get; set; }
     }
 
     public interface IServiceResponse<T>

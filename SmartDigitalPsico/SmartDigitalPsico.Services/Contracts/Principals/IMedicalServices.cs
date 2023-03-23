@@ -6,7 +6,7 @@ namespace SmartDigitalPsico.Services.Contracts.Principals
 {
     public interface IMedicalServices
      //   : IGenericServicesEntityBase<Medical, GetMedicalVO>
-    : IGenericServicesEntityBaseV2<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO>
+    : IGenericServicesEntityBase<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO>
     {
 
     }

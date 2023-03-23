@@ -9,7 +9,7 @@ using SmartDigitalPsico.Services.Generic;
 namespace SmartDigitalPsico.Services.Principals
 {
     public class MedicalServices
-        : GenericServicesEntityBaseV2<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO, IMedicalBusiness>, IMedicalServices
+        : GenericServicesEntityBase<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO, IMedicalBusiness>, IMedicalServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMedicalBusiness _entityBusiness; 

@@ -5,7 +5,7 @@ using SmartDigitalPsico.Model.VO.Medical;
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
     public interface IMedicalBusiness
-        : IGenericBusinessEntityBaseV2<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO>
+        : IGenericBusinessEntityBase<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO>
     {
 
     }

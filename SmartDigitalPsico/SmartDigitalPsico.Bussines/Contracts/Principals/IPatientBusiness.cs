@@ -6,7 +6,7 @@ using SmartDigitalPsico.Model.VO.Patient;
 
 namespace SmartDigitalPsico.Business.Contracts.Principals
 {
-    public interface IPatientBusiness : IGenericBusinessEntityBaseV2<Patient, AddPatientVO, UpdatePatientVO, GetPatientVO>
+    public interface IPatientBusiness : IGenericBusinessEntityBase<Patient, AddPatientVO, UpdatePatientVO, GetPatientVO>
     {
         Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId);
         Task<ServiceResponse<GetPatientVO>> FindByPatient(GetPatientVO info);

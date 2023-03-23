@@ -1,11 +1,13 @@
 
 --https://docs.fluentvalidation.net/en/latest/
-https://docs.fluentvalidation.net/en/latest/
+https://marcionizzola.medium.com/fa%C3%A7a-valida%C3%A7%C3%B5es-em-c-com-fluentvalidation-e-teste-as-facilmente-ddf72ce01964
 
-https://medium.com/trainingcenter/validating-business-logic-in-c-with-specification-pattern-35dfe9593856
+https://pablo-christian.medium.com/%EF%B8%8F-validando-dados-com-fluent-validation-em-uma-aplica%C3%A7%C3%A3o-mvc-e-webapi-6024c20b4924
 
-https://enterprisecraftsmanship.com/posts/specification-pattern-always-valid-domain-model/
 
+https://blog.christian-schou.dk/how-to-use-fluentvalidation-in-asp-net-core6/
+
+----------------------------------
 https://refactoring.guru/design-patterns/factory-method
 
 npm install @auth0/angular-jwt --save

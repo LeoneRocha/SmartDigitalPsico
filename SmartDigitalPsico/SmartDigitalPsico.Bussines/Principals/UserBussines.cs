@@ -17,7 +17,7 @@ using System.Security.Claims;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class UserBusiness : GenericBusinessEntityBaseV2<User, AddUserVO, UpdateUserVO, GetUserVO, IUserRepository>, IUserBusiness
+    public class UserBusiness : GenericBusinessEntityBase<User, AddUserVO, UpdateUserVO, GetUserVO, IUserRepository>, IUserBusiness
 
     {
         private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";

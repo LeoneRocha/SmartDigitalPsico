@@ -13,7 +13,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 namespace SmartDigitalPsico.Business.Principals
 {
     public class MedicalBusiness 
-        : GenericBusinessEntityBaseV2<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO, IMedicalRepository>, IMedicalBusiness
+        : GenericBusinessEntityBase<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO, IMedicalRepository>, IMedicalBusiness
 
     {
         private readonly IMapper _mapper;

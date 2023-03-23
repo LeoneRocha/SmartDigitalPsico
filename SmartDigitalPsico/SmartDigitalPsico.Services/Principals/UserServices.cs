@@ -10,7 +10,7 @@ using SmartDigitalPsico.Services.Generic;
 namespace SmartDigitalPsico.Services.Principals
 {
     public class UserServices 
-        : GenericServicesEntityBaseV2<User,AddUserVO, UpdateUserVO, GetUserVO, IUserBusiness>, IUserServices
+        : GenericServicesEntityBase<User,AddUserVO, UpdateUserVO, GetUserVO, IUserBusiness>, IUserServices
 
     { 
         private readonly IUserBusiness _userBusiness;

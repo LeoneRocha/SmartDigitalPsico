@@ -3,7 +3,7 @@ using SmartDigitalPsico.Model.Contracts;
 
 namespace SmartDigitalPsico.Business.Generic.Contracts
 {
-    public interface IGenericBusinessEntityBaseV2<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
+    public interface IGenericBusinessEntityBase<TEntity, TEntityAdd, TEntityUpdate, TEntityResult>
     {
         Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item);
         Task<ServiceResponse<TEntityResult>> FindByID(long id);
@@ -16,6 +16,7 @@ namespace SmartDigitalPsico.Business.Generic.Contracts
         Task<ServiceResponse<int>> GetCount(string query);
 
         void SetUserId(long id);
+        Task<ServiceResponse<TEntityResult>> Validate(TEntity item);
 
     }
 }

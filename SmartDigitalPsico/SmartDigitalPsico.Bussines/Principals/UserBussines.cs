@@ -75,16 +75,10 @@ namespace SmartDigitalPsico.Business.Principals
 
         public async Task<ServiceResponse<GetUserVO>> Register(UserRegisterVO userRegisterVO)
         {
-            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
-
-            if (await UserExists(userRegisterVO.Login))
-            {
-                response.Success = false;
-                response.Message = "User already exists.";
-                return response;
-            }
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>(); 
+            
             SecurityHelper.CreatePasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
-
+            
             User entityAdd = _mapper.Map<User>(userRegisterVO);
              
             entityAdd.PasswordHash = passwordHash;
@@ -92,8 +86,11 @@ namespace SmartDigitalPsico.Business.Principals
             entityAdd.CreatedDate = DateTime.Now;
             entityAdd.ModifyDate = DateTime.Now;
             entityAdd.LastAccessDate = DateTime.Now;
+            entityAdd.Role = "Pendente";
+            entityAdd.Admin = false;
 
             response = await this.Validate(entityAdd);
+             
             if (response.Success)
             {
                 User entityResponse = await _userRepository.Register(entityAdd);
@@ -232,11 +229,15 @@ namespace SmartDigitalPsico.Business.Principals
         }
          
         public async override Task<ServiceResponse<GetUserVO>> Validate(User entity)
-        {
-            entity.Role = "Pendente";
-            entity.Admin = false;
-
+        {  
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
+             
+            if (await UserExists(entity.Login))
+            {
+                response.Success = false;
+                response.Message = "User already exists.";
+                return response;
+            }
 
             //var validator = new GenderValidator();
             var validationResult = await _entityValidator.ValidateAsync(entity);

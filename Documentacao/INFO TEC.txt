@@ -1,4 +1,13 @@
 
+--https://docs.fluentvalidation.net/en/latest/
+https://docs.fluentvalidation.net/en/latest/
+
+https://medium.com/trainingcenter/validating-business-logic-in-c-with-specification-pattern-35dfe9593856
+
+https://enterprisecraftsmanship.com/posts/specification-pattern-always-valid-domain-model/
+
+https://refactoring.guru/design-patterns/factory-method
+
 npm install @auth0/angular-jwt --save
 
 https://www.bezkoder.com/angular-14-jwt-auth/

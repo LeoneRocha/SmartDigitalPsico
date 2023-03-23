@@ -165,6 +165,11 @@ namespace SmartDigitalPsico.Business.Generic
         public void SetUserId(long id)
         {
             this.UserId = id;
-        }
+        } 
+        public virtual async Task<ServiceResponse<TEntityResult>> Validate(TEntity item)
+        {
+            await Task.Yield();
+            throw new NotImplementedException();
+        } 
     }
 }

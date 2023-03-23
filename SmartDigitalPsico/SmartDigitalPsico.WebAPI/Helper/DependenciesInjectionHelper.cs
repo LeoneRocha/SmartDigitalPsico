@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SmartDigitalPsico.Business.CacheManager;
@@ -6,7 +8,10 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Business.Validation;
 using SmartDigitalPsico.Domains.Security;
+using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.CacheManager;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -30,6 +35,7 @@ namespace SmartDigitalPsico.WebAPI.Helper
             addBusiness(services);
             addServices(services);
             addDependencies(services);
+            addValidations(services);
         }
 
         #region INTERFACES
@@ -133,7 +139,6 @@ namespace SmartDigitalPsico.WebAPI.Helper
             services.AddScoped<IPatientNotificationMessageServices, PatientNotificationMessageServices>();
             #endregion PATIENT
         }
-
         private static void addDependencies(IServiceCollection services)
         {
             // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
@@ -141,6 +146,10 @@ namespace SmartDigitalPsico.WebAPI.Helper
 
             services.AddScoped<ITokenConfiguration, TokenConfiguration>();
             services.AddScoped<ITokenService, TokenService>();
+        }
+        private static void addValidations(IServiceCollection services)
+        {
+            services.AddScoped<IValidator<Gender>, GenderValidator>();
         }
 
         #endregion

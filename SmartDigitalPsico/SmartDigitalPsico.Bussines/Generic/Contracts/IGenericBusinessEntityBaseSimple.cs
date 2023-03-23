@@ -17,5 +17,7 @@ namespace SmartDigitalPsico.Business.Generic.Contracts
         Task<ServiceResponse<bool>> EnableOrDisable(long id);
         void SetUserId(long id);
 
+        Task<ServiceResponse<TEntityResult>> Validate(TEntity item); 
+
     }
 }

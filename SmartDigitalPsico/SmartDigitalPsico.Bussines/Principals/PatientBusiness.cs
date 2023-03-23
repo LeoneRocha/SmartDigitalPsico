@@ -1,4 +1,5 @@
 using AutoMapper;
+using Azure;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
@@ -30,14 +31,8 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
 
-            var patientFinded = await FindByPatient(new GetPatientVO() { Cpf = item.Cpf, Rg = item.Rg, Email = item.Email });
+            response = await validatePatientExists(item);          
 
-            if (patientFinded != null)
-            {
-                response.Success = false;
-                response.Message = "Patient already exists.";
-                return response;
-            }
             Patient entityAdd = _mapper.Map<Patient>(item);
 
             #region Relationship
@@ -59,6 +54,19 @@ namespace SmartDigitalPsico.Business.Principals
             response.Data = _mapper.Map<GetPatientVO>(entityResponse);
             response.Success = true;
             response.Message = "Patient registred.";
+            return response;
+        }
+
+        private async Task<ServiceResponse<GetPatientVO>> validatePatientExists(AddPatientVO item)
+        {
+            ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
+            var patientFinded = await FindByPatient(new GetPatientVO() { Cpf = item.Cpf, Rg = item.Rg, Email = item.Email });
+
+            if (patientFinded != null)
+            {
+                response.Success = false;
+                response.Message = "Patient already exists."; 
+            }
             return response;
         }
 

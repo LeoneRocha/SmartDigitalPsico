@@ -14,8 +14,8 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
 
 
             RuleFor(entity => entity.MedicalId)
-      .NotNull().LessThanOrEqualTo(0)
-      .WithMessage("O Medical deve ser informado.");
+                .NotNull().LessThanOrEqualTo(0)
+                .WithMessage("O Medical deve ser informado.");
 
 
         }

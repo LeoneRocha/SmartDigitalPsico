@@ -3,7 +3,7 @@ import { GenderService } from 'app/services/general/gender.service';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenderModel } from 'app/models/GenderModel';
-import { ServiceResponse } from 'app/models/ServiceResponse';
+import { GetMsgServiceResponse, ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
@@ -13,7 +13,7 @@ import { CaptureTologFunc } from 'app/common/app-error-handler';
     selector: 'add-edit-gender',
     templateUrl: 'add-edit-gender.component.html'
     //styleUrls: ['./gender.component.css']
-}) 
+})
 //5-  a lista
 
 export class AddEditGenderComponent implements OnInit {
@@ -23,7 +23,7 @@ export class AddEditGenderComponent implements OnInit {
     isModeViewForm: boolean = false;
     registerModel: GenderModel;
     serviceResponse: ServiceResponse<GenderModel>;
-    public languages = LanguageOptions; 
+    public languages = LanguageOptions;
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(GenderService) private registerService: GenderService,
@@ -54,52 +54,55 @@ export class AddEditGenderComponent implements OnInit {
     }
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
-            next: (response) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
+            next: (response: ServiceResponse<GenderModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
         });
     }
     addRegister() {
         this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
-            next: (response) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
+            next: (response: ServiceResponse<GenderModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
     updateRegister() {
         this.getValuesForm();
-        //CaptureTologFunc('updateRegister-gender', this.registerModel);
         this.registerService.update(this.registerModel).subscribe({
-            next: (response) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
+            next: (response: ServiceResponse<GenderModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
     }
-    processAddRegister(response: any) {
+    processAddRegister(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processAddRegister-gender', response);
         this.serviceResponse = response;
-        this.modalSuccessAlert();
+        if (response?.errors?.length == 0) {
+            this.modalSuccessAlert();
+        } else {
+            this.modalErroAlert("Error adding!", response);
+        }
         this.goBackToList();
     }
-    processAddRegisterErro(response: any) {
+    processAddRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processAddRegisterErro-gender', response);
-        this.modalErroAlert("Error adding!");
+        this.modalErroAlert("Error adding!", response);
     }
 
-    processUpdateRegister(response: any) {
+    processUpdateRegister(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processUpdateRegister-gender', response);
         this.serviceResponse = response;
         this.modalSuccessAlert();
     }
-    processUpdateRegisterErro(response: any) {
+    processUpdateRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processUpdateRegisterErro-gender', response);
-        this.modalErroAlert("Error update!");
+        this.modalErroAlert("Error update!", response);
     }
 
-    processLoadRegister(response: any) {
+    processLoadRegister(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processLoadRegister-gender', response);
         this.serviceResponse = response;
         this.fillFieldsForm();
         this.isUpdateRegister = true && !this.isModeViewForm;
     }
-    processLoadRegisterErro(response: any) {
+    processLoadRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processLoadRegisterErro-gender', response);
-        this.modalErroAlert("Error load!");
+        this.modalErroAlert("Error load!", response);
     }
     fillFieldsForm(): void {
         let responseData: any = this.serviceResponse?.data;
@@ -168,10 +171,10 @@ export class AddEditGenderComponent implements OnInit {
             icon: "success"
         });
     }
-    modalErroAlert(msgErro: string) {
+    modalErroAlert(msgErro: string, response: ServiceResponse<GenderModel>) {
         swal.fire({
-            title: 'Error!',
-            text: msgErro,
+            title: msgErro,
+            text: GetMsgServiceResponse(response),
             icon: 'error',
             customClass: {
                 confirmButton: "btn btn-fill btn-info",

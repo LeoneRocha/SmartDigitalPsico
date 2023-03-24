@@ -10,7 +10,14 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
         {
             RuleFor(entity => entity.TypeLocationSaveFile)
                 .NotNull().NotEmpty()
-                .WithMessage("A Description não pode ser vazia."); 
+                .WithMessage("A Description não pode ser vazia.");
+
+
+            RuleFor(entity => entity.MedicalId)
+      .NotNull().LessThanOrEqualTo(0)
+      .WithMessage("O Medical deve ser informado.");
+
+
         }
     }
 }

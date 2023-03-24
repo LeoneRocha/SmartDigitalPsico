@@ -9,7 +9,12 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
         {
             RuleFor(entity => entity.Description)
                 .NotNull().NotEmpty()
-                .WithMessage("A Description não pode ser vazia."); 
+                .WithMessage("A Description não pode ser vazia.");
+
+
+            RuleFor(entity => entity.PatientId)
+                .NotNull().LessThanOrEqualTo(0)
+                .WithMessage("O Patient deve ser informado.");
         }
     }
 }

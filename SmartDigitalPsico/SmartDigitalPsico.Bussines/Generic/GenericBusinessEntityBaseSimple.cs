@@ -22,7 +22,6 @@ namespace SmartDigitalPsico.Business.Generic
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
         private readonly IValidator<TEntity> _entityValidator;
-
         protected long UserId { get; private set; }
 
         public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator)
@@ -34,134 +33,201 @@ namespace SmartDigitalPsico.Business.Generic
         public virtual async Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item)
         {
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
+            try
+            {
+                TEntity entityAdd = _mapper.Map<TEntity>(item);
 
-            TEntity entityAdd = _mapper.Map<TEntity>(item);
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
 
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
+                TEntity entityResponse = await _genericRepository.Create(entityAdd);
 
-            TEntity entityResponse = await _genericRepository.Create(entityAdd);
+                response.Data = _mapper.Map<TEntityResult>(entityResponse);
+                response.Success = true;
+                response.Message = "Register Created.";
+            }
+            catch (Exception)
+            { 
+                throw;
+            }
 
-            response.Data = _mapper.Map<TEntityResult>(entityResponse);
-            response.Success = true;
-            response.Message = "Register Created.";
             return response;
         }
         public virtual async Task<ServiceResponse<bool>> Delete(long id)
         {
             ServiceResponse<bool> response = new ServiceResponse<bool>();
-            bool entityResponse = await _genericRepository.Delete(id);
 
-            response.Data = entityResponse;
-            response.Success = true;
-            response.Message = "Register Deleted.";
+            try
+            {
+                bool entityResponse = await _genericRepository.Delete(id);
+
+                response.Data = entityResponse;
+                response.Success = true;
+                response.Message = "Register Deleted.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return response;
         }
         public virtual async Task<ServiceResponse<TEntityResult>> Update(TEntityUpdate item)
         {
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
-
-            bool entityExists = await _genericRepository.Exists(item.Id);
-
-            if (!entityExists)
+            try
             {
-                response.Success = false;
-                response.Message = "Register not found.";
-                return response;
+                bool entityExists = await _genericRepository.Exists(item.Id);
+
+                if (!entityExists)
+                {
+                    response.Success = false;
+                    response.Message = "Register not found.";
+                    return response;
+                }
+
+                var entityUpdate = _mapper.Map<TEntity>(item);
+
+                entityUpdate.ModifyDate = DateTime.Now;
+
+                TEntity entityResponse = await _genericRepository.Update(entityUpdate);
+
+                response.Data = _mapper.Map<TEntityResult>(entityResponse);
+                response.Success = true;
+                response.Message = "Register Updated.";
             }
-
-            var entityUpdate = _mapper.Map<TEntity>(item);
-
-            entityUpdate.ModifyDate = DateTime.Now;
-
-            TEntity entityResponse = await _genericRepository.Update(entityUpdate);
-
-            response.Data = _mapper.Map<TEntityResult>(entityResponse);
-            response.Success = true;
-            response.Message = "Register Updated.";
+            catch (Exception ex)
+            { 
+                throw ex;
+            } 
             return response;
         }
 
         public virtual async Task<ServiceResponse<bool>> Exists(long id)
         {
             ServiceResponse<bool> response = new ServiceResponse<bool>();
-            bool entityResponse = await _genericRepository.Exists(id);
+            try
+            {
+                bool entityResponse = await _genericRepository.Exists(id);
 
-            response.Data = entityResponse;
-            response.Success = true;
-            response.Message = "Register exist.";
+                response.Data = entityResponse;
+                response.Success = true;
+                response.Message = "Register exist.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return response;
         }
         public virtual async Task<ServiceResponse<List<TEntityResult>>> FindAll()
         {
             ServiceResponse<List<TEntityResult>> response = new ServiceResponse<List<TEntityResult>>();
-            List<TEntity> entityResponse = await _genericRepository.FindAll();
+            try
+            {
+                List<TEntity> entityResponse = await _genericRepository.FindAll();
 
-            response.Data = entityResponse.Select(c => _mapper.Map<TEntityResult>(c)).ToList();
+                response.Data = entityResponse.Select(c => _mapper.Map<TEntityResult>(c)).ToList();
 
-            response.Success = true;
-            response.Message = "Register exist.";
+                response.Success = true;
+                response.Message = "Register exist.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return response;
         }
         public virtual async Task<ServiceResponse<TEntityResult>> FindByID(long id)
         {
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
-            TEntity entityResponse = await _genericRepository.FindByID(id);
+            try
+            {
+                TEntity entityResponse = await _genericRepository.FindByID(id);
 
-            if (entityResponse != null)
-            {
-                response.Data = _mapper.Map<TEntityResult>(entityResponse);
-                response.Success = true;
-                response.Message = "Register find.";
+                if (entityResponse != null)
+                {
+                    response.Data = _mapper.Map<TEntityResult>(entityResponse);
+                    response.Success = true;
+                    response.Message = "Register find.";
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Register not found.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                response.Success = false;
-                response.Message = "Register not found.";
+                throw ex;
             }
+
             return response;
         }
         public virtual async Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query)
         {
             ServiceResponse<List<TEntityResult>> response = new ServiceResponse<List<TEntityResult>>();
-            List<TEntity> entityResponse = await _genericRepository.FindWithPagedSearch(query);
+            try
+            {
+                List<TEntity> entityResponse = await _genericRepository.FindWithPagedSearch(query);
 
-            response.Data = entityResponse.Select(c => _mapper.Map<TEntityResult>(c)).ToList();
-            response.Success = true;
-            response.Message = "Register find.";
+                response.Data = entityResponse.Select(c => _mapper.Map<TEntityResult>(c)).ToList();
+                response.Success = true;
+                response.Message = "Register find.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return response;
         }
         public virtual async Task<ServiceResponse<int>> GetCount(string query)
         {
             ServiceResponse<int> response = new ServiceResponse<int>();
-            int entityResponse = await _genericRepository.GetCount(query);
+            try
+            {
+                int entityResponse = await _genericRepository.GetCount(query);
 
-            response.Data = entityResponse;
-            response.Success = true;
-            response.Message = "Registers Counted.";
+                response.Data = entityResponse;
+                response.Success = true;
+                response.Message = "Registers Counted.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return response;
         }
 
         public virtual async Task<ServiceResponse<bool>> EnableOrDisable(long id)
         {
             ServiceResponse<bool> response = new ServiceResponse<bool>();
-
-            bool exists = await _genericRepository.Exists(id);
-            if (!exists)
+            try
             {
-                response.Success = false;
-                response.Message = "Register not found.";
-                return response;
-            }
-            else
-            {
-                response.Success = await _genericRepository.EnableOrDisable(id);
-                if (response.Success)
+                bool exists = await _genericRepository.Exists(id);
+                if (!exists)
                 {
-                    response.Message = "Register updated.";
-                    response.Success = true;
+                    response.Success = false;
+                    response.Message = "Register not found.";
+                    return response;
                 }
+                else
+                {
+                    response.Success = await _genericRepository.EnableOrDisable(id);
+                    if (response.Success)
+                    {
+                        response.Message = "Register updated.";
+                        response.Success = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return response;
         }
@@ -173,13 +239,18 @@ namespace SmartDigitalPsico.Business.Generic
         public virtual async Task<ServiceResponse<TEntityResult>> Validate(TEntity item)
         {
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
+            try
+            {
+                var validationResult = await _entityValidator.ValidateAsync(item);
 
-            var validationResult = await _entityValidator.ValidateAsync(item);
-
-            response.Success = validationResult.IsValid;
-            response.Errors = HelperValidation.GetErrosMap(validationResult);
-            response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
-
+                response.Success = validationResult.IsValid;
+                response.Errors = HelperValidation.GetErrosMap(validationResult);
+                response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return response;
         }
     }

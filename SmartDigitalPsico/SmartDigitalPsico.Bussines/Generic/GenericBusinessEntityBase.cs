@@ -6,6 +6,7 @@ using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.Contracts;
 using SmartDigitalPsico.Repository.Generic.Contracts;
+using System;
 
 namespace SmartDigitalPsico.Business.Generic
 {
@@ -43,10 +44,10 @@ namespace SmartDigitalPsico.Business.Generic
                     response.Message = "Register Created.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                //TODO: GENARATE LOGS
+                throw ex;
             }
 
             return response;
@@ -94,10 +95,10 @@ namespace SmartDigitalPsico.Business.Generic
                     response.Message = "Register Updated.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                //TODO: GENARATE LOGS
+                throw ex;
             }
             return response;
         }
@@ -112,10 +113,10 @@ namespace SmartDigitalPsico.Business.Generic
                 response.Success = true;
                 response.Message = "Register exist.";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                //TODO: GENARATE LOGS
+                throw ex;
             }
             return response;
         }
@@ -133,7 +134,7 @@ namespace SmartDigitalPsico.Business.Generic
             }
             catch (Exception ex)
             {
-
+                //TODO: GENARATE LOGS
                 throw ex;
             }
             return response;
@@ -148,10 +149,10 @@ namespace SmartDigitalPsico.Business.Generic
                 response.Success = true;
                 response.Message = "Register find.";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                //TODO: GENARATE LOGS
+                throw ex;
             }
 
 
@@ -167,10 +168,10 @@ namespace SmartDigitalPsico.Business.Generic
                 response.Success = true;
                 response.Message = "Register find.";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                //TODO: GENARATE LOGS
+                throw ex;
             }
             return response;
         }
@@ -185,10 +186,10 @@ namespace SmartDigitalPsico.Business.Generic
                 response.Success = true;
                 response.Message = "Registers Counted.";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                //TODO: GENARATE LOGS
+                throw ex;
             }
 
             return response;
@@ -218,6 +219,7 @@ namespace SmartDigitalPsico.Business.Generic
             }
             catch (Exception ex)
             {
+                //TODO: GENARATE LOGS
                 throw ex;
             }
             return response;
@@ -239,7 +241,7 @@ namespace SmartDigitalPsico.Business.Generic
             }
             catch (Exception ex)
             {
-
+                //TODO: GENARATE LOGS
                 throw ex;
             }
             return response;

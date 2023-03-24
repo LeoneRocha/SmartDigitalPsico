@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
@@ -12,7 +13,7 @@ using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class MedicalBusiness 
+    public class MedicalBusiness
         : GenericBusinessEntityBase<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO, IMedicalRepository>, IMedicalBusiness
 
     {
@@ -23,7 +24,10 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly ISpecialtyRepository _specialtyRepository;
         IConfiguration _configuration;
         public MedicalBusiness(IMapper mapper, IMedicalRepository entityRepository, IConfiguration configuration,
-            IUserRepository userRepository, IOfficeRepository officeRepository, ISpecialtyRepository specialtyRepository) : base(mapper, entityRepository)
+            IUserRepository userRepository, IOfficeRepository officeRepository
+            , ISpecialtyRepository specialtyRepository
+            , IValidator<Medical> entityValidator)
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -43,11 +47,11 @@ namespace SmartDigitalPsico.Business.Principals
                 return response;
             }
             Medical entityAdd = _mapper.Map<Medical>(item);
-           
+
             #region Relationship
 
-            entityAdd.Office = await _officeRepository.FindByID(item.OfficeId); 
-          
+            entityAdd.Office = await _officeRepository.FindByID(item.OfficeId);
+
             List<Specialty> specialtiesAdd = await _specialtyRepository.FindByIDs(item.SpecialtiesIds);
             entityAdd.Specialties = specialtiesAdd;
 

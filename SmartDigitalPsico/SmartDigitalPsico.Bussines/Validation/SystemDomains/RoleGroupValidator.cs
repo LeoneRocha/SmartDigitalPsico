@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
 using SmartDigitalPsico.Model.Entity.Domains;
 
-namespace SmartDigitalPsico.Business.Validation
+namespace SmartDigitalPsico.Business.Validation.SystemDomains
 {
-    public class GenderValidator : AbstractValidator<Gender>
+    public class RoleGroupValidator : AbstractValidator<RoleGroup>
     {
-        //https://docs.fluentvalidation.net/en/latest/start.html
-        public GenderValidator()
-        { 
+        public RoleGroupValidator()
+        {
             RuleFor(entity => entity.Description)
                 .NotNull().NotEmpty()
                 .WithMessage("A descrição não pode ser vazia.");

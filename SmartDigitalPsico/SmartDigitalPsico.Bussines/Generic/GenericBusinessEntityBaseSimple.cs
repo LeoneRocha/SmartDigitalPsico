@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using SmartDigitalPsico.Business.Generic.Contracts;
+using SmartDigitalPsico.Business.Validation.Helper;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.VO.Contracts;
 using SmartDigitalPsico.Repository.Generic.Contracts;
 
@@ -18,13 +21,15 @@ namespace SmartDigitalPsico.Business.Generic
     {
         private readonly IMapper _mapper;
         private readonly Repo _genericRepository;
+        private readonly IValidator<TEntity> _entityValidator;
 
         protected long UserId { get; private set; }
 
-        public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository)
+        public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator)
         {
             _mapper = mapper;
             _genericRepository = UserRepository;
+            _entityValidator = entityValidator;
         }
         public virtual async Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item)
         {
@@ -158,18 +163,24 @@ namespace SmartDigitalPsico.Business.Generic
                     response.Success = true;
                 }
             }
-
             return response;
         }
 
         public void SetUserId(long id)
         {
             this.UserId = id;
-        } 
+        }
         public virtual async Task<ServiceResponse<TEntityResult>> Validate(TEntity item)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
-        } 
+            ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
+
+            var validationResult = await _entityValidator.ValidateAsync(item);
+
+            response.Success = validationResult.IsValid;
+            response.Errors = HelperValidation.GetErrosMap(validationResult);
+            response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
+
+            return response;
+        }
     }
 }

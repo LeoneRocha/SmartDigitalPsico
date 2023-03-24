@@ -4,9 +4,10 @@ using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Business.Validation;
+using SmartDigitalPsico.Business.Validation.Helper;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
@@ -22,18 +23,16 @@ namespace SmartDigitalPsico.Business.SystemDomains
         private readonly IMapper _mapper;
         private readonly IGenderRepository _genericRepository;
         private readonly ICacheBusiness _cacheBusiness;
-        AuthConfigurationVO _configurationAuth;
-        private readonly IValidator<Gender> _entityValidator;
+        AuthConfigurationVO _configurationAuth; 
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository, ICacheBusiness cacheBusiness,
             IOptions<AuthConfigurationVO> configurationAuth,
-            IValidator<Gender> entityValidator)
-            : base(mapper, entityRepository)
+            IValidator<Gender> entityValidator )
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _genericRepository = entityRepository;
             _cacheBusiness = cacheBusiness;
-            _configurationAuth = configurationAuth.Value;
-            _entityValidator = entityValidator;
+            _configurationAuth = configurationAuth.Value; 
         }
 
         public override async Task<ServiceResponse<List<GetGenderVO>>> FindAll()
@@ -98,8 +97,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
             response.Message = "Register Updated.";
             return response;
 
-        }
-
+        } 
         public async override Task<ServiceResponse<GetGenderVO>> Create(AddGenderVO item)
         {
             ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
@@ -113,19 +111,6 @@ namespace SmartDigitalPsico.Business.SystemDomains
             }
 
             return response;
-        }
-        public async override Task<ServiceResponse<GetGenderVO>> Validate(Gender entity)
-        {
-            ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
-
-            //var validator = new GenderValidator();
-            var validationResult = await _entityValidator.ValidateAsync(entity);
-
-            response.Success = validationResult.IsValid;
-            response.Errors = HelperValidation.GetErrosMap(validationResult);
-            response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
-
-            return response;
-        }
+        } 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SmartDigitalPsico.Business.CacheManager;
@@ -8,9 +7,12 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Principals;
 using SmartDigitalPsico.Business.SystemDomains;
-using SmartDigitalPsico.Business.Validation;
+using SmartDigitalPsico.Business.Validation.PatientValidations;
+using SmartDigitalPsico.Business.Validation.Principals;
+using SmartDigitalPsico.Business.Validation.SystemDomains;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.CacheManager;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -22,7 +24,6 @@ using SmartDigitalPsico.Services.Contracts.Principals;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.Services.SystemDomains;
-using System;
 
 namespace SmartDigitalPsico.WebAPI.Helper
 {
@@ -87,10 +88,7 @@ namespace SmartDigitalPsico.WebAPI.Helper
             //        default:
             //            return serviceProvider.GetService<MemoryCacheService>();
             //    }
-            //});
-
-
-
+            //}); 
             services.AddScoped<IApplicationLanguageBusiness, ApplicationLanguageBusiness>();
             services.AddScoped<IApplicationConfigSettingBusiness, ApplicationConfigSettingBusiness>();
 
@@ -149,9 +147,30 @@ namespace SmartDigitalPsico.WebAPI.Helper
         }
         private static void addValidations(IServiceCollection services)
         {
+            #region SystemDomains
+            services.AddScoped<IValidator<ApplicationConfigSetting>, ApplicationConfigSettingValidator>();
+            services.AddScoped<IValidator<ApplicationLanguage>, ApplicationLanguageValidator>();
             services.AddScoped<IValidator<Gender>, GenderValidator>();
-            services.AddScoped<IValidator<Patient>, PatientValidator>();
+            services.AddScoped<IValidator<Office>, OfficeValidator>();
+            services.AddScoped<IValidator<RoleGroup>, RoleGroupValidator>();
+            services.AddScoped<IValidator<Specialty>, SpecialtyValidator>();
+            #endregion SystemDomains
+
+            #region Principals
             services.AddScoped<IValidator<User>, UserValidator>();
+            services.AddScoped<IValidator<Medical>, MedicalValidator>();
+            services.AddScoped<IValidator<MedicalFile>, MedicalFileValidator>();
+            #endregion Principals
+
+            #region Patient
+            services.AddScoped<IValidator<PatientAdditionalInformation>, PatientAdditionalInformationValidator>();
+            services.AddScoped<IValidator<PatientHospitalizationInformation>, PatientHospitalizationInformationValidator>();
+            services.AddScoped<IValidator<PatientMedicationInformation>, PatientMedicationInformationValidator>();
+            services.AddScoped<IValidator<PatientNotificationMessage>, PatientNotificationMessageValidator>();
+            services.AddScoped<IValidator<PatientRecord>, PatientRecordValidator>();
+            services.AddScoped<IValidator<PatientFile>, PatientFileValidator>();
+            services.AddScoped<IValidator<Patient>, PatientValidator>();
+            #endregion 
         }
 
         #endregion

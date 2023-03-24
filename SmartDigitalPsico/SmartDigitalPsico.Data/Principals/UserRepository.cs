@@ -13,7 +13,7 @@ namespace SmartDigitalPsico.Repository.Principals
 
         public async Task<User> FindByLogin(string login)
         {
-            User userResult = await dataset.Include(e => e.RoleGroups).FirstOrDefaultAsync(p => p.Login.Equals(login));
+            User userResult = await dataset.Include(e => e.RoleGroups).FirstOrDefaultAsync(p => p.Login.ToLower().Trim().Equals(login.ToLower().Trim()));
 
             return userResult;
         }
@@ -86,6 +86,13 @@ namespace SmartDigitalPsico.Repository.Principals
                 }
             }
             return result;
+        }
+
+        public async Task<User> FindByEmail(string value)
+        {
+            User userResult = await dataset.Include(e => e.RoleGroups).FirstOrDefaultAsync(p => p.Email.ToLower().Trim().Equals(value.ToLower().Trim()));
+
+            return userResult;
         }
         #endregion
     }

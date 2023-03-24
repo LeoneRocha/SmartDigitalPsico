@@ -1,24 +1,19 @@
 using AutoMapper;
-using Azure;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Business.Validation;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Domains.Security;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
-using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -31,11 +26,10 @@ namespace SmartDigitalPsico.Business.Principals
         IConfiguration _configuration;
         ITokenConfiguration _configurationToken;
         private readonly ITokenService _tokenService;
-        AuthConfigurationVO _configurationAuth;
-        private readonly IValidator<User> _entityValidator;
+        AuthConfigurationVO _configurationAuth; 
         public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
             , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator)
-            : base(mapper, entityRepository)
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _userRepository = entityRepository;
@@ -43,7 +37,6 @@ namespace SmartDigitalPsico.Business.Principals
             _configurationToken = configurationToken;
             _tokenService = tokenService;
             _configurationAuth = configurationAuth.Value;
-            _entityValidator = entityValidator;
         }
 
         public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string login, string password)
@@ -226,26 +219,6 @@ namespace SmartDigitalPsico.Business.Principals
                 accessToken,
                 refreshToken
                 );
-        }
-         
-        public async override Task<ServiceResponse<GetUserVO>> Validate(User entity)
-        {  
-            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
-             
-            if (await UserExists(entity.Login))
-            {
-                response.Success = false;
-                response.Message = "User already exists.";
-                return response;
-            }
-
-            //var validator = new GenderValidator();
-            var validationResult = await _entityValidator.ValidateAsync(entity);
-
-            response.Success = validationResult.IsValid;
-            response.Errors = HelperValidation.GetErrosMap(validationResult);
-            response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
-            return response;
-        }
+        } 
     }
 }

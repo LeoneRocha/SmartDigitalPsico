@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
@@ -6,11 +7,10 @@ using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Entity.Principals; 
+using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.FileManager;
-using SmartDigitalPsico.Repository.Principals;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -26,7 +26,9 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IRepositoryFileDisk _repositoryFileDisk;
          
         public PatientFileBusiness(IMapper mapper, IPatientFileRepository entityRepository, IConfiguration configuration,
-            IUserRepository userRepository, IPatientRepository patientRepository) : base(mapper, entityRepository)
+            IUserRepository userRepository, IPatientRepository patientRepository
+            , IValidator<PatientFile> entityValidator) 
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _configuration = configuration;

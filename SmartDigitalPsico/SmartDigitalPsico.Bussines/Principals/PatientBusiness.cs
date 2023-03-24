@@ -25,7 +25,8 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IValidator<Patient> _entityValidator;
 
         public PatientBusiness(IMapper mapper, IPatientRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IMedicalRepository medicalRepository
-            , IValidator<Patient> entityValidator) : base(mapper, entityRepository)
+            , IValidator<Patient> entityValidator) 
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -39,7 +40,7 @@ namespace SmartDigitalPsico.Business.Principals
             ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
 
             Patient entityAdd = _mapper.Map<Patient>(item);
-                   
+
             #region Relationship
 
             User userAction = await _userRepository.FindByID(this.UserId);
@@ -84,25 +85,25 @@ namespace SmartDigitalPsico.Business.Principals
             }
             return response;
         }
-        
+
         public override Task<ServiceResponse<GetPatientVO>> Update(UpdatePatientVO item)
         {
-            return base.Update(item);   
-        } 
+            return base.Update(item);
+        }
 
         private async Task<ServiceResponse<GetPatientVO>> validate(AddPatientVO item, Patient entityAdd)
         {
             ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
-             
+
             var patientFinded = await FindByPatient(new GetPatientVO() { Cpf = item.Cpf, Rg = item.Rg, Email = item.Email });
 
             if (patientFinded != null)
             {
                 response.Success = false;
-                response.Message = "Patient already exists."; 
+                response.Message = "Patient already exists.";
             }
 
-            response = await this.Validate(entityAdd); 
+            response = await this.Validate(entityAdd);
             return response;
         }
 

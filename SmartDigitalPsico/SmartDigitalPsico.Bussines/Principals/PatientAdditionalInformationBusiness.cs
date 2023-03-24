@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
@@ -21,7 +22,9 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IPatientAdditionalInformationRepository _entityRepository;
         private readonly IPatientRepository _patientRepository;
 
-        public PatientAdditionalInformationBusiness(IMapper mapper, IPatientAdditionalInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository) : base(mapper, entityRepository)
+        public PatientAdditionalInformationBusiness(IMapper mapper, IPatientAdditionalInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository
+             , IValidator<PatientAdditionalInformation> entityValidator)
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -70,12 +73,12 @@ namespace SmartDigitalPsico.Business.Principals
                 response.Message = "Patients not found.";
                 return response;
             }
-            response.Data = listResult.Select(c => _mapper.Map<GetPatientAdditionalInformationVO>(c)).ToList();  
+            response.Data = listResult.Select(c => _mapper.Map<GetPatientAdditionalInformationVO>(c)).ToList();
             response.Success = true;
             response.Message = "Patients finded.";
             return response;
         }
 
-        
+
     }
 }

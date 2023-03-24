@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -12,7 +13,8 @@ namespace SmartDigitalPsico.Business.SystemDomains
     public class RoleGroupBusiness : GenericBusinessEntityBaseSimple<RoleGroup, AddRoleGroupVO, UpdateRoleGroupVO, GetRoleGroupVO, IRoleGroupRepository>, IRoleGroupBusiness
 
     {
-        public RoleGroupBusiness(IMapper _mapper, IRoleGroupRepository entityRepository)
-            : base(_mapper, entityRepository) { }
+        public RoleGroupBusiness(IMapper _mapper, IRoleGroupRepository entityRepository
+            , IValidator<RoleGroup> entityValidator)
+            : base(_mapper, entityRepository, entityValidator) { }
     }
 }

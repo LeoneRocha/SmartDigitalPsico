@@ -1,20 +1,16 @@
 using AutoMapper;
-using Azure;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Org.BouncyCastle.Utilities;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.FileManager;
-using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -23,14 +19,16 @@ namespace SmartDigitalPsico.Business.Principals
     {
         private ETypeLocationSaveFiles _localSalvar = ETypeLocationSaveFiles.Disk;
         private readonly IMapper _mapper;
-        IConfiguration _configuration; 
+        IConfiguration _configuration;
         private readonly IMedicalFileRepository _entityRepository;
         private readonly IMedicalRepository _medicalRepository;
         private readonly IUserRepository _userRepository;
         private readonly IRepositoryFileDisk _repositoryFileDisk;
 
         public MedicalFileBusiness(IMapper mapper, IMedicalFileRepository entityRepository, IMedicalRepository medicalRepository, IConfiguration configuration
-            , IUserRepository userRepository, IRepositoryFileDisk repositoryFileDisk) : base(mapper, entityRepository)
+            , IUserRepository userRepository, IRepositoryFileDisk repositoryFileDisk
+            , IValidator<MedicalFile> entityValidator)
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -46,7 +44,7 @@ namespace SmartDigitalPsico.Business.Principals
 
         public async Task<bool> PostFileAsync(AddMedicalFileVO entity)
         {
-          
+
             IFormFile fileData = null;
             if (entity != null)
             {

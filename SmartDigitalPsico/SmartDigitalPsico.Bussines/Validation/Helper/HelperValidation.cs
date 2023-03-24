@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartDigitalPsico.Business.Validation
+namespace SmartDigitalPsico.Business.Validation.Helper
 {
     public class HelperValidation
     {

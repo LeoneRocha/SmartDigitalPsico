@@ -86,8 +86,16 @@ namespace SmartDigitalPsico.Business.Generic
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
             try
             {
-                var entityUpdate = _mapper.Map<TEntity>(item);
+                bool entityExists = await _genericRepository.Exists(item.Id); 
+                if (!entityExists)
+                {
+                    response.Success = false;
+                    response.Message = "Register not found.";
+                    return response;
+                } 
+                var entityUpdate = _mapper.Map<TEntity>(item);                
                 response = await Validate(entityUpdate);
+                entityUpdate.ModifyDate = DateTime.Now;
                 if (response.Success)
                 {
                     TEntity entityResponse = await _genericRepository.Update(entityUpdate);

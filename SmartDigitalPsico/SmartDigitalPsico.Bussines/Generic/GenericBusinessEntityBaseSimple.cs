@@ -41,11 +41,13 @@ namespace SmartDigitalPsico.Business.Generic
                 entityAdd.ModifyDate = DateTime.Now;
                 entityAdd.LastAccessDate = DateTime.Now;
 
-                TEntity entityResponse = await _genericRepository.Create(entityAdd);
-
-                response.Data = _mapper.Map<TEntityResult>(entityResponse);
-                response.Success = true;
-                response.Message = "Register Created.";
+                response = await Validate(entityAdd);
+                if (response.Success)
+                {
+                    TEntity entityResponse = await _genericRepository.Create(entityAdd);
+                    response.Data = _mapper.Map<TEntityResult>(entityResponse);
+                    response.Message = "Register Created.";
+                } 
             }
             catch (Exception)
             { 
@@ -85,17 +87,17 @@ namespace SmartDigitalPsico.Business.Generic
                     response.Success = false;
                     response.Message = "Register not found.";
                     return response;
-                }
-
+                } 
                 var entityUpdate = _mapper.Map<TEntity>(item);
-
+                response = await Validate(entityUpdate);
                 entityUpdate.ModifyDate = DateTime.Now;
 
-                TEntity entityResponse = await _genericRepository.Update(entityUpdate);
-
-                response.Data = _mapper.Map<TEntityResult>(entityResponse);
-                response.Success = true;
-                response.Message = "Register Updated.";
+                if (response.Success)
+                {
+                    TEntity entityResponse = await _genericRepository.Update(entityUpdate);
+                    response.Data = _mapper.Map<TEntityResult>(entityResponse);
+                    response.Message = "Register Updated.";
+                } 
             }
             catch (Exception ex)
             { 

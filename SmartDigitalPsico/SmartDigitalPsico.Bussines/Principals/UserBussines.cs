@@ -68,30 +68,35 @@ namespace SmartDigitalPsico.Business.Principals
 
         public async Task<ServiceResponse<GetUserVO>> Register(UserRegisterVO userRegisterVO)
         {
-            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>(); 
-            
-            SecurityHelper.CreatePasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            
-            User entityAdd = _mapper.Map<User>(userRegisterVO);
-             
-            entityAdd.PasswordHash = passwordHash;
-            entityAdd.PasswordSalt = passwordSalt;
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
-            entityAdd.Role = "Pendente";
-            entityAdd.Admin = false;
-
-            response = await this.Validate(entityAdd);
-             
-            if (response.Success)
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
+            try
             {
-                User entityResponse = await _userRepository.Register(entityAdd);
+                SecurityHelper.CreatePasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-                response.Data = _mapper.Map<GetUserVO>(entityResponse); 
-                response.Message = "User registred.";
+                User entityAdd = _mapper.Map<User>(userRegisterVO);
+
+                entityAdd.PasswordHash = passwordHash;
+                entityAdd.PasswordSalt = passwordSalt;
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
+                entityAdd.Role = "Pendente";
+                entityAdd.Admin = false;
+
+                response = await base.Validate(entityAdd);
+
+                if (response.Success)
+                {
+                    User entityResponse = await _userRepository.Register(entityAdd);
+                    response.Data = _mapper.Map<GetUserVO>(entityResponse);
+                    response.Message = "User registred.";
+                }
             }
-        
+            catch (Exception ex)
+            {
+                //TODO: GENARATE LOGS
+                throw ex;
+            } 
             return response;
         }
 

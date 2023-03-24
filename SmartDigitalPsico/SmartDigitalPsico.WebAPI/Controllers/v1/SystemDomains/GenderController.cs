@@ -20,9 +20,9 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 {
     //[Authorize(Roles = "Player")]
     //[Authorize]
-   //[Authorize("Bearer")]
     [ApiController]
     [ApiVersion("1")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class GenderController : ApiBaseController
     {

@@ -9,11 +9,15 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class MedicalFile : FileBase, IEntityBaseLogUser
     {
         #region Relationship 
-         [Required]
-         public Medical Medical { get; set; }
+        [Required]
+        public Medical Medical { get; set; }
+
+        [ForeignKey("MedicalId")]
+        public long MedicalId { get; set; }
+
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
         #endregion Relationship
-          
+
     }
 }

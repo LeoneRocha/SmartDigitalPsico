@@ -11,6 +11,9 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Relationship 
         //[Required]
         public Patient Patient { get; set; }
+
+        [ForeignKey("PatientId")]
+        public long PatientId { get; set; }
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
         #endregion Relationship

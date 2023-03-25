@@ -1,4 +1,5 @@
 using AutoMapper;
+using Azure;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.FileManager;
 
@@ -41,51 +43,74 @@ namespace SmartDigitalPsico.Business.Principals
         {
             return base.EnableOrDisable(id);
         }
+        public override Task<ServiceResponse<GetMedicalFileVO>> Update(UpdateMedicalFileVO item)
+        {
+            throw new NotImplementedException("Not Permission");
+        }
 
         public async Task<bool> PostFileAsync(AddMedicalFileVO entity)
         {
-
-            IFormFile fileData = null;
-            if (entity != null)
-            {
-                fileData = entity.FileDetails;
-                if (fileData != null)
+            ServiceResponse<GetMedicalFileVO> response = new ServiceResponse<GetMedicalFileVO>();
+            try
+            { 
+                IFormFile fileData = null;
+                if (entity != null)
                 {
-                    string extensioFile = fileData.ContentType.Split('/').Last();
-                    entity.Description = fileData.FileName;
-                    entity.FilePath = fileData.FileName;
-                    entity.FileContentType = fileData.ContentType;
-                    entity.FileExtension = extensioFile.Substring(0, 3);
-                    entity.FileSizeKB = fileData.Length / 1024;
+                    fileData = entity.FileDetails;
+                    if (fileData != null)
+                    {
+                        string extensioFile = fileData.ContentType.Split('/').Last();
+                        entity.Description = fileData.FileName;
+                        entity.FilePath = fileData.FileName;
+                        entity.FileContentType = fileData.ContentType;
+                        entity.FileExtension = extensioFile.Substring(0, 3);
+                        entity.FileSizeKB = fileData.Length / 1024;
+                    }
+                }
+
+                MedicalFile entityAdd = _mapper.Map<MedicalFile>(entity);
+
+                #region Relationship
+
+                entityAdd.Medical = await _medicalRepository.FindByID(entity.MedicalId);
+
+                #endregion Relationship
+
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
+                entityAdd.Enable = true;
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityAdd.CreatedUser = userAction;
+
+                response = await base.Validate(entityAdd);
+
+                if (response.Success)
+                {
+                    entityAdd.FilePath = await persistFile(entity, fileData, entityAdd);
+                    MedicalFile entityResponse = await _entityRepository.Create(entityAdd);
                 }
             }
+            catch (Exception)
+            {
 
-            MedicalFile entityAdd = _mapper.Map<MedicalFile>(entity);
-
-            entityAdd.FilePath = await persistFile(entity, fileData, entityAdd);
-
-            #region Relationship
-
-            entityAdd.Medical = await _medicalRepository.FindByID(entity.MedicalId);
-
-            #endregion Relationship
-
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
-            entityAdd.Enable = true;
-
-            User userAction = await _userRepository.FindByID(this.UserId);
-            entityAdd.CreatedUser = userAction;
-
-            MedicalFile entityResponse = await _entityRepository.Create(entityAdd);
-
+                throw;
+            }
             return true;
         }
 
         public async Task<bool> DownloadFileById(long fileId)
         {
+            var userAutenticated = await _userRepository.FindByID(this.UserId);
+
             var fileEntity = await _entityRepository.FindByID(fileId);
+
+            if (userAutenticated != null && fileEntity != null
+                && fileEntity?.Medical?.Id == userAutenticated?.Medical?.Id)
+            {
+                return false;
+            } 
 
             if (fileEntity != null)
             {

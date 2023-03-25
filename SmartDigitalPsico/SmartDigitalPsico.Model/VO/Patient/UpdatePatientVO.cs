@@ -58,7 +58,9 @@ namespace SmartDigitalPsico.Model.VO.Patient
         [MaxLength(20)]
         public string? EmergencyContactPhoneNumber { get; set; }
 
+        public long GenderId { get; set; }
 
-        #endregion 
+
+        #endregion
     }
 }

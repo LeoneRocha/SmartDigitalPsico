@@ -39,13 +39,13 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public bool IsReaded { get; set; }
 
         [Column("ReadingDate")]
-        public DateTime ReadingDate { get; set; }
+        public DateTime? ReadingDate { get; set; }
          
         [Column("Notified")]
         public bool Notified { get; set; }
          
         [Column("NotifiedDate")]
-        public DateTime NotifiedDate { get; set; } 
+        public DateTime? NotifiedDate { get; set; } 
 
         #endregion Columns 
     }

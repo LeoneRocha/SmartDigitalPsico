@@ -49,8 +49,7 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
             .WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem modificar arquivos de outro medico.");
 
             #endregion Relationship
-        }
-
+        } 
         private async Task<bool> MedicalIdFound(MedicalFile entity, long value)
         {
             var entityFind = await _medicalRepository.FindByID(entity.MedicalId);

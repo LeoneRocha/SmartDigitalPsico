@@ -6,6 +6,7 @@ using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
 using SmartDigitalPsico.Repository.Contract.Principals;
 
@@ -33,28 +34,84 @@ namespace SmartDigitalPsico.Business.Principals
         public override async Task<ServiceResponse<GetPatientRecordVO>> Create(AddPatientRecordVO item)
         {
             ServiceResponse<GetPatientRecordVO> response = new ServiceResponse<GetPatientRecordVO>();
+            try
+            { 
+                PatientRecord entityAdd = _mapper.Map<PatientRecord>(item);
 
-            PatientRecord entityAdd = _mapper.Map<PatientRecord>(item);
+                #region Relationship
 
-            #region Relationship
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityAdd.CreatedUser = userAction;
 
-            User userAction = await _userRepository.FindByID(this.UserId);
-            entityAdd.CreatedUser = userAction;
+                Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
+                entityAdd.Patient = patientAdd;
 
-            Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
-            entityAdd.Patient = patientAdd;
+                #endregion Relationship
 
-            #endregion
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
+                response = await base.Validate(entityAdd);
 
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
+                if (response.Success)
+                {
+                    PatientRecord entityResponse = await _entityRepository.Create(entityAdd); 
+                    response.Data = _mapper.Map<GetPatientRecordVO>(entityResponse); 
+                    response.Message = "Patient registred.";
+                }
+            }
+            catch (Exception)
+            {
 
-            PatientRecord entityResponse = await _entityRepository.Create(entityAdd);
+                throw;
+            }
+            return response;
+        } 
+        public override async Task<ServiceResponse<GetPatientRecordVO>> Update(UpdatePatientRecordVO item)
+        {
+            ServiceResponse<GetPatientRecordVO> response = new ServiceResponse<GetPatientRecordVO>();
+            try
+            {
+                PatientRecord entityUpdate = await _entityRepository.FindByID(item.Id);
 
-            response.Data = _mapper.Map<GetPatientRecordVO>(entityResponse);
-            response.Success = true;
-            response.Message = "Patient registred.";
+                #region Set default fields for bussines
+
+                entityUpdate.ModifyDate = DateTime.Now;
+                entityUpdate.LastAccessDate = DateTime.Now;
+
+                #endregion Set default fields for bussines
+
+                #region User Action
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityUpdate.ModifyUser = userAction;
+
+                #endregion User Action
+
+                #region Relationship 
+
+                #endregion Relationship
+
+                #region Columns
+                entityUpdate.Enable = item.Enable; 
+                entityUpdate.Annotation = item.Annotation;
+                entityUpdate.Description = item.Description;
+                entityUpdate.AnnotationDate = item.AnnotationDate;  
+                #endregion Columns
+
+                response = await base.Validate(entityUpdate);
+                if (response.Success)
+                {
+                    PatientRecord entityResponse = await _entityRepository.Update(entityUpdate);
+                    response.Data = _mapper.Map<GetPatientRecordVO>(entityResponse);
+                    response.Message = "Patient Updated.";
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: GENARATE LOGS
+                throw ex;
+            }
             return response;
         }
 

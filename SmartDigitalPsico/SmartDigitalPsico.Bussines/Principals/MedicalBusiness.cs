@@ -8,6 +8,7 @@ using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
@@ -40,14 +41,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetMedicalVO> response = new ServiceResponse<GetMedicalVO>();
             try
-            {
-
-                if (await Exists(item.Accreditation, item.TypeAccreditation))
-                {
-                    response.Success = false;
-                    response.Message = "Medical already exists.";
-                    return response;
-                }
+            {  
                 Medical entityAdd = _mapper.Map<Medical>(item);
 
                 #region Relationship
@@ -65,14 +59,66 @@ namespace SmartDigitalPsico.Business.Principals
 
                 User userAction = await _userRepository.FindByID(this.UserId);
                 entityAdd.CreatedUser = userAction;
+                entityAdd.CreatedUserId = this.UserId;
 
-                entityAdd.CreatedUserId = this.UserId;  
+                response = await base.Validate(entityAdd);
 
-                Medical entityResponse = await _entityRepository.Create(entityAdd);
+                if (response.Success)
+                {
+                    Medical entityResponse = await _entityRepository.Create(entityAdd);
 
-                response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
-                response.Success = true;
-                response.Message = "Medical registred.";
+                    response.Data = _mapper.Map<GetMedicalVO>(entityResponse); 
+                    response.Message = "Medical registred.";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return response;
+        }
+
+        public override async Task<ServiceResponse<GetMedicalVO>> Update(UpdateMedicalVO item)
+        {
+            ServiceResponse<GetMedicalVO> response = new ServiceResponse<GetMedicalVO>();
+            try
+            {
+                Medical entityUpdate = await _entityRepository.FindByID(item.Id);
+                  
+                #region Relationship
+
+                entityUpdate.Office = await _officeRepository.FindByID(item.OfficeId);
+
+                List<Specialty> specialtiesAdd = await _specialtyRepository.FindByIDs(item.SpecialtiesIds);
+                entityUpdate.Specialties = specialtiesAdd;
+
+                #endregion Relationship
+                 
+                entityUpdate.ModifyDate = DateTime.Now;
+                entityUpdate.LastAccessDate = DateTime.Now;
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityUpdate.ModifyUser = userAction;
+                entityUpdate.ModifyUserId = this.UserId;
+
+                #region Columns
+                entityUpdate.Enable = item.Enable;
+                //entityUpdate.Accreditation = item.Accreditation;
+                entityUpdate.Name = item.Name;
+                entityUpdate.Email = item.Email;               
+
+                #endregion Columns
+
+                response = await base.Validate(entityUpdate);
+
+                if (response.Success)
+                {
+                    Medical entityResponse = await _entityRepository.Update(entityUpdate);
+
+                    response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
+                    response.Message = "Medical updated.";
+                }
             }
             catch (Exception ex)
             {

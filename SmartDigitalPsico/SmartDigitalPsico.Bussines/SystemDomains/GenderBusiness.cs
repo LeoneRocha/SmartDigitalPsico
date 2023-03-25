@@ -83,12 +83,9 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
             Gender entityFind = await _genericRepository.FindByID(item.Id);
 
-            //Fields not change 
-            entityUpdate.CreatedDate = entityFind.CreatedDate;
-            entityUpdate.LastAccessDate = entityFind.LastAccessDate;
+            
 
-            //Fields internal change 
-            entityUpdate.ModifyDate = DateTime.Now;
+           
 
             Gender entityResponse = await _genericRepository.Update(entityUpdate);
 
@@ -97,20 +94,6 @@ namespace SmartDigitalPsico.Business.SystemDomains
             response.Message = "Register Updated.";
             return response;
 
-        } 
-        public async override Task<ServiceResponse<GetGenderVO>> Create(AddGenderVO item)
-        {
-            ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
-
-            var entityValidate = _mapper.Map<Gender>(item);
-            response = await this.Validate(entityValidate);
-
-            if (response.Success)
-            {
-                response = await base.Create(item);
-            }
-
-            return response;
-        } 
+        }  
     }
 }

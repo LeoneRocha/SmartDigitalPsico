@@ -30,6 +30,7 @@ namespace SmartDigitalPsico.Repository.Generic
         {
             try
             {
+                //Fields internal change 
                 item.CreatedDate = DateTime.Now;
                 dataset.Add(item);
                 await _context.SaveChangesAsync();
@@ -48,6 +49,9 @@ namespace SmartDigitalPsico.Repository.Generic
             {
                 try
                 {
+                    //Fields internal change 
+                    item.ModifyDate = DateTime.Now;
+
                     _context.Entry(result).CurrentValues.SetValues(item);
                     await _context.SaveChangesAsync();
                     return result;

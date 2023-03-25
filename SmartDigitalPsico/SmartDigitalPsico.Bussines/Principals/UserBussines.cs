@@ -103,26 +103,34 @@ namespace SmartDigitalPsico.Business.Principals
         public override async Task<ServiceResponse<GetUserVO>> Update(UpdateUserVO updateUser)
         {
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
-            User entityUpdate = await _userRepository.FindByID(updateUser.Id);
 
-            bool exists = await UserExists(entityUpdate.Name);
-            if (!exists)
-            {
-                response.Success = false;
-                response.Message = "User not found.";
-                return response;
+            try
+            { 
+                User entityUpdate = await _userRepository.FindByID(updateUser.Id);
+
+                bool exists = await UserExists(entityUpdate.Name);
+                if (!exists)
+                {
+                    response.Success = false;
+                    response.Message = "User not found.";
+                    return response;
+                }
+                entityUpdate.Name = updateUser.Name;
+                entityUpdate.Enable = updateUser.Enable;
+                entityUpdate.Email = updateUser.Email; 
+
+                User entityResponse = await _userRepository.Update(entityUpdate);
+                response.Success = true;
+                response.Data = _mapper.Map<GetUserVO>(entityResponse);
+
+                if (response.Success)
+                    response.Message = "User Updated.";
             }
-            entityUpdate.Name = updateUser.Name;
-            entityUpdate.Enable = updateUser.Enable;
-            entityUpdate.Email = updateUser.Email;
-            entityUpdate.ModifyDate = DateTime.Now;
+            catch (Exception)
+            {
 
-            User entityResponse = await _userRepository.Update(entityUpdate);
-            response.Success = true;
-            response.Data = _mapper.Map<GetUserVO>(entityResponse);
-
-            if (response.Success)
-                response.Message = "User Updated.";
+                throw;
+            }
 
             return response;
         }

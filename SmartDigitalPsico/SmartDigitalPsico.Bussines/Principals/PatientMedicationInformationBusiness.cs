@@ -4,7 +4,9 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
 
@@ -29,32 +31,89 @@ namespace SmartDigitalPsico.Business.Principals
             _patientRepository = patientRepository;
         }
         public override async Task<ServiceResponse<GetPatientMedicationInformationVO>> Create(AddPatientMedicationInformationVO item)
-        {
+        { 
             ServiceResponse<GetPatientMedicationInformationVO> response = new ServiceResponse<GetPatientMedicationInformationVO>();
+            try
+            { 
+                PatientMedicationInformation entityAdd = _mapper.Map<PatientMedicationInformation>(item);
 
-            PatientMedicationInformation entityAdd = _mapper.Map<PatientMedicationInformation>(item);
+                #region Relationship
 
-            #region Relationship
+                User userAction = await _userRepository.FindByID(this.UserId);
+                //entityAdd.CreatedUser = userAction;
 
-            User userAction = await _userRepository.FindByID(this.UserId);
-            //entityAdd.CreatedUser = userAction;
+                Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
+                entityAdd.Patient = patientAdd;
 
-            Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
-            entityAdd.Patient = patientAdd;
+                #endregion
 
-            #endregion
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
 
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
+                response = await base.Validate(entityAdd);
 
-            PatientMedicationInformation entityResponse = await _entityRepository.Create(entityAdd);
+                if (response.Success)
+                {
+                    PatientMedicationInformation entityResponse = await _entityRepository.Create(entityAdd);
 
-            response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse);
-            response.Success = true;
-            response.Message = "Patient registred.";
+                    response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse); 
+                    response.Message = "Patient registred.";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             return response;
         }
+
+        public override async Task<ServiceResponse<GetPatientMedicationInformationVO>> Update(UpdatePatientMedicationInformationVO item)
+        {
+            ServiceResponse<GetPatientMedicationInformationVO> response = new ServiceResponse<GetPatientMedicationInformationVO>();
+            try
+            {
+                PatientMedicationInformation entityUpdate = await _entityRepository.FindByID(item.Id);
+                 
+                entityUpdate.ModifyDate = DateTime.Now;
+                entityUpdate.LastAccessDate = DateTime.Now;
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityUpdate.ModifyUser = userAction;
+                entityUpdate.ModifyUserId = this.UserId;
+
+                #region Columns
+                entityUpdate.Enable = item.Enable;
+                //entityUpdate.Accreditation = item.Accreditation;
+                entityUpdate.StartDate = item.StartDate;
+                entityUpdate.EndDate = item.EndDate;
+                entityUpdate.MainDrug = item.MainDrug;
+                entityUpdate.Description = item.Description;
+                entityUpdate.Dosage = item.Dosage;
+                entityUpdate.Posology = item.Posology;                
+                #endregion Columns
+
+                response = await base.Validate(entityUpdate);
+
+                if (response.Success)
+                {
+                    PatientMedicationInformation entityResponse = await _entityRepository.Update(entityUpdate);
+
+                    response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse);
+                    response.Message = "PatientMedicationInformation updated.";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return response;
+        }
+
+
+
 
         public async Task<ServiceResponse<List<GetPatientMedicationInformationVO>>> FindAllByPatient(long patientId)
         {

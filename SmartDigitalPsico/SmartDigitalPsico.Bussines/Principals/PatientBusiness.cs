@@ -27,7 +27,7 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IValidator<Patient> _entityValidator;
 
         public PatientBusiness(IMapper mapper, IPatientRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IMedicalRepository medicalRepository
-            , IValidator<Patient> entityValidator) 
+            , IValidator<Patient> entityValidator)
             : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
@@ -63,29 +63,93 @@ namespace SmartDigitalPsico.Business.Principals
                 if (response.Success)
                 {
                     #region Relationship
-                      
+
                     Medical medicalAdd = await _medicalRepository.FindByID(item.MedicalId);
                     entityAdd.Medical = medicalAdd;
 
-                    #endregion
+                    //Gender gender = await _genderRepository.FindByID(item.MedicalId);
+                    entityAdd.GenderId = item.GenderId;
 
+                    #endregion Relationship
+                      
                     Patient entityResponse = await _entityRepository.Create(entityAdd);
-                    response.Data = _mapper.Map<GetPatientVO>(entityResponse); 
+                    response.Data = _mapper.Map<GetPatientVO>(entityResponse);
                     response.Message = "Patient registred.";
                 }
             }
             catch (Exception ex)
-            { 
+            {
                 //TODO: GENARATE LOGS
                 throw ex;
-            } 
+            }
             return response;
-        } 
+        }
 
-        public override Task<ServiceResponse<GetPatientVO>> Update(UpdatePatientVO item)
+        public override async Task<ServiceResponse<GetPatientVO>> Update(UpdatePatientVO item)
         {
-            return base.Update(item);
-        } 
+            ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
+            try
+            {
+                Patient entityUpdate = await _entityRepository.FindByID(item.Id);
+
+                #region Set default fields for bussines
+
+                entityUpdate.ModifyDate = DateTime.Now;
+                entityUpdate.LastAccessDate = DateTime.Now;
+
+                #endregion Set default fields for bussines
+
+                #region User Action
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityUpdate.ModifyUser = userAction;
+
+                #endregion User Action
+
+                #region Relationship
+
+                //Gender gender = await _genderRepository.FindByID(item.MedicalId);
+                entityUpdate.GenderId = item.GenderId;
+
+                #endregion Relationship
+                 
+                #region Columns
+                entityUpdate.Enable = item.Enable; 
+                entityUpdate.Name = item.Name;
+                entityUpdate.Email = item.Email;
+                entityUpdate.Cpf = item.Cpf;
+                entityUpdate.Rg = item.Rg;
+                entityUpdate.Education = item.Education;
+                entityUpdate.DateOfBirth = item.DateOfBirth;
+                entityUpdate.PhoneNumber = item.PhoneNumber;
+                entityUpdate.Profession = item.Profession;
+                
+                entityUpdate.EmergencyContactName = item.EmergencyContactName;
+                entityUpdate.EmergencyContactPhoneNumber = item.EmergencyContactPhoneNumber;
+                
+                entityUpdate.AddressCep = item.AddressCep;
+                entityUpdate.AddressCity = item.AddressCity;                
+                entityUpdate.AddressStreet = item.AddressStreet;
+                entityUpdate.AddressState = item.AddressState;
+                entityUpdate.AddressNeighborhood = item.AddressNeighborhood;
+                 
+                #endregion Columns
+
+                response = await base.Validate(entityUpdate);
+                if (response.Success)
+                { 
+                    Patient entityResponse = await _entityRepository.Update(entityUpdate);
+                    response.Data = _mapper.Map<GetPatientVO>(entityResponse);
+                    response.Message = "Patient Updated.";
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: GENARATE LOGS
+                throw ex;
+            }
+            return response;
+        }
 
         public async Task<ServiceResponse<GetPatientVO>> FindByPatient(GetPatientVO info)
         {
@@ -107,7 +171,7 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
 
         }
-                
+
         public Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
         {
             throw new NotImplementedException();

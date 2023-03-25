@@ -101,6 +101,7 @@ namespace SmartDigitalPsico.Services.Generic
         public void SetUserId(long id)
         {
             this.UserId = id;
+            _genericBusiness.SetUserId(id);
         }
     }
 }

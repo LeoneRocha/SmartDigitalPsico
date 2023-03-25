@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.Validation.Helper;
+using SmartDigitalPsico.Business.Validation.PatientValidations;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -71,7 +72,7 @@ namespace SmartDigitalPsico.Business.Principals
                     entityAdd.GenderId = item.GenderId;
 
                     #endregion Relationship
-                      
+
                     Patient entityResponse = await _entityRepository.Create(entityAdd);
                     response.Data = _mapper.Map<GetPatientVO>(entityResponse);
                     response.Message = "Patient registred.";
@@ -112,9 +113,9 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.GenderId = item.GenderId;
 
                 #endregion Relationship
-                 
+
                 #region Columns
-                entityUpdate.Enable = item.Enable; 
+                entityUpdate.Enable = item.Enable;
                 entityUpdate.Name = item.Name;
                 entityUpdate.Email = item.Email;
                 entityUpdate.Cpf = item.Cpf;
@@ -123,21 +124,21 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.DateOfBirth = item.DateOfBirth;
                 entityUpdate.PhoneNumber = item.PhoneNumber;
                 entityUpdate.Profession = item.Profession;
-                
+
                 entityUpdate.EmergencyContactName = item.EmergencyContactName;
                 entityUpdate.EmergencyContactPhoneNumber = item.EmergencyContactPhoneNumber;
-                
+
                 entityUpdate.AddressCep = item.AddressCep;
-                entityUpdate.AddressCity = item.AddressCity;                
+                entityUpdate.AddressCity = item.AddressCity;
                 entityUpdate.AddressStreet = item.AddressStreet;
                 entityUpdate.AddressState = item.AddressState;
                 entityUpdate.AddressNeighborhood = item.AddressNeighborhood;
-                 
+
                 #endregion Columns
 
                 response = await base.Validate(entityUpdate);
                 if (response.Success)
-                { 
+                {
                     Patient entityResponse = await _entityRepository.Update(entityUpdate);
                     response.Data = _mapper.Map<GetPatientVO>(entityResponse);
                     response.Message = "Patient Updated.";
@@ -171,10 +172,52 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
 
         }
-
-        public Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
+        public override async Task<ServiceResponse<List<GetPatientVO>>> FindAll()
         {
+            await Task.Yield();
             throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
+        {
+            ServiceResponse<List<GetPatientVO>> response = new ServiceResponse<List<GetPatientVO>>();
+            try
+            {
+                response = await validAccessToList(medicalId);
+                if (!response.Success)
+                    return response;
+
+                List<Patient> entityResponse = await _entityRepository.FindAllByMedicalId(medicalId);
+
+                response.Data = entityResponse.Select(c => _mapper.Map<GetPatientVO>(c)).ToList();
+
+                response.Success = true;
+                response.Message = "Register exist.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
+
+        private async Task<ServiceResponse<List<GetPatientVO>>> validAccessToList(long medicalId)
+        {
+            ServiceResponse<List<GetPatientVO>> response = new ServiceResponse<List<GetPatientVO>>();
+            response.Success = true;
+
+            User userAction = await _userRepository.FindByID(this.UserId);
+            var validateResult = PatientPermissionMedicalValidator.ValidatePermissionMedical(medicalId, userAction);
+            bool invalidAccess = validateResult != null;
+            if (invalidAccess)
+            {
+                response.Success = false;
+                response.Message = "Erro de permissão.";
+                response.Errors = new List<ErrorResponse>();
+                response.Errors.Add(validateResult);
+                return response;
+            }
+            return response;
         }
     }
 }

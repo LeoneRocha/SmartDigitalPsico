@@ -37,20 +37,27 @@ namespace SmartDigitalPsico.Repository.Principals
         }
         public async override Task<List<Patient>> FindAll()
         {
-            return await dataset
-                .Include(e => e.Medical)
-                .Include(e => e.Gender)
-                //.Include(e => e.PatientAdditionalInformations)
-                //.Include(e => e.PatientHospitalizationInformations)
-                //.Include(e => e.PatientMedicationInformations)
-                //.Include(e => e.PatientRecords)
-                .ToListAsync();
-        } 
-        public async Task<Patient> FindByEmail(string value)
+            await Task.Yield();
+            throw new NotImplementedException();
+        }
+        public async Task<Patient> FindByEmail(string email)
         {
-            Patient entityResult = await dataset.FirstOrDefaultAsync(p => p.Email.ToLower().Trim().Equals(value.ToLower().Trim()));
+            Patient entityResult = await dataset.FirstOrDefaultAsync(p => p.Email.ToLower().Trim().Equals(email.ToLower().Trim()));
 
             return entityResult;
+        }
+
+        public async Task<List<Patient>> FindAllByMedicalId(long medicalId)
+        {
+            return await dataset
+               .Include(e => e.Medical)
+               .Include(e => e.Gender)
+               //.Include(e => e.PatientAdditionalInformations)
+               //.Include(e => e.PatientHospitalizationInformations)
+               //.Include(e => e.PatientMedicationInformations)
+               //.Include(e => e.PatientRecords)
+               .Where(p => p.MedicalId == medicalId) 
+               .ToListAsync();
         }
     }
 }

@@ -128,7 +128,7 @@ namespace SmartDigitalPsico.Business.Generic
             }
             return response;
         }
-        public async Task<ServiceResponse<List<TEntityResult>>> FindAll()
+        public virtual async Task<ServiceResponse<List<TEntityResult>>> FindAll()
         {
             ServiceResponse<List<TEntityResult>> response = new ServiceResponse<List<TEntityResult>>();
             try
@@ -147,7 +147,7 @@ namespace SmartDigitalPsico.Business.Generic
             }
             return response;
         }
-        public async Task<ServiceResponse<TEntityResult>> FindByID(long id)
+        public virtual async Task<ServiceResponse<TEntityResult>> FindByID(long id)
         {
             ServiceResponse<TEntityResult> response = new ServiceResponse<TEntityResult>();
             try
@@ -166,7 +166,7 @@ namespace SmartDigitalPsico.Business.Generic
 
             return response;
         }
-        public async Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query)
+        public virtual async Task<ServiceResponse<List<TEntityResult>>> FindWithPagedSearch(string query)
         {
             ServiceResponse<List<TEntityResult>> response = new ServiceResponse<List<TEntityResult>>();
             try

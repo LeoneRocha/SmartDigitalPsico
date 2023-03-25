@@ -82,11 +82,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
             Gender entityUpdate = _mapper.Map<Gender>(item);
 
             Gender entityFind = await _genericRepository.FindByID(item.Id);
-
-            
-
-           
-
+             
             Gender entityResponse = await _genericRepository.Update(entityUpdate);
 
             response.Data = _mapper.Map<GetGenderVO>(entityResponse);

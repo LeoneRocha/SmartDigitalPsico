@@ -1,6 +1,7 @@
 ﻿using Azure;
 using FluentValidation.Results;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Principals;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,5 +40,7 @@ namespace SmartDigitalPsico.Business.Validation.Helper
         {
             return isValid ? "Valido" : "Ocorram erros.";
         }
+
+       
     }
 }

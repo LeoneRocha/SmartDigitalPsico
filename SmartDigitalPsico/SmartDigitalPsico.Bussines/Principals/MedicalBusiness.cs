@@ -1,13 +1,16 @@
 using AutoMapper;
+using Azure;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.Validation.PatientValidations;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -41,7 +44,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetMedicalVO> response = new ServiceResponse<GetMedicalVO>();
             try
-            {  
+            {
                 Medical entityAdd = _mapper.Map<Medical>(item);
 
                 #region Relationship
@@ -67,7 +70,7 @@ namespace SmartDigitalPsico.Business.Principals
                 {
                     Medical entityResponse = await _entityRepository.Create(entityAdd);
 
-                    response.Data = _mapper.Map<GetMedicalVO>(entityResponse); 
+                    response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
                     response.Message = "Medical registred.";
                 }
             }
@@ -85,7 +88,7 @@ namespace SmartDigitalPsico.Business.Principals
             try
             {
                 Medical entityUpdate = await _entityRepository.FindByID(item.Id);
-                  
+
                 #region Relationship
 
                 entityUpdate.Office = await _officeRepository.FindByID(item.OfficeId);
@@ -94,7 +97,7 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.Specialties = specialtiesAdd;
 
                 #endregion Relationship
-                 
+
                 entityUpdate.ModifyDate = DateTime.Now;
                 entityUpdate.LastAccessDate = DateTime.Now;
 
@@ -106,7 +109,7 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.Enable = item.Enable;
                 //entityUpdate.Accreditation = item.Accreditation;
                 entityUpdate.Name = item.Name;
-                entityUpdate.Email = item.Email;               
+                entityUpdate.Email = item.Email;
 
                 #endregion Columns
 
@@ -139,6 +142,54 @@ namespace SmartDigitalPsico.Business.Principals
         public override Task<ServiceResponse<bool>> Delete(long id)
         {
             return base.EnableOrDisable(id);
+        }
+
+        public override async Task<ServiceResponse<List<GetMedicalVO>>> FindAll()
+        {
+            ServiceResponse<List<GetMedicalVO>> response = new ServiceResponse<List<GetMedicalVO>>();
+
+            response = await validAccessdmin();
+            if (!response.Success)
+                return response;
+
+            return await base.FindAll();
+        }
+        public override async Task<ServiceResponse<GetMedicalVO>> FindByID(long id)
+        {
+            ServiceResponse<GetMedicalVO> response = new ServiceResponse<GetMedicalVO>();
+
+            var validResult = await validAccessdmin();
+            response.Success = validResult.Success;
+            response.Errors = validResult.Errors;
+            response.Message = validResult.Message;
+
+            if (!response.Success)
+                return response;
+
+            response = await base.FindByID(id);
+
+            return response;
+        }
+
+        private async Task<ServiceResponse<List<GetMedicalVO>>> validAccessdmin()
+        {
+            ServiceResponse<List<GetMedicalVO>> response = new ServiceResponse<List<GetMedicalVO>>();
+            response.Success = true;
+
+            User userAction = await _userRepository.FindByID(this.UserId);
+            var validateResult
+                = PatientPermissionMedicalValidator.ValidatePermissionAdmin(userAction);
+            bool invalidAccess = validateResult != null;
+            if (invalidAccess)
+            {
+                response.Success = false;
+                response.Message = "Erro de permissão.";
+                response.Errors = new List<ErrorResponse>();
+                response.Errors.Add(validateResult);
+                return response;
+            }
+            return response;
+
         }
     }
 }

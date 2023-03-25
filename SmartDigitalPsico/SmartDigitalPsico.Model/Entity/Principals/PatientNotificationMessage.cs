@@ -21,6 +21,12 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
+
+        [ForeignKey("CreatedUserId")]
+        public long? CreatedUserId { get; set; }
+
+        [ForeignKey("ModifyUserId")]
+        public long? ModifyUserId { get; set; }
         #endregion Relationship
 
         #region Columns 
@@ -39,7 +45,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public bool Notified { get; set; }
          
         [Column("NotifiedDate")]
-        public DateTime NotifiedDate { get; set; }
+        public DateTime NotifiedDate { get; set; } 
 
         #endregion Columns 
     }

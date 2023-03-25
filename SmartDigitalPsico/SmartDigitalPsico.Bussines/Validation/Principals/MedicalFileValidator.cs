@@ -17,10 +17,25 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
             _medicalRepository = medicalRepository;
             _userRepository = userRepository;
 
-            RuleFor(entity => entity.TypeLocationSaveFile)
-                .NotNull().NotEmpty()
-                .WithMessage("A Description não pode ser vazia.");
-             
+            #region Columns
+            RuleFor(entity => entity.Description)
+                .MaximumLength(255)
+                .WithMessage("O Description não pode ultrapassar {MaxLength} carateres.");
+
+            RuleFor(entity => entity.FilePath)
+                .MaximumLength(2083)
+                .WithMessage("O FilePath não pode ultrapassar {MaxLength} carateres.");
+
+            RuleFor(entity => entity.FileExtension)
+             .MaximumLength(3)
+             .WithMessage("O FileExtension não pode ultrapassar {MaxLength} carateres.");
+
+            RuleFor(entity => entity.FileContentType)
+             .MaximumLength(100)
+             .WithMessage("O FileContentType não pode ultrapassar {MaxLength} carateres.");
+
+            #endregion Columns
+
             #region Relationship
             RuleFor(entity => entity.MedicalId)
             .NotNull().LessThanOrEqualTo(0)

@@ -20,10 +20,15 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
             _medicalRepository = medicalRepository;
             _userRepository = userRepository;
 
-            RuleFor(entity => entity.FollowUp_Neurological)
+            #region Columns
+            RuleFor(entity => entity.FollowUp_Psychiatric)
                 .MaximumLength(2000)
-                .WithMessage("O FollowUp_Neurological não pode ultrapassar {MaxLength} carateres.");
+                .WithMessage("O FollowUp_Psychiatric não pode ultrapassar {MaxLength} carateres.");
 
+            RuleFor(entity => entity.FollowUp_Neurological)
+               .MaximumLength(2000)
+               .WithMessage("O FollowUp_Neurological não pode ultrapassar {MaxLength} carateres.");
+            #endregion Columns
 
             #region Relationship
 
@@ -53,7 +58,7 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
                 return false;
             }
             return true;
-        } 
+        }
         private async Task<bool> PatientIdChanged(PatientAdditionalInformation entity, long value)
         {
             var entityBefore = await _entityRepository.FindByID(entity.Id);

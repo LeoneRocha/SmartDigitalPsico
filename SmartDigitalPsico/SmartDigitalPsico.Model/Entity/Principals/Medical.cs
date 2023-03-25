@@ -16,7 +16,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         public Office Office { get; set; }
         
-        public User? User { get; set; } 
+        public User? User { get; set; }
+        public long? UserId { get; set; }
 
         public List<Specialty> Specialties { get; set; } 
 
@@ -43,6 +44,9 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("SecurityKey", TypeName = "varchar(255)")]
         [MaxLength(255)] 
         public string? SecurityKey { get; set; }
+  
+
+
 
         #endregion Columns 
     }

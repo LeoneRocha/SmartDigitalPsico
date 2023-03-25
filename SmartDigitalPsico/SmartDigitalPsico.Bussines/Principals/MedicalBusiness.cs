@@ -39,37 +39,46 @@ namespace SmartDigitalPsico.Business.Principals
         public override async Task<ServiceResponse<GetMedicalVO>> Create(AddMedicalVO item)
         {
             ServiceResponse<GetMedicalVO> response = new ServiceResponse<GetMedicalVO>();
-
-            if (await Exists(item.Accreditation, item.TypeAccreditation))
+            try
             {
-                response.Success = false;
-                response.Message = "Medical already exists.";
-                return response;
+
+                if (await Exists(item.Accreditation, item.TypeAccreditation))
+                {
+                    response.Success = false;
+                    response.Message = "Medical already exists.";
+                    return response;
+                }
+                Medical entityAdd = _mapper.Map<Medical>(item);
+
+                #region Relationship
+
+                entityAdd.Office = await _officeRepository.FindByID(item.OfficeId);
+
+                List<Specialty> specialtiesAdd = await _specialtyRepository.FindByIDs(item.SpecialtiesIds);
+                entityAdd.Specialties = specialtiesAdd;
+
+                #endregion Relationship
+
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityAdd.CreatedUser = userAction;
+
+                entityAdd.CreatedUserId = this.UserId;  
+
+                Medical entityResponse = await _entityRepository.Create(entityAdd);
+
+                response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
+                response.Success = true;
+                response.Message = "Medical registred.";
             }
-            Medical entityAdd = _mapper.Map<Medical>(item);
+            catch (Exception ex)
+            {
 
-            #region Relationship
-
-            entityAdd.Office = await _officeRepository.FindByID(item.OfficeId);
-
-            List<Specialty> specialtiesAdd = await _specialtyRepository.FindByIDs(item.SpecialtiesIds);
-            entityAdd.Specialties = specialtiesAdd;
-
-            #endregion Relationship
-
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
-
-            User userAction = await _userRepository.FindByID(this.UserId);
-            entityAdd.CreatedUser = userAction;
-
-
-            Medical entityResponse = await _entityRepository.Create(entityAdd);
-
-            response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
-            response.Success = true;
-            response.Message = "Medical registred.";
+                throw ex;
+            }
             return response;
         }
 

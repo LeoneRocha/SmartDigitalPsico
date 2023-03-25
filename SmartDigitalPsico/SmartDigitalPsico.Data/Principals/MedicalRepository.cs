@@ -29,5 +29,18 @@ namespace SmartDigitalPsico.Repository.Principals
                 .Include(e => e.Specialties)
                 .ToListAsync();
         }
+
+        public async Task<Medical> FindByEmail(string value)
+        {
+            Medical entityResult = await dataset.FirstOrDefaultAsync(p => p.Email.ToLower().Trim().Equals(value.ToLower().Trim()));
+
+            return entityResult;
+        } 
+        public async Task<Medical> FindByAccreditation(string value)
+        {
+            Medical entityResult = await dataset.FirstOrDefaultAsync(p => p.Accreditation.ToLower().Trim().Equals(value.ToLower().Trim()));
+
+            return entityResult;
+        }  
     }
 }

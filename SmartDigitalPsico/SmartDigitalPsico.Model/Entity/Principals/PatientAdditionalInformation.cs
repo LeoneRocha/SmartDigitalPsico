@@ -20,7 +20,15 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public long PatientId { get; set; }
 
         public User? CreatedUser { get; set; }
+
+        [ForeignKey("CreatedUserId")]
+        public long? CreatedUserId { get; set; }
+
         public User? ModifyUser { get; set; }
+        [ForeignKey("ModifyUserId")]
+        public long? ModifyUserId { get; set; }
+
+
         #endregion Relationship
 
         #region Columns 
@@ -32,6 +40,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("FollowUp_Neurological", TypeName = "varchar(2000)")]
         [MaxLength(2000)]
         public string? FollowUp_Neurological { get; set; }
+     
 
         #endregion Columns 
     }

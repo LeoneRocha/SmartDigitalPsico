@@ -12,7 +12,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Relationship
         [Required]
         public Medical Medical { get; set; }
-        
+
         [ForeignKey("MedicalId")]
         public long MedicalId { get; set; }
 
@@ -22,7 +22,14 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         public List<PatientRecord> PatientRecords { get; set; }
 
         public User? CreatedUser { get; set; }
+
+        [ForeignKey("CreatedUserId")]
+        public long? CreatedUserId { get; set; }
+
         public User? ModifyUser { get; set; }
+
+        [ForeignKey("ModifyUserId")]
+        public long? ModifyUserId { get; set; }
 
         [Column("Gender")]
         public Gender Gender { get; set; }
@@ -84,6 +91,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("EmergencyContactPhoneNumber", TypeName = "varchar(20)")]
         [MaxLength(20)]
         public string? EmergencyContactPhoneNumber { get; set; }
+
         #endregion
     }
 }

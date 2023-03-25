@@ -6,6 +6,7 @@ namespace SmartDigitalPsico.Repository.Contract.Principals
 {
     public interface IPatientRepository : IRepositoryEntityBase<Patient>
     {
+        Task<Patient> FindByEmail(string value);
         Task<Patient> FindByPatient(Patient info);
     }
 }

@@ -52,14 +52,18 @@ namespace SmartDigitalPsico.Business.Principals
 
                 #endregion Set default fields for bussines
 
+                #region User Action
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityAdd.CreatedUser = userAction;
+
+                #endregion User Action
+
                 response = await base.Validate(entityAdd);
                 if (response.Success)
                 {
                     #region Relationship
-
-                    User userAction = await _userRepository.FindByID(this.UserId);
-                    entityAdd.CreatedUser = userAction;
-
+                      
                     Medical medicalAdd = await _medicalRepository.FindByID(item.MedicalId);
                     entityAdd.Medical = medicalAdd;
 
@@ -103,6 +107,7 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
 
         }
+                
         public Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
         {
             throw new NotImplementedException();

@@ -19,7 +19,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    [Authorize("Bearer")] 
+    [Authorize("Bearer")]
     [Route("api/medical/v{version:apiVersion}/[controller]")]
 
     public class MedicalController : ApiBaseController
@@ -34,13 +34,18 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         {
             _entityService.SetUserId(base.GetUserIdCurrent());
         }
-         
+
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Get()
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindAll());
+            var response = await _entityService.FindAll();
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -48,7 +53,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> GetById(int id)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindByID(id));
+            var response = await _entityService.FindByID(id);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
 
         [HttpPost]
@@ -56,21 +66,26 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> Create(AddMedicalVO newEntity)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.Create(newEntity));
+            var response = await _entityService.Create(newEntity);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response); 
         }
 
         [HttpPut]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<GetMedicalVO>>> Update(UpdateMedicalVO UpdateEntity)
         {
-            this.setUserIdCurrent(); 
+            this.setUserIdCurrent();
             var response = await _entityService.Update(UpdateEntity);
             if (response.Data == null)
             {
                 return NotFound(response);
             }
             return Ok(response);
-        } 
+        }
 
         [HttpDelete("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 

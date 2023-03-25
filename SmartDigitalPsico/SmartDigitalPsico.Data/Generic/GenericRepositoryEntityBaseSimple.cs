@@ -30,6 +30,7 @@ namespace SmartDigitalPsico.Repository.Generic
         {
             try
             {
+                item.CreatedDate = DateTime.Now;
                 dataset.Add(item);
                 await _context.SaveChangesAsync();
                 return item;

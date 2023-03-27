@@ -6,13 +6,9 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
+import { DataTable } from 'app/models/DataTable';
 
 declare var $: any;
-declare interface DataTable {
-    headerRow: string[];
-    footerRow: string[];
-    dataRows: string[][];
-}
 
 @Component({
     moduleId: module.id,
@@ -28,8 +24,8 @@ export class GenderComponent implements OnInit {
 
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router) { }
     ngOnInit() {
-        this.retrieveList();
         this.loadHeaderFooterDataTable();
+        this.retrieveList();
     }
     ngAfterViewInit() {
     }
@@ -47,10 +43,21 @@ export class GenderComponent implements OnInit {
     }
     retrieveList(): void {
         this.registerService.getAll().subscribe({
-            next: (response: any) => { this.listResult = response["data"]; this.loadConfigDataTablesLazzy(); CaptureTologFunc('retrieveList-gender', response); },
+            next: (response: any) => { this.listResult = response["data"]; 
+            this.convertListToDataTableRowAndFill(response["data"]);
+             this.loadConfigDataTablesLazzy();  CaptureTologFunc('retrieveList-gender', response); },
             error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
         });
     }
+    convertListToDataTableRowAndFill(inputArray: any) {
+        //const outputArray = inputArray.map(obj => Object.values(obj)); 
+        let resultData = inputArray.map((item) => {
+            return [item.id, item.description, item.language, item.enable];
+        });
+        this.dataTable.dataRows = resultData;
+        //console.log(resultData);
+    }
+
     executeDeleteRegister(idRegister: number) {
         this.registerService.delete(idRegister).subscribe({
             next: (response: any) => {
@@ -173,9 +180,9 @@ export class GenderComponent implements OnInit {
     }
     loadHeaderFooterDataTable() {
         this.dataTable = {
-            headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            dataRows: []
+            headerRow: ['Id', 'Description', 'Language', 'Enable'],
+            footerRow: ['Id', 'Description', 'Language', 'Enable'],
+            dataRows: [], dataRowsSimple: []
         };
     }
 } 

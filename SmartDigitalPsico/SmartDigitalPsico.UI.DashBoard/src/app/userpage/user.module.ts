@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserComponent } from './user.component';
 import { UserRoutes } from './user.routing';
-import { GenderService } from 'app/services/general/gender.service';
+import { GenderService } from 'app/services/general/simple/gender.service';
 @NgModule({
     imports: [
         CommonModule,

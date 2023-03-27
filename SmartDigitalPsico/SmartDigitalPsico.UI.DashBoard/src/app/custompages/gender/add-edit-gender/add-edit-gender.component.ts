@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GenderService } from 'app/services/general/gender.service';
+import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { GenderModel } from 'app/models/GenderModel';
+import { GenderModel } from 'app/models/SimpleModel/GenderModel';
 import { GetMsgServiceResponse, ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';

@@ -1,4 +1,4 @@
-import { SimpleModel } from "./SimpleModel";
+import { SimpleModel } from "../SimpleModel";
 
 export interface GenderModel extends SimpleModel {
     

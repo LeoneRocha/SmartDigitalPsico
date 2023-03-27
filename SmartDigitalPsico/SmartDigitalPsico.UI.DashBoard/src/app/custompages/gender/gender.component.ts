@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GenderService } from 'app/services/general/gender.service';
+import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
-import { GenderModel } from 'app/models/GenderModel';
+import { GenderModel } from 'app/models/SimpleModel/GenderModel';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';

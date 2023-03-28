@@ -6,9 +6,8 @@ import { GenderService } from 'app/services/general/simple/gender.service';
 import { GenderComponent } from './gender.component';
 import { GenderRoutes } from './gender.routing';
 import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component';
-import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
-import { CountDownTimerComponent } from 'app/common/countdowntimer/countdowntimer.component';
-import { CustomTextActivePipe } from 'app/common/custompipe/customtextactive.pipe'; 
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2'; 
+import { GenericDataTableGrid } from 'app/components/genericdatatablegrid/genericdatatablegrid.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -19,7 +18,8 @@ import { CustomTextActivePipe } from 'app/common/custompipe/customtextactive.pip
     ],
     declarations: [
         GenderComponent,
-        AddEditGenderComponent
+        AddEditGenderComponent,  
+        GenericDataTableGrid
     ]
     ,
     providers: [

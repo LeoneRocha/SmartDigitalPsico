@@ -19,6 +19,7 @@ import { MedicalAuthGuard } from './services/auth/medical-auth-guard.service';
 import { PatientAuthGuard } from './services/auth/patient-auth-guard.service';
 import { CountDownTimerComponent } from './common/countdowntimer/countdowntimer.component';
 import { CustomTextActivePipe } from './common/custompipe/customtextactive.pipe';
+import { GenericDataTableGrid } from './components/genericdatatablegrid/genericdatatablegrid.component';
 //import { GenderService } from './services/general/gender.service';
 
 @NgModule({
@@ -39,8 +40,7 @@ import { CustomTextActivePipe } from './common/custompipe/customtextactive.pipe'
         AppComponent,
         AdminLayoutComponent,
         AuthLayoutComponent,
-        CountDownTimerComponent,
-        CustomTextActivePipe 
+        CountDownTimerComponent
     ],
     bootstrap: [AppComponent],
     providers: [

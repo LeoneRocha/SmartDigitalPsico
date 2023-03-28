@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core'; 
-import { Inject } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
+import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { DataTable } from 'app/models/general/DataTable';
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
 import { OfficeService } from 'app/services/general/simple/office.service';
 
@@ -21,6 +21,7 @@ export class OfficeComponent implements OnInit {
     public listResult: OfficeModel[];
     serviceResponse: ServiceResponse<OfficeModel>;
     public dataTable: DataTable;
+    entityRoute: RouteEntity;
 
     constructor(@Inject(OfficeService) private registerService: OfficeService, @Inject(Router) private router: Router) { }
     ngOnInit() {
@@ -192,7 +193,8 @@ export class OfficeComponent implements OnInit {
         this.dataTable = {
             headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
             footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            dataRows: [], dataRowsSimple: []
+            dataRows: [], dataRowsSimple: [],
+            routes: this.entityRoute
         };
     }
 } 

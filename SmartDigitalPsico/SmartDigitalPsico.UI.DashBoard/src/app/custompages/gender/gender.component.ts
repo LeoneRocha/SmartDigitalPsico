@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { DataTable } from 'app/models/general/DataTable';
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 
 declare var $: any;
 
@@ -21,23 +21,27 @@ export class GenderComponent implements OnInit {
     public listResult: GenderModel[];
     serviceResponse: ServiceResponse<GenderModel>;
     public dataTable: DataTable;
+    entityRoute: RouteEntity;
 
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router) { }
     ngOnInit() {
+       
         this.loadHeaderFooterDataTable();
         this.retrieveList();
+
+       
 
     }
     ngAfterViewInit() {
     }
     newRegister(): void {
-        this.router.navigate(['/administrative/gender/genderaction']);
+        this.router.navigate([this.entityRoute.baseRoute]);
     }
     viewRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'view', id: idRegister }]);
+        this.router.navigate([this.entityRoute.baseRoute, { modeForm: 'view', id: idRegister }]);
     }
     editRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'edit', id: idRegister }]);
+        this.router.navigate([this.entityRoute.baseRoute, { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
@@ -48,8 +52,10 @@ export class GenderComponent implements OnInit {
         this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
+                this.dataTable.dataRows = response["data"];
+                this.dataTable.dataRowsSimple = response["data"];
                 //console.log(this.listResult);
-                this.loadConfigDataTablesLazzy();
+                //this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-gender', response);
             },
@@ -188,11 +194,14 @@ export class GenderComponent implements OnInit {
         });
     }
     loadHeaderFooterDataTable() {
+        this.entityRoute = {
+            baseRoute:"/administrative/gender/genderaction"         };
 
         this.dataTable = {
             headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
             footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            dataRows: [], dataRowsSimple: []
+            dataRows: [], dataRowsSimple: [],
+            routes: this.entityRoute
         };
     }
 } 

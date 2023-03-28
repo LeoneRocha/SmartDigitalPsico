@@ -1,3 +1,5 @@
+https://editor.swagger.io/#/
+
 
 --https://docs.fluentvalidation.net/en/latest/
 https://marcionizzola.medium.com/fa%C3%A7a-valida%C3%A7%C3%B5es-em-c-com-fluentvalidation-e-teste-as-facilmente-ddf72ce01964

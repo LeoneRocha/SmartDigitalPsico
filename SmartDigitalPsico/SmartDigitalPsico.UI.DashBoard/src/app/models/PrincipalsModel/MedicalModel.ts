@@ -1,5 +1,13 @@
-import { BaseEntityModel } from "../BaseEntityModel";
+import { BaseEntityModel } from "../contracts/BaseEntityModel";
+import { ETypeAccreditation } from "../general/eTypeAccreditation";
+import { OfficeModel } from "../simplemodel/OfficeModel";
+import { SpecialtyModel } from "../simplemodel/SpecialtyModel"; 
 
-export interface MedicalModel extends BaseEntityModel {
-    
+export interface MedicalModel extends BaseEntityModel { 
+    office: OfficeModel
+    officeId: number;
+    specialtiesIds: Array<number>;
+    specialties: SpecialtyModel[] 
+    accreditation: string
+    typeAccreditation: ETypeAccreditation 
 }

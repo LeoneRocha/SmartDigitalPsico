@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataTable } from 'app/models/DataTable';
-import { SimpleModel } from 'app/models/SimpleModel';
+import { DataTable } from 'app/models/general/DataTable';
+import { SimpleModel } from 'app/models/contracts/SimpleModel';
 
 declare var $: any;
 @Component({

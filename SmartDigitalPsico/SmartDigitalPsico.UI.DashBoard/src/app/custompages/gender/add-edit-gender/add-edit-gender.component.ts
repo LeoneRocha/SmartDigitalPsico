@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { GenderModel } from 'app/models/SimpleModel/GenderModel';
-import { GetMsgServiceResponse, ServiceResponse } from 'app/models/ServiceResponse';
+import { GenderModel } from 'app/models/simplemodel/GenderModel';
+import {  ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
+import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-gender',

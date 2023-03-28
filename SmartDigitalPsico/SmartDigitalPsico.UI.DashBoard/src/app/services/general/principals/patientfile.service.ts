@@ -4,7 +4,7 @@ import { Inject } from '@angular/core';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { environment } from 'environments/environment'; 
 import { GenericService } from 'app/services/generic/generic.service';  
-import { PatientFileModel } from 'app/models/PrincipalsModel/PatientFileModel';
+import { PatientFileModel } from 'app/models/principalsmodel/PatientFileModel';
 
 const basePathUrl = '/PatientFile/v1';
 @Injectable()

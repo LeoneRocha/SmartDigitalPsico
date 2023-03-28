@@ -1,4 +1,5 @@
-import { SimpleModel } from "../SimpleModel"
+import { SimpleModel } from "../contracts/SimpleModel"
 export interface ApplicationLanguageModel extends SimpleModel {
-    
+    languageKey: string;
+    languageValue: string;
 }

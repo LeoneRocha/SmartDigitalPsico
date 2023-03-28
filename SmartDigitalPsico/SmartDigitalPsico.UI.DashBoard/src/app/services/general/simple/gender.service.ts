@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Inject } from '@angular/core';
-import { GenderModel } from 'app/models/SimpleModel/GenderModel';
+import { GenderModel } from 'app/models/simplemodel/GenderModel';
 import { GenericService } from '../../generic/generic.service';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { environment } from 'environments/environment';

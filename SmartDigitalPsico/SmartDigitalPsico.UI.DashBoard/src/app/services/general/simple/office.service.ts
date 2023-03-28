@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject } from '@angular/core';  
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { environment } from 'environments/environment';
-import { OfficeModel } from 'app/models/SimpleModel/OfficeModel'; 
+import { OfficeModel } from 'app/models/simplemodel/OfficeModel'; 
 import { GenericService } from 'app/services/generic/generic.service';
 
 const basePathUrl = '/Office/v1';

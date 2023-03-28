@@ -1,4 +1,4 @@
-import { SimpleModel } from "../SimpleModel";
+import { SimpleModel } from "../contracts/SimpleModel";
 
 export interface SpecialtyModel extends SimpleModel {
     

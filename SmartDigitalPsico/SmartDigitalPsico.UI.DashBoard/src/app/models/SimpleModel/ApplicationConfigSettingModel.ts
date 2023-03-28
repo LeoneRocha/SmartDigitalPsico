@@ -1,5 +1,6 @@
-import { SimpleModel } from "../SimpleModel";
+import { SimpleModel } from "../contracts/SimpleModel";
 
-export interface ApplicationConfigSettingModel extends SimpleModel {
-    
+export interface ApplicationConfigSettingModel extends SimpleModel {    
+    endPointUrl_StorageFiles: string;
+    endPointUrl_Cache: string;
 }

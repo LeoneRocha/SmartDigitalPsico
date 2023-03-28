@@ -1,5 +1,7 @@
-import { SimpleModel } from "../SimpleModel";
+import { BaseEntityPatientChildModel } from "../contracts/BaseEntityPatientChildModel";
+import { SimpleModel } from "../contracts/SimpleModel";
 
-export interface PatientRecordModel extends SimpleModel {
-    
+export interface PatientRecordModel extends SimpleModel , BaseEntityPatientChildModel{
+    annotation: string;
+    annotationDate: Date;
 }

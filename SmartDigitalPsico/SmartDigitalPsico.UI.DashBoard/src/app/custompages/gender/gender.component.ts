@@ -26,6 +26,7 @@ export class GenderComponent implements OnInit {
     ngOnInit() {
         this.loadHeaderFooterDataTable();
         this.retrieveList();
+
     }
     ngAfterViewInit() {
     }
@@ -42,24 +43,30 @@ export class GenderComponent implements OnInit {
         this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
+
+
         this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
-                //this.convertListToDataTableRowAndFill(response["data"]);
-                this.loadConfigDataTablesLazzy(); CaptureTologFunc('retrieveList-gender', response);
+                //console.log(this.listResult);
+                this.loadConfigDataTablesLazzy();
+                //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
+                CaptureTologFunc('retrieveList-gender', response);
             },
             error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
         });
-    }
-    convertListToDataTableRowAndFill(inputArray: any) {
-        //const outputArray = inputArray.map(obj => Object.values(obj)); 
-        let resultData = inputArray.map((item) => {
-            return [item.id, item.description, item.language, item.enable];
-        });
-        this.dataTable.dataRows = resultData;
-        //console.log(resultData);
-    }
 
+        // alert('You clicked on Like button');
+    }
+    /* convertListToDataTableRowAndFill(inputArray: any) {
+         //const outputArray = inputArray.map(obj => Object.values(obj)); 
+         let resultData = inputArray.map((item) => {
+             return [item.id, item.description, item.language, item.enable];
+         });
+         this.dataTable.dataRows = resultData;
+         //console.log(resultData);
+     }
+ */
     executeDeleteRegister(idRegister: number) {
         this.registerService.delete(idRegister).subscribe({
             next: (response: any) => {
@@ -181,6 +188,7 @@ export class GenderComponent implements OnInit {
         });
     }
     loadHeaderFooterDataTable() {
+
         this.dataTable = {
             headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
             footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],

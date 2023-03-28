@@ -1,32 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GenderService } from 'app/services/general/simple/gender.service';
-import { GenderComponent } from './gender.component';
-import { GenderRoutes } from './gender.routing';
-import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { CountDownTimerComponent } from 'app/common/countdowntimer/countdowntimer.component';
 import { CustomTextActivePipe } from 'app/common/custompipe/customtextactive.pipe'; 
+import { OfficeRoutes } from './office.routing';
+import { OfficeComponent } from './office.component';
+import { OfficeService } from 'app/services/general/simple/office.service';
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule.forChild(GenderRoutes),
+        RouterModule.forChild(OfficeRoutes),
         FormsModule,
         ReactiveFormsModule,
         JwBootstrapSwitchNg2Module,
     ],
     declarations: [
-        GenderComponent,
-        AddEditGenderComponent,
-        CountDownTimerComponent,
-        CustomTextActivePipe 
+        OfficeComponent 
     ]
     ,
     providers: [
-        GenderService
+        OfficeService
     ],
 })
 
-export class GenderModule { }
+export class OfficeModule { }

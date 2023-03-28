@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GenderService } from 'app/services/general/simple/gender.service';
+import { OfficeService } from 'app/services/general/simple/office.service';
 import { Inject } from '@angular/core';
-import { GenderModel } from 'app/models/simplemodel/GenderModel';
+import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
@@ -12,17 +12,17 @@ declare var $: any;
 
 @Component({
     moduleId: module.id,
-    selector: 'genderlist',
-    templateUrl: 'gender.component.html'
-    //styleUrls: ['./gender.component.css']
+    selector: 'office-list',
+    templateUrl: 'office.component.html'
+    //styleUrls: ['./office.component.css']
 })
 
-export class GenderComponent implements OnInit {
-    public listResult: GenderModel[];
-    serviceResponse: ServiceResponse<GenderModel>;
+export class OfficeComponent implements OnInit {
+    public listResult: OfficeModel[];
+    serviceResponse: ServiceResponse<OfficeModel>;
     public dataTable: DataTable;
 
-    constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(OfficeService) private registerService: OfficeService, @Inject(Router) private router: Router) { }
     ngOnInit() {
         this.loadHeaderFooterDataTable();
         this.retrieveList();
@@ -30,24 +30,22 @@ export class GenderComponent implements OnInit {
     ngAfterViewInit() {
     }
     newRegister(): void {
-        this.router.navigate(['/administrative/gender/genderaction']);
+        this.router.navigate(['/administrative/office/officeaction']);
     }
     viewRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'view', id: idRegister }]);
+        this.router.navigate(['/administrative/office/officeaction', { modeForm: 'view', id: idRegister }]);
     }
     editRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'edit', id: idRegister }]);
+        this.router.navigate(['/administrative/office/officeaction', { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
         this.registerService.getAll().subscribe({
-            next: (response: any) => {
-                this.listResult = response["data"];
-                //this.convertListToDataTableRowAndFill(response["data"]);
-                this.loadConfigDataTablesLazzy(); CaptureTologFunc('retrieveList-gender', response);
-            },
+            next: (response: any) => { this.listResult = response["data"]; 
+            this.convertListToDataTableRowAndFill(response["data"]);
+             this.loadConfigDataTablesLazzy();  CaptureTologFunc('retrieveList-Office', response); },
             error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
         });
     }
@@ -63,8 +61,8 @@ export class GenderComponent implements OnInit {
     executeDeleteRegister(idRegister: number) {
         this.registerService.delete(idRegister).subscribe({
             next: (response: any) => {
-                CaptureTologFunc('executeDeleteRegister-gender', response);
-                this.listResult = this.removeItemFromList<GenderModel>(this.listResult, idRegister);
+                CaptureTologFunc('executeDeleteRegister-Office', response);
+                this.listResult = this.removeItemFromList<OfficeModel>(this.listResult, idRegister);
                 this.modalAlertDeleted();
             },
             error: (err) => { this.modalErroAlert('Error of delete.'); }
@@ -182,8 +180,8 @@ export class GenderComponent implements OnInit {
     }
     loadHeaderFooterDataTable() {
         this.dataTable = {
-            headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
+            headerRow: ['Id', 'Description', 'Language', 'Enable'],
+            footerRow: ['Id', 'Description', 'Language', 'Enable'],
             dataRows: [], dataRowsSimple: []
         };
     }

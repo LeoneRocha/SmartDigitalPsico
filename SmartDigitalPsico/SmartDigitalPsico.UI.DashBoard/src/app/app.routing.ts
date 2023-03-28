@@ -22,11 +22,7 @@ export const AppRoutes: Routes = [
             canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/gender/gender.module').then(x => x.GenderModule)
         }    
-        , {
-            path: 'office',
-            canActivate: [AuthGuard, AdminAuthGuard],
-            loadChildren: () => import('./custompages/office/office.module').then(x => x.OfficeModule)
-        }]
+        ]
     },
     {
         path: 'pages',

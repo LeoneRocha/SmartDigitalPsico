@@ -17,6 +17,8 @@ import { AuthGuard } from './services/auth/auth-guard.service';
 import { AdminAuthGuard } from './services/auth/admin-auth-guard.service';
 import { MedicalAuthGuard } from './services/auth/medical-auth-guard.service';
 import { PatientAuthGuard } from './services/auth/patient-auth-guard.service';
+import { CountDownTimerComponent } from './common/countdowntimer/countdowntimer.component';
+import { CustomTextActivePipe } from './common/custompipe/customtextactive.pipe';
 //import { GenderService } from './services/general/gender.service';
 
 @NgModule({
@@ -36,7 +38,9 @@ import { PatientAuthGuard } from './services/auth/patient-auth-guard.service';
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        AuthLayoutComponent
+        AuthLayoutComponent,
+        CountDownTimerComponent,
+        CustomTextActivePipe 
     ],
     bootstrap: [AppComponent],
     providers: [

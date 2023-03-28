@@ -19,9 +19,7 @@ import { CustomTextActivePipe } from 'app/common/custompipe/customtextactive.pip
     ],
     declarations: [
         GenderComponent,
-        AddEditGenderComponent,
-        CountDownTimerComponent,
-        CustomTextActivePipe 
+        AddEditGenderComponent
     ]
     ,
     providers: [

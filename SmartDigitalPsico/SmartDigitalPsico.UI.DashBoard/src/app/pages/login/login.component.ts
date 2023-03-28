@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserLoginModel } from 'app/models/UserLoginModel';
+import { ActivatedRoute, Router } from '@angular/router'; 
+import { UserLoginModel } from 'app/models/usermodels/UserLoginModel';
 import { AuthService } from 'app/services/auth/auth.service';
 
 declare var $: any;

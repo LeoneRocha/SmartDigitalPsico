@@ -3,11 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Inject } from '@angular/core';
 import { GenericService } from '../generic/generic.service';
 import { ServiceResponse } from 'app/models/ServiceResponse';
-import { environment } from 'environments/environment';
-import { RoleGroup, TokenAuth, UserAutenticateModel, UserAutenticateView, UserLoginModel } from 'app/models/UserLoginModel';
+import { environment } from 'environments/environment'; 
 import { catchError, map, throwError } from 'rxjs';
 import { AppError } from 'app/common/app-error';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserAutenticateModel } from 'app/models/usermodels/UserAutenticateModel'; 
+import { TokenAuth } from 'app/models/general/TokenAuth';
+import { UserAutenticateView } from 'app/models/usermodels/UserAutenticateView';
+import { RoleGroupModel } from 'app/models/simplemodel/RoleGroupModel';
+import { UserLoginModel } from 'app/models/usermodels/UserLoginModel';
  
 const basePathUrl = '/Auth/v1';
 @Injectable()
@@ -57,7 +61,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     //console.log(userLoaded);
     return userLoaded;
   }
-  getRolesUser(): RoleGroup[] {
+  getRolesUser(): RoleGroupModel[] {
     let userLoaded: UserAutenticateView = this.getLocalStorageUser();
    
     if (userLoaded != null && userLoaded != undefined)
@@ -68,7 +72,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
 
   isUserContainsRole(roleCheck: string): boolean {
     let isUserContainRole: boolean = false;
-    const userRoles: RoleGroup[] = this.getRolesUser();
+    const userRoles: RoleGroupModel[] = this.getRolesUser();
     //const roleFinded: RoleGroup = userRoles.find(role => role?.rolePolicyClaimCode?.toUpperCase().trim() == roleCheck?.toUpperCase().trim());    
     //if (roleFinded) { isUserContainRole = true };
     if (userRoles != null && userRoles != undefined)

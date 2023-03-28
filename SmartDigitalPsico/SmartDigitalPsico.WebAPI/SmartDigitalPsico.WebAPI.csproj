@@ -10,11 +10,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
   </ItemGroup>
@@ -22,6 +25,13 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartDigitalPsico.Model\SmartDigitalPsico.Model.csproj" />
     <ProjectReference Include="..\SmartDigitalPsico.Services\SmartDigitalPsico.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="dbmigration\" />
+    <Folder Include="ResourcesFileSave\" />
+    <Folder Include="ResourcesTemp\Cache\" />
+    <Folder Include="ResourcesTemp\FilesUpaload\" />
   </ItemGroup>
 
 </Project>

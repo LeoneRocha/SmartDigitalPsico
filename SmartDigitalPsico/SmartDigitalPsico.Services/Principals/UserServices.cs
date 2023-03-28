@@ -1,15 +1,16 @@
 using AutoMapper;
 using SmartDigitalPsico.Business.Contracts.Principals;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.VO.User;
-using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Generic;
-using SmartDigitalPsico.Services.Contracts.Principals;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Patient;
+using SmartDigitalPsico.Model.VO.User;
+using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class UserServices : GenericServicesEntityBase<User, IUserBusiness, GetUserVO>, IUserServices
+    public class UserServices 
+        : GenericServicesEntityBase<User,AddUserVO, UpdateUserVO, GetUserVO, IUserBusiness>, IUserServices
 
     { 
         private readonly IUserBusiness _userBusiness;
@@ -29,9 +30,9 @@ namespace SmartDigitalPsico.Services.Principals
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserVO>> Login(string username, string password)
+        public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string username, string password)
         {
-            var serviceResponse = new ServiceResponse<GetUserVO>();
+            var serviceResponse = new ServiceResponse<GetUserAuthenticatedVO>();
 
             serviceResponse = await _userBusiness.Login(username, password);
 
@@ -54,15 +55,6 @@ namespace SmartDigitalPsico.Services.Principals
             serviceResponse = await _userBusiness.Register(newEntity);
 
             return serviceResponse;
-        }
-
-        public async Task<ServiceResponse<GetUserVO>> UpdateUser(UpdateUserVO updateEntity)
-        {
-            var serviceResponse = new ServiceResponse<GetUserVO>();
-
-            serviceResponse = await _userBusiness.UpdateUser(updateEntity);
-
-            return serviceResponse;
-        }
+        } 
     }
 }

@@ -1,0 +1,51 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
+using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.Services.Generic;
+
+namespace SmartDigitalPsico.Services.Principals
+{
+    public class MedicalFileServices : GenericServicesEntityBaseSimple<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileBusiness>, IMedicalFileServices
+    {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMedicalFileBusiness _entityBusiness;
+        private readonly IMapper _mapper; 
+        public MedicalFileServices(IMapper mapper, IMedicalFileBusiness entityBusiness, IHttpContextAccessor httpContextAccessor)
+            : base(mapper, entityBusiness)
+        {
+            _mapper = mapper;
+            _entityBusiness = entityBusiness;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public async Task<bool> DownloadFileById(long fileId)
+        {
+            try
+            { 
+                return await _entityBusiness.DownloadFileById(fileId); 
+            }
+            catch (Exception)
+            {
+                throw;
+            } 
+            return false;
+        }
+
+      
+        public async Task<bool> PostFileAsync(AddMedicalFileVOService entity)
+        {
+            try
+            {
+                AddMedicalFileVO entityAdd = _mapper.Map<AddMedicalFileVO>(entity);                 
+                return await _entityBusiness.PostFileAsync(entityAdd); 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+}

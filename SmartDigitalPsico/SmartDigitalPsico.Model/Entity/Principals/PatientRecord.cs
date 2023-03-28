@@ -11,8 +11,18 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Relationship 
         [Required]
         public Patient Patient { get; set; }
+
+        [ForeignKey("PatientId")]
+        public long PatientId { get; set; }
+
         public User? CreatedUser { get; set; }
         public User? ModifyUser { get; set; }
+
+        [ForeignKey("CreatedUserId")]
+        public long? CreatedUserId { get; set; }
+
+        [ForeignKey("ModifyUserId")]
+        public long? ModifyUserId { get; set; }
         #endregion Relationship
 
         #region Columns 
@@ -22,7 +32,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Required]
         public string Description { get; set; }
 
-        [Column("Annotation", TypeName = "varchar(max)")] 
+        [Column("Annotation")] 
         [Required]
         public string Annotation { get; set; }
          

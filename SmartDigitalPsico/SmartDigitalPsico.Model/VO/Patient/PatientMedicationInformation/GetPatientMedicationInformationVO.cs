@@ -1,10 +1,11 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using SmartDigitalPsico.Model.VO.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation
 {
-    public class GetPatientMedicationInformationVO : ISupportsHyperMedia
+    public class GetPatientMedicationInformationVO : EntityVOBase, ISupportsHyperMedia
     {
         public long Id { get; set; }
         //MUDAR AS RELACOES PARA OBJETOS  

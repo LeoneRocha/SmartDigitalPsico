@@ -1,15 +1,13 @@
-using SmartDigitalPsico.Business.Generic.Contracts;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Generic.Contracts;
 using SmartDigitalPsico.Model.VO.Medical;
-using SmartDigitalPsico.Model.VO.Patient;
-using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Contracts.Principals
 {
-    public interface IMedicalServices : IGenericServicesEntityBase<Medical, GetMedicalVO>
+    public interface IMedicalServices
+     //   : IGenericServicesEntityBase<Medical, GetMedicalVO>
+    : IGenericServicesEntityBase<Medical, AddMedicalVO, UpdateMedicalVO, GetMedicalVO>
     {
-        Task<ServiceResponse<GetMedicalVO>> Create(AddMedicalVO item);
+
     }
 }

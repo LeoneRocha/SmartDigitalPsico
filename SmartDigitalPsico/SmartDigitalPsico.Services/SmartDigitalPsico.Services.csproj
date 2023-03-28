@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+ 
     <ProjectReference Include="..\SmartDigitalPsico.Bussines\SmartDigitalPsico.Business.csproj" />
+ 
     <ProjectReference Include="..\SmartDigitalPsico.Dominio\SmartDigitalPsico.Domains.csproj" />
     <ProjectReference Include="..\SmartDigitalPsico.Model\SmartDigitalPsico.Model.csproj" /> 
   </ItemGroup>

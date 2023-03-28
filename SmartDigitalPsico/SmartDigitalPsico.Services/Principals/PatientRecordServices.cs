@@ -10,7 +10,7 @@ using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.Principals
 {
-    public class PatientRecordServices : GenericServicesEntityBaseSimple<PatientRecord, IPatientRecordBusiness, GetPatientRecordVO>, IPatientRecordServices
+    public class PatientRecordServices : GenericServicesEntityBaseSimple<PatientRecord, AddPatientRecordVO, UpdatePatientRecordVO, GetPatientRecordVO, IPatientRecordBusiness>, IPatientRecordServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPatientRecordBusiness _entityBusiness;
@@ -20,16 +20,7 @@ namespace SmartDigitalPsico.Services.Principals
         {
             _entityBusiness = entityBusiness;
             _httpContextAccessor = httpContextAccessor;
-        }
-
-        public async Task<ServiceResponse<GetPatientRecordVO>> Create(AddPatientRecordVO item)
-        {
-            var serviceResponse = new ServiceResponse<GetPatientRecordVO>(); 
-            serviceResponse = await _entityBusiness.Create(item);
-
-            return serviceResponse;
-        }
-
+        }  
         public async Task<ServiceResponse<List<GetPatientRecordVO>>> FindAllByPatient(long patientId)
         {
 

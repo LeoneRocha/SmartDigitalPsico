@@ -1,21 +1,13 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.Contracts.Interface;
+using SmartDigitalPsico.Model.VO.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage
 {
-    public class UpdatePatientNotificationMessageVO : ISupportsHyperMedia, IEntityVOUserLog
-    {
-        [Required]
-        public long IdUserAction { get; set; }
-
-        [Required]
-        public long Id { get; set; }
-        public bool Enable { get; set; }
-
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
-
+    public class UpdatePatientNotificationMessageVO : EntityVOBase
+    { 
         #region Columns  
         [MaxLength(2000)]
         [Required]

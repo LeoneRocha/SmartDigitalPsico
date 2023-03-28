@@ -6,9 +6,8 @@ using SmartDigitalPsico.Services.Generic.Contracts;
 
 namespace SmartDigitalPsico.Services.Contracts.Principals
 {
-    public interface IPatientRecordServices : IGenericServicesEntityBaseSimple<PatientRecord, GetPatientRecordVO>
-    {
-        Task<ServiceResponse<GetPatientRecordVO>> Create(AddPatientRecordVO item);
+    public interface IPatientRecordServices : IGenericServicesEntityBaseSimple<PatientRecord, AddPatientRecordVO, UpdatePatientRecordVO, GetPatientRecordVO>
+    { 
         Task<ServiceResponse<List<GetPatientRecordVO>>> FindAllByPatient(long patientId);
     }
 }

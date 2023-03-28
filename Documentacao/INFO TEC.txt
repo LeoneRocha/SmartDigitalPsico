@@ -1,0 +1,316 @@
+https://editor.swagger.io/#/ GERADOR PELO SWAGFGER
+
+
+--https://docs.fluentvalidation.net/en/latest/
+https://marcionizzola.medium.com/fa%C3%A7a-valida%C3%A7%C3%B5es-em-c-com-fluentvalidation-e-teste-as-facilmente-ddf72ce01964
+
+https://pablo-christian.medium.com/%EF%B8%8F-validando-dados-com-fluent-validation-em-uma-aplica%C3%A7%C3%A3o-mvc-e-webapi-6024c20b4924
+
+
+https://blog.christian-schou.dk/how-to-use-fluentvalidation-in-asp-net-core6/
+
+https://stackoverflow.com/questions/13406270/fluentvalidation-unique-name-validation-using-database
+https://stackoverflow.com/questions/63058233/is-it-a-good-practice-to-inject-dbcontext-or-repository-into-fluent-validation-v
+----------------------------------
+https://refactoring.guru/design-patterns/factory-method
+
+npm install @auth0/angular-jwt --save
+
+https://www.bezkoder.com/angular-14-jwt-auth/
+
+
+//TODO: 150. Protecting Routes Based on the User's Role
+
+https://www.creative-tim.com/product/light-bootstrap-dashboard-pro-angular2
+https://www.wrappixel.com/templates/materialpro-angular-dashboard/#demos
+https://www.codeproject.com/Articles/5348357/Localizing-ASP-NET-Core-MVC-Applications-from-Data
+******
+https://www.wrappixel.com/
+https://github.com/AndrewJBateman/angular-api-project#camera-screenshots
+https://github.com/rakesh-kumar-t/AngularDotnetCore
+https://github.com/bezkoder/angular-15-crud-example
+
+------------------ IMPLANTAR UPLLOAD ARQUIVO 
+
+https://www.c-sharpcorner.com/article/upload-single-and-multiple-files-using-the-net-core-6-web-api/
+https://www.macoratti.net/20/02/aspc_apimgup1.htm
+https://learn.microsoft.com/pt-br/aspnet/core/mvc/models/file-uploads?view=aspnetcore-7.0
+
+https://www.google.com/search?q=c%23+net+core+rest+api+upload+file+example&rlz=1C1VDKB_pt-PTBR1004BR1004&sxsrf=AJOqlzVArmRliuU5u7dG8LEOGkNV7Ou9PA%3A1678108826645&ei=mugFZMz-JqXf1sQPqviE2Aw&ved=0ahUKEwjMs4bEssf9AhWlr5UCHSo8AcsQ4dUDCA8&uact=5&oq=c%23+net+core+rest+api+upload+file+example&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIICCEQoAEQwwQ6CggAEEcQ1gQQsAM6BwgjELACECc6CggAEAgQHhANEBM6CgghEKABEMMEEAo6BQgAEKIESgQIQRgAUOMLWJ8iYJspaAJwAXgAgAG8AYgBiwySAQQwLjEwmAEAoAEByAEIwAEB&sclient=gws-wiz-serp
+
+https://code-maze.com/upload-files-dot-net-core-angular/
+https://stackoverflow.com/questions/50223606/aspnetcore-uploading-a-file-through-rest
+------------------ IMPLANTAR CRIPTOGRAFIA ARQUIVO E NAS COLUNAS DE DADOS PESSOAIS DO PACIENTE E DAS ANOTACOES.
+
+https://github.com/matthewschrager/Repository/tree/master/Repository.Azure
+
+1) CRIAR REPOSITORIO DE SALVAR ARQUIVO E RECUPERAR ARQUIVO E LER E JOGAR EM MEMORIA BYTE[]
+07/03/23 ---------- ok 
+2) CRIAR CAMADA DE NEGOCIO PARA GERAR O OBJETO DE CACHE E TRANSFORMAR EM JSON E SALVAR EM ARQUIVO 
+08/03/23 ---------- ok 
+
+3) TERMINAR O MEDICAL FILE E PATIENTE FILE   ---------- ok
+
+4) FAZER O MOCK DE CONFIG   ---------- ok
+
+5) ARRUMAR HATEOS 
+*** ADD -- ARRUMAS OS OBJETOS ADD DA API PRA SEGUIR IGUAL AO FILE 
+*** UPDATE -- ARRUMAS OS OBJETOS ADD DA API PRA SEGUIR IGUAL AO FILE 
+*** GET -  ARRUMAR AS RESPOSTAS DA API COM O HEATOES E OS RELACIONAMENTOS
+
+6) ARRUMAR O EF DAS ENTIDADES PRINCIPAIS PARA SEGUIR IGUAL AS DE DOMAINS E SYSTEM
+GenericServicesEntityBaseSimpleV2 === GenericServicesEntityBase
+Com os objetos indivitual para cada acao
+
+------------------  
+
+
+https://fullcalendar.io/
+
+dotnet ef migrations add SmartDigitalPsicoDBMig
+
+--------------REMOVE 
+dotnet ef database update 0
+dotnet ef migrations remove
+
+
+
+
+
+
+a - Criando a migra??o
+
+Para criar a migra??o no VS 2019 Community podemos abrir a janela do Package Manager Console (PMC) e digitar o comando:   
+
+Add-Migration  SmartDigitalPsicoDBMig [options]
+
+dotnet ef migrations add SmartDigitalPsicoDBMig [options]
+
+Este comando precisa do pacote Microsoft.EntityFrameworkCore.Tools instalado para funcionar.
+
+Usando o VS Code e a ferramenta de linha de comando CLI o comando ?:
+
+dotnet ef migrations add NomeDaMigra??o [options]
+
+Para este comando funcionar temos instalar a ferramenta de linha de comando do EF Core globalmente usando o comando:
+
+dotnet tool install --global dotnet-ef
+
+
+https://localhost:5001/swagger/index.html
+
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+
+dotnet tool install --global dotnet-ef
+
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+cd .\SmartDigitalPsico.Data
+enable-migrations
+add-migration InitialCreate
+
+
+
+dotnet ef migrations add InitialCreate	
+
+dotnet ef migrations add User
+
+dotnet ef migrations add UserCharacterRelationship
+
+dotnet ef database update
+ 
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+dotnet add package Swashbuckle.AspNetCore.Filters
+
+dotnet ef migrations add Weapon
+
+dotnet ef database update
+
+dotnet ef migrations add Skill
+
+dotnet ef database update
+
+dotnet ef migrations add SkillSeeding 
+
+dotnet ef database update
+
+dotnet ef migrations add CharacterPropeties
+
+dotnet watch run
+
+
+dotnet ef migrations add Role
+
+
+
+ if (typeValueT is ServiceResponseHypermedia<T> serviceResponse)
+                {
+                    if (serviceResponse.Data is T model)
+                    {
+                        await EnrichModel(model, urlHelper);
+                    }
+                    else if (serviceResponse.Data is List<T> collection)
+                    {
+                        ConcurrentBag<T> bag = new ConcurrentBag<T>(collection);
+                        Parallel.ForEach(bag, (element) =>
+                        {
+                            EnrichModel(element, urlHelper);
+                        });
+                    }
+                }
+
+
+            int idObject = 0;
+            try
+            {
+                var obId = content.Data.GetType().GetProperty("Id");
+                //percorrer se for uma lista e oegar o id de cada item 
+                if (obId != null)
+                {
+                    int.TryParse(obId.GetValue(content.Data, null).ToString(), out idObject);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+                     //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<ServiceResponse<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetGenderVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetOfficeVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetGenderVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetOfficeVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetSpecialtyVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetSpecialtyVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetUserVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetUserVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetMedicalVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetMedicalVO>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<List<GetPatientVO>>());
+            //filterOptions.ContentResponseEnricherList.Add(new ServiceResponseEnricher<GetPatientVO>());
+
+
+
+a - Criando a migra??o
+
+Para criar a migra??o no VS 2019 Community podemos abrir a janela do Package Manager Console (PMC) e digitar o comando:   
+
+Add-Migration  SmartDigitalPsicoDBMig [options]
+
+dotnet ef migrations add SmartDigitalPsicoDBMig [options]
+
+Este comando precisa do pacote Microsoft.EntityFrameworkCore.Tools instalado para funcionar.
+
+Usando o VS Code e a ferramenta de linha de comando CLI o comando ?:
+
+dotnet ef migrations add NomeDaMigra??o [options]
+
+Para este comando funcionar temos instalar a ferramenta de linha de comando do EF Core globalmente usando o comando:
+
+dotnet tool install --global dotnet-ef
+
+
+  
+
+ 
+Psicologia Social 
+ 
+  
+
+
+=== Medico EMPRESA
+
+Nome: 
+Cargo:
+Especialidades:
+CRP/CRM: 
+
+ 
+Name:
+Office:
+Specialties:
+CRP/CRM:
+
+
+
+=== IDENTIFICACAO 
+
+PACIENTE (NOME) 
+
+DATA DE NASCIMENTO : 
+GÊNEREO: 
+CPF: 
+RG: 
+Profissão 
+ESCOLARIDADE:  
+Estado civil 
+Telefone
+EMAIL 
+ENDERECO 
+BAIRRO 
+CIDADE 
+ESTADO  
+
+Contato emergencia (nome): 
+Telefone: 
+
+
+PATIENT (NAME)
+
+DATE OF BIRTH :
+GENDER:
+CPF:
+RG:
+Profession XXXXXXXXXXXXXXXXXXXXXX
+EDUCATION:
+marital status
+Telephone
+EMAIL
+ADDRESS
+NEIGHBORHOOD
+CITY
+STATE
+
+Emergency contact (name):
+Telephone:
+
+Emergency contact (name):
+Telephone:
+
+
+
+=== INFORMAÇÔES COMPLEMENTARES 
+
+Acompanhamento pisiquiatrico:
+Acompanhamento neurologico:
+
+#Lista de medicação#
+Medicação: | Inicio:(DATA) 
+
+#Lista de INTERNACOES#
+
+Descrição: | Inicio:(DATA)  Fim:(DATA)   CID: 
+
+OBSERVACOES. 
+*******************************************************************
+Psychiatric follow-up:
+Neurological follow-up:
+
+# Medication list#
+Medication: | Start: (DATE)
+
+# INTERNATIONAL LIST#
+
+Description: | Start:(DATE) End:(DATE) CID:
+
+COMMENTS.
+*********************************************************************
+
+=== INFORMAÇÔES COMPLEMENTARES 
+
+PRONTUARIO 
+
+DATA: QUEIXA INICIAL 

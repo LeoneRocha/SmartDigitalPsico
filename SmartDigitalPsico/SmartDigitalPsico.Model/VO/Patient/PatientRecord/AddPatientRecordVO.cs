@@ -1,16 +1,13 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.Contracts.Interface;
+using SmartDigitalPsico.Model.VO.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientRecord
 {
-    public class AddPatientRecordVO : ISupportsHyperMedia, IEntityVOUserLog
-    {
-        [Required]
-        public long IdUserAction { get; set; }
-
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+    public class AddPatientRecordVO : IEntityVOAdd
+    { 
         #region Relationship 
         [Required]
         public long PatientId { get; set; }

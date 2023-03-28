@@ -1,16 +1,20 @@
 using AutoMapper;
+using FluentValidation;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Domains.AddVOs;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
+using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
-    public class RoleGroupBusiness : GenericBusinessEntityBaseSimple<RoleGroup, IRoleGroupRepository, GetRoleGroupVO>, IRoleGroupBusiness
+    public class RoleGroupBusiness : GenericBusinessEntityBaseSimple<RoleGroup, AddRoleGroupVO, UpdateRoleGroupVO, GetRoleGroupVO, IRoleGroupRepository>, IRoleGroupBusiness
 
     {
-        public RoleGroupBusiness(IMapper _mapper, IRoleGroupRepository entityRepository)
-            : base(_mapper, entityRepository) { }
+        public RoleGroupBusiness(IMapper _mapper, IRoleGroupRepository entityRepository
+            , IValidator<RoleGroup> entityValidator)
+            : base(_mapper, entityRepository, entityValidator) { }
     }
 }

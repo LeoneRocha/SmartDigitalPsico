@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SmartDigitalPsico.Model.Contracts.Interface;
 
@@ -6,7 +7,10 @@ namespace SmartDigitalPsico.Model.Contracts
 {
     public abstract class EntityBaseSimple : IEntityBaseLog
     {
+        
         [Column("Id", Order = 0)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [Column("Enable", Order = 1)]

@@ -3,7 +3,6 @@ using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO;
 using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
@@ -11,7 +10,14 @@ using SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
-using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
+using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
+using SmartDigitalPsico.Model.VO.Domains.AddVOs;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
+using SmartDigitalPsico.Model.VO.Patient.PatientFile;
+using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.VO.Contracts;
 
 namespace SmartDigitalPsico.Model.Mapper
 {
@@ -20,36 +26,96 @@ namespace SmartDigitalPsico.Model.Mapper
         public AutoMapperProfile()
         {
             #region EntityBase
+             
+            CreateMap<EntityBase , EntityVOBaseName>();
+            CreateMap<EntityVOBaseName, EntityBase >(); 
 
-            CreateMap<EntityBaseSimple, EntityVOBaseSimple>();
-            CreateMap<EntityVOBaseSimple, EntityBaseSimple>();
-
+            CreateMap<EntityBaseSimple, EntityVOBaseDomain>();
+            CreateMap<EntityVOBaseDomain, EntityBaseSimple>();
+              
             #endregion
+
+            #region ApplicationConfigSetting
+            CreateMap<ApplicationConfigSetting, GetApplicationConfigSettingVO>();
+            CreateMap<GetApplicationConfigSettingVO, ApplicationConfigSetting>();
+
+            CreateMap<AddApplicationConfigSettingVO, ApplicationConfigSetting>();
+            CreateMap<UpdateApplicationConfigSettingVO, ApplicationConfigSetting>();
+
+            #endregion  ApplicationConfigSetting
+
+            #region ApplicationLanguage
+            CreateMap<ApplicationLanguage, GetApplicationLanguageVO>();
+            CreateMap<GetApplicationLanguageVO, ApplicationLanguage>();
+
+            CreateMap<AddApplicationConfigSettingVO, ApplicationLanguage>();
+            CreateMap<UpdateApplicationConfigSettingVO, ApplicationLanguage>();
+
+            #endregion  ApplicationLanguage
+
+            #region PatientFile
+            CreateMap<AddPatientFileVOService, AddPatientFileVO>();
+
+            CreateMap<PatientFile, GetPatientFileVO>();
+            CreateMap<GetPatientFileVO, PatientFile>();
+
+            CreateMap<AddPatientFileVO, PatientFile>();
+            CreateMap<UpdatePatientFileVO, PatientFile>();
+
+            #endregion  PatientFile
+
+            #region MedicalFile
+            CreateMap<AddMedicalFileVOService, AddMedicalFileVO>();
+
+
+            CreateMap<MedicalFile, GetMedicalFileVO>();
+            CreateMap<GetPatientFileVO, MedicalFile>();
+
+            CreateMap<AddMedicalFileVO, MedicalFile>();
+            CreateMap<UpdateMedicalFileVO, MedicalFile>();
+
+            #endregion  MedicalFile
 
             #region Gender
             CreateMap<Gender, GetGenderVO>();
             CreateMap<GetGenderVO, Gender>();
+
+            CreateMap<AddGenderVO, Gender>();
+            CreateMap<UpdateGenderVO, Gender>();
 
             #endregion  Gender
 
             #region Office
             CreateMap<Office, GetOfficeVO>();
             CreateMap<GetOfficeVO, Office>();
-             
+
+
+            CreateMap<AddOfficeVO, Office>();
+            CreateMap<UpdateOfficeVO, Office>();
+
             #endregion Office
 
             #region RoleGroup
             CreateMap<RoleGroup, GetRoleGroupVO>();
-            CreateMap<GetRoleGroupVO, RoleGroup>(); 
+            CreateMap<GetRoleGroupVO, RoleGroup>();
+
+            CreateMap<AddRoleGroupVO, RoleGroup>();
+            CreateMap<UpdateRoleGroupVO, RoleGroup>();
+
+
             #endregion RoleGroup
 
             #region Specialty
             CreateMap<Specialty, GetSpecialtyVO>();
-            CreateMap<GetSpecialtyVO, Specialty>(); 
+            CreateMap<GetSpecialtyVO, Specialty>();
+             
+            CreateMap<AddSpecialtyVO, Specialty>();
+            CreateMap<UpdateSpecialtyVO, Specialty>(); 
             #endregion Specialty
 
             #region USER
-            CreateMap<User, GetUserVO>();
+            CreateMap<User, GetUserVO>(); 
+            CreateMap<User, GetUserAuthenticatedVO>();
             CreateMap<GetUserVO, User>();
             CreateMap<UpdateUserVO, User>();
             CreateMap<UserLoginVO, User>();

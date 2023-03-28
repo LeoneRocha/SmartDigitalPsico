@@ -7,16 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Converter\Implementations\**" />
+    <EmbeddedResource Remove="Converter\Implementations\**" />
+    <None Remove="Converter\Implementations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Entity\Domains\Configurations\CacheConfiguration.cs~RFcea0ce0.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SmartDigitalPsico.Dominio\SmartDigitalPsico.Domains.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Converter\Implementations\" />
   </ItemGroup>
 
 </Project>

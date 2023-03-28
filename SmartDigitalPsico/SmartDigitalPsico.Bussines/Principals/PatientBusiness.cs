@@ -1,19 +1,23 @@
 using AutoMapper;
+using Azure;
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Domains.Enuns;
+using SmartDigitalPsico.Business.Validation.Helper;
+using SmartDigitalPsico.Business.Validation.PatientValidations;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using System.Text;
 
 namespace SmartDigitalPsico.Business.Principals
 {
-    public class PatientBusiness : GenericBusinessEntityBase<Patient, IPatientRepository, GetPatientVO>, IPatientBusiness
+    public class PatientBusiness : GenericBusinessEntityBase<Patient, AddPatientVO, UpdatePatientVO, GetPatientVO, IPatientRepository>, IPatientBusiness
 
     {
         private readonly IMapper _mapper;
@@ -21,50 +25,130 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IUserRepository _userRepository;
         private readonly IPatientRepository _entityRepository;
         private readonly IMedicalRepository _medicalRepository;
+        private readonly IValidator<Patient> _entityValidator;
 
-        public PatientBusiness(IMapper mapper, IPatientRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IMedicalRepository medicalRepository) : base(mapper, entityRepository)
+        public PatientBusiness(IMapper mapper, IPatientRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IMedicalRepository medicalRepository
+            , IValidator<Patient> entityValidator)
+            : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _configuration = configuration;
             _entityRepository = entityRepository;
             _userRepository = userRepository;
             _medicalRepository = medicalRepository;
+            _entityValidator = entityValidator;
         }
-
-
-        public async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
+        public override async Task<ServiceResponse<GetPatientVO>> Create(AddPatientVO item)
         {
             ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
-
-            var patientFinded = await FindByPatient(new GetPatientVO() { Cpf = item.Cpf, Rg = item.Rg, Email = item.Email });
-
-            if (patientFinded != null)
+            try
             {
-                response.Success = false;
-                response.Message = "Patient already exists.";
-                return response;
+                Patient entityAdd = _mapper.Map<Patient>(item);
+
+                #region Set default fields for bussines
+
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
+
+                #endregion Set default fields for bussines
+
+                #region User Action
+
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityAdd.CreatedUser = userAction;
+
+                #endregion User Action
+
+                response = await base.Validate(entityAdd);
+                if (response.Success)
+                {
+                    #region Relationship
+
+                    Medical medicalAdd = await _medicalRepository.FindByID(item.MedicalId);
+                    entityAdd.Medical = medicalAdd;
+
+                    //Gender gender = await _genderRepository.FindByID(item.MedicalId);
+                    entityAdd.GenderId = item.GenderId;
+
+                    #endregion Relationship
+
+                    Patient entityResponse = await _entityRepository.Create(entityAdd);
+                    response.Data = _mapper.Map<GetPatientVO>(entityResponse);
+                    response.Message = "Patient registred.";
+                }
             }
-            Patient entityAdd = _mapper.Map<Patient>(item);
-              
-            #region Relationship
+            catch (Exception ex)
+            {
+                //TODO: GENARATE LOGS
+                throw ex;
+            }
+            return response;
+        }
 
-            User userAction = await _userRepository.FindByID(item.IdUserAction);
-            entityAdd.CreatedUser = userAction;
+        public override async Task<ServiceResponse<GetPatientVO>> Update(UpdatePatientVO item)
+        {
+            ServiceResponse<GetPatientVO> response = new ServiceResponse<GetPatientVO>();
+            try
+            {
+                Patient entityUpdate = await _entityRepository.FindByID(item.Id);
 
-            Medical medicalAdd = await _medicalRepository.FindByID(item.MedicalId);
-            entityAdd.Medical = medicalAdd;
+                #region Set default fields for bussines
 
-            #endregion
+                entityUpdate.ModifyDate = DateTime.Now;
+                entityUpdate.LastAccessDate = DateTime.Now;
 
-            entityAdd.CreatedDate = DateTime.Now;
-            entityAdd.ModifyDate = DateTime.Now;
-            entityAdd.LastAccessDate = DateTime.Now;
+                #endregion Set default fields for bussines
 
-            Patient entityResponse = await _entityRepository.Create(entityAdd);
+                #region User Action
 
-            response.Data = _mapper.Map<GetPatientVO>(entityResponse);
-            response.Success = true;
-            response.Message = "Patient registred.";
+                User userAction = await _userRepository.FindByID(this.UserId);
+                entityUpdate.ModifyUser = userAction;
+
+                #endregion User Action
+
+                #region Relationship
+
+                //Gender gender = await _genderRepository.FindByID(item.MedicalId);
+                entityUpdate.GenderId = item.GenderId;
+
+                #endregion Relationship
+
+                #region Columns
+                entityUpdate.Enable = item.Enable;
+                entityUpdate.Name = item.Name;
+                entityUpdate.Email = item.Email;
+                entityUpdate.Cpf = item.Cpf;
+                entityUpdate.Rg = item.Rg;
+                entityUpdate.Education = item.Education;
+                entityUpdate.DateOfBirth = item.DateOfBirth;
+                entityUpdate.PhoneNumber = item.PhoneNumber;
+                entityUpdate.Profession = item.Profession;
+
+                entityUpdate.EmergencyContactName = item.EmergencyContactName;
+                entityUpdate.EmergencyContactPhoneNumber = item.EmergencyContactPhoneNumber;
+
+                entityUpdate.AddressCep = item.AddressCep;
+                entityUpdate.AddressCity = item.AddressCity;
+                entityUpdate.AddressStreet = item.AddressStreet;
+                entityUpdate.AddressState = item.AddressState;
+                entityUpdate.AddressNeighborhood = item.AddressNeighborhood;
+
+                #endregion Columns
+
+                response = await base.Validate(entityUpdate);
+                if (response.Success)
+                {
+                    Patient entityResponse = await _entityRepository.Update(entityUpdate);
+                    response.Data = _mapper.Map<GetPatientVO>(entityResponse);
+                    response.Message = "Patient Updated.";
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: GENARATE LOGS
+                throw ex;
+            }
             return response;
         }
 
@@ -87,6 +171,53 @@ namespace SmartDigitalPsico.Business.Principals
             response.Message = "Patient finded.";
             return response;
 
+        }
+        public override async Task<ServiceResponse<List<GetPatientVO>>> FindAll()
+        {
+            await Task.Yield();
+            throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<List<GetPatientVO>>> FindAll(long medicalId)
+        {
+            ServiceResponse<List<GetPatientVO>> response = new ServiceResponse<List<GetPatientVO>>();
+            try
+            {
+                response = await validAccessToList(medicalId);
+                if (!response.Success)
+                    return response;
+
+                List<Patient> entityResponse = await _entityRepository.FindAllByMedicalId(medicalId);
+
+                response.Data = entityResponse.Select(c => _mapper.Map<GetPatientVO>(c)).ToList();
+
+                response.Success = true;
+                response.Message = "Register exist.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
+
+        private async Task<ServiceResponse<List<GetPatientVO>>> validAccessToList(long medicalId)
+        {
+            ServiceResponse<List<GetPatientVO>> response = new ServiceResponse<List<GetPatientVO>>();
+            response.Success = true;
+
+            User userAction = await _userRepository.FindByID(this.UserId);
+            var validateResult = PatientPermissionMedicalValidator.ValidatePermissionMedical(medicalId, userAction);
+            bool invalidAccess = validateResult != null;
+            if (invalidAccess)
+            {
+                response.Success = false;
+                response.Message = "Erro de permissão.";
+                response.Errors = new List<ErrorResponse>();
+                response.Errors.Add(validateResult);
+                return response;
+            }
+            return response;
         }
     }
 }

@@ -8,16 +8,19 @@ namespace SmartDigitalPsico.Model.Entity.Domains
 {
     [Table("RoleGroups", Schema = "dbo")]
     public class RoleGroup : EntityBaseSimple, IEntityBaseDomains
-    { 
+    {
         public List<User> Users { get; set; }
 
         [Column("Description", TypeName = "varchar(255)")]
         [MaxLength(255)]
         public string Description { get; set; }
 
-        [Column("Language", TypeName = "char(5)")]
-        [MaxLength(5)]
+        [Column("Language", TypeName = "varchar(10)")]
+        [MaxLength(10)]
         public string Language { get; set; }
 
+        [Column("RolePolicyClaimCode", TypeName = "varchar(255)")]
+        [MaxLength(255)]
+        public string RolePolicyClaimCode { get; set; }
     }
 }

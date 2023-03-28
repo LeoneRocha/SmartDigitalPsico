@@ -1,19 +1,16 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using SmartDigitalPsico.Business.Principals;
-using SmartDigitalPsico.Model.VO.User;
-using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Services.Generic;
-using System.Security.Claims;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
+using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.VO.Domains.AddVOs;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
+using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 using SmartDigitalPsico.Services.Contracts.SystemDomains;
-using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Services.Generic;
 
 namespace SmartDigitalPsico.Services.SystemDomains
 {
-    // public class  : GenericServicesEntityBaseSimple<, IGenderBusiness, EntityVOBaseSimple>, IGenderService
-    public class SpecialtyServices : GenericServicesEntityBaseSimple<Specialty, ISpecialtyBusiness, GetSpecialtyVO>, ISpecialtyServices
+     public class SpecialtyServices 
+        : GenericServicesEntityBaseSimple<Specialty, AddSpecialtyVO, UpdateSpecialtyVO, GetSpecialtyVO, ISpecialtyBusiness>,ISpecialtyServices
 
     {
         private readonly ISpecialtyBusiness _entityBusiness;

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,33 +7,24 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
-using SmartDigitalPsico.Business.Contracts.Principals;
-using SmartDigitalPsico.Business.Contracts.SystemDomains;
-using SmartDigitalPsico.Business.Principals;
-using SmartDigitalPsico.Business.SystemDomains;
-using SmartDigitalPsico.Domains.Hypermedia.Abstract;
-using SmartDigitalPsico.Domains.Hypermedia.Filters;
-using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Hypermedia.Enricher;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using SmartDigitalPsico.Domains.Enuns;
+using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.Context;
-using SmartDigitalPsico.Repository.Contract.Principals;
-using SmartDigitalPsico.Repository.Contract.SystemDomains;
-using SmartDigitalPsico.Repository.Principals;
-using SmartDigitalPsico.Repository.SystemDomains;
-using SmartDigitalPsico.Services.Contracts.Principals;
-using SmartDigitalPsico.Services.Contracts.SystemDomains;
-using SmartDigitalPsico.Services.Principals;
-using SmartDigitalPsico.Services.SystemDomains;
+using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Text;
 
 namespace SmartDigitalPsico.WebAPI
 {
@@ -48,8 +40,16 @@ namespace SmartDigitalPsico.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var tokenConfigurations = new TokenConfiguration();
+            //
+            addGetAppConfig(services, tokenConfigurations);
+
+            //For In-Memory Caching
+            addCaching(services);
+
             //Security API
-            addSecurity(services);
+            addSecurity(services, tokenConfigurations);
 
             //AcceptHeader 
             services.AddControllers();
@@ -61,7 +61,7 @@ namespace SmartDigitalPsico.WebAPI
             addAcceptHeader(services);
 
             //HyperMediaFilterOptions
-            addHyperMedia(services);
+            HyperMediaHelper.AddHyperMedia(services);
 
             //Documenacao
             addDoc(services);
@@ -70,72 +70,33 @@ namespace SmartDigitalPsico.WebAPI
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             //ORM API
-            addORM(services);
+            addORM(services, TypeDataBase.MSsqlServer);
 
             //Versioning API
             addVersionning(services);
 
             //Dependency Injection
-            addDependenciesInjection(services);
+            DependenciesInjectionHelper.AddDependenciesInjection(services);
         }
 
-        private void addHyperMedia(IServiceCollection services)
+        private void addGetAppConfig(IServiceCollection services, TokenConfiguration tokenConfigurations)
         {
-            var filterOptions = new HyperMediaFilterOptions();
 
-            filterOptions.ContentResponseEnricherList.Add(new GetGenderVOEnricher());
+            services.Configure<CacheConfigurationVO>(Configuration.GetSection("CacheConfiguration"));
 
-            services.AddSingleton(filterOptions);
+            services.Configure<AuthConfigurationVO>(Configuration.GetSection("AuthConfiguration"));
+
+
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(Configuration.GetSection("TokenConfigurations"))
+                .Configure(tokenConfigurations);
+            services.AddSingleton(tokenConfigurations);
         }
 
-        private void addAcceptHeader(IServiceCollection services)
+        private void addCaching(IServiceCollection services)
         {
-            //AcceptHeader
-            services.AddMvc(options =>
-            {
-                options.RespectBrowserAcceptHeader = true;
-
-                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
-                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
-            })
-            .AddXmlSerializerFormatters();
+            services.AddMemoryCache();
         }
 
-        private void addCors(IServiceCollection services)
-        {
-            services.AddCors(options => options.AddDefaultPolicy(builder =>
-            {
-                builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            }));
-        }
-
-        private void addDependenciesInjection(IServiceCollection services)
-        {
-            addRepositories(services);
-            addBusiness(services);
-            addServices(services);
-            addDependencies(services);
-        }
-
-        private void addVersionning(IServiceCollection services)
-        {
-            services.AddApiVersioning();
-            //services.AddApiVersioning(options =>
-            //{
-            //    options.ReportApiVersions = true;
-            //    options.AssumeDefaultVersionWhenUnspecified = true;
-            //    options.DefaultApiVersion = new ApiVersion(1, 0);
-            //}); 
-            //services.AddVersionedApiExplorer(options =>
-            //{
-            //    options.GroupNameFormat = "'v'V";
-            //    options.SubstituteApiVersionInUrl = true;
-            //});
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -147,6 +108,13 @@ namespace SmartDigitalPsico.WebAPI
             addAutoMigrate(app);
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"ResourcesTemp")),
+                RequestPath = new PathString("/ResourcesTemp")
+            });
 
             app.UseRouting();
 
@@ -169,94 +137,96 @@ namespace SmartDigitalPsico.WebAPI
                 //HyperMedia
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
+
+
         }
 
-        private void addAutoMigrate(IApplicationBuilder app)
+        #region PRIVATES
+
+        #region AcceptHeader
+        private void addAcceptHeader(IServiceCollection services)
         {
-            //// Migrate latest database changes during startup
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //AcceptHeader
+            services.AddMvc(options =>
             {
-                var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
-                context.Database.Migrate();
-            }
-        }
+                options.RespectBrowserAcceptHeader = true;
 
-        #region INTERFACES
-        private void addRepositories(IServiceCollection services)
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+            .AddXmlSerializerFormatters();
+        }
+        #endregion
+
+        #region Cors
+        private void addCors(IServiceCollection services)
         {
-            //services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IMedicalRepository, MedicalRepository>();
-
-            #region PATIENT
-            services.AddScoped<IPatientRepository, PatientRepository>();
-            services.AddScoped<IPatientRecordRepository, PatientRecordRepository>();
-            services.AddScoped<IPatientMedicationInformationRepository, PatientMedicationInformationRepository>();
-            services.AddScoped<IPatientHospitalizationInformationRepository, PatientHospitalizationInformationRepository>();
-            services.AddScoped<IPatientAdditionalInformationRepository, PatientAdditionalInformationRepository>();
-            services.AddScoped<IPatientNotificationMessageRepository, PatientNotificationMessageRepository>();
-            #endregion PATIENT
-
-            services.AddScoped<IGenderRepository, GenderRepository>();
-            services.AddScoped<IOfficeRepository, OfficeRepository>();
-            services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
-            services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
-
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
         }
-        private void addBusiness(IServiceCollection services)
+        #endregion
+
+        #region Version
+        private void addVersionning(IServiceCollection services)
         {
-            services.AddScoped<IUserBusiness, UserBusiness>();
-            services.AddScoped<IMedicalBusiness, MedicalBusiness>();
-            services.AddScoped<IOfficeBusiness, OfficeBusiness>();
-            services.AddScoped<IRoleGroupBusiness, RoleGroupBusiness>();
-            services.AddScoped<IGenderBusiness, GenderBusiness>();
-            services.AddScoped<ISpecialtyBusiness, SpecialtyBusiness>();
-
-            #region PATIENT
-            services.AddScoped<IPatientBusiness, PatientBusiness>();
-            services.AddScoped<IPatientRecordBusiness, PatientRecordBusiness>();
-            services.AddScoped<IPatientMedicationInformationBusiness, PatientMedicationInformationBusiness>();
-            services.AddScoped<IPatientHospitalizationInformationBusiness, PatientHospitalizationInformationBusiness>();
-            services.AddScoped<IPatientAdditionalInformationBusiness, PatientAdditionalInformationBusiness>();
-            services.AddScoped<IPatientNotificationMessageBusiness, PatientNotificationMessageBusiness>();
-            #endregion PATIENT 
+            services.AddApiVersioning();
+            //services.AddApiVersioning(options =>
+            //{
+            //    options.ReportApiVersions = true;
+            //    options.AssumeDefaultVersionWhenUnspecified = true;
+            //    options.DefaultApiVersion = new ApiVersion(1, 0);
+            //}); 
+            //services.AddVersionedApiExplorer(options =>
+            //{
+            //    options.GroupNameFormat = "'v'V";
+            //    options.SubstituteApiVersionInUrl = true;
+            //});
         }
-
-        private void addServices(IServiceCollection services)
-        {
-            services.AddScoped<IUserServices, UserServices>();
-            services.AddScoped<IMedicalServices, MedicalServices>();
-            services.AddScoped<IGenderServices, GenderServices>();
-            services.AddScoped<IOfficeServices, OfficeServices>();
-            services.AddScoped<IRoleGroupServices, RoleGroupServices>();
-            services.AddScoped<ISpecialtyServices, SpecialtyServices>();
-
-            #region PATIENT
-            services.AddScoped<IPatientServices, PatientServices>();
-            services.AddScoped<IPatientRecordServices, PatientRecordServices>();
-            services.AddScoped<IPatientMedicationInformationServices, PatientMedicationInformationServices>();
-            services.AddScoped<IPatientHospitalizationInformationServices, PatientHospitalizationInformationServices>();
-            services.AddScoped<IPatientAdditionalInformationServices, PatientAdditionalInformationServices>();
-            services.AddScoped<IPatientNotificationMessageServices, PatientNotificationMessageServices>();
-            #endregion PATIENT
-
-
-        }
-
-        private void addDependencies(IServiceCollection services)
-        {
-            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        }
-
         #endregion
 
         #region CONTEXTO
-        private void addORM(IServiceCollection services)
+        private void addORM(IServiceCollection services, TypeDataBase etypeDataBase)
         {
-            services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartDigitalPsicoDBConnection"), b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
+            var connection = string.Empty;
 
-
+            switch (etypeDataBase)
+            {
+                case TypeDataBase.Mysql:
+                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMySQL");
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
+                    options.UseMySql(connection, ServerVersion.AutoDetect(connection)
+                    , b =>
+                    {
+                        b.MigrationsAssembly("SmartDigitalPsico.WebAPI");
+                        b.SchemaBehavior(MySqlSchemaBehavior.Ignore);
+                    }));
+                    //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
+                    break;
+                case TypeDataBase.MSsqlServer:
+                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnection");
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection,
+                        b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void addAutoMigrate(IApplicationBuilder app)
+        {
+            bool migreted = false;
+            if (!migreted)
+            {
+                //// Migrate latest database changes during startup
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
+                    context.Database.Migrate();
+                }
+            }
         }
         #endregion
 
@@ -279,19 +249,44 @@ namespace SmartDigitalPsico.WebAPI
         #endregion
 
         #region SEGURANCA
-        private void addSecurity(IServiceCollection services)
+        private void addSecurity(IServiceCollection services, TokenConfiguration tokenConfigurations)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-              .AddJwtBearer(options =>
-              {
-                  options.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidateIssuerSigningKey = true,
-                      IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                      ValidateIssuer = false,
-                      ValidateAudience = false
-                  };
-              });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = tokenConfigurations.Issuer,
+                ValidAudience = tokenConfigurations.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+            };
+        });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //  .AddJwtBearer(options =>
+            //  {
+            //      options.TokenValidationParameters = new TokenValidationParameters
+            //      {
+            //          ValidateIssuerSigningKey = true,
+            //          IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+            //          ValidateIssuer = false,
+            //          ValidateAudience = false
+            //      };
+            //  });
 
 
             //   services.AddAuthentication(options =>
@@ -323,6 +318,7 @@ namespace SmartDigitalPsico.WebAPI
 
         }
 
+        #endregion
 
         #endregion
     }

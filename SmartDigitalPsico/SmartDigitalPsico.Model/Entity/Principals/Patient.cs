@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Domains;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
@@ -15,16 +12,30 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         #region Relationship
         [Required]
         public Medical Medical { get; set; }
+
+        [ForeignKey("MedicalId")]
+        public long MedicalId { get; set; }
+
         public List<PatientAdditionalInformation> PatientAdditionalInformations { get; set; }
         public List<PatientHospitalizationInformation> PatientHospitalizationInformations { get; set; }
         public List<PatientMedicationInformation> PatientMedicationInformations { get; set; }
         public List<PatientRecord> PatientRecords { get; set; }
 
         public User? CreatedUser { get; set; }
+
+        [ForeignKey("CreatedUserId")]
+        public long? CreatedUserId { get; set; }
+
         public User? ModifyUser { get; set; }
+
+        [ForeignKey("ModifyUserId")]
+        public long? ModifyUserId { get; set; }
 
         [Column("Gender")]
         public Gender Gender { get; set; }
+
+        [ForeignKey("GenderId")]
+        public long GenderId { get; set; }
         #endregion Relationship
 
         #region Columns
@@ -80,6 +91,7 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("EmergencyContactPhoneNumber", TypeName = "varchar(20)")]
         [MaxLength(20)]
         public string? EmergencyContactPhoneNumber { get; set; }
+
         #endregion
     }
 }

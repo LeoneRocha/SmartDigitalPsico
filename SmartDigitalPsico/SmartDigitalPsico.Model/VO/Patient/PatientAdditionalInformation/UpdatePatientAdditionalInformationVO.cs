@@ -1,13 +1,15 @@
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using SmartDigitalPsico.Model.VO.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation
 {
-    public class UpdatePatientAdditionalInformationVO : AddPatientAdditionalInformationVO
-    {
-        [Required]
-        public long Id { get; set; }
-        public bool Enable { get; set; }
+    public class UpdatePatientAdditionalInformationVO : EntityVOBase
+    { 
+        public string FollowUp_Psychiatric { get; set; }
+
+        public string FollowUp_Neurological { get; set; }
+
     }
 }

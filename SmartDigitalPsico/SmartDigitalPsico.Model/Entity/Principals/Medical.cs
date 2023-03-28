@@ -2,23 +2,33 @@ using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Domains;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("Medicals", Schema = "dbo")]
-    public class Medical : EntityBase, IEntityBaseLogUser    
+    public class Medical : EntityBase, IEntityBaseLogUser
     {
         #region Relationship
-        [Required] 
-        public Office Office { get; set; }       
+        [ForeignKey("OfficeId")]
+        public long OfficeId { get; set; }
+
+        public Office Office { get; set; }
+        
         public User? User { get; set; }
-        public List<Specialty> Specialties { get; set; }
-        public List<Patient> Patienties { get; set; }
+        public long? UserId { get; set; }
+
+        public List<Specialty> Specialties { get; set; } 
+
+        public List<Patient> Patienties { get; set; }   
+
         public User? CreatedUser { get; set; }
+        public long? CreatedUserId { get; set; }
+
         public User? ModifyUser { get; set; }
+        public long? ModifyUserId { get; set; }
+
         #endregion Relationship
 
         #region Columns
@@ -30,7 +40,14 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         [Column("TypeAccreditation")]
         public ETypeAccreditation TypeAccreditation { get; set; }
- 
+         
+        [Column("SecurityKey", TypeName = "varchar(255)")]
+        [MaxLength(255)] 
+        public string? SecurityKey { get; set; }
+  
+
+
+
         #endregion Columns 
     }
 }

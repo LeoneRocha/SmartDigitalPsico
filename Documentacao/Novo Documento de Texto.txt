@@ -1,3 +1,0 @@
-+		contentType	{Name = "ServiceResponse`1" FullName = "SmartDigitalPsico.Domains.Hypermedia.Utils.ServiceResponse`1[[System.Collections.Generic.List`1[[SmartDigitalPsico.Model.VO.Domains.GetGenderVO, SmartDigitalPsico.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"}	System.Type {System.RuntimeType}
-+		typeof(T)	{Name = "GetGenderVO" FullName = "SmartDigitalPsico.Model.VO.Domains.GetGenderVO"}	System.Type {System.RuntimeType}
-

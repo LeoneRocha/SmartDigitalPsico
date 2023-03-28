@@ -1,23 +1,20 @@
-using SmartDigitalPsico.Domains.Enuns;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using SmartDigitalPsico.Model.Contracts.Interface;
+using SmartDigitalPsico.Domains.Hypermedia;
+using SmartDigitalPsico.Domains.Hypermedia.Abstract;
+using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.VO.Contracts;
 using SmartDigitalPsico.Model.VO.Medical;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartDigitalPsico.Model.VO.Patient
 {
-    public class GetPatientVO : EntityVOBase 
+    public class GetPatientVO : EntityVOBase, ISupportsHyperMedia
     {
         //MUDAR AS RELACOES PARA OBJETOS 
         #region Relationship
         [Required]
-        public GetMedicalVO Medical { get; set; }
-        public List<long> PatientAdditionalInformations { get; set; }
-        public List<long> PatientHospitalizationInformations { get; set; }
-        public List<long> PatientMedicationInformations { get; set; }
-        public List<long> PatientRecords { get; set; }
-        [Required]
-        public long GenderId { get; set; }
+        public GetMedicalVO Medical { get; set; } 
+       
+        public Gender Gender  { get; set; }
         #endregion Relationship
 
         #region Columns
@@ -63,5 +60,6 @@ namespace SmartDigitalPsico.Model.VO.Patient
         public string Email { get; set; }
         #endregion
 
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

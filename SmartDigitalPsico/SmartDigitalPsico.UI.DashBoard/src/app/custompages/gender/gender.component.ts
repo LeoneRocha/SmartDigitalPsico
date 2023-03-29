@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';
+import { Subscription } from 'rxjs';
 
 declare var $: any;
 
@@ -17,20 +18,21 @@ declare var $: any;
     //styleUrls: ['./gender.component.css']
 })
 
-export class GenderComponent implements OnInit {
-    public listResult: GenderModel[];
+export class GenderComponent implements OnInit, OnDestroy {
+    public listResult: GenderModel[]; //TODO IMPLEMENTE MEMORY LEAK 
     serviceResponse: ServiceResponse<GenderModel>;
     public dataTable: DataTable;
     entityRoute: RouteEntity;
+    private subscription: Subscription;
 
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router) { }
     ngOnInit() {
-       
+
         this.loadHeaderFooterDataTable();
         this.retrieveList();
-
-       
-
+    }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
     ngAfterViewInit() {
     }
@@ -46,10 +48,9 @@ export class GenderComponent implements OnInit {
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    retrieveList(): void {
+    retrieveList(): void { 
 
-
-        this.registerService.getAll().subscribe({
+        this.subscription = this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
                 this.dataTable.dataRows = response["data"];
@@ -195,7 +196,8 @@ export class GenderComponent implements OnInit {
     }
     loadHeaderFooterDataTable() {
         this.entityRoute = {
-            baseRoute:"/administrative/gender/genderaction"         };
+            baseRoute: "/administrative/gender/genderaction"
+        };
 
         this.dataTable = {
             headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],

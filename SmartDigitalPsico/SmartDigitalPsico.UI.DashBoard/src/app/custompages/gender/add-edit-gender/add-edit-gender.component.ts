@@ -18,7 +18,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     animations: [
         trigger('botaoAnimado', [
             state('inicial', style({
-                color: 'green',
+                //color: 'green',
                 transform: 'scale(1)'
             })),
             state('final', style({
@@ -39,7 +39,9 @@ export class AddEditGenderComponent implements OnInit {
     registerModel: GenderModel;
     serviceResponse: ServiceResponse<GenderModel>;
     public languages = LanguageOptions;
-    estadoBotao = 'final';
+    estadoBotao_goBackToList = 'inicial';
+    estadoBotao_addRegister = 'inicial';
+    estadoBotao_updateRegister = 'inicial';
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(GenderService) private registerService: GenderService,
@@ -47,10 +49,19 @@ export class AddEditGenderComponent implements OnInit {
         this.gerateFormRegister();
     }
 
-    animarBotao(estado: string) {
-       // alert(estado);
-        this.estadoBotao = estado;
-      }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+            if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+            if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
+
+
+    }
 
     ngOnInit() {
         this.loadFormRegister();

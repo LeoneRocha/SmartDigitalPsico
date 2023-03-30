@@ -21,11 +21,15 @@ export const AppRoutes: Routes = [
             path: 'gender',
             canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/gender/gender.module').then(x => x.GenderModule)
-        } , {
+        }, {
             path: 'office',
             canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/office/office.module').then(x => x.OfficeModule)
-        }    
+        }, {
+            path: 'rolegroup',
+            canActivate: [AuthGuard, AdminAuthGuard],
+            loadChildren: () => import('./custompages/rolegroup/rolegroup.module').then(x => x.RoleGroupModule)
+        }
         ]
     },
     {

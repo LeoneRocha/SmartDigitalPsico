@@ -11,16 +11,16 @@ namespace SmartDigitalPsico.Model.Entity.Domains
     {
         public List<User> Users { get; set; }
 
-        [Column("Description", TypeName = "varchar(255)")]
-        [MaxLength(255)]
+        [Column("Description", TypeName = "varchar(50)")]
+        [MaxLength(50)]
         public string Description { get; set; }
 
         [Column("Language", TypeName = "varchar(10)")]
         [MaxLength(10)]
         public string Language { get; set; }
 
-        [Column("RolePolicyClaimCode", TypeName = "varchar(255)")]
-        [MaxLength(255)]
+        [Column("RolePolicyClaimCode", TypeName = "varchar(25)")]
+        [MaxLength(25)]
         public string RolePolicyClaimCode { get; set; }
     }
 }

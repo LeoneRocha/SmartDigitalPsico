@@ -8,25 +8,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse'; 
+import { botaoAnimado } from 'app/common/animations/geral-trigger-animation';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-gender',
     templateUrl: 'add-edit-gender.component.html',
     //styleUrls: ['./gender.component.css']
     animations: [
-        trigger('botaoAnimado', [
-            state('inicial', style({
-                //color: 'green',
-                transform: 'scale(1)'
-            })),
-            state('final', style({
-                color: 'red',
-                transform: 'scale(1.2)'
-            })),
-            transition('inicial <=> final', animate('100ms ease-in-out'))
-        ])
+       botaoAnimado
     ]
 })
 //5-  a lista
@@ -58,9 +48,7 @@ export class AddEditGenderComponent implements OnInit {
             this.estadoBotao_addRegister = estado;
 
             if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado;
-
-
+            this.estadoBotao_updateRegister = estado; 
     }
 
     ngOnInit() {

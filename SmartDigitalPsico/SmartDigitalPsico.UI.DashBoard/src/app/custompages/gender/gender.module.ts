@@ -1,20 +1,15 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router'; 
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { GenderComponent } from './gender.component';
 import { GenderRoutes } from './gender.routing';
-import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component';
-import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2'; 
+import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component'; 
 import { GenericDataTableGrid } from 'app/components/genericdatatablegrid/genericdatatablegrid.component';
+import { CustomPagesModule } from 'app/custommodules/custompages.module';
 @NgModule({
     imports: [
-        CommonModule,
-        RouterModule.forChild(GenderRoutes),
-        FormsModule,
-        ReactiveFormsModule,
-        JwBootstrapSwitchNg2Module,
+        CustomPagesModule,
+        RouterModule.forChild(GenderRoutes),     
     ],
     declarations: [
         GenderComponent,

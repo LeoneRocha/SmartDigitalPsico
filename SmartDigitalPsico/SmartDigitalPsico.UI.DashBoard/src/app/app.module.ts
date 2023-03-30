@@ -20,21 +20,19 @@ import { PatientAuthGuard } from './services/auth/patient-auth-guard.service';
 import { CountDownTimerComponent } from './common/countdowntimer/countdowntimer.component';
 import { CustomTextActivePipe } from './common/custompipe/customtextactive.pipe';
 import { GenericDataTableGrid } from './components/genericdatatablegrid/genericdatatablegrid.component';
+import { LayoutModule } from './custommodules/layout.module';
 //import { GenderService } from './services/general/gender.service';
 
 @NgModule({
     imports: [
         BrowserAnimationsModule,
-        FormsModule,
+
         RouterModule.forRoot(AppRoutes, {
             useHash: false//HashLocationStrategy- default true https://www.tektutorialshub.com/angular/angular-location-strategies/
         }),
-        SidebarModule,
-        NavbarModule,
-        FooterModule,
+        LayoutModule,
         FixedPluginModule,
-        PagesnavbarModule,
-        HttpClientModule, 
+        HttpClientModule,
     ],
     declarations: [
         AppComponent,

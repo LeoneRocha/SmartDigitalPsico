@@ -19,7 +19,7 @@ declare var $: any;
 })
 
 export class GenderComponent implements OnInit, OnDestroy {
-    public listResult: GenderModel[]; //TODO IMPLEMENTE MEMORY LEAK 
+    public listResult: GenderModel[];  
     serviceResponse: ServiceResponse<GenderModel>;
     public dataTable: DataTable;
     entityRoute: RouteEntity;

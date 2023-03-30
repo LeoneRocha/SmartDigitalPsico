@@ -55,7 +55,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-wd btn-default" (click)="goBackToList()">
+                            <button  [@botaoAnimado]="estadoBotao"    (mouseenter)="animarBotao('final')" 
+                            (mouseleave)="animarBotao('inicial')" type="button" class="btn btn-wd btn-default" (click)="goBackToList()">
                                 <span class="btn-label">
                                     <i class="fa fa-arrow-left"></i>
                                 </span>

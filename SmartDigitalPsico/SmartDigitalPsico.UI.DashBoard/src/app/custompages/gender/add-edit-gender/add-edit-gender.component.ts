@@ -3,17 +3,31 @@ import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
-import {  ServiceResponse } from 'app/models/ServiceResponse';
+import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-gender',
-    templateUrl: 'add-edit-gender.component.html'
+    templateUrl: 'add-edit-gender.component.html',
     //styleUrls: ['./gender.component.css']
+    animations: [
+        trigger('botaoAnimado', [
+            state('inicial', style({
+                color: 'green',
+                transform: 'scale(1)'
+            })),
+            state('final', style({
+                color: 'red',
+                transform: 'scale(1.2)'
+            })),
+            transition('inicial <=> final', animate('100ms ease-in-out'))
+        ])
+    ]
 })
 //5-  a lista
 
@@ -25,12 +39,19 @@ export class AddEditGenderComponent implements OnInit {
     registerModel: GenderModel;
     serviceResponse: ServiceResponse<GenderModel>;
     public languages = LanguageOptions;
+    estadoBotao = 'final';
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(GenderService) private registerService: GenderService,
         private fb: FormBuilder, @Inject(Router) private router: Router) {
         this.gerateFormRegister();
     }
+
+    animarBotao(estado: string) {
+       // alert(estado);
+        this.estadoBotao = estado;
+      }
+
     ngOnInit() {
         this.loadFormRegister();
         if (this.registerId)

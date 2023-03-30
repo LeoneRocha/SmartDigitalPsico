@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; 
-import {  ServiceResponse } from 'app/models/ServiceResponse';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';  
+import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
 import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
 import { RoleGroupModel } from 'app/models/simplemodel/RoleGroupModel';
 @Component({
@@ -114,7 +114,7 @@ export class AddEditRolegGroupComponent implements OnInit {
             description: responseData?.description,
             language: responseData?.language,
             enable: responseData?.enable,
-            rolePolicyClaimCode : responseData?.rolePolicyClaimCode,
+            rolePolicyClaimCode: responseData?.rolePolicyClaimCode,
         };
         let modelEntity = this.registerModel;
         formsElement.controls['description'].setValue(modelEntity?.description);
@@ -122,11 +122,11 @@ export class AddEditRolegGroupComponent implements OnInit {
         //this.registerModel_Enable = modelEntity?.enable;
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
         formsElement.controls['rolePolicyClaimCode'].setValue(modelEntity?.rolePolicyClaimCode);
-    } 
+    }
     isValidFormRolePolicyClaimCode(): boolean {
         let isValid = this.registerForm.get('rolePolicyClaimCode').errors?.required;
-        return this.registerForm.controls['rolePolicyClaimCode'].touched 
-        && this.registerForm.controls['rolePolicyClaimCode'].invalid && isValid;
+        return this.registerForm.controls['rolePolicyClaimCode'].touched
+            && this.registerForm.controls['rolePolicyClaimCode'].invalid && isValid;
     }
     isValidFormDescription(): boolean {
         let isValid = this.registerForm.get('description').errors?.required;
@@ -152,8 +152,10 @@ export class AddEditRolegGroupComponent implements OnInit {
             description: formElement.controls['description']?.value,
             language: formElement.controls['language']?.value,
             enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable,
-            rolePolicyClaimCode : formElement.controls['rolePolicyClaimCode']?.value
+            rolePolicyClaimCode: formElement.controls['rolePolicyClaimCode']?.value
         };
+
+        console.log(this.registerModel);
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -161,7 +163,7 @@ export class AddEditRolegGroupComponent implements OnInit {
             description: '',
             language: '',
             enable: false,
-            rolePolicyClaimCode : 'default'
+            rolePolicyClaimCode: 'default'
         }
     }
     onSelect(selectedValue: string) {

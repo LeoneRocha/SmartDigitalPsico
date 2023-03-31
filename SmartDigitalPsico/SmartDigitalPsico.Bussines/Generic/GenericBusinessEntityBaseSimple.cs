@@ -62,6 +62,16 @@ namespace SmartDigitalPsico.Business.Generic
 
             try
             {
+                bool entityExists = await _genericRepository.Exists(id);
+
+                if (!entityExists)
+                {
+                    response.Success = false;
+                    response.Message = "Register not found.";
+                    response.Errors.Add(new ErrorResponse() { Message = "Register not found.", Name = "Delete" });
+                    return response;
+                }
+
                 bool entityResponse = await _genericRepository.Delete(id);
 
                 response.Data = entityResponse;

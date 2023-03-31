@@ -150,7 +150,7 @@ export class AddEditSpecialtyComponent implements OnInit {
             enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable, 
         };
 
-        console.log(this.registerModel);
+        //console.log(this.registerModel);
     }
     createEmptyRegister(): void {
         this.registerModel = {

@@ -155,7 +155,7 @@ export class AddEditRolegGroupComponent implements OnInit {
             rolePolicyClaimCode: formElement.controls['rolePolicyClaimCode']?.value
         };
 
-        console.log(this.registerModel);
+        //console.log(this.registerModel);
     }
     createEmptyRegister(): void {
         this.registerModel = {

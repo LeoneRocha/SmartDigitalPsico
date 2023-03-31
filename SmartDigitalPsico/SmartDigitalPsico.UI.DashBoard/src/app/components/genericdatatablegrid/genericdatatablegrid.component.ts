@@ -33,16 +33,16 @@ export class GenericDataTableGrid implements OnInit {
 
   viewRegister(register: any): void {
     let idRegister: number = register['id'];
-    console.log(idRegister);
-    console.log(register);
+    //console.log(idRegister);
+    //console.log(register);
     this.router.navigate([this.dataTableIn?.routes?.baseRoute, { modeForm: 'view', id: idRegister }]);
     //alert('id :' + register.toString());
 
   }
   editRegister(register: SimpleModel): void {
     let idRegister: number = register['id'];
-    console.log(idRegister);
-    console.log(this.dataTableIn?.routes?.baseRoute);
+    //console.log(idRegister);
+    //console.log(this.dataTableIn?.routes?.baseRoute);
     this.router.navigate([this.dataTableIn?.routes?.baseRoute, { modeForm: 'edit', id: idRegister }]);
     //lert('id :' + register.toString());
   }

@@ -6,9 +6,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
+    /// <summary>
+    /// Servirar para treinar um inteligencia Machine Larnign  em retorna dicas ou ate mesmo listagem de tags mais proximas ou ate mesmo tomar alguma acao no gerencimento de agenda ou etc.
+    /// </summary>
     [Table("InfoTag", Schema = "dbo")]
     public class InfoTag : EntityBaseSimple, IEntityBaseLogUser
     {
+        
         #region Relationship 
         [Required]
         public Medical Medical { get; set; }

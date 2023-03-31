@@ -29,6 +29,10 @@ export const AppRoutes: Routes = [
             path: 'rolegroup',
             canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/rolegroup/rolegroup.module').then(x => x.RoleGroupModule)
+        }, {
+            path: 'specialty',
+            canActivate: [AuthGuard, AdminAuthGuard],
+            loadChildren: () => import('./custompages/specialty/specialty.module').then(x => x.SpecialtyModule)
         }
         ]
     },

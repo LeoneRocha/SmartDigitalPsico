@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
@@ -16,7 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class OfficeController : ApiBaseController
     {

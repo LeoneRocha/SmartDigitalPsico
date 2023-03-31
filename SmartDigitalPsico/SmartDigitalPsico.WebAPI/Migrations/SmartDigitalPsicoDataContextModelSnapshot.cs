@@ -204,14 +204,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4208),
+                            CreatedDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(2796),
                             Description = "Default",
                             Enable = true,
                             EndPointUrl_Cache = "",
                             EndPointUrl_StorageFiles = "",
                             Language = "pt-BR",
-                            LastAccessDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4218),
-                            ModifyDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4218),
+                            LastAccessDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(2818),
+                            ModifyDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(2817),
                             TypeLocationCache = 1,
                             TypeLocationQueeMessaging = 0,
                             TypeLocationSaveFiles = 0
@@ -277,14 +277,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4247),
+                            CreatedDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(2893),
                             Description = "Default",
                             Enable = true,
                             Language = "pt-BR",
                             LanguageKey = "Default_ptbr",
                             LanguageValue = "Padrão",
-                            LastAccessDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4248),
-                            ModifyDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4248)
+                            LastAccessDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(2896),
+                            ModifyDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(2895)
                         });
                 });
 
@@ -445,8 +445,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("Description");
 
                     b.Property<bool?>("Enable")
@@ -472,8 +472,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<string>("RolePolicyClaimCode")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
                         .HasColumnName("RolePolicyClaimCode");
 
                     b.HasKey("Id");
@@ -654,6 +654,53 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.InfoTag", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<long?>("CreatedUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool?>("Enable")
+                        .HasColumnType("bit")
+                        .HasColumnName("Enable")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime>("LastAccessDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastAccessDate");
+
+                    b.Property<long>("MedicalId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifyDate");
+
+                    b.Property<long?>("ModifyUserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("MedicalId");
+
+                    b.HasIndex("ModifyUserId");
+
+                    b.ToTable("InfoTag", "dbo");
+                });
+
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
                 {
                     b.Property<long>("Id")
@@ -741,12 +788,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Accreditation = "123456",
-                            CreatedDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4779),
+                            CreatedDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(3924),
                             CreatedUserId = 1L,
                             Email = "medical@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4779),
-                            ModifyDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4780),
+                            LastAccessDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(3925),
+                            ModifyDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(3926),
                             Name = "Medical MOCK ",
                             OfficeId = 3L,
                             TypeAccreditation = 0
@@ -1178,6 +1225,29 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.ToTable("PatientHospitalizationInformations", "dbo");
                 });
 
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientInfoTag", b =>
+                {
+                    b.Property<long>("PatientId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("InfoTagId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.HasKey("PatientId", "InfoTagId");
+
+                    b.HasIndex("InfoTagId");
+
+                    b.ToTable("PatientInfoTag", "dbo");
+                });
+
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientMedicationInformation", b =>
                 {
                     b.Property<long>("Id")
@@ -1305,14 +1375,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("Notified");
 
-                    b.Property<DateTime>("NotifiedDate")
+                    b.Property<DateTime?>("NotifiedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("NotifiedDate");
 
                     b.Property<long>("PatientId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("ReadingDate")
+                    b.Property<DateTime?>("ReadingDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("ReadingDate");
 
@@ -1496,31 +1566,31 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            CreatedDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4498),
+                            CreatedDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(3399),
                             Email = "admin@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4499),
+                            LastAccessDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(3401),
                             Login = "admin",
-                            ModifyDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4499),
+                            ModifyDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(3403),
                             Name = "User MOCK ",
-                            PasswordHash = new byte[] { 81, 19, 103, 166, 82, 54, 199, 117, 172, 151, 88, 60, 140, 40, 230, 36, 185, 237, 83, 126, 239, 75, 224, 200, 171, 143, 159, 94, 202, 195, 167, 246, 228, 162, 157, 226, 109, 104, 246, 244, 113, 162, 208, 33, 62, 210, 3, 2, 88, 16, 181, 123, 233, 68, 227, 37, 55, 44, 26, 204, 34, 210, 173, 112 },
-                            PasswordSalt = new byte[] { 65, 37, 59, 98, 59, 162, 171, 140, 60, 223, 158, 209, 244, 218, 20, 12, 62, 86, 112, 129, 203, 220, 16, 61, 148, 126, 116, 223, 77, 237, 189, 9, 207, 218, 8, 145, 83, 186, 168, 52, 134, 58, 4, 137, 209, 159, 245, 150, 9, 61, 252, 148, 248, 217, 72, 208, 138, 207, 230, 180, 210, 169, 103, 239, 110, 176, 68, 93, 56, 136, 98, 64, 39, 126, 247, 48, 106, 72, 174, 81, 151, 41, 9, 252, 76, 52, 127, 175, 8, 238, 209, 138, 61, 93, 109, 160, 171, 85, 164, 186, 243, 81, 136, 235, 11, 179, 200, 166, 100, 250, 4, 173, 166, 222, 179, 3, 173, 53, 156, 148, 198, 154, 222, 204, 104, 67, 39, 117 },
+                            PasswordHash = new byte[] { 238, 35, 102, 186, 22, 98, 199, 50, 51, 5, 205, 12, 109, 224, 90, 12, 213, 36, 59, 148, 109, 96, 216, 202, 2, 38, 88, 77, 24, 44, 8, 178, 225, 178, 250, 7, 74, 189, 125, 45, 20, 147, 32, 226, 49, 193, 79, 159, 19, 167, 139, 104, 29, 76, 38, 105, 18, 108, 111, 83, 136, 242, 60, 233 },
+                            PasswordSalt = new byte[] { 200, 124, 0, 199, 169, 108, 77, 220, 51, 160, 194, 42, 218, 15, 37, 82, 127, 29, 132, 134, 114, 237, 113, 247, 224, 20, 54, 224, 193, 62, 99, 124, 162, 31, 46, 152, 3, 35, 120, 33, 74, 120, 131, 215, 40, 55, 135, 64, 189, 254, 72, 183, 65, 59, 189, 92, 199, 83, 125, 158, 199, 141, 60, 145, 154, 99, 145, 59, 209, 171, 217, 169, 170, 45, 63, 59, 8, 97, 142, 105, 145, 253, 109, 154, 158, 5, 136, 55, 248, 27, 245, 51, 133, 231, 65, 55, 163, 69, 0, 215, 60, 117, 129, 138, 10, 61, 15, 71, 20, 114, 133, 228, 107, 86, 202, 65, 2, 23, 222, 58, 204, 158, 91, 69, 138, 76, 159, 128 },
                             Role = "Admin"
                         },
                         new
                         {
                             Id = 2L,
                             Admin = false,
-                            CreatedDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4986),
+                            CreatedDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(4475),
                             Email = "doctor@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4987),
+                            LastAccessDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(4477),
                             Login = "doctor",
                             MedicalId = 1L,
-                            ModifyDate = new DateTime(2023, 3, 24, 22, 58, 42, 765, DateTimeKind.Local).AddTicks(4987),
+                            ModifyDate = new DateTime(2023, 3, 31, 16, 51, 47, 24, DateTimeKind.Local).AddTicks(4479),
                             Name = "User Medical",
-                            PasswordHash = new byte[] { 139, 158, 248, 48, 10, 240, 217, 254, 178, 111, 166, 209, 227, 185, 68, 96, 164, 231, 83, 60, 70, 93, 118, 149, 137, 130, 194, 94, 175, 9, 174, 125, 78, 133, 83, 72, 112, 238, 154, 98, 2, 157, 64, 34, 10, 242, 161, 43, 161, 122, 27, 145, 215, 235, 50, 221, 249, 236, 72, 250, 201, 39, 103, 117 },
-                            PasswordSalt = new byte[] { 163, 219, 130, 168, 163, 250, 76, 253, 195, 3, 209, 56, 8, 46, 48, 83, 155, 174, 37, 241, 131, 94, 30, 21, 232, 240, 206, 55, 76, 45, 226, 122, 199, 143, 224, 128, 220, 228, 8, 234, 87, 85, 47, 34, 64, 76, 95, 145, 196, 159, 120, 122, 218, 233, 124, 76, 29, 60, 225, 121, 127, 169, 250, 24, 175, 138, 34, 198, 173, 158, 152, 28, 207, 11, 71, 44, 21, 248, 46, 123, 201, 129, 111, 37, 17, 140, 194, 123, 14, 53, 79, 58, 186, 31, 151, 42, 161, 149, 120, 70, 65, 198, 156, 0, 153, 230, 253, 183, 194, 249, 110, 85, 97, 40, 224, 255, 192, 236, 51, 198, 157, 7, 77, 199, 82, 169, 101, 141 },
+                            PasswordHash = new byte[] { 35, 242, 233, 183, 59, 121, 230, 27, 225, 119, 136, 241, 139, 27, 239, 130, 226, 21, 41, 79, 141, 47, 172, 246, 172, 211, 239, 249, 205, 141, 87, 121, 17, 127, 125, 228, 161, 56, 180, 150, 9, 191, 176, 0, 97, 134, 135, 182, 89, 233, 86, 99, 202, 10, 125, 65, 6, 51, 73, 250, 177, 133, 57, 37 },
+                            PasswordSalt = new byte[] { 148, 1, 39, 154, 194, 225, 201, 57, 31, 12, 242, 188, 21, 92, 17, 128, 240, 47, 190, 197, 201, 233, 141, 232, 89, 143, 142, 229, 114, 56, 77, 38, 203, 180, 137, 137, 81, 250, 239, 9, 160, 203, 53, 147, 184, 78, 69, 197, 103, 163, 228, 119, 11, 207, 129, 72, 106, 169, 205, 59, 91, 253, 191, 175, 70, 212, 6, 21, 185, 149, 45, 237, 173, 64, 60, 211, 114, 142, 108, 238, 139, 231, 239, 202, 7, 152, 101, 115, 239, 96, 64, 115, 80, 142, 27, 92, 148, 78, 2, 108, 192, 39, 97, 197, 132, 37, 202, 179, 40, 41, 42, 40, 69, 107, 36, 193, 154, 247, 60, 236, 253, 17, 10, 184, 38, 231, 145, 76 },
                             Role = "Medical"
                         });
                 });
@@ -1553,6 +1623,29 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.InfoTag", b =>
+                {
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.Medical", "Medical")
+                        .WithMany()
+                        .HasForeignKey("MedicalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "ModifyUser")
+                        .WithMany()
+                        .HasForeignKey("ModifyUserId");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("Medical");
+
+                    b.Navigation("ModifyUser");
                 });
 
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
@@ -1707,6 +1800,25 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientInfoTag", b =>
+                {
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.InfoTag", "InfoTag")
+                        .WithMany("PatientInfoTags")
+                        .HasForeignKey("InfoTagId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("SmartDigitalPsico.Model.Entity.Principals.Patient", "Patient")
+                        .WithMany("PatientInfoTags")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("InfoTag");
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.PatientMedicationInformation", b =>
                 {
                     b.HasOne("SmartDigitalPsico.Model.Entity.Principals.User", "CreatedUser")
@@ -1791,6 +1903,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Navigation("Medicals");
                 });
 
+            modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.InfoTag", b =>
+                {
+                    b.Navigation("PatientInfoTags");
+                });
+
             modelBuilder.Entity("SmartDigitalPsico.Model.Entity.Principals.Medical", b =>
                 {
                     b.Navigation("Patienties");
@@ -1803,6 +1920,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Navigation("PatientAdditionalInformations");
 
                     b.Navigation("PatientHospitalizationInformations");
+
+                    b.Navigation("PatientInfoTags");
 
                     b.Navigation("PatientMedicationInformations");
 

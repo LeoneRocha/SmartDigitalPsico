@@ -69,7 +69,8 @@ export const ROUTES: RouteInfo[] = [{
     children: [
         { path: 'gender', title: 'Gender', ab: 'G' },
         { path: 'office', title: 'Office', ab: 'O' },
-        { path: 'rolegroup', title: 'RoleGroup', ab: 'RG' },
+        { path: 'rolegroup', title: 'Role Group', ab: 'RG' },
+        { path: 'specialty', title: 'Specialty', ab: 'S' },
         { path: 'applicationsetting', title: 'Configurações Sistema', ab: 'CS' },
         { path: 'applicationlanguage', title: 'Idiomas', ab: 'I' },
     ]

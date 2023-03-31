@@ -9,7 +9,14 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     [Table("Patients", Schema = "dbo")]
     public class Patient : EntityBase, IEntityBaseLogUser
     {
-        #region Relationship
+        #region Relationship  
+        //public ICollection<InfoTag> InfoTags { get; set; }
+        //public List<InfoTag> InfoTags { get; } = new();
+        //public ICollection<InfoTag> InfoTags { get; set; }
+        //public List<PatientInfoTag> PatientInfoTags { get; set; }
+        public List<PatientInfoTag> PatientInfoTags { get; set; }
+
+
         [Required]
         public Medical Medical { get; set; }
 

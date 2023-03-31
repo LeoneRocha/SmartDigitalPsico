@@ -9,6 +9,8 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     public class PatientRecord : EntityBaseSimple, IEntityBaseLogUser
     {
         #region Relationship 
+       // public List<InfoTag> InfoTags { get; set; }
+
         [Required]
         public Patient Patient { get; set; }
 
@@ -32,13 +34,13 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Required]
         public string Description { get; set; }
 
-        [Column("Annotation")] 
+        [Column("Annotation")]
         [Required]
         public string Annotation { get; set; }
-         
+
         [Column("AnnotationDate")]
         public DateTime AnnotationDate { get; set; }
-           
+
         #endregion Columns 
     }
 }

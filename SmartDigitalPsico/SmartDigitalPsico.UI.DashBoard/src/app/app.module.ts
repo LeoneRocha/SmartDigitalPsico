@@ -22,7 +22,12 @@ import { CustomTextActivePipe } from './common/custompipe/customtextactive.pipe'
 import { GenericDataTableGrid } from './components/genericdatatablegrid/genericdatatablegrid.component';
 import { LayoutModule } from './custommodules/layout.module';
 //import { GenderService } from './services/general/gender.service';
-
+/*import { StoreModule } from '@ngrx/store';
+import { createEntityReducer } from './storeredux/reducers/serviceresponse.reducer';
+import { SpecialtyModel } from './models/simplemodel/SpecialtyModel';
+import { EffectsModule } from '@ngrx/effects';
+import { appReducer } from './storeredux/shared/app.reducer';
+ */
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -33,6 +38,10 @@ import { LayoutModule } from './custommodules/layout.module';
         LayoutModule,
         FixedPluginModule,
         HttpClientModule,
+       // StoreModule.forRoot({ appState: appReducer }),
+        //EffectsModule.forRoot([]),
+       //StoreModule.forRoot({ specialty: createEntityReducer<SpecialtyModel> }),
+        //EffectsModule.forFeature([SpecialtyEffect])
     ],
     declarations: [
         AppComponent,

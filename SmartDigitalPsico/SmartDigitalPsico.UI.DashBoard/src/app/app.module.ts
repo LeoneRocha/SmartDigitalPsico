@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -21,6 +21,8 @@ import { CountDownTimerComponent } from './common/countdowntimer/countdowntimer.
 import { CustomTextActivePipe } from './common/custompipe/customtextactive.pipe';
 import { GenericDataTableGrid } from './components/genericdatatablegrid/genericdatatablegrid.component';
 import { LayoutModule } from './custommodules/layout.module';
+ 
+//import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 //import { GenderService } from './services/general/gender.service';
 /*import { StoreModule } from '@ngrx/store';
 import { createEntityReducer } from './storeredux/reducers/serviceresponse.reducer';
@@ -38,6 +40,8 @@ import { appReducer } from './storeredux/shared/app.reducer';
         LayoutModule,
         FixedPluginModule,
         HttpClientModule,
+        //EffectsModule.forRoot([]),
+        //StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
        // StoreModule.forRoot({ appState: appReducer }),
         //EffectsModule.forRoot([]),
        //StoreModule.forRoot({ specialty: createEntityReducer<SpecialtyModel> }),

@@ -10,7 +10,7 @@ import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'app/storereduxngrx/shared/appstate';
-import { invokeLoadSpecialtyAPI, invokeUpdateSpecialtyAPI } from 'app/storereduxngrx/actions/specialty.action';
+import { invokeLoadSpecialtyAPI, invokeSaveNewSpecialtyAPI, invokeUpdateSpecialtyAPI } from 'app/storereduxngrx/actions/specialty.action';
 import { selectAppState } from 'app/storereduxngrx/shared/app.selector';
 import { selectOneSpecialty } from 'app/storereduxngrx/selectors/specialty.selector';
 import { switchMap } from 'rxjs';
@@ -89,28 +89,47 @@ export class AddEditSpecialtyComponent implements OnInit {
          this.registerService.add(this.registerModel).subscribe({
              next: (response: ServiceResponse<SpecialtyModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
          });*/
+        this.store.dispatch(invokeSaveNewSpecialtyAPI({ newSpecialty: { ...this.registerModel } }));
+
+        let apiStatus$ = this.appStore.pipe(select(selectAppState));
+        apiStatus$.subscribe((apState) => {
+            if (apState.apiResponseMessage === 'invokeSaveNewSpecialtyAPI') {
+
+                if (apState.apiStatus == 'success') {
+
+                    this.processAddRegister(apState.resultAPI)
+                    this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })); 
+                } else { 
+                    this.processAddRegisterErro(apState?.resultAPI);
+                }
+            }
+        });
+
     }
     updateRegister() {
         this.getValuesForm();
 
         /*  this.getValuesForm();
           this.registerService.update(this.registerModel).subscribe({
-              next: (response: ServiceResponse<SpecialtyModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
+              next: (response: ServiceResponse<SpecialtyModel>) => { this.processUpdateRegister(response); }, error: (err) => 
+              { this.processUpdateRegisterErro(err); },
           });*/
         this.store.dispatch(invokeUpdateSpecialtyAPI({ updateSpecialty: { ...this.registerModel } }));
 
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe((apState) => {
-            if (apState.apiStatus == 'success'&& apState.apiResponseMessage === 'invokeUpdateSpecialtyAPI') {
+            if (apState.apiResponseMessage === 'invokeUpdateSpecialtyAPI') {
 
-                this.processUpdateRegister(apState.resultAPI);
+                if (apState.apiStatus == 'success') {
 
-                this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
-                );
-                //this.router.navigate(['/']);
+                    this.processUpdateRegister(apState.resultAPI);
+                    this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } }));
+                    //this.router.navigate(['/']);['errors']
+                } else {
+                    this.processUpdateRegisterErro(apState.resultAPI['errors'])
+                }
             }
         });
-
     }
     processAddRegister(response: ServiceResponse<SpecialtyModel>) {
         CaptureTologFunc('processAddRegister-specialty', response);

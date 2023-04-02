@@ -2,7 +2,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { EMPTY, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
+import { EMPTY, catchError, map, mergeMap, of, switchMap, throwError, withLatestFrom } from 'rxjs';
 import { Appstate } from '../shared/appstate';
 import { setAPIStatus } from '../shared/app.action';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
@@ -27,8 +27,18 @@ export class SpecialtyEffect {
         }
         return this.enittyService
           .getAll()
-          .pipe(map((responseData) => specialtysFetchAPISuccess({ allSpecialtys: responseData['data'] })))
-          ;
+          .pipe(
+            map((responseData) => {
+              this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: 'invokeSpecialtysAPI', apiStatus: 'success' }, })
+              );
+              return specialtysFetchAPISuccess({ allSpecialtys: responseData['data'] })
+            })
+            , catchError((error) => {
+              //https://andrew-evans.medium.com/exception-handling-with-ngrx-effects-70ec942e6465
+              this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: 'invokeSpecialtysAPI', apiStatus: 'error' }, }));
+              return EMPTY;
+            })/* END CATCH*/
+          );
       })
     )
   );
@@ -37,18 +47,15 @@ export class SpecialtyEffect {
     return this.actions$.pipe(
       ofType(invokeSaveNewSpecialtyAPI),
       switchMap((action) => {
-        this.appStore.dispatch(
-          setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
-        );
+        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } }));
         return this.enittyService.add(action.newSpecialty).pipe(
           map((data) => {
-            this.appStore.dispatch(
-              setAPIStatus({
-                apiStatus: { apiResponseMessage: '', apiStatus: 'success' },
-              })
-            );
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: 'success' }, }));
             return saveNewSpecialtyAPISucess({ newSpecialty: data });
-          })
+          }), catchError((error) => {            
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: error.message, apiStatus: 'error' }, }));
+            return EMPTY;
+          })/* END CATCH*/
         );
       })
     );
@@ -58,18 +65,15 @@ export class SpecialtyEffect {
     return this.actions$.pipe(
       ofType(invokeUpdateSpecialtyAPI),
       switchMap((action) => {
-        this.appStore.dispatch(
-          setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
-        );
+        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } }));
         return this.enittyService.update(action.updateSpecialty).pipe(
           map((response) => {
-            this.appStore.dispatch(
-              setAPIStatus({
-                apiStatus: { apiResponseMessage: '', apiStatus: 'success' },
-              })
-            );
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: 'success' }, }));
             return updateSpecialtyAPISucess({ updateSpecialty: response.data });
-          })
+          }), catchError((error) => { 
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: error.message, apiStatus: 'error' }, }));
+            return EMPTY;
+          })/* END CATCH*/
         );
       })
     );
@@ -84,13 +88,12 @@ export class SpecialtyEffect {
         );
         return this.enittyService.delete(Number(actions.id)).pipe(
           map((response) => {
-            this.appStore.dispatch(
-              setAPIStatus({
-                apiStatus: { apiResponseMessage: '', apiStatus: 'success' },
-              })
-            );
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: 'success' }, }));
             return deleteSpecialtyAPISuccess({ id: actions.id });
-          })
+          }), catchError((error) => { 
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: error.message, apiStatus: 'error' }, }));
+            return EMPTY;
+          })/* END CATCH*/
         );
       })
     );

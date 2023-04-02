@@ -133,7 +133,7 @@ export class GenericDataTableGrid implements OnInit {
     //onsole.log(dataTableVal?.dataRows?.length);
     /*if (dataTableVal?.dataRows?.length > 0) {
       const lista1D = this.convertArray2dToList(dataTableVal?.dataRows);
-      console.log(lista1D);
+      //console.log(lista1D);
       this.loadConfigDataTables(lista1D, dataTableVal.headerRow);
     }*/
     this.loadConfigDataTablesV1();
@@ -189,7 +189,7 @@ export class GenericDataTableGrid implements OnInit {
 
     loadConfigDataTables(listData: any, columnsData: any): void {
 
-    console.log(columnsData);
+    //console.log(columnsData);
     if (typeof listData !== 'undefined' && typeof listData !== null && listData.length > 0) {
       $('#datatables').DataTable({
         "pagingType": "full_numbers",

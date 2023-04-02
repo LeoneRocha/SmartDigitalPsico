@@ -48,6 +48,7 @@ export class SpecialtyComponent implements OnInit {
         this.router.navigate(['/administrative/specialty/specialtyaction']);
     }
     viewRegister(idRegister: number): void {
+        //MUDAR PARAMETRO ID PARA SE GERENCIADO PELO REDUX 
         this.router.navigate(['/administrative/specialty/specialtyaction', { modeForm: 'view', id: idRegister }]);
     }
     editRegister(idRegister: number): void {
@@ -57,22 +58,20 @@ export class SpecialtyComponent implements OnInit {
         this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
-
         this.store.dispatch(invokeSpecialtysAPI());
-
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
-
-        apiStatus$.subscribe((apState) => {
-            if (apState.apiStatus == 'success') {
-                //this.deleteModal.hide();
-                //this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);//MUDAR PARA REDUCE ATUALIZAR O ESTADO
-                console.log('retrieveList');
-                this.appStore.dispatch(
-                    setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
-                );
-            } else {
-
-            }
+        apiStatus$.subscribe({
+            next: (apState) => {
+                if (apState.apiStatus === 'success' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {
+                    //console.log('retrieveList');
+                    //console.log(apState);
+                    this.loadConfigDataTablesLazzy();
+                }
+                if (apState.apiStatus === 'error' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {
+                    this.showNotification('top', 'center', 'Erro ao conectar!', 'danger');
+                }
+            },
+            //error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
         });
         /*this.registerService.getAll().subscribe({
             next: (response: any) => {
@@ -83,8 +82,7 @@ export class SpecialtyComponent implements OnInit {
                 CaptureTologFunc('retrieveList-specialty', response);
             },
             error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
-        });
-*/
+        });*/
         // alert('You clicked on Like button');
     }
     /* convertListToDataTableRowAndFill(inputArray: any) {
@@ -92,27 +90,21 @@ export class SpecialtyComponent implements OnInit {
          let resultData = inputArray.map((item) => {
              return [item.id, item.description, item.language, item.enable];
          });
-         this.dataTable.dataRows = resultData;
-         //console.log(resultData);
-     }
- */
+         this.dataTable.dataRows = resultData;       //console.log(resultData);     } */
     executeDeleteRegister(idRegister: number) {
-
         this.store.dispatch(invokeDeleteSpecialtyAPI({ id: idRegister, }));
-
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
-
-        apiStatus$.subscribe((apState) => {
-            if (apState.apiStatus == 'success') {
-                //this.deleteModal.hide();
-                //this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);//MUDAR PARA REDUCE ATUALIZAR O ESTADO
-                //this.modalAlertDeleted();                
-                this.appStore.dispatch(
-                    setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
-                );
-            } else {
-                //this.modalErroAlert('Error of delete.');
-            }
+        apiStatus$.subscribe({
+            next: (apState) => {
+                if (apState.apiStatus === 'success') {
+                    this.loadConfigDataTablesLazzy();
+                    this.modalAlertDeleted();
+                }
+                if (apState.apiStatus === 'error') {
+                    this.modalErroAlert('Error of delete.');
+                }
+            },
+            error: (err) => { this.modalErroAlert('Error of delete.'); }
         });
         /* this.registerService.delete(idRegister).subscribe({
              next: (response: any) => {
@@ -121,8 +113,7 @@ export class SpecialtyComponent implements OnInit {
                  this.modalAlertDeleted();
              },
              error: (err) => { this.modalErroAlert('Error of delete.'); }
-         });
-         */
+         }); */
     }
     removeItemFromList<T>(lista: Array<T>, idRemove: number): Array<T> {
         const registerFinded = lista.find(p => p["id"] === idRemove);
@@ -205,10 +196,15 @@ export class SpecialtyComponent implements OnInit {
         }, 100);
     }
     loadConfigDataTables(): void {
+
+        //let tableDT = $('#example').DataTable();
+        //tableDT.destroy();
+
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
+            destroy: true,
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",

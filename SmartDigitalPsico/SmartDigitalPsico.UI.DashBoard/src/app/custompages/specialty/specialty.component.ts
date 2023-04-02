@@ -4,14 +4,11 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable';
-import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
-import { SpecialtyService } from 'app/services/general/simple/specialty.service';
+import { DataTable, RouteEntity } from 'app/models/general/DataTable'; 
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'app/storereduxngrx/shared/appstate';
 import { selectSpecialty } from 'app/storereduxngrx/selectors/specialty.selector';
-import { selectAppState } from 'app/storereduxngrx/shared/app.selector';
-import { setAPIStatus } from 'app/storereduxngrx/shared/app.action';
+import { selectAppState } from 'app/storereduxngrx/shared/app.selector'; 
 import { invokeDeleteSpecialtyAPI, invokeSpecialtysAPI } from 'app/storereduxngrx/actions/specialty.action';
 
 declare var $: any;
@@ -23,17 +20,14 @@ declare var $: any;
     //styleUrls: ['./Specialty.component.css']
 })
 
-export class SpecialtyComponent implements OnInit {
-    public listResult: SpecialtyModel[];
-    serviceResponse: ServiceResponse<SpecialtyModel>;
+export class SpecialtyComponent implements OnInit {  
     public dataTable: DataTable;
     entityRoute: RouteEntity;
-
+    
     entityEff$ = this.store.pipe(select(selectSpecialty));
 
     constructor(
-        private store: Store, private appStore: Store<Appstate>,
-        //@Inject(SpecialtyService) private registerService: SpecialtyService, 
+        private store: Store, private appStore: Store<Appstate>, 
         @Inject(Router) private router: Router
     ) {
 

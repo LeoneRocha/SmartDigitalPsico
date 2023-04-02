@@ -10,12 +10,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel'; 
 import { SpecialtyEffect } from 'app/storereduxngrx/effects/specialty.effects';
 import { specialtyReducer } from 'app/storereduxngrx/reducers/specialty.reducer';
-
+ 
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(SpecialtyRoutes),
         StoreModule.forFeature('myspecialties', specialtyReducer),
+        StoreModule.forFeature('onespecialty', specialtyReducer),
         EffectsModule.forFeature([SpecialtyEffect])
     ],
     declarations: [

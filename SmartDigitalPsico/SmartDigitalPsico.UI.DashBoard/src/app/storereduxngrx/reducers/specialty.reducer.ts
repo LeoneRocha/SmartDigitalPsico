@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';  
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
-import { deleteSpecialtyAPISuccess, saveNewSpecialtyAPISucess, specialtysFetchAPISuccess, updateSpecialtyAPISucess } from '../actions/specialty.action';
+import { deleteSpecialtyAPISuccess, loadSpecialtyAPISucess, saveNewSpecialtyAPISucess, specialtysFetchAPISuccess, updateSpecialtyAPISucess } from '../actions/specialty.action';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 
 export const initialStateModel: ServiceResponse<SpecialtyModel> = {
@@ -20,6 +20,10 @@ export const specialtyReducer = createReducer(
   on(saveNewSpecialtyAPISucess, (state, { newSpecialty }) => {
     let newState = [...state];
     newState.unshift(newSpecialty);
+    return newState;
+  }),
+  on(loadSpecialtyAPISucess, (state, { loadSpecialty }) => {
+    let newState = [...state]; 
     return newState;
   }),
   on(updateSpecialtyAPISucess, (state, { updateSpecialty }) => {

@@ -6,15 +6,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse'; 
+import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
-import { SpecialtyService } from 'app/services/general/simple/specialty.service';
+import { Store, select } from '@ngrx/store';
+import { Appstate } from 'app/storereduxngrx/shared/appstate';
+import { invokeLoadSpecialtyAPI, invokeUpdateSpecialtyAPI } from 'app/storereduxngrx/actions/specialty.action';
+import { selectAppState } from 'app/storereduxngrx/shared/app.selector';
+import { selectOneSpecialty } from 'app/storereduxngrx/selectors/specialty.selector';
+import { switchMap } from 'rxjs';
+import { setAPIStatus } from 'app/storereduxngrx/shared/app.action';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-specialty',
     templateUrl: 'add-edit-specialty.component.html'
     //styleUrls: ['./specialty.component.css']
-}) 
+})
 export class AddEditSpecialtyComponent implements OnInit {
     registerId: number;
     registerForm: FormGroup;
@@ -24,12 +30,16 @@ export class AddEditSpecialtyComponent implements OnInit {
     serviceResponse: ServiceResponse<SpecialtyModel>;
     public languages = LanguageOptions;
 
+    entityLoad$ = this.store.select(selectOneSpecialty);
+
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(SpecialtyService) private registerService: SpecialtyService,
+        //@Inject(SpecialtyService) private registerService: SpecialtyService,
+        private store: Store, private appStore: Store<Appstate>,
         private fb: FormBuilder, @Inject(Router) private router: Router) {
         this.gerateFormRegister();
     }
     ngOnInit() {
+
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
@@ -53,21 +63,54 @@ export class AddEditSpecialtyComponent implements OnInit {
     ngAfterViewInit() {
     }
     loadRegister() {
+        /*
         this.registerService.getById(this.registerId).subscribe({
             next: (response: ServiceResponse<SpecialtyModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
+        });*/
+        this.store.dispatch(invokeLoadSpecialtyAPI({ id: this.registerId }));
+        let apiStatus$ = this.appStore.pipe(select(selectAppState));
+
+        apiStatus$.subscribe({
+            next: (response) => {
+                if (response.apiStatus === 'success' && response.apiResponseMessage === 'invokeLoadSpecialtyAPI') {
+                    this.processLoadRegister(response.resultAPI)
+                }
+                if (response.apiStatus === 'error' && response.apiResponseMessage === 'invokeLoadSpecialtyAPI') {
+                    this.processLoadRegisterErro(response.errors);
+                }
+            },
+            //error: (err) => { this.modalErroAlert('Error of delete.'); }
         });
     }
+
     addRegister() {
         this.getValuesForm();
-        this.registerService.add(this.registerModel).subscribe({
-            next: (response: ServiceResponse<SpecialtyModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
-        });
+        /* this.getValuesForm();
+         this.registerService.add(this.registerModel).subscribe({
+             next: (response: ServiceResponse<SpecialtyModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
+         });*/
     }
     updateRegister() {
         this.getValuesForm();
-        this.registerService.update(this.registerModel).subscribe({
-            next: (response: ServiceResponse<SpecialtyModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
+
+        /*  this.getValuesForm();
+          this.registerService.update(this.registerModel).subscribe({
+              next: (response: ServiceResponse<SpecialtyModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
+          });*/
+        this.store.dispatch(invokeUpdateSpecialtyAPI({ updateSpecialty: { ...this.registerModel } }));
+
+        let apiStatus$ = this.appStore.pipe(select(selectAppState));
+        apiStatus$.subscribe((apState) => {
+            if (apState.apiStatus == 'success'&& apState.apiResponseMessage === 'invokeUpdateSpecialtyAPI') {
+
+                this.processUpdateRegister(apState.resultAPI);
+
+                this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
+                );
+                //this.router.navigate(['/']);
+            }
         });
+
     }
     processAddRegister(response: ServiceResponse<SpecialtyModel>) {
         CaptureTologFunc('processAddRegister-specialty', response);
@@ -111,13 +154,13 @@ export class AddEditSpecialtyComponent implements OnInit {
             id: responseData?.id,
             description: responseData?.description,
             language: responseData?.language,
-            enable: responseData?.enable, 
+            enable: responseData?.enable,
         };
         let modelEntity = this.registerModel;
         formsElement.controls['description'].setValue(modelEntity?.description);
         formsElement.controls['language'].setValue(modelEntity?.language);
         //this.registerModel_Enable = modelEntity?.enable;
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
     }
     isValidFormRolePolicyClaimCode(): boolean {
         let isValid = this.registerForm.get('rolePolicyClaimCode').errors?.required;
@@ -157,7 +200,7 @@ export class AddEditSpecialtyComponent implements OnInit {
             id: 0,
             description: '',
             language: '',
-            enable: false, 
+            enable: false,
         }
     }
     onSelect(selectedValue: string) {

@@ -21,15 +21,12 @@ import { CountDownTimerComponent } from './common/countdowntimer/countdowntimer.
 import { CustomTextActivePipe } from './common/custompipe/customtextactive.pipe';
 import { GenericDataTableGrid } from './components/genericdatatablegrid/genericdatatablegrid.component';
 import { LayoutModule } from './custommodules/layout.module';
- 
-//import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-//import { GenderService } from './services/general/gender.service';
-/*import { StoreModule } from '@ngrx/store';
-import { createEntityReducer } from './storeredux/reducers/serviceresponse.reducer';
+import { StoreModule } from '@ngrx/store'; 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'; 
 import { SpecialtyModel } from './models/simplemodel/SpecialtyModel';
-import { EffectsModule } from '@ngrx/effects';
-import { appReducer } from './storeredux/shared/app.reducer';
- */
+import { EffectsModule } from '@ngrx/effects'; 
+import { appReducer } from './storereduxngrx/shared/app.reducer';
+  
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -39,13 +36,10 @@ import { appReducer } from './storeredux/shared/app.reducer';
         }),
         LayoutModule,
         FixedPluginModule,
-        HttpClientModule,
-        //EffectsModule.forRoot([]),
-        //StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-       // StoreModule.forRoot({ appState: appReducer }),
-        //EffectsModule.forRoot([]),
-       //StoreModule.forRoot({ specialty: createEntityReducer<SpecialtyModel> }),
-        //EffectsModule.forFeature([SpecialtyEffect])
+        HttpClientModule, 
+        StoreModule.forRoot({ appState: appReducer }),//4)fourth time 
+        EffectsModule.forRoot([]),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode()  }) 
     ],
     declarations: [
         AppComponent,

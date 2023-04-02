@@ -38,7 +38,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr *ngFor="let row of listResult">
+                                    <tr *ngFor="let row of (entityEff$ | async)  ">
                                         <td class="text-center">{{ row.id }}</td>
                                         <td>{{ row.description }}</td>
                                         <td>{{ row.language }}</td>

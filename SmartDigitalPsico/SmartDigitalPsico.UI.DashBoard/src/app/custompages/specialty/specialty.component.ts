@@ -4,9 +4,15 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable';   
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
+import { Store, select } from '@ngrx/store';
+import { Appstate } from 'app/storereduxngrx/shared/appstate';
+import { selectSpecialty } from 'app/storereduxngrx/selectors/specialty.selector'; 
+import { selectAppState } from 'app/storereduxngrx/shared/app.selector';
+import { setAPIStatus } from 'app/storereduxngrx/shared/app.action';
+import { invokeDeleteSpecialtyAPI, invokeSpecialtysAPI } from 'app/storereduxngrx/actions/specialty.action';
 
 declare var $: any;
 
@@ -23,10 +29,18 @@ export class SpecialtyComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
 
-    constructor(@Inject(SpecialtyService) private registerService: SpecialtyService, @Inject(Router) private router: Router) { }
+    entityEff$ = this.store.pipe(select(selectSpecialty));
+
+    constructor(
+        private store: Store, private appStore: Store<Appstate>,
+        //@Inject(SpecialtyService) private registerService: SpecialtyService, 
+        @Inject(Router) private router: Router
+    ) {
+
+    }
     ngOnInit() {
         this.loadHeaderFooterDataTable();
-        this.retrieveList(); 
+        this.retrieveList();
     }
     ngAfterViewInit() {
     }
@@ -42,8 +56,25 @@ export class SpecialtyComponent implements OnInit {
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    retrieveList(): void { 
-         this.registerService.getAll().subscribe({
+    retrieveList(): void {
+
+        this.store.dispatch(invokeSpecialtysAPI());
+
+        let apiStatus$ = this.appStore.pipe(select(selectAppState));
+
+        apiStatus$.subscribe((apState) => {
+            if (apState.apiStatus == 'success') {
+                //this.deleteModal.hide();
+                //this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);//MUDAR PARA REDUCE ATUALIZAR O ESTADO
+                console.log('retrieveList'); 
+                this.appStore.dispatch(
+                    setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
+                );
+            } else {
+
+            }
+        });
+        /*this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
                 //console.log(this.listResult);
@@ -53,7 +84,7 @@ export class SpecialtyComponent implements OnInit {
             },
             error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
         });
-
+*/
         // alert('You clicked on Like button');
     }
     /* convertListToDataTableRowAndFill(inputArray: any) {
@@ -66,14 +97,38 @@ export class SpecialtyComponent implements OnInit {
      }
  */
     executeDeleteRegister(idRegister: number) {
-        this.registerService.delete(idRegister).subscribe({
-            next: (response: any) => {
-                CaptureTologFunc('executeDeleteRegister-specialty', response);
-                this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);
-                this.modalAlertDeleted();
-            },
-            error: (err) => { this.modalErroAlert('Error of delete.'); }
+
+        this.store.dispatch(invokeDeleteSpecialtyAPI({ id: idRegister, }));
+
+        let apiStatus$ = this.appStore.pipe(select(selectAppState));
+
+        apiStatus$.subscribe((apState) => {
+            if (apState.apiStatus == 'success') {
+                //this.deleteModal.hide();
+
+                //this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);//MUDAR PARA REDUCE ATUALIZAR O ESTADO
+
+                //this.modalAlertDeleted();
+                
+                this.appStore.dispatch(
+                    setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
+                );
+            } else {
+                //this.modalErroAlert('Error of delete.');
+            }
+
         });
+
+
+        /* this.registerService.delete(idRegister).subscribe({
+             next: (response: any) => {
+                 CaptureTologFunc('executeDeleteRegister-specialty', response);
+                 this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);
+                 this.modalAlertDeleted();
+             },
+             error: (err) => { this.modalErroAlert('Error of delete.'); }
+         });
+         */
     }
     removeItemFromList<T>(lista: Array<T>, idRemove: number): Array<T> {
         const registerFinded = lista.find(p => p["id"] === idRemove);

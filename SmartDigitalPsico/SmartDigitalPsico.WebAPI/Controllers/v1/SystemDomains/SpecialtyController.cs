@@ -89,7 +89,8 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         {
             this.setUserIdCurrent();
             id = 0;
-            var response = await _entityService.Delete(id); 
+            var response = await _entityService.Delete(id);
+            response.Success = true;
             if (!response.Success)
             {
                 return NotFound(response);

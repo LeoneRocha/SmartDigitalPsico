@@ -62,9 +62,7 @@ export class SpecialtyComponent implements OnInit {
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe({
             next: (apState) => {
-                if (apState.apiStatus === 'success' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {
-                    //console.log('retrieveList');
-                    //console.log(apState);
+                if (apState.apiStatus === 'success' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {                     
                     this.loadConfigDataTablesLazzy();
                 }
                 if (apState.apiStatus === 'error' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {
@@ -96,15 +94,14 @@ export class SpecialtyComponent implements OnInit {
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe({
             next: (apState) => {
-                if (apState.apiStatus === 'success') {
-                    this.loadConfigDataTablesLazzy();
+                if (apState.apiStatus === 'success') { 
                     this.modalAlertDeleted();
                 }
                 if (apState.apiStatus === 'error') {
                     this.modalErroAlert('Error of delete.');
                 }
             },
-            error: (err) => { this.modalErroAlert('Error of delete.'); }
+            //error: (err) => { this.modalErroAlert('Error of delete.'); }
         });
         /* this.registerService.delete(idRegister).subscribe({
              next: (response: any) => {
@@ -204,7 +201,7 @@ export class SpecialtyComponent implements OnInit {
             "pagingType": "full_numbers",
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
-            destroy: true,
+            //destroy: true,
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",

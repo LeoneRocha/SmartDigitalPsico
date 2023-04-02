@@ -33,6 +33,10 @@ export const AppRoutes: Routes = [
             path: 'specialty',
             canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/specialty/specialty.module').then(x => x.SpecialtyModule)
+        }, {
+            path: 'applicationsetting',
+            canActivate: [AuthGuard, AdminAuthGuard],
+            loadChildren: () => import('./custompages/applicationconfigsetting/applicationconfigsetting.module').then(x => x.ApplicationConfigSettingModule)
         }
         ]
     },

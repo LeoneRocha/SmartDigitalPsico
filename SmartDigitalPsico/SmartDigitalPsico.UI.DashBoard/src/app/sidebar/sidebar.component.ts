@@ -52,13 +52,13 @@ export const ROUTES: RouteInfo[] = [{
     ]
 },
 {
-    path: '/pages',
+    path: '/administrative',
     title: 'Usuários',
     type: 'sub',
     icontype: 'pe-7s-users', 
     roleaccess: 'Read',
     children: [
-        { path: 'users', title: 'Usuários', ab: 'U' }
+        { path: 'usermanagement', title: 'Usuários', ab: 'U' }
     ]
 }, {
     path: '/administrative',

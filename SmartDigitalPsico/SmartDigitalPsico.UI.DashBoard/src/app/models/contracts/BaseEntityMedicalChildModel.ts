@@ -1,6 +1,6 @@
 import { MedicalModel } from "../principalsmodel/MedicalModel";
 
 export interface BaseEntityMedicalChildModel {
-    medicalId: number;
-    medical: MedicalModel;
+    medicalId?: number;
+    medical?: MedicalModel;
 }

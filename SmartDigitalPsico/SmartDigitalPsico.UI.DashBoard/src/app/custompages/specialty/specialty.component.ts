@@ -9,7 +9,7 @@ import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'app/storereduxngrx/shared/appstate';
-import { selectSpecialty } from 'app/storereduxngrx/selectors/specialty.selector'; 
+import { selectSpecialty } from 'app/storereduxngrx/selectors/specialty.selector';
 import { selectAppState } from 'app/storereduxngrx/shared/app.selector';
 import { setAPIStatus } from 'app/storereduxngrx/shared/app.action';
 import { invokeDeleteSpecialtyAPI, invokeSpecialtysAPI } from 'app/storereduxngrx/actions/specialty.action';
@@ -66,7 +66,7 @@ export class SpecialtyComponent implements OnInit {
             if (apState.apiStatus == 'success') {
                 //this.deleteModal.hide();
                 //this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);//MUDAR PARA REDUCE ATUALIZAR O ESTADO
-                console.log('retrieveList'); 
+                console.log('retrieveList');
                 this.appStore.dispatch(
                     setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
                 );
@@ -105,21 +105,15 @@ export class SpecialtyComponent implements OnInit {
         apiStatus$.subscribe((apState) => {
             if (apState.apiStatus == 'success') {
                 //this.deleteModal.hide();
-
                 //this.listResult = this.removeItemFromList<SpecialtyModel>(this.listResult, idRegister);//MUDAR PARA REDUCE ATUALIZAR O ESTADO
-
-                //this.modalAlertDeleted();
-                
+                //this.modalAlertDeleted();                
                 this.appStore.dispatch(
                     setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
                 );
             } else {
                 //this.modalErroAlert('Error of delete.');
             }
-
         });
-
-
         /* this.registerService.delete(idRegister).subscribe({
              next: (response: any) => {
                  CaptureTologFunc('executeDeleteRegister-specialty', response);

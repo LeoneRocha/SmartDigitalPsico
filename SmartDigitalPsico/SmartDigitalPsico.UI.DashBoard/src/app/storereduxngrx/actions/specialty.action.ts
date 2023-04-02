@@ -2,9 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 
- 
-
-
 export const invokeSpecialtysAPI = createAction(
   '[Specialtys API] Invoke Specialtys Fetch API'
 );

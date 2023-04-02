@@ -6,12 +6,8 @@ import { EMPTY, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
 import { Appstate } from '../shared/appstate';
 import { setAPIStatus } from '../shared/app.action';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
-
 import { selectSpecialty } from '../selectors/specialty.selector';
 import { deleteSpecialtyAPISuccess, invokeDeleteSpecialtyAPI, invokeSaveNewSpecialtyAPI, invokeSpecialtysAPI, invokeUpdateSpecialtyAPI, saveNewSpecialtyAPISucess, specialtysFetchAPISuccess, updateSpecialtyAPISucess } from '../actions/specialty.action';
-
-
-
 @Injectable()
 export class SpecialtyEffect {
   constructor(
@@ -31,12 +27,12 @@ export class SpecialtyEffect {
         }
         return this.enittyService
           .getAll()
-          .pipe(map((responseData) => specialtysFetchAPISuccess({ allSpecialtys: responseData['data']})))
+          .pipe(map((responseData) => specialtysFetchAPISuccess({ allSpecialtys: responseData['data'] })))
           ;
       })
     )
   );
-//response.map((responseData) => { return responseData.data }) }
+
   addEntity$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(invokeSaveNewSpecialtyAPI),
@@ -100,4 +96,3 @@ export class SpecialtyEffect {
     );
   });
 }
-

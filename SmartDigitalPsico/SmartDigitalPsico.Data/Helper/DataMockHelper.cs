@@ -1,16 +1,10 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Domains.AddVOs;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.Repository.Helper
 {
@@ -125,8 +119,7 @@ namespace SmartDigitalPsico.Repository.Helper
             { SpecialtiesId = (long)1, MedicalsId = (long)1 }));
 
             modelBuilder.Entity<Medical>().HasData(newAddMedical);
-
-
+             
             var newAddUserMedical = new User
             {
                 Id = 2,
@@ -139,7 +132,9 @@ namespace SmartDigitalPsico.Repository.Helper
                 LastAccessDate = DateTime.Now,
                 ModifyDate = DateTime.Now,
                 Role = "Medical",
-                MedicalId = 1
+                MedicalId = 1,
+                Language = getCulture(),
+                TimeZone = getTimeZone()
 
             };
             SecurityHelper.CreatePasswordHash("doctor123", out byte[] passwordHashM, out byte[] passwordSaltM);
@@ -159,8 +154,7 @@ namespace SmartDigitalPsico.Repository.Helper
         }
 
         private static void addMockUser(ModelBuilder modelBuilder)
-        {
-
+        {  
             var newAddUser = new User
             {
                 Id = 1,
@@ -173,6 +167,8 @@ namespace SmartDigitalPsico.Repository.Helper
                 LastAccessDate = DateTime.Now,
                 ModifyDate = DateTime.Now,
                 Role = "Admin",
+                Language = getCulture(),
+                TimeZone = getTimeZone()
 
             };
             SecurityHelper.CreatePasswordHash("mock123adm", out byte[] passwordHash, out byte[] passwordSalt);
@@ -181,10 +177,20 @@ namespace SmartDigitalPsico.Repository.Helper
 
             newAddUser.RoleGroups = new List<RoleGroup>();
 
-            modelBuilder.Entity<User>().HasData(newAddUser);
+            modelBuilder.Entity<User>().HasData(newAddUser); 
+        }
 
+        private static string? getTimeZone()
+        {
+            return CultureDateTimeHelper.GetTimeZonesIds().Where(c =>
+             (c.Name.ToUpper().Contains("o Paulo".ToUpper()) || c.Id.ToUpper().Contains("o Paulo".ToUpper()))
+             || (c.Name.ToUpper().Contains("Brasília".ToUpper()) || c.Id.ToUpper().Contains("Brasília".ToUpper()))
+             ).FirstOrDefault()?.Id;
+        }
 
-
+        private static string? getCulture()
+        {
+            return CultureDateTimeHelper.GetCultures().Where(c => c.Id.ToUpper().Contains("pt-br".ToUpper())).FirstOrDefault()?.Id;
         }
 
         private static void addMockRoleGroup(ModelBuilder modelBuilder)
@@ -234,7 +240,7 @@ namespace SmartDigitalPsico.Repository.Helper
             new Gender { Id = 1, Description = "Masculino", Language = valorbr },
             new Gender { Id = 2, Description = "Feminino", Language = valorbr }
             );
-            #endregion
+            #endregion Gender
         }
     }
 }

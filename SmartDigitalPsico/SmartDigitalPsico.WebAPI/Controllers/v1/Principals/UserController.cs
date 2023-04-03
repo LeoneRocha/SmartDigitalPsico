@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
@@ -6,6 +7,7 @@ using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Services.Contracts.Principals;
+using SmartDigitalPsico.Services.Principals;
 using SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class UserController : ApiBaseController
     {
@@ -46,6 +48,18 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         {
             this.setUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<GetUserVO>>> Create(UserRegisterVO newEntity)
+        {
+            var response = await _entityService.Register(newEntity);
+
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
 
         [HttpPut]

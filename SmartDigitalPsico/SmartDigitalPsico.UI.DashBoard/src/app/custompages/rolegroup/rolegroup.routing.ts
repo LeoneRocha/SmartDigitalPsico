@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router';    
+import { Routes } from '@angular/router';
 import { RoleGroupComponent } from './rolegroup.component';
-import { AddEditRolegGroupComponent } from './add-edit-rolegroup/add-edit-rolegroup.component';
+import { AddEditRoleGroupComponent } from './add-edit-rolegroup/add-edit-rolegroup.component';
 
 export const RoleGroupRoutes: Routes = [{
     path: '',
@@ -8,8 +8,8 @@ export const RoleGroupRoutes: Routes = [{
         //path: 'pages/rolegroup',
         path: '',
         component: RoleGroupComponent
-    } , {
+    }, {
         path: 'rolegroupaction',
-        component: AddEditRolegGroupComponent
+        component: AddEditRoleGroupComponent
     }]
 }];

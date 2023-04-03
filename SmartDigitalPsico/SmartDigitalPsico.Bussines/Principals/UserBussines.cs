@@ -26,7 +26,7 @@ namespace SmartDigitalPsico.Business.Principals
         IConfiguration _configuration;
         ITokenConfiguration _configurationToken;
         private readonly ITokenService _tokenService;
-        AuthConfigurationVO _configurationAuth; 
+        AuthConfigurationVO _configurationAuth;
         public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
             , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator)
             : base(mapper, entityRepository, entityValidator)
@@ -96,7 +96,7 @@ namespace SmartDigitalPsico.Business.Principals
             {
                 //TODO: GENARATE LOGS
                 throw ex;
-            } 
+            }
             return response;
         }
 
@@ -105,7 +105,7 @@ namespace SmartDigitalPsico.Business.Principals
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
 
             try
-            { 
+            {  
                 User entityUpdate = await _userRepository.FindByID(updateUser.Id);
 
                 bool exists = await UserExists(entityUpdate.Name);
@@ -117,7 +117,13 @@ namespace SmartDigitalPsico.Business.Principals
                 }
                 entityUpdate.Name = updateUser.Name;
                 entityUpdate.Enable = updateUser.Enable;
-                entityUpdate.Email = updateUser.Email; 
+                entityUpdate.Email = updateUser.Email;
+                if (!string.IsNullOrEmpty(updateUser.Email))
+                {
+                    SecurityHelper.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                    entityUpdate.PasswordHash = passwordHash;
+                    entityUpdate.PasswordSalt = passwordSalt; 
+                }
 
                 User entityResponse = await _userRepository.Update(entityUpdate);
                 response.Success = true;
@@ -232,6 +238,6 @@ namespace SmartDigitalPsico.Business.Principals
                 accessToken,
                 refreshToken
                 );
-        } 
+        }
     }
 }

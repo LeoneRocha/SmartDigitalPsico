@@ -7,17 +7,17 @@ import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
-import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
 import { RoleGroupModel } from 'app/models/simplemodel/RoleGroupModel';
+import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-rolegroup',
     templateUrl: 'add-edit-rolegroup.component.html'
-    //styleUrls: ['./rolegroup.component.css']
+    //styleUrls: ['./RoleGroup.component.css']
 })
 //5-  a lista
 
-export class AddEditRolegGroupComponent implements OnInit {
+export class AddEditRoleGroupComponent implements OnInit {
     registerId: number;
     registerForm: FormGroup;
     isUpdateRegister: boolean = false;
@@ -48,7 +48,6 @@ export class AddEditRolegGroupComponent implements OnInit {
             formsElement.controls['description'].disable();
             formsElement.controls['language'].disable();
             formsElement.controls['enableOpt'].disable();
-            formsElement.controls['rolePolicyClaimCode'].disable();
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
@@ -72,7 +71,7 @@ export class AddEditRolegGroupComponent implements OnInit {
         });
     }
     processAddRegister(response: ServiceResponse<RoleGroupModel>) {
-        CaptureTologFunc('processAddRegister-rolegroup', response);
+        CaptureTologFunc('processAddRegister-RoleGroup', response);
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
@@ -82,28 +81,28 @@ export class AddEditRolegGroupComponent implements OnInit {
         this.goBackToList();
     }
     processAddRegisterErro(response: ServiceResponse<RoleGroupModel>) {
-        CaptureTologFunc('processAddRegisterErro-rolegroup', response);
+        CaptureTologFunc('processAddRegisterErro-RoleGroup', response);
         this.modalErroAlert("Error adding!", response);
     }
 
     processUpdateRegister(response: ServiceResponse<RoleGroupModel>) {
-        CaptureTologFunc('processUpdateRegister-rolegroup', response);
+        CaptureTologFunc('processUpdateRegister-RoleGroup', response);
         this.serviceResponse = response;
         this.modalSuccessAlert();
     }
     processUpdateRegisterErro(response: ServiceResponse<RoleGroupModel>) {
-        CaptureTologFunc('processUpdateRegisterErro-rolegroup', response);
+        CaptureTologFunc('processUpdateRegisterErro-RoleGroup', response);
         this.modalErroAlert("Error update!", response);
     }
 
     processLoadRegister(response: ServiceResponse<RoleGroupModel>) {
-        CaptureTologFunc('processLoadRegister-rolegroup', response);
+        CaptureTologFunc('processLoadRegister-RoleGroup', response);
         this.serviceResponse = response;
         this.fillFieldsForm();
         this.isUpdateRegister = true && !this.isModeViewForm;
     }
     processLoadRegisterErro(response: ServiceResponse<RoleGroupModel>) {
-        CaptureTologFunc('processLoadRegisterErro-rolegroup', response);
+        CaptureTologFunc('processLoadRegisterErro-RoleGroup', response);
         this.modalErroAlert("Error load!", response);
     }
     fillFieldsForm(): void {
@@ -114,19 +113,15 @@ export class AddEditRolegGroupComponent implements OnInit {
             description: responseData?.description,
             language: responseData?.language,
             enable: responseData?.enable,
-            rolePolicyClaimCode: responseData?.rolePolicyClaimCode,
+            rolePolicyClaimCode: ''
         };
         let modelEntity = this.registerModel;
         formsElement.controls['description'].setValue(modelEntity?.description);
         formsElement.controls['language'].setValue(modelEntity?.language);
         //this.registerModel_Enable = modelEntity?.enable;
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        formsElement.controls['rolePolicyClaimCode'].setValue(modelEntity?.rolePolicyClaimCode);
-    }
-    isValidFormRolePolicyClaimCode(): boolean {
-        let isValid = this.registerForm.get('rolePolicyClaimCode').errors?.required;
-        return this.registerForm.controls['rolePolicyClaimCode'].touched
-            && this.registerForm.controls['rolePolicyClaimCode'].invalid && isValid;
+        //formsElement.controls['rolepolicyclaimcode'].setValue(modelEntity?.rolePolicyClaimCode);
+
     }
     isValidFormDescription(): boolean {
         let isValid = this.registerForm.get('description').errors?.required;
@@ -142,7 +137,7 @@ export class AddEditRolegGroupComponent implements OnInit {
             description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             language: new FormControl('', Validators.required),
             enableOpt: new FormControl(false, Validators.required),
-            rolePolicyClaimCode: new FormControl(false, Validators.required),
+            rolepolicyclaimcode: new FormControl('', Validators.required),
         });
     }
     getValuesForm() {
@@ -152,18 +147,16 @@ export class AddEditRolegGroupComponent implements OnInit {
             description: formElement.controls['description']?.value,
             language: formElement.controls['language']?.value,
             enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable,
-            rolePolicyClaimCode: formElement.controls['rolePolicyClaimCode']?.value
+            rolePolicyClaimCode: formElement.controls['rolepolicyclaimcode']?.value,//this.registerModel_Enable,
         };
-
-        //console.log(this.registerModel);
     }
     createEmptyRegister(): void {
         this.registerModel = {
             id: 0,
             description: '',
             language: '',
-            enable: false,
-            rolePolicyClaimCode: 'default'
+            rolePolicyClaimCode: '',
+            enable: false
         }
     }
     onSelect(selectedValue: string) {

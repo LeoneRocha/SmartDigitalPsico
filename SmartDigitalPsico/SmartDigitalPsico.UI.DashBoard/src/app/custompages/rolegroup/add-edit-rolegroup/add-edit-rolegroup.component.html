@@ -5,13 +5,13 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title" class="lead pb-3" *ngIf="!isUpdateRegister && !isModeViewForm">
-                            Add New Role Group
+                            Add New RoleGroup
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isUpdateRegister">
-                            Edit Role Group
+                            Edit RoleGroup
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isModeViewForm">
-                            View Role Group
+                            View RoleGroup
                         </h4>
                     </div>
                     <div class="content">
@@ -47,19 +47,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="rolePolicyClaimCode">Code:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="rolePolicyClaimCode" name="rolePolicyClaimCode"
-                                            formControlName="rolePolicyClaimCode" maxlength="25"
-                                            [ngClass]="!isValidFormRolePolicyClaimCode() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormRolePolicyClaimCode()" class="text-danger">
-                                            Code is required
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="enableOpt">Enable:</label>
                                         <div class="clearfix"></div>

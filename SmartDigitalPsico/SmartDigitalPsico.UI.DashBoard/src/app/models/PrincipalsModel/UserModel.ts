@@ -2,5 +2,8 @@ import { BaseEntityMedicalChildModel } from "../contracts/BaseEntityMedicalChild
 import { BaseEntityModel } from "../contracts/BaseEntityModel"; 
 
 export interface UserModel extends BaseEntityModel, BaseEntityMedicalChildModel {
-    
+    language: string; 
+    timeZone: string; 
+    login: string;      
+    password: string; 
 }

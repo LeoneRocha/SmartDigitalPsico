@@ -9,7 +9,7 @@ export const UserManagementRoutes: Routes = [{
         path: '',
         component: UserManagementComponent
     } , {
-        path: 'rolegroupaction',
+        path: 'usermanagementaction',
         component: AddEditUserManagementComponent
     }]
 }];

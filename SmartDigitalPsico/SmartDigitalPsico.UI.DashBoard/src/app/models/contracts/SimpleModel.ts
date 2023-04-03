@@ -4,3 +4,9 @@ export interface SimpleModel{
     language: string; 
     enable: boolean; 
   }  
+
+
+  export interface SimpleGeneralModel{
+    id: string;
+    name: string;  
+  }  

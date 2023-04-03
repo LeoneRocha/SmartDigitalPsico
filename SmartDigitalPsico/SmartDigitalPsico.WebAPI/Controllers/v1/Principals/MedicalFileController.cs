@@ -47,7 +47,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetMedicalFileVO>>> GetById(long id)
+        public async Task<ActionResult<ServiceResponse<GetMedicalFileVO>>> FindByID(long id)
         {
             this.setUserIdCurrent();
             return Ok(await _entityService.FindByID(id));

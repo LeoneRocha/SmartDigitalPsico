@@ -47,7 +47,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         public async Task<ActionResult<ServiceResponse<GetUserVO>>> FindByID(int id)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindByID(id));
+            var response = await _entityService.FindByID(id);
+            if (!response.Success)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
         [HttpPost]

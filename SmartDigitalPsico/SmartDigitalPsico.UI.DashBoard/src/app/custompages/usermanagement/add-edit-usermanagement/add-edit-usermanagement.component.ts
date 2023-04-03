@@ -6,9 +6,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/language-options';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse'; 
+import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
 import { UserModel } from 'app/models/principalsmodel/UserModel';
 import { UserService } from 'app/services/general/principals/user.service';
+import { SimpleGeneralModel } from 'app/models/contracts/SimpleModel';
+import { GlobalizationCultureService } from 'app/services/general/simple/globalizationculture.service';
+import { GlobalizationTimeZonesService } from 'app/services/general/simple/globalizationtimezone.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-usermanagement',
@@ -24,9 +27,13 @@ export class AddEditUserManagementComponent implements OnInit {
     registerModel: UserModel;
     serviceResponse: ServiceResponse<UserModel>;
     public languages = LanguageOptions;
+    public languagesGlobal: SimpleGeneralModel[];
+    public timeZonesGlobal: SimpleGeneralModel[];
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(UserService) private registerService: UserService,
+        @Inject(GlobalizationCultureService) private globalizationCultureService: GlobalizationCultureService,
+        @Inject(GlobalizationTimeZonesService) private globalizationTimeZonesService: GlobalizationTimeZonesService,
         private fb: FormBuilder, @Inject(Router) private router: Router) {
         this.gerateFormRegister();
     }
@@ -37,19 +44,37 @@ export class AddEditUserManagementComponent implements OnInit {
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+
+        this.globalizationCultureService.getAll().subscribe({
+            next: (response: SimpleGeneralModel[]) => { this.languagesGlobal = response; }, error: (err) => { console.log(err); },
+        });
+
+        this.globalizationTimeZonesService.getAll().subscribe({
+            next: (response: SimpleGeneralModel[]) => { this.timeZonesGlobal = response; }, error: (err) => { console.log(err); },
+        });
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
         let paramsUrl = this.route.snapshot.paramMap;
         this.isModeViewForm = paramsUrl.get('modeForm') === 'view';
+        this.registerId = Number(paramsUrl.get('id'));
+        this.isUpdateRegister = this.registerId > 0 && !this.isModeViewForm;
+
+        if (this.isUpdateRegister) {
+            formsElement.controls['email'].disable();
+            formsElement.controls['login'].disable();
+        }
 
         if (this.isModeViewForm) {
-            formsElement.controls['description'].disable();
+            formsElement.controls['name'].disable();
+            formsElement.controls['email'].disable();
+            formsElement.controls['login'].disable();
+            formsElement.controls['password'].disable();
             formsElement.controls['language'].disable();
+            formsElement.controls['timezone'].disable();
+            //formsElement.controls['medicalId'].disable();
             formsElement.controls['enableOpt'].disable();
-            formsElement.controls['rolePolicyClaimCode'].disable();
         }
-        this.registerId = Number(paramsUrl.get('id'));
     }
     ngAfterViewInit() {
     }
@@ -99,7 +124,6 @@ export class AddEditUserManagementComponent implements OnInit {
         CaptureTologFunc('processLoadRegister-usermanagement', response);
         this.serviceResponse = response;
         this.fillFieldsForm();
-        this.isUpdateRegister = true && !this.isModeViewForm;
     }
     processLoadRegisterErro(response: ServiceResponse<UserModel>) {
         CaptureTologFunc('processLoadRegisterErro-usermanagement', response);
@@ -112,54 +136,92 @@ export class AddEditUserManagementComponent implements OnInit {
             id: responseData?.id,
             name: responseData?.name,
             email: responseData?.email,
-            enable: responseData?.enable, 
-            medicalId : responseData?.medicalId, 
+            login: responseData?.login,
+            password: responseData?.password,
+            language: responseData?.language,
+            timeZone: responseData?.timeZone,
+            medicalId: responseData?.medicalId,
+            enable: responseData?.enable,
         };
+
+        console.log(this.registerModel);
+
         let modelEntity = this.registerModel;
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);
-        formsElement.controls['medicalId'].setValue(modelEntity?.medicalId); 
-        //this.registerModel_Enable = modelEntity?.enable;
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
+        formsElement.controls['login'].setValue(modelEntity?.login);
+        formsElement.controls['password'].setValue(modelEntity?.password);
+        formsElement.controls['language'].setValue(modelEntity?.language);
+        formsElement.controls['timezone'].setValue(modelEntity?.timeZone);
+        // formsElement.controls['medicalId'].setValue(modelEntity?.medicalId); 
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
     }
-    isValidFormRolePolicyClaimCode(): boolean {
-        let isValid = this.registerForm.get('rolePolicyClaimCode').errors?.required;
-        return this.registerForm.controls['rolePolicyClaimCode'].touched
-            && this.registerForm.controls['rolePolicyClaimCode'].invalid && isValid;
+    isValidFormName(): boolean {
+        let isValid = this.registerForm.get('name').errors?.required;
+        return this.registerForm.controls['name'].touched && this.registerForm.controls['name'].invalid && isValid;
     }
-    isValidFormDescription(): boolean {
-        let isValid = this.registerForm.get('description').errors?.required;
-        return this.registerForm.controls['description'].touched && this.registerForm.controls['description'].invalid && isValid;
+    isValidFormEmail(): boolean {
+        let isValid = this.registerForm.get('email').errors?.required;
+        return this.registerForm.controls['email'].touched && this.registerForm.controls['email'].invalid && isValid;
+    }
+    isValidFormLogin(): boolean {
+        let isValid = this.registerForm.get('login').errors?.required;
+        return this.registerForm.controls['login'].touched && this.registerForm.controls['login'].invalid && isValid;
+    }
+    isValidFormPassword(): boolean {
+        let isValid = this.registerForm.get('password').errors?.required;
+        if (this.isUpdateRegister) {
+            isValid = false;
+        }
+        isValid = this.registerForm.controls['password'].touched && this.registerForm.controls['password'].valid && isValid
+
+        return isValid;
     }
     isValidFormLanguage(): boolean {
         let isValid = this.registerForm.get('language').errors?.required;
         return this.registerForm.controls['language'].touched && this.registerForm.controls['language'].invalid && isValid;
     }
+    isValidFormTimezone(): boolean {
+        let isValid = this.registerForm.get('timezone').errors?.required;
+        return this.registerForm.controls['timezone'].touched && this.registerForm.controls['timezone'].invalid && isValid;
+    }
     gerateFormRegister() {
         this.registerForm = this.fb.group({
             id: new FormControl(),
-            description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            language: new FormControl('', Validators.required),
+            name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            email: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+            login: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
+            password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+            language: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+            timezone: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             enableOpt: new FormControl(false, Validators.required),
-            rolePolicyClaimCode: new FormControl(false, Validators.required),
         });
     }
     getValuesForm() {
         let formElement = this.registerForm;
         this.registerModel = {
             id: this.registerId ? this.registerId : 0,
-            name: formElement.controls['name']?.value, 
-            email: formElement.controls['email']?.value, 
-            enable: formElement.controls['enableOpt']?.value, 
-            medicalId: formElement.controls['enableOpt']?.value, 
-        }; 
+            name: formElement.controls['name']?.value,
+            email: formElement.controls['email']?.value,
+            login: formElement.controls['login']?.value,
+            password: formElement.controls['password']?.value,
+            language: formElement.controls['language']?.value,
+            timeZone: formElement.controls['timezone']?.value,
+            // medicalId: formElement.controls['medicalId']?.value,
+            enable: formElement.controls['enableOpt']?.value,
+        };
         //console.log(this.registerModel);
     }
     createEmptyRegister(): void {
         this.registerModel = {
             id: 0,
             name: '',
-            email:'',            
+            email: '',
+            login: '',
+            password: '',
+            language: '',
+            timeZone: '',
+            medicalId: null,
             enable: false,
         }
     }

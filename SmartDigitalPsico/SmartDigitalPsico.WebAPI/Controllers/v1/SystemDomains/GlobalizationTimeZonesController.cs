@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Domains.Helpers;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 {
@@ -11,15 +12,16 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     //[Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class GlobalizationTimeZonesController : ControllerBase
-    {  
-        public GlobalizationTimeZonesController( )
-        { 
-        } 
+    {
+        public GlobalizationTimeZonesController()
+        {
+        }
         //[AllowAnonymous]
-        [HttpGet("GetTimeZones")] 
-        public ActionResult<List<TimeZoneDisplay>> Get()
-        { 
+        [HttpGet("GetTimeZones")]
+        public async Task<ActionResult<List<TimeZoneDisplay>>> Get()
+        {
+            await Task.FromResult(0);
             return Ok(CultureDateTimeHelper.GetTimeZonesIds());
-        } 
+        }
     }
 }

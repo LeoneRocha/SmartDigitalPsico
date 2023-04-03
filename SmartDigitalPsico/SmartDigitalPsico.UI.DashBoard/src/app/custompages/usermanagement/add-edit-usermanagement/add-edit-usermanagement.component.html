@@ -5,13 +5,13 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title" class="lead pb-3" *ngIf="!isUpdateRegister && !isModeViewForm">
-                            Add New Role Group
+                            Add New User
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isUpdateRegister">
-                            Edit Role Group
+                            Edit User
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isModeViewForm">
-                            View Role Group
+                            View User
                         </h4>
                     </div>
                     <div class="content">
@@ -19,15 +19,52 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="description">Description:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="description" name="description"
-                                            formControlName="description" maxlength="50"
-                                            [ngClass]="!isValidFormDescription() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormDescription()" class="text-danger">
-                                            Description is required
+                                        <label for="name">Name:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            formControlName="name" maxlength="50"
+                                            [ngClass]="!isValidFormName() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormName()" class="text-danger">
+                                            Name is required
                                         </small>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email:</label> <span class="star">*</span>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            formControlName="email" maxlength="50"
+                                            [ngClass]="!isValidFormEmail() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormEmail()" class="text-danger">
+                                            Email is required
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="login">Login:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="login" name="login"
+                                            formControlName="login" maxlength="50"
+                                            [ngClass]="!isValidFormLogin() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormLogin()" class="text-danger">
+                                            Login is required
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password">Password:</label> <span class="star">*</span>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            formControlName="password" maxlength="50"
+                                            [ngClass]="!isValidFormPassword() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormPassword()" class="text-danger">
+                                            Password is required
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="language">Language:</label> <span class="star">*</span>
@@ -35,35 +72,42 @@
                                             data-style="btn-default btn-block"
                                             [ngClass]="!isValidFormLanguage() ? '' : 'error'" data-title="Select"
                                             data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
-                                            <option value="">Select</option>
-                                            <option *ngFor="let c of languages" [value]="c.code">{{ c.name }}
+                                            <option value="">Select</option> 
+                                            <option *ngFor="let c of languagesGlobal" [value]="c.id">{{ c.name +" (" + c.id
+                                                +")" }}
                                             </option>
+
                                         </select>
                                         <small [hidden]="!isValidFormLanguage()" class="text-danger">
                                             Language is required
                                         </small>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="rolePolicyClaimCode">Code:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="rolePolicyClaimCode" name="rolePolicyClaimCode"
-                                            formControlName="rolePolicyClaimCode" maxlength="25"
-                                            [ngClass]="!isValidFormRolePolicyClaimCode() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormRolePolicyClaimCode()" class="text-danger">
-                                            Code is required
+                                        <label for="timezone">Time Zone:</label> <span class="star">*</span>
+                                        <select formControlName="timezone" required name="timezone" class="form-control"
+                                            data-style="btn-default btn-block"
+                                            [ngClass]="!isValidFormTimezone() ? '' : 'error'" data-title="Select"
+                                            data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let c of timeZonesGlobal" [value]="c.id">{{ c.name +" (" + c.id
+                                                +")" }}
+                                            </option>
+                                        </select>
+                                        <small [hidden]="!isValidFormTimezone()" class="text-danger">
+                                            Time Zone is required
                                         </small>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="enableOpt">Enable:</label>
                                         <div class="clearfix"></div>
-                                        <bSwitch formControlName="enableOpt" required [switch-on-color]="'primary'" >
+                                        <bSwitch formControlName="enableOpt" required [switch-on-color]="'primary'">
                                         </bSwitch>
                                     </div>
                                 </div>

@@ -48,6 +48,7 @@ export class AddEditRoleGroupComponent implements OnInit {
             formsElement.controls['description'].disable();
             formsElement.controls['language'].disable();
             formsElement.controls['enableOpt'].disable();
+            formsElement.controls['enableOpt'].disable();
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
@@ -113,14 +114,14 @@ export class AddEditRoleGroupComponent implements OnInit {
             description: responseData?.description,
             language: responseData?.language,
             enable: responseData?.enable,
-            rolePolicyClaimCode: ''
+            rolePolicyClaimCode: responseData?.rolePolicyClaimCode,
         };
         let modelEntity = this.registerModel;
         formsElement.controls['description'].setValue(modelEntity?.description);
         formsElement.controls['language'].setValue(modelEntity?.language);
         //this.registerModel_Enable = modelEntity?.enable;
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        //formsElement.controls['rolepolicyclaimcode'].setValue(modelEntity?.rolePolicyClaimCode);
+        formsElement.controls['rolepolicyclaimcode'].setValue(modelEntity?.rolePolicyClaimCode);
 
     }
     isValidFormDescription(): boolean {
@@ -130,6 +131,10 @@ export class AddEditRoleGroupComponent implements OnInit {
     isValidFormLanguage(): boolean {
         let isValid = this.registerForm.get('language').errors?.required;
         return this.registerForm.controls['language'].touched && this.registerForm.controls['language'].invalid && isValid;
+    } 
+    isValidFormRolePolicyClaimCode(): boolean {
+        let isValid = this.registerForm.get('rolepolicyclaimcode').errors?.required;
+        return this.registerForm.controls['rolepolicyclaimcode'].touched && this.registerForm.controls['rolepolicyclaimcode'].invalid && isValid;
     }
     gerateFormRegister() {
         this.registerForm = this.fb.group({

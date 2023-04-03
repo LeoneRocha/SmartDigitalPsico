@@ -53,7 +53,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         public async Task<ActionResult<ServiceResponse<GetRoleGroupVO>>> Create(AddRoleGroupVO newEntity)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.Create(newEntity));
+            var response = await _entityService.Create(newEntity);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);  
         }
 
         [HttpPut]

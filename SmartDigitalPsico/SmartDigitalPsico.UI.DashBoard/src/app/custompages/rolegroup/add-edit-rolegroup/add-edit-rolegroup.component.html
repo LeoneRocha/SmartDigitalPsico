@@ -48,6 +48,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="rolepolicyclaimcode">Code:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="rolepolicyclaimcode" name="rolepolicyclaimcode"
+                                            formControlName="rolepolicyclaimcode" maxlength="50"
+                                            [ngClass]="!isValidFormRolePolicyClaimCode() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormRolePolicyClaimCode()" class="text-danger">
+                                            Code is required
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="enableOpt">Enable:</label>
                                         <div class="clearfix"></div>
                                         <bSwitch formControlName="enableOpt" required [switch-on-color]="'primary'" >

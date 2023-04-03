@@ -12,7 +12,6 @@ import { UserService } from 'app/services/general/principals/user.service';
 import { SimpleGeneralModel } from 'app/models/contracts/SimpleModel';
 import { GlobalizationCultureService } from 'app/services/general/simple/globalizationculture.service';
 import { GlobalizationTimeZonesService } from 'app/services/general/simple/globalizationtimezone.service';
-import { Console } from 'console';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-usermanagement',
@@ -20,6 +19,7 @@ import { Console } from 'console';
     //styleUrls: ['./usermanagement.component.css']
 })
 //5-  a lista
+
 export class AddEditUserManagementComponent implements OnInit {
     registerId: number;
     registerForm: FormGroup;
@@ -36,10 +36,13 @@ export class AddEditUserManagementComponent implements OnInit {
         @Inject(GlobalizationCultureService) private globalizationCultureService: GlobalizationCultureService,
         @Inject(GlobalizationTimeZonesService) private globalizationTimeZonesService: GlobalizationTimeZonesService,
         private fb: FormBuilder, @Inject(Router) private router: Router) {
+        this.gerateFormRegister();
     }
     ngOnInit() {
+
+        this.loadGlobalization();
         this.loadFormParameters();
-        this.gerateFormRegister();
+
         this.loadFormRegister();
 
         if (this.registerId)
@@ -47,7 +50,8 @@ export class AddEditUserManagementComponent implements OnInit {
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
-
+    }
+    loadGlobalization() {
         this.globalizationCultureService.getAll().subscribe({
             next: (response: SimpleGeneralModel[]) => { this.languagesGlobal = response; }, error: (err) => { console.log(err); },
         });
@@ -64,6 +68,7 @@ export class AddEditUserManagementComponent implements OnInit {
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
+
         if (this.isUpdateRegister) {
             formsElement.controls['email'].disable();
             formsElement.controls['login'].disable();
@@ -88,14 +93,15 @@ export class AddEditUserManagementComponent implements OnInit {
         });
     }
     addRegister() {
-        this.getValuesForm();
+        this.getValuesForm(); 
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<UserModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
     updateRegister() {
-        //this.getValuesForm();
+        this.getValuesForm();
         //console.log(this.registerModel);
+        //console.log(JSON.stringify(this.registerModel));
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<UserModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -129,6 +135,7 @@ export class AddEditUserManagementComponent implements OnInit {
         CaptureTologFunc('processLoadRegister-usermanagement', response);
         this.serviceResponse = response;
         this.fillFieldsForm();
+        this.isUpdateRegister = true && !this.isModeViewForm;
     }
     processLoadRegisterErro(response: ServiceResponse<UserModel>) {
         CaptureTologFunc('processLoadRegisterErro-usermanagement', response);
@@ -149,11 +156,8 @@ export class AddEditUserManagementComponent implements OnInit {
             enable: responseData?.enable,
             admin: responseData?.admin,
             role: responseData?.role,
-            roleGroupsIds: responseData?.role,
+            roleGroupsIds: responseData?.roleGroupsIds,
         };
-
-        //console.log(this.registerModel);
-
         let modelEntity = this.registerModel;
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);
@@ -192,6 +196,7 @@ export class AddEditUserManagementComponent implements OnInit {
         let isValid = this.registerForm.get('language').errors?.required;
         return this.registerForm.controls['language'].touched && this.registerForm.controls['language'].invalid && isValid;
     }
+
     isValidFormTimezone(): boolean {
         let isValid = this.registerForm.get('timezone').errors?.required;
         return this.registerForm.controls['timezone'].touched && this.registerForm.controls['timezone'].invalid && isValid;
@@ -203,12 +208,13 @@ export class AddEditUserManagementComponent implements OnInit {
             isPasswordRequired = false;
         }
 
+        let formElement = this.registerForm;
         this.registerForm = this.fb.group({
             id: new FormControl(),
             name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             email: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
             login: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
-            password: !isPasswordRequired ? new FormControl() : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+            password: new FormControl(),
             language: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
             timezone: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             enableOpt: new FormControl(false, Validators.required),
@@ -216,6 +222,7 @@ export class AddEditUserManagementComponent implements OnInit {
             //role: new FormControl(false, Validators.required),
             //roleGroupsIds: new FormControl(false, Validators.required), 
         });
+
     }
     getValuesForm() {
         let formElement = this.registerForm;
@@ -227,13 +234,13 @@ export class AddEditUserManagementComponent implements OnInit {
             password: formElement.controls['password']?.value ? formElement.controls['password']?.value : null,
             language: formElement.controls['language']?.value,
             timeZone: formElement.controls['timezone']?.value,
-            // medicalId: formElement.controls['medicalId']?.value,
+            medicalId: formElement.controls['medicalId']?.value ? formElement.controls['medicalId']?.value : null,
             enable: formElement.controls['enableOpt']?.value,
             admin: false,//formElement.controls['admin']?.value,
             role: '',//formElement.controls['role']?.value,
             roleGroupsIds: [],// formElement.controls['roleGroupsIds']?.value,
         };
-        //console.log(this.registerModel);
+        //console.log(this.registerModel);       
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -249,7 +256,7 @@ export class AddEditUserManagementComponent implements OnInit {
             admin: false,
             role: '',
             roleGroupsIds: [],
-        }
+        };
     }
     onSelect(selectedValue: string) {
         //console.log(selectedValue);

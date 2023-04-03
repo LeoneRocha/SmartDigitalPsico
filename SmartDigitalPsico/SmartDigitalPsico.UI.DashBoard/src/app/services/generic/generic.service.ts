@@ -21,7 +21,7 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
 
   update(t: E): Observable<T> {
     let headers = this.getHeaders();
-    console.log(t); 
+    //console.log(t); 
     return this.http.put<T>(`${this.baseUrl}/`, t, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 

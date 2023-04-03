@@ -7,6 +7,7 @@ namespace SmartDigitalPsico.Model.VO.User
 {
     public class UpdateUserVO : EntityVOBaseName 
     {
+     
         #region Relationship
         public List<long>? RoleGroupsIds { get; set; }
 
@@ -15,7 +16,7 @@ namespace SmartDigitalPsico.Model.VO.User
         #endregion Relationship
 
         #region Columns  
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         public string? Role { get; set; }
 

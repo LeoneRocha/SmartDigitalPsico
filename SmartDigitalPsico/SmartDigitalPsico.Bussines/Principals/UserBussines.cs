@@ -105,11 +105,10 @@ namespace SmartDigitalPsico.Business.Principals
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
 
             try
-            {  
+            {
                 User entityUpdate = await _userRepository.FindByID(updateUser.Id);
 
-                bool exists = await UserExists(entityUpdate.Name);
-                if (!exists)
+                if (entityUpdate == null || entityUpdate?.Id == 0)
                 {
                     response.Success = false;
                     response.Message = "User not found.";
@@ -118,13 +117,13 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.Name = updateUser.Name;
                 entityUpdate.Enable = updateUser.Enable;
                 entityUpdate.Email = updateUser.Email;
-                if (!string.IsNullOrEmpty(updateUser.Email))
+                if (!string.IsNullOrEmpty(updateUser.Password))
                 {
                     SecurityHelper.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
                     entityUpdate.PasswordHash = passwordHash;
-                    entityUpdate.PasswordSalt = passwordSalt; 
+                    entityUpdate.PasswordSalt = passwordSalt;
                 }
-
+                entityUpdate.ModifyDate = DateTime.Now;                
                 User entityResponse = await _userRepository.Update(entityUpdate);
                 response.Success = true;
                 response.Data = _mapper.Map<GetUserVO>(entityResponse);

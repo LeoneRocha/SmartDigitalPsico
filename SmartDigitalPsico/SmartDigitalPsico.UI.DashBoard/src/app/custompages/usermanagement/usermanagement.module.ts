@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CustomPagesModule } from 'app/custommodules/custompages.module';  
 import { UserManagementComponent } from './usermanagement.component';
 import { UserManagementRoutes } from './usermanagement.routing';
-import { UserService } from 'app/services/general/principals/user.service';
+import { UserService } from 'app/services/general/principals/user.service'; 
 import { AddEditUserManagementComponent } from './add-edit-usermanagement/add-edit-usermanagement.component';
 @NgModule({
     imports: [
@@ -11,7 +11,7 @@ import { AddEditUserManagementComponent } from './add-edit-usermanagement/add-ed
         RouterModule.forChild(UserManagementRoutes),
     ],
     declarations: [
-        UserManagementComponent, 
+        UserManagementComponent,  
         AddEditUserManagementComponent
     ]
     ,

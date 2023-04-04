@@ -43,7 +43,17 @@ export const AppRoutes: Routes = [
             loadChildren: () => import('./custompages/usermanagement/usermanagement.module').then(x => x.UserManagementModule)
         }
         ]
-    }, 
+    },
+    {
+        path: 'medical',
+        component: AdminLayoutComponent,
+        children: [{
+            path: 'manage',
+            canActivate: [AuthGuard],
+            loadChildren: () => import('./custompages/medical/medical.module').then(x => x.MedicalModule)
+        }
+        ]
+    },
     {
         path: 'pages',
         component: AdminLayoutComponent,

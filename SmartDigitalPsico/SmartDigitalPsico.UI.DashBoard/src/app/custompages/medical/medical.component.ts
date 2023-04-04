@@ -5,8 +5,9 @@ import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';    
-import { UserService } from 'app/services/general/principals/user.service';
 import { UserModel } from 'app/models/principalsmodel/UserModel';
+import { MedicalService } from 'app/services/general/principals/medical.service';
+import { MedicalModel } from 'app/models/principalsmodel/MedicalModel';
 
 declare var $: any;
 
@@ -18,12 +19,12 @@ declare var $: any;
 })
 
 export class MedicalComponent implements OnInit {
-    public listResult: UserModel[];
-    serviceResponse: ServiceResponse<UserModel>;
+    public listResult: MedicalModel[];
+    serviceResponse: ServiceResponse<MedicalModel>;
     public dataTable: DataTable;
     entityRoute: RouteEntity;
 
-    constructor(@Inject(UserService) private registerService: UserService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(MedicalService) private registerService: MedicalService, @Inject(Router) private router: Router) { }
     ngOnInit() {
         this.loadHeaderFooterDataTable();
         this.retrieveList();
@@ -32,13 +33,13 @@ export class MedicalComponent implements OnInit {
     ngAfterViewInit() {
     }
     newRegister(): void {
-        this.router.navigate(['/administrative/medical/medicalaction']);
+        this.router.navigate(['/medical/manage/medicalaction']);
     }
     viewRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/medical/medicalaction', { modeForm: 'view', id: idRegister }]);
+        this.router.navigate(['/medical/manage/medicalaction', { modeForm: 'view', id: idRegister }]);
     }
     editRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/medical/medicalaction', { modeForm: 'edit', id: idRegister }]);
+        this.router.navigate(['/medical/manage/medicalaction', { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
@@ -70,7 +71,7 @@ export class MedicalComponent implements OnInit {
         this.registerService.delete(idRegister).subscribe({
             next: (response: any) => {
                 CaptureTologFunc('executeDeleteRegister-Medical', response);
-                this.listResult = this.removeItemFromList<UserModel>(this.listResult, idRegister);
+                this.listResult = this.removeItemFromList<MedicalModel>(this.listResult, idRegister);
                 this.modalAlertDeleted();
             },
             error: (err) => { this.modalErroAlert('Error of delete.'); }
@@ -189,8 +190,8 @@ export class MedicalComponent implements OnInit {
     loadHeaderFooterDataTable() {
 
         this.dataTable = {
-            headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
+            headerRow: ['Id', 'Name', 'Email', 'Enable', 'Actions'],
+            footerRow: ['Id', 'Name', 'Email', 'Enable', 'Actions'],
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };

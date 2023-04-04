@@ -4,6 +4,9 @@ import { CustomPagesModule } from 'app/custommodules/custompages.module';
 import { MedicalService } from 'app/services/general/principals/medical.service';
 import { MedicalComponent } from './medical.component';
 import { MedicalRoutes } from './medical.routing';
+import { AddEditMedicalComponent } from './add-edit-medical/add-edit-medical.component';
+import { OfficeService } from 'app/services/general/simple/office.service';
+import { SpecialtyService } from 'app/services/general/simple/specialty.service';
 @NgModule({
     imports: [
         CustomPagesModule,
@@ -11,10 +14,12 @@ import { MedicalRoutes } from './medical.routing';
     ],
     declarations: [
         MedicalComponent, 
+        AddEditMedicalComponent,  
     ]
     ,
     providers: [
-        MedicalService
+        MedicalService,
+        OfficeService, SpecialtyService, 
     ],
 })
 

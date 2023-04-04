@@ -37,7 +37,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         public async Task<ActionResult<ServiceResponse<List<GetOfficeVO>>>> Get()
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindAll());
+            var response = await _entityService.FindAll();
+            if (response.Data == null)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response); 
         }
 
         [HttpGet("{id}")]

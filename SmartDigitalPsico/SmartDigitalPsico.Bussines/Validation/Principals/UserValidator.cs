@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -39,20 +40,34 @@ namespace SmartDigitalPsico.Business.Validation.Principals
         }
         private async Task<bool> UniqueEmail(User entity, string value)
         {
+            var userActual = await _entityRepository.FindByID(entity.Id);
+            bool newUser = userActual == null; 
             var user = await _entityRepository.FindByEmail(value);
-            if (user == null || user?.Id == 0)
+            if (newUser && user == null || user?.Id == 0)
             {
                 return true;
-            }
+            } 
+            bool changingEmail = userActual != null && userActual.Email != value;
+            if (!changingEmail)
+            {
+                return true;
+            } 
             return false;
         }
         private async Task<bool> UniqueLogin(User entity, string value)
         {
+            var userActual = await _entityRepository.FindByID(entity.Id);
+            bool newUser = userActual == null; 
             var user = await _entityRepository.FindByLogin(value);
-            if (user == null || user?.Id == 0)
+            if (newUser && user == null || user?.Id == 0)
             {
                 return true;
-            }
+            } 
+            bool changingEmail = userActual != null && userActual.Login != value;
+            if (!changingEmail)
+            {
+                return true;
+            } 
             return false;
         }
     }

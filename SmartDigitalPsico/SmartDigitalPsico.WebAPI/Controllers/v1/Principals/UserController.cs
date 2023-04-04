@@ -58,7 +58,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<GetUserVO>>> Create(UserRegisterVO newEntity)
         {
-            var response = await _entityService.Register(newEntity);
+            var response = await _entityService.Create(newEntity);
 
             if (!response.Success)
             {

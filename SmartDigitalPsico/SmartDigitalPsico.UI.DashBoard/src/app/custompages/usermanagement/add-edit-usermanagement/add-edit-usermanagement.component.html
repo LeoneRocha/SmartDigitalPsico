@@ -72,8 +72,9 @@
                                             data-style="btn-default btn-block"
                                             [ngClass]="!isValidFormLanguage() ? '' : 'error'" data-title="Select"
                                             data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
-                                            <option value="">Select</option> 
-                                            <option *ngFor="let c of languagesGlobal" [value]="c.id">{{ c.name +" (" + c.id
+                                            <option value="">Select</option>
+                                            <option *ngFor="let c of languagesGlobal" [value]="c.id">{{ c.name +" (" +
+                                                c.id
                                                 +")" }}
                                             </option>
 
@@ -91,7 +92,8 @@
                                             [ngClass]="!isValidFormTimezone() ? '' : 'error'" data-title="Select"
                                             data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
                                             <option value="">Select</option>
-                                            <option *ngFor="let c of timeZonesGlobal" [value]="c.id">{{ c.name +" (" + c.id
+                                            <option *ngFor="let c of timeZonesGlobal" [value]="c.id">{{ c.name +" (" +
+                                                c.id
                                                 +")" }}
                                             </option>
                                         </select>
@@ -100,10 +102,36 @@
                                         </small>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="role">Main Role:</label> <span class="star">*</span>
+                                        <select formControlName="role" required name="role" class="form-control"
+                                            data-style="btn-default btn-block"
+                                            [ngClass]="!isValidFormRole() ? '' : 'error'" data-title="Select"
+                                            data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let c of rolesOpts" [value]="c.code">{{ c.name }}
+                                            </option>
+
+                                        </select>
+                                        <small [hidden]="!isValidFormLanguage()" class="text-danger">
+                                            Language is required
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="adminOpt">Admin:</label>
+                                        <div class="clearfix"></div>
+                                        <bSwitch formControlName="adminOpt" required [switch-on-color]="'primary'">
+                                        </bSwitch>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="enableOpt">Enable:</label>
                                         <div class="clearfix"></div>

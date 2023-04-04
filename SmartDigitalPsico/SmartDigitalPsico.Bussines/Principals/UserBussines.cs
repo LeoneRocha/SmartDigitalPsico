@@ -123,13 +123,24 @@ namespace SmartDigitalPsico.Business.Principals
                     entityUpdate.PasswordHash = passwordHash;
                     entityUpdate.PasswordSalt = passwordSalt;
                 }
-                entityUpdate.ModifyDate = DateTime.Now;                
-                User entityResponse = await _userRepository.Update(entityUpdate);
-                response.Success = true;
-                response.Data = _mapper.Map<GetUserVO>(entityResponse);
+                var isAdmin =  updateUser?.Admin.GetValueOrDefault();
+                entityUpdate.Role = string.IsNullOrEmpty(updateUser?.Role) ? "Pendente" : updateUser?.Role;
+                entityUpdate.Admin = isAdmin != null && isAdmin == true ? true : false; 
+
+                entityUpdate.ModifyDate = DateTime.Now;
+
+                response = await base.Validate(entityUpdate);
 
                 if (response.Success)
-                    response.Message = "User Updated.";
+                {
+
+                    User entityResponse = await _userRepository.Update(entityUpdate);
+                    response.Success = true;
+                    response.Data = _mapper.Map<GetUserVO>(entityResponse);
+
+                    if (response.Success)
+                        response.Message = "User Updated.";
+                } 
             }
             catch (Exception)
             {
@@ -137,6 +148,39 @@ namespace SmartDigitalPsico.Business.Principals
                 throw;
             }
 
+            return response;
+        }
+        public override async Task<ServiceResponse<GetUserVO>> Create(AddUserVO userRegisterVO)
+        {
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
+            try
+            {
+                SecurityHelper.CreatePasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+                User entityAdd = _mapper.Map<User>(userRegisterVO);
+
+                entityAdd.PasswordHash = passwordHash;
+                entityAdd.PasswordSalt = passwordSalt;
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
+                entityAdd.Role = string.IsNullOrEmpty(userRegisterVO?.Role) ? "Pendente" : "";
+                entityAdd.Admin = userRegisterVO?.Admin != null ? true : false;
+
+                response = await base.Validate(entityAdd);
+
+                if (response.Success)
+                {
+                    User entityResponse = await _userRepository.Register(entityAdd);
+                    response.Data = _mapper.Map<GetUserVO>(entityResponse);
+                    response.Message = "User registred.";
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: GENARATE LOGS
+                throw ex;
+            }
             return response;
         }
 

@@ -12,6 +12,7 @@ import { UserService } from 'app/services/general/principals/user.service';
 import { SimpleGeneralModel } from 'app/models/contracts/SimpleModel';
 import { GlobalizationCultureService } from 'app/services/general/simple/globalizationculture.service';
 import { GlobalizationTimeZonesService } from 'app/services/general/simple/globalizationtimezone.service';
+import { RoleOptions } from 'app/common/role-options';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-usermanagement',
@@ -28,6 +29,7 @@ export class AddEditUserManagementComponent implements OnInit {
     registerModel: UserModel;
     serviceResponse: ServiceResponse<UserModel>;
     public languages = LanguageOptions;
+    public rolesOpts = RoleOptions;
     public languagesGlobal: SimpleGeneralModel[];
     public timeZonesGlobal: SimpleGeneralModel[];
 
@@ -82,7 +84,9 @@ export class AddEditUserManagementComponent implements OnInit {
             formsElement.controls['language'].disable();
             formsElement.controls['timezone'].disable();
             //formsElement.controls['medicalId'].disable();
+            formsElement.controls['adminOpt'].disable();
             formsElement.controls['enableOpt'].disable();
+            formsElement.controls['role'].disable();
         }
     }
     ngAfterViewInit() {
@@ -93,7 +97,7 @@ export class AddEditUserManagementComponent implements OnInit {
         });
     }
     addRegister() {
-        this.getValuesForm(); 
+        this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<UserModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
@@ -167,17 +171,21 @@ export class AddEditUserManagementComponent implements OnInit {
         formsElement.controls['timezone'].setValue(modelEntity?.timeZone);
         // formsElement.controls['medicalId'].setValue(modelEntity?.medicalId); 
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        //formsElement.controls['admin'].setValue(modelEntity?.admin);
-        //formsElement.controls['role'].setValue(modelEntity?.role);
+        formsElement.controls['adminOpt'].setValue(modelEntity?.admin);
+        formsElement.controls['role'].setValue(modelEntity?.role);
         //formsElement.controls['roleGroupsIds'].setValue(modelEntity?.roleGroupsIds);
     }
     isValidFormName(): boolean {
         let isValid = this.registerForm.get('name').errors?.required;
         return this.registerForm.controls['name'].touched && this.registerForm.controls['name'].invalid && isValid;
-    }
+    }  
     isValidFormEmail(): boolean {
         let isValid = this.registerForm.get('email').errors?.required;
         return this.registerForm.controls['email'].touched && this.registerForm.controls['email'].invalid && isValid;
+    }
+    isValidFormRole(): boolean {
+        let isValid = this.registerForm.get('role').errors?.required;
+        return this.registerForm.controls['role'].touched && this.registerForm.controls['role'].invalid && isValid;
     }
     isValidFormLogin(): boolean {
         let isValid = this.registerForm.get('login').errors?.required;
@@ -218,8 +226,8 @@ export class AddEditUserManagementComponent implements OnInit {
             language: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
             timezone: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             enableOpt: new FormControl(false, Validators.required),
-            //admin: new FormControl(false, Validators.required),
-            //role: new FormControl(false, Validators.required),
+            adminOpt: new FormControl(false, Validators.required),
+            role: new FormControl(false, Validators.required),
             //roleGroupsIds: new FormControl(false, Validators.required), 
         });
 
@@ -236,8 +244,8 @@ export class AddEditUserManagementComponent implements OnInit {
             timeZone: formElement.controls['timezone']?.value,
             medicalId: formElement.controls['medicalId']?.value ? formElement.controls['medicalId']?.value : null,
             enable: formElement.controls['enableOpt']?.value,
-            admin: false,//formElement.controls['admin']?.value,
-            role: '',//formElement.controls['role']?.value,
+            admin: formElement.controls['adminOpt']?.value,
+            role: formElement.controls['role']?.value,
             roleGroupsIds: [],// formElement.controls['roleGroupsIds']?.value,
         };
         //console.log(this.registerModel);       

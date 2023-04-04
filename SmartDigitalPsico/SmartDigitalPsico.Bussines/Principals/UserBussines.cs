@@ -129,6 +129,8 @@ namespace SmartDigitalPsico.Business.Principals
 
                 entityUpdate.ModifyDate = DateTime.Now;
 
+                entityUpdate.MedicalId = updateUser?.MedicalId;
+                 
                 response = await base.Validate(entityUpdate);
 
                 if (response.Success)

@@ -121,6 +121,26 @@
                                         </small>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="role">Medical:</label> <span class="star">*</span>
+                                        <select formControlName="medicalId" required name="medicalId" class="form-control"
+                                            data-style="btn-default btn-block"
+                                            [ngClass]="!isValidFormMedicalId() ? '' : 'error'" data-title="Select"
+                                            data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let c of medicalsOpts" [value]="c.id">{{ c.name }}
+                                            </option>
+
+                                        </select>
+                                        <small [hidden]="!isValidFormMedicalId()" class="text-danger">
+                                            Language is required
+                                        </small>
+                                    </div>
+                                </div>
+
+
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

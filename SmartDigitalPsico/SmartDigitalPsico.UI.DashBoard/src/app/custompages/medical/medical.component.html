@@ -4,8 +4,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="content">
-                        <h4 class="title">Configurações Sistema</h4>
-                        <p class="category">Lista de Configurações Sistema</p>
+                        <h4 class="title">Medical</h4>
+                        <p class="category">Lista de Medical</p>
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                             <div class="content table-responsive table-full-width">
@@ -40,8 +40,8 @@
                                 <tbody>
                                     <tr *ngFor="let row of listResult">
                                         <td class="text-center">{{ row.id }}</td>
-                                        <td>{{ row.description }}</td>
-                                        <td>{{ row.language }}</td>
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.email }}</td>
                                         <td>{{ row.enable }}</td>
                                         <td class="text-right">
                                             <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon eye"

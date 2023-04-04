@@ -36,7 +36,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetSpecialtyVO>>>> Get()
         {
-            this.setUserIdCurrent();
+                this.setUserIdCurrent();
             var response = await _entityService.FindAll();
             if (response.Data == null)
             {

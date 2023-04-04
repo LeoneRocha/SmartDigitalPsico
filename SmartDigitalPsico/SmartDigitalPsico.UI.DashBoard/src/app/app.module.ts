@@ -32,7 +32,6 @@ import { GlobalizationTimeZonesService } from './services/general/simple/globali
 @NgModule({
     imports: [
         BrowserAnimationsModule,
-
         RouterModule.forRoot(AppRoutes, {
             useHash: false//HashLocationStrategy- default true https://www.tektutorialshub.com/angular/angular-location-strategies/
         }),
@@ -41,7 +40,9 @@ import { GlobalizationTimeZonesService } from './services/general/simple/globali
         HttpClientModule,
         StoreModule.forRoot({ appState: appReducer }),//4)fourth time 
         EffectsModule.forRoot([]),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+        
+        
     ],
     declarations: [
         AppComponent,

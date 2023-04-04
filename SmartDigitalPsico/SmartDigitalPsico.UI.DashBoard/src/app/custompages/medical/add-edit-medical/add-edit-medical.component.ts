@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
@@ -40,7 +40,7 @@ export class AddEditMedicalComponent implements OnInit {
     estadoBotao_updateRegister = 'inicial';
     public officesOpts: OfficeModel[];  ///ServiceResponse<OfficeModel>[];
     public specialtiesOpts: SpecialtyModel[];  //ServiceResponse<OfficeModel>[];
-    officesOptsObs$: Observable<{}>;
+    public specialtiesOptsSelected: SpecialtyModel[]; //officesOptsObs$: Observable<{}>;
 
     public typeAccreditationOpts = ETypeAccreditationOptions;
 
@@ -53,6 +53,16 @@ export class AddEditMedicalComponent implements OnInit {
     ) {
 
     }
+
+    Data: Array<any> = [
+        { name: 'Pear', value: 'pear' },
+        { name: 'Plum', value: 'plum' },
+        { name: 'Kiwi', value: 'kiwi' },
+        { name: 'Apple', value: 'apple' },
+        { name: 'Lime', value: 'lime' }
+    ];
+
+    //https://netbasal.com/implementing-grouping-checkbox-behavior-with-angular-reactive-forms-9ba4e3ab3965
     animarBotao(estado: string, stateBtn: string) {
         if (stateBtn === 'goBackToList')
             this.estadoBotao_goBackToList = estado;
@@ -64,10 +74,10 @@ export class AddEditMedicalComponent implements OnInit {
             this.estadoBotao_updateRegister = estado;
     }
     ngOnInit() {
+        this.gerateFormRegister();
         this.loadOfficesAndSpcialty();
         //this.loadOffices();
         //this.loadSpecialties();
-        this.gerateFormRegister();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
@@ -97,11 +107,11 @@ export class AddEditMedicalComponent implements OnInit {
 
         forkJoin([request1, request2]).subscribe(results => {
             this.officesOpts = results[0]['data'];
-            this.specialtiesOpts = results[1]['data'];                        
+            this.specialtiesOpts = results[1]['data'];
             //console.log('loadOfficesAndSpcialty-1');
             //console.log(this.officesOpts);
             //console.log('loadOfficesAndSpcialty-2');
-            //console.log(this.specialtiesOpts);
+            //console.log(this.specialtiesOpts); 
         });
     }
     loadOffices() {
@@ -117,6 +127,15 @@ export class AddEditMedicalComponent implements OnInit {
         });
         // console.log('loadSpecialties');
         // console.log(this.specialtiesOpts);
+        /*<select data-title="Select" data-menu-style="dropdown-blue"
+                                        data-style="btn-default btn-block" class="form-control"
+                                        name="specialtiesIds" formControlName="specialtiesIds"
+                                        [ngClass]="!isValidFormSpecialtiesIds() ? '' : 'error'" required
+                                        (change)="onSelect($event.target.value)">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let c of specialtiesOpts" [value]="c.id">{{ c.description }}
+                                        </option>
+                                    </select>*/
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -242,8 +261,10 @@ export class AddEditMedicalComponent implements OnInit {
             accreditation: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
             typeAccreditation: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             officeId: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            specialtiesIds: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            //specialtiesIds:new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            specialtiesIds: this.fb.array([]),
             enableOpt: new FormControl(false, Validators.required),
+           // checkArray: this.fb.array([])
         });
     }
     getValuesForm() {
@@ -300,4 +321,22 @@ export class AddEditMedicalComponent implements OnInit {
             buttonsStyling: false
         });
     }
+    onCheckboxChange(e) {
+        const checkArray: FormArray = this.registerForm.get('specialtiesIds') as FormArray;
+        if (e.target.checked) {
+          checkArray.push(new FormControl(e.target.value));
+        } else {
+          let i: number = 0;
+          checkArray.controls.forEach((item: FormControl) => {
+            if (item.value == e.target.value) {
+              checkArray.removeAt(i);
+              return;
+            }
+            i++;
+          });
+        } //https://www.positronx.io/angular-checkbox-tutorial/
+        console.log(this.registerForm.value);
+        console.log(this.registerForm.invalid);
+        console.log(this.registerForm);
+      }
 }

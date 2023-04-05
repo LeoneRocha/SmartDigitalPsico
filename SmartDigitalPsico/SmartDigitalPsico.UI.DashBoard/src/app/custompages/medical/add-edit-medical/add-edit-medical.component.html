@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label for="accreditation">Accreditation:</label> <span class="star">*</span>
                                         <input type="text" class="form-control" id="accreditation" name="accreditation"
-                                            formControlName="accreditation" maxlength="20"
+                                            formControlName="accreditation" maxlength="10"
                                             [ngClass]="!isValidFormAccreditation() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormAccreditation()" class="text-danger">
                                             Accreditation is required
@@ -112,11 +112,14 @@
                                         </select>  -->
                                         <label for="specialtiesIds">Specialties:</label> <span class="star">*</span>
                                         <div *ngFor="let data of specialtiesOpts; let i=index">
-                                            <label>
-                                              <input type="checkbox" [value]="data.id" (change)="onCheckboxChange($event)" />
-                                              {{data.description}}
-                                            </label>
-                                          </div>
+                                            <div class="checkbox checkbox-inline">
+                                                <input [id]="'checkbox' + data.id" type="checkbox" [value]="data.id"
+                                                    (change)="onCheckboxChange($event)" />
+                                                <label [for]="'checkbox' + data.id">
+                                                    {{data.description}}
+                                                </label>
+                                            </div>
+                                        </div>
                                         <small [hidden]="!isValidFormSpecialtiesIds()" class="text-danger">
                                             Specialties is required
                                         </small>

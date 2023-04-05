@@ -13,8 +13,8 @@ import { OfficeService } from 'app/services/general/simple/office.service';
 import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
 import { ETypeAccreditationOptions } from 'app/common/etypeaccreditation-options';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
-import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
-import { Observable, forkJoin } from 'rxjs';
+import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel'; 
+import { forkJoin } from 'rxjs';
 
 declare var $: any;
 
@@ -75,9 +75,7 @@ export class AddEditMedicalComponent implements OnInit {
     }
     ngOnInit() {
         this.gerateFormRegister();
-        this.loadOfficesAndSpcialty();
-        //this.loadOffices();
-        //this.loadSpecialties();
+        this.loadOfficesAndSpcialty(); 
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
@@ -107,11 +105,7 @@ export class AddEditMedicalComponent implements OnInit {
 
         forkJoin([request1, request2]).subscribe(results => {
             this.officesOpts = results[0]['data'];
-            this.specialtiesOpts = results[1]['data'];
-            //console.log('loadOfficesAndSpcialty-1');
-            //console.log(this.officesOpts);
-            //console.log('loadOfficesAndSpcialty-2');
-            //console.log(this.specialtiesOpts); 
+            this.specialtiesOpts = results[1]['data']; 
         });
     }
     loadOffices() {
@@ -124,18 +118,7 @@ export class AddEditMedicalComponent implements OnInit {
     loadSpecialties() {
         this.specialtyService.getAll().subscribe({
             next: (response: any) => { this.specialtiesOpts = response['data']; }, error: (err) => { console.log(err); },
-        });
-        // console.log('loadSpecialties');
-        // console.log(this.specialtiesOpts);
-        /*<select data-title="Select" data-menu-style="dropdown-blue"
-                                        data-style="btn-default btn-block" class="form-control"
-                                        name="specialtiesIds" formControlName="specialtiesIds"
-                                        [ngClass]="!isValidFormSpecialtiesIds() ? '' : 'error'" required
-                                        (change)="onSelect($event.target.value)">
-                                        <option value="">Select</option>
-                                        <option *ngFor="let c of specialtiesOpts" [value]="c.id">{{ c.description }}
-                                        </option>
-                                    </select>*/
+        }); 
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -160,11 +143,11 @@ export class AddEditMedicalComponent implements OnInit {
         });
     }
     addRegister() {
-        this.getValuesForm();
-        console.log(this.registerModel);
-        /* this.registerService.add(this.registerModel).subscribe({
-             next: (response: ServiceResponse<MedicalModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
-         });*/
+        this.getValuesForm(); 
+        //console.log(JSON.stringify(this.registerModel));
+        this.registerService.add(this.registerModel).subscribe({
+            next: (response: ServiceResponse<MedicalModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
+        });
     }
     updateRegister() {
         this.getValuesForm();
@@ -230,41 +213,40 @@ export class AddEditMedicalComponent implements OnInit {
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
     }
     isValidFormName(): boolean {
-        let isValid = this.registerForm.get('name').errors?.required;
-        return this.registerForm.controls['name'].touched && this.registerForm.controls['name'].invalid && isValid;
+        let isRequired = this.registerForm.get('name').errors?.required;
+        return this.registerForm.controls['name'].touched && this.registerForm.controls['name'].invalid && isRequired;
     }
     isValidFormEmail(): boolean {
-        let isValid = this.registerForm.get('email').errors?.required;
-        return this.registerForm.controls['email'].touched && this.registerForm.controls['email'].invalid && isValid;
+        let isRequired = this.registerForm.get('email').errors?.required;
+        return this.registerForm.controls['email'].touched && this.registerForm.controls['email'].invalid && isRequired;
     }
     isValidFormTypeAccreditation(): boolean {
-        let isValid = this.registerForm.get('typeAccreditation').errors?.required;
-        return this.registerForm.controls['typeAccreditation'].touched && this.registerForm.controls['typeAccreditation'].invalid && isValid;
+        let isRequired = this.registerForm.get('typeAccreditation').errors?.required;
+        return this.registerForm.controls['typeAccreditation'].touched && this.registerForm.controls['typeAccreditation'].invalid && isRequired;
     }
     isValidFormAccreditation(): boolean {
-        let isValid = this.registerForm.get('accreditation').errors?.required;
-        return this.registerForm.controls['accreditation'].touched && this.registerForm.controls['accreditation'].invalid && isValid;
+        let isRequired = this.registerForm.get('accreditation').errors?.required;
+        let formValid = this.registerForm.controls['accreditation'].touched && this.registerForm.controls['accreditation'].invalid && isRequired        
+        return formValid;
     }
     isValidFormOfficeId(): boolean {
-        let isValid = this.registerForm.get('officeId').errors?.required;
-        return this.registerForm.controls['officeId'].touched && this.registerForm.controls['officeId'].invalid && isValid;
+        let isRequired = this.registerForm.get('officeId').errors?.required;
+        return this.registerForm.controls['officeId'].touched && this.registerForm.controls['officeId'].invalid && isRequired;
     }
     isValidFormSpecialtiesIds(): boolean {
-        let isValid = this.registerForm.get('specialtiesIds').errors?.required;
-        return this.registerForm.controls['specialtiesIds'].touched && this.registerForm.controls['specialtiesIds'].invalid && isValid;
+        let isRequired = this.registerForm.get('specialtiesIds').errors?.required;
+        return this.registerForm.controls['specialtiesIds'].touched && this.registerForm.controls['specialtiesIds'].invalid && isRequired;
     }
     gerateFormRegister() {
         this.registerForm = this.fb.group({
-            id: new FormControl(),
-            name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            email: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-            accreditation: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-            typeAccreditation: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            officeId: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            //specialtiesIds:new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            specialtiesIds: this.fb.array([]),
-            enableOpt: new FormControl(false, Validators.required),
-           // checkArray: this.fb.array([])
+            id: new FormControl<number>(0),
+            name: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            email: new FormControl<string>('', [Validators.required, Validators.email, Validators.maxLength(100)]), 
+            typeAccreditation: new FormControl<number>(null, [Validators.required]), 
+            accreditation: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+            officeId: new FormControl<number>(null, [Validators.required]),//Quando for numerico a validacao deve ser do tipo 
+            specialtiesIds: this.fb.array<number>([]),
+            enableOpt: new FormControl<boolean>(false, Validators.required), 
         });
     }
     getValuesForm() {
@@ -274,8 +256,8 @@ export class AddEditMedicalComponent implements OnInit {
             name: formElement.controls['name']?.value,
             email: formElement.controls['email']?.value,
             accreditation: formElement.controls['accreditation']?.value,
-            typeAccreditation: formElement.controls['typeAccreditation']?.value,
-            officeId: formElement.controls['officeId']?.value,
+            typeAccreditation: Number(formElement.controls['typeAccreditation']?.value),
+            officeId: Number(formElement.controls['officeId']?.value),
             specialtiesIds: formElement.controls['specialtiesIds']?.value,
             enable: formElement.controls['enableOpt']?.value,
         };
@@ -296,7 +278,7 @@ export class AddEditMedicalComponent implements OnInit {
         //console.log(selectedValue); 
     }
     goBackToList() {
-        this.router.navigate(['/administrative/Medical']);
+        this.router.navigate(['/medical/manage/']);
     }
     modalSuccessAlert() {
         swal.fire({
@@ -324,19 +306,18 @@ export class AddEditMedicalComponent implements OnInit {
     onCheckboxChange(e) {
         const checkArray: FormArray = this.registerForm.get('specialtiesIds') as FormArray;
         if (e.target.checked) {
-          checkArray.push(new FormControl(e.target.value));
+            checkArray.push(new FormControl(e.target.value));
         } else {
-          let i: number = 0;
-          checkArray.controls.forEach((item: FormControl) => {
-            if (item.value == e.target.value) {
-              checkArray.removeAt(i);
-              return;
-            }
-            i++;
-          });
-        } //https://www.positronx.io/angular-checkbox-tutorial/
-        console.log(this.registerForm.value);
-        console.log(this.registerForm.invalid);
-        console.log(this.registerForm);
-      }
+            let i: number = 0;
+            checkArray.controls.forEach((item: FormControl) => {
+                if (item.value == e.target.value) {
+                    checkArray.removeAt(i);
+                    return;
+                }
+                i++;
+            });
+        } //https://www.positronx.io/angular-checkbox-tutorial/               
+        //console.log(this.registerForm);
+        //console.log(this.registerForm.value['specialtiesIds']);        
+    }
 }

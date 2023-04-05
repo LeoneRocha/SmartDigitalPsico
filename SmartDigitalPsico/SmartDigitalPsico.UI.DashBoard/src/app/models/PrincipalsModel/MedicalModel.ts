@@ -9,5 +9,5 @@ export interface MedicalModel extends BaseEntityModel {
     specialtiesIds: Array<number>;
     specialties?: SpecialtyModel[] 
     accreditation: string
-    typeAccreditation: ETypeAccreditation 
+    typeAccreditation: number 
 }

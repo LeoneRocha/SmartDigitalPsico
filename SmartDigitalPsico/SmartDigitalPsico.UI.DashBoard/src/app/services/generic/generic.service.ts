@@ -6,6 +6,7 @@ import { BadInput } from 'app/common/bad-input';
 import { NotFoundError } from 'app/common/not-found-error';
 import { AppError } from 'app/common/app-error';
 import { CaptureTologFunc } from 'app/common/app-error-handler';
+import { FluentValidationResponse } from 'app/models/FluentValidationResponse';
 export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
   protected httpLocal: HttpClient;
   constructor(
@@ -25,17 +26,17 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
     return this.http.put<T>(`${this.baseUrl}/`, t, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 
-  getById(id: ID): Observable<T> { 
+  getById(id: ID): Observable<T> {
     let headers = this.getHeaders();
     return this.http.get<T>(`${this.baseUrl}/${id}`, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 
-  getAll(): Observable<T[]> { 
+  getAll(): Observable<T[]> {
     let headers = this.getHeaders();
     return this.http.get<T[]>(this.baseUrl + this.urlgetAll, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 
-  delete(id: ID): Observable<any> { 
+  delete(id: ID): Observable<any> {
     let headers = this.getHeaders();
     return this.http.delete<T>(`${this.baseUrl}/${id}`, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
@@ -51,8 +52,12 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
 
   private customHandleError(error: Response) {
     //console.log('customHandleError');
+    //console.log(error?.['error']);
+    const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error']};
+    console.log(erroFluentValidationResponse);
+
     if (error.status === 400)
-      return throwError(() => new BadInput(error.json()));
+      return throwError(() => new BadInput(error));
 
     if (error.status === 404)
       return throwError(() => new NotFoundError());

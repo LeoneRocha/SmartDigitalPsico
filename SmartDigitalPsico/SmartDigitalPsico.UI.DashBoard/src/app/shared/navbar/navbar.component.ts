@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, Directive, Inject } from '@angular/core';
-import { ROUTES } from '../.././sidebar/sidebar.component'; 
+import { ROUTES } from '../.././sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from 'app/services/auth/auth.service';
 
@@ -100,8 +100,11 @@ export class NavbarComponent implements OnInit {
 
     getTitle() {
 
-        let titleNavigated: string = 'Dashboard';
+        let titleNavigated: string = 'Default';
         var titlee = this.location.prepareExternalUrl(this.location.path());
+        //console.log(titlee);
+        //console.log(this.listTitles);
+
         if (titlee.charAt(0) === '#') {
             titlee = titlee.slice(1);
             titleNavigated = titlee;
@@ -109,9 +112,11 @@ export class NavbarComponent implements OnInit {
         for (let i = 0; i < this.listTitles.length; i++) {
             if (this.listTitles[i].type === "link" && this.listTitles[i].path === titlee) {
                 titleNavigated = this.listTitles[i].title;
+
             } else if (this.listTitles[i].type === "sub") {
                 for (let j = 0; j < this.listTitles[i].children.length; j++) {
                     let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
+
 
                     if (subtitle === titlee) {
                         titleNavigated = this.listTitles[i].children[j].title;
@@ -119,9 +124,16 @@ export class NavbarComponent implements OnInit {
                 }
             }
         }
+        let firstRootPath = titlee.split('/')[1];
+        for (let i = 0; i < this.listTitles.length; i++) {
+            let routerItem: string = this.listTitles[i];
+            if (routerItem['path'].indexOf(firstRootPath) >= 0) {                
+                titleNavigated = routerItem['title'];
+            }
+        }
         //todo:Criar um translate
         titleNavigated = titleNavigated === 'RoleGroup' ? 'Role Group' : titleNavigated;
-
+        
         return titleNavigated;
     }
 

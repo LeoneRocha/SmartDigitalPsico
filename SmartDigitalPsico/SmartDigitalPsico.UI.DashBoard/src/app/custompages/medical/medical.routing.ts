@@ -10,6 +10,7 @@ export const MedicalRoutes: Routes = [{
         component: MedicalComponent
     } , {
         path: 'medicalaction',
+        title: 'Médico',
         component: AddEditMedicalComponent
     } ]
 }];

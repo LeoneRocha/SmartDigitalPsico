@@ -4,10 +4,10 @@ import { GenderModel } from "../simplemodel/GenderModel";
 
 export interface PatientModel extends BaseEntityModel, BaseEntityMedicalChildModel {
    
-    gender: GenderModel
+    gender?: GenderModel
     genderId: number;
 
-    dateOfBirth: string
+    dateOfBirth: Date
     profession: string
     cpf: string
     rg: string

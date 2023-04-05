@@ -20,7 +20,7 @@ declare var $: any;
 
 @Component({
     moduleId: module.id,
-    selector: 'add-edit-gender',
+    selector: 'add-edit-medical',
     templateUrl: 'add-edit-medical.component.html',
     //styleUrls: ['./gender.component.css']
     animations: [

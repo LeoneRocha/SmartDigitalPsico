@@ -99,12 +99,8 @@ export class NavbarComponent implements OnInit {
     }
 
     getTitle() {
-
         let titleNavigated: string = 'Default';
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        //console.log(titlee);
-        //console.log(this.listTitles);
-
+        var titlee = this.location.prepareExternalUrl(this.location.path()); 
         if (titlee.charAt(0) === '#') {
             titlee = titlee.slice(1);
             titleNavigated = titlee;
@@ -112,12 +108,9 @@ export class NavbarComponent implements OnInit {
         for (let i = 0; i < this.listTitles.length; i++) {
             if (this.listTitles[i].type === "link" && this.listTitles[i].path === titlee) {
                 titleNavigated = this.listTitles[i].title;
-
             } else if (this.listTitles[i].type === "sub") {
                 for (let j = 0; j < this.listTitles[i].children.length; j++) {
                     let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
-
-
                     if (subtitle === titlee) {
                         titleNavigated = this.listTitles[i].children[j].title;
                     }
@@ -132,8 +125,7 @@ export class NavbarComponent implements OnInit {
             }
         }
         //todo:Criar um translate
-        titleNavigated = titleNavigated === 'RoleGroup' ? 'Role Group' : titleNavigated;
-        
+        titleNavigated = titleNavigated === 'RoleGroup' ? 'Role Group' : titleNavigated;        
         return titleNavigated;
     }
 

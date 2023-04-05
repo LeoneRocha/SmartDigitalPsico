@@ -10,9 +10,9 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
         public MedicalValidator(IMedicalRepository entityRepository)
         {
             _entityRepository = entityRepository;
-             
+
             #region Columns
-             
+
             RuleFor(entity => entity.Name)
                 .NotNull().NotEmpty()
                 .WithMessage("A Name não pode ser vazia.");
@@ -22,7 +22,7 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
                 .WithMessage("O Accreditation não pode ser vazia.")
                 .MaximumLength(10)
                 .WithMessage("O Accreditation não pode ultrapassar {MaxLength} carateres.")
-                .MustAsync(async (entity, value, c) => await UniqueAccreditation(entity, value))
+                .MustAsync(async (entity, value, c) => await IsUniqueAccreditation(entity, value))
               .WithMessage("Email must be unique."); ;
 
             RuleFor(entity => entity.Email)
@@ -32,15 +32,15 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
                .WithMessage("O Email invalido.")
                .MaximumLength(100)
                .WithMessage("O Email não pode ultrapassar {MaxLength} carateres.")
-               .MustAsync(async (entity, value, c) => await UniqueEmail(entity, value))
+               .MustAsync(async (entity, value, c) => await IsUniqueEmail(entity, value))
               .WithMessage("Email must be unique.");
-             
+
             RuleFor(p => p.SecurityKey)
                 .MaximumLength(255)
                .WithMessage("O SecurityKey não pode ultrapassar {MaxLength} carateres.");
 
             #endregion
-             
+
             #region Relationship
 
             RuleFor(entity => entity.CreatedUser)
@@ -50,24 +50,40 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
             #endregion Relationship 
         }
 
-        private async Task<bool> UniqueAccreditation(Medical entity, string value)
+        private async Task<bool> IsUniqueAccreditation(Medical entity, string value)
         {
-            var user = await _entityRepository.FindByAccreditation(value);
-            if (user == null || user?.Id == 0)
+            var entityActual = await _entityRepository.FindByID(entity.Id);
+            bool isNewEnity = entityActual == null;
+
+            var existingEnity = await _entityRepository.FindByAccreditation(value);
+
+            if (isNewEnity && existingEnity != null)
             {
-                return true;
+                return false;
             }
-            return false;
+            bool changingProp = entityActual != null && entityActual.Accreditation != value;
+            if (changingProp)
+            {
+                return false;
+            }
+            return true;
         }
 
-        private async Task<bool> UniqueEmail(Medical entity, string value)
+        private async Task<bool> IsUniqueEmail(Medical entity, string value)
         {
-            var user = await _entityRepository.FindByEmail(value);
-            if (user == null || user?.Id == 0)
+            var entityActual = await _entityRepository.FindByID(entity.Id);
+            bool isNewEnity = entityActual == null;
+            var existingEnity = await _entityRepository.FindByEmail(value);
+            if (isNewEnity && existingEnity != null)
             {
-                return true;
+                return false;
             }
-            return false;
+            bool changingProp = entityActual != null && entityActual.Email != value;
+            if (changingProp)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

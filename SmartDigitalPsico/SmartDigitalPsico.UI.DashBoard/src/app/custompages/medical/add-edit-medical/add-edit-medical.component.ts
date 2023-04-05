@@ -101,9 +101,7 @@ export class AddEditMedicalComponent implements OnInit {
     loadOffices() {
         this.officeService.getAll().subscribe({
             next: (response: any) => { this.officesOpts = response['data']; }, error: (err) => { console.log(err); },
-        });
-        // console.log('loadOffices');
-        //console.log(this.officesOpts); 
+        }); 
     }
     loadSpecialties() {
         this.specialtyService.getAll().subscribe({
@@ -133,8 +131,7 @@ export class AddEditMedicalComponent implements OnInit {
         });
     }
     addRegister() {
-        this.getValuesForm();
-        //console.log(JSON.stringify(this.registerModel));
+        this.getValuesForm(); 
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<MedicalModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
@@ -193,20 +190,15 @@ export class AddEditMedicalComponent implements OnInit {
             specialtiesIds: responseData?.specialties.map(ent => Number(ent.id) ?? null),
             enable: responseData?.enable,
         };
-        let modelEntity = this.registerModel;
-        //console.log(modelEntity);
+        let modelEntity = this.registerModel; 
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);
         formsElement.controls['accreditation'].setValue(modelEntity?.accreditation);
         formsElement.controls['typeAccreditation'].setValue(modelEntity?.typeAccreditation);
-        formsElement.controls['officeId'].setValue(modelEntity?.officeId);
-        //formsElement.controls['specialtiesIds'].setValue(modelEntity?.specialtiesIds);
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        // console.log(modelEntity?.specialtiesIds);
-        //todo:ver como melhorar isso precisarei carregar os compos via store do redux antes de gerar o html
-        
-        this.setSpecialtiesOptsChecked(modelEntity);
-        //setTimeout(function () { }, 3000);
+        formsElement.controls['officeId'].setValue(modelEntity?.officeId); 
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
+        //todo:ver como melhorar isso precisarei carregar os compos via store do redux antes de gerar o html 
+        setTimeout(() => { this.setSpecialtiesOptsChecked(modelEntity); }, 500);
 
     }
     isValidFormName(): boolean {
@@ -270,9 +262,7 @@ export class AddEditMedicalComponent implements OnInit {
                     }
                 }
             });
-        }
-        console.log(modelEntity?.specialtiesIds);
-        console.log(this.specialtiesOpts);
+        } 
     }
 
     createEmptyRegister(): void {
@@ -287,8 +277,7 @@ export class AddEditMedicalComponent implements OnInit {
             enable: false
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(selectedValue); 
+    onSelect(selectedValue: string) { 
     }
     goBackToList() {
         this.router.navigate(['/medical/manage/']);
@@ -329,8 +318,6 @@ export class AddEditMedicalComponent implements OnInit {
                 }
                 i++;
             });
-        } //https://www.positronx.io/angular-checkbox-tutorial/               
-        //console.log(this.registerForm);
-        //console.log(this.registerForm.value['specialtiesIds']);        
+        } //https://www.positronx.io/angular-checkbox-tutorial/          
     }
 }

@@ -13,7 +13,7 @@ import { OfficeService } from 'app/services/general/simple/office.service';
 import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
 import { ETypeAccreditationOptions } from 'app/common/etypeaccreditation-options';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
-import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel'; 
+import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { forkJoin } from 'rxjs';
 
 declare var $: any;
@@ -75,7 +75,7 @@ export class AddEditMedicalComponent implements OnInit {
     }
     ngOnInit() {
         this.gerateFormRegister();
-        this.loadOfficesAndSpcialty(); 
+        this.loadOfficesAndSpcialty();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
@@ -105,7 +105,8 @@ export class AddEditMedicalComponent implements OnInit {
 
         forkJoin([request1, request2]).subscribe(results => {
             this.officesOpts = results[0]['data'];
-            this.specialtiesOpts = results[1]['data']; 
+            this.specialtiesOpts = results[1]['data'];
+            this.specialtiesOpts.forEach(opt => { opt.selected = false; });
         });
     }
     loadOffices() {
@@ -118,7 +119,7 @@ export class AddEditMedicalComponent implements OnInit {
     loadSpecialties() {
         this.specialtyService.getAll().subscribe({
             next: (response: any) => { this.specialtiesOpts = response['data']; }, error: (err) => { console.log(err); },
-        }); 
+        });
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -143,7 +144,7 @@ export class AddEditMedicalComponent implements OnInit {
         });
     }
     addRegister() {
-        this.getValuesForm(); 
+        this.getValuesForm();
         //console.log(JSON.stringify(this.registerModel));
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<MedicalModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
@@ -191,7 +192,7 @@ export class AddEditMedicalComponent implements OnInit {
         this.modalErroAlert("Error load!", response);
     }
     fillFieldsForm(): void {
-        let responseData: any = this.serviceResponse?.data;
+        let responseData: MedicalModel = this.serviceResponse?.data;
         let formsElement = this.registerForm;
         this.registerModel = {
             id: responseData?.id,
@@ -199,18 +200,31 @@ export class AddEditMedicalComponent implements OnInit {
             email: responseData?.email,
             accreditation: responseData?.accreditation,
             typeAccreditation: responseData?.typeAccreditation,
-            officeId: responseData?.officeId,
-            specialtiesIds: responseData?.specialtiesIds,
+            officeId: responseData?.office?.id,
+            specialtiesIds: responseData?.specialties.map(ent => Number(ent.id) ?? null),
             enable: responseData?.enable,
         };
         let modelEntity = this.registerModel;
+        //console.log(modelEntity);
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);
         formsElement.controls['accreditation'].setValue(modelEntity?.accreditation);
         formsElement.controls['typeAccreditation'].setValue(modelEntity?.typeAccreditation);
         formsElement.controls['officeId'].setValue(modelEntity?.officeId);
-        formsElement.controls['specialtiesIds'].setValue(modelEntity?.specialtiesIds);
+        //formsElement.controls['specialtiesIds'].setValue(modelEntity?.specialtiesIds);
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
+        // console.log(modelEntity?.specialtiesIds);
+        if (modelEntity?.specialtiesIds) {
+            modelEntity?.specialtiesIds.forEach(specialtyId => {
+                console.log(specialtyId)
+                const specialty = this.specialtiesOpts.find(opt => opt.id === specialtyId);
+                console.log(specialty);
+                if (specialty) {
+                    specialty.selected = true;
+                }
+            });
+        }
+        //console.log(this.specialtiesOpts);
     }
     isValidFormName(): boolean {
         let isRequired = this.registerForm.get('name').errors?.required;
@@ -226,7 +240,7 @@ export class AddEditMedicalComponent implements OnInit {
     }
     isValidFormAccreditation(): boolean {
         let isRequired = this.registerForm.get('accreditation').errors?.required;
-        let formValid = this.registerForm.controls['accreditation'].touched && this.registerForm.controls['accreditation'].invalid && isRequired        
+        let formValid = this.registerForm.controls['accreditation'].touched && this.registerForm.controls['accreditation'].invalid && isRequired
         return formValid;
     }
     isValidFormOfficeId(): boolean {
@@ -241,12 +255,12 @@ export class AddEditMedicalComponent implements OnInit {
         this.registerForm = this.fb.group({
             id: new FormControl<number>(0),
             name: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            email: new FormControl<string>('', [Validators.required, Validators.email, Validators.maxLength(100)]), 
-            typeAccreditation: new FormControl<number>(null, [Validators.required]), 
+            email: new FormControl<string>('', [Validators.required, Validators.email, Validators.maxLength(100)]),
+            typeAccreditation: new FormControl<number>(null, [Validators.required]),
             accreditation: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
             officeId: new FormControl<number>(null, [Validators.required]),//Quando for numerico a validacao deve ser do tipo 
             specialtiesIds: this.fb.array<number>([]),
-            enableOpt: new FormControl<boolean>(false, Validators.required), 
+            enableOpt: new FormControl<boolean>(false, Validators.required),
         });
     }
     getValuesForm() {

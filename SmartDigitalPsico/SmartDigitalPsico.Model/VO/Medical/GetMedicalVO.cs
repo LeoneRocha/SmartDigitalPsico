@@ -30,5 +30,10 @@ namespace SmartDigitalPsico.Model.VO.Medical
         #endregion Columns  
 
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+         
+        //public long OfficeId { get; set; }       
+         
+        //public List<long> SpecialtiesIds { get; set; }
+
     }
 }

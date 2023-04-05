@@ -108,13 +108,13 @@
                                             (change)="onSelect($event.target.value)">
                                             <option value="">Select</option>
                                             <option *ngFor="let c of specialtiesOpts" [value]="c.id">{{ c.description }}
-                                            </option>
+                                            </option> 
                                         </select>  -->
                                         <label for="specialtiesIds">Specialties:</label> <span class="star">*</span>
                                         <div *ngFor="let data of specialtiesOpts; let i=index">
                                             <div class="checkbox checkbox-inline">
                                                 <input [id]="'checkbox' + data.id" type="checkbox" [value]="data.id"
-                                                    (change)="onCheckboxChange($event)" />
+                                                    (change)="onCheckboxChange($event)" [checked]="data.selected" />
                                                 <label [for]="'checkbox' + data.id">
                                                     {{data.description}}
                                                 </label>

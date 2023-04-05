@@ -39,9 +39,7 @@ export class AddEditMedicalComponent implements OnInit {
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
     public officesOpts: OfficeModel[];  ///ServiceResponse<OfficeModel>[];
-    public specialtiesOpts: SpecialtyModel[];  //ServiceResponse<OfficeModel>[];
-    public specialtiesOptsSelected: SpecialtyModel[]; //officesOptsObs$: Observable<{}>;
-
+    public specialtiesOpts: SpecialtyModel[];  //ServiceResponse<OfficeModel>[];  
     public typeAccreditationOpts = ETypeAccreditationOptions;
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
@@ -53,15 +51,6 @@ export class AddEditMedicalComponent implements OnInit {
     ) {
 
     }
-
-    Data: Array<any> = [
-        { name: 'Pear', value: 'pear' },
-        { name: 'Plum', value: 'plum' },
-        { name: 'Kiwi', value: 'kiwi' },
-        { name: 'Apple', value: 'apple' },
-        { name: 'Lime', value: 'lime' }
-    ];
-
     //https://netbasal.com/implementing-grouping-checkbox-behavior-with-angular-reactive-forms-9ba4e3ab3965
     animarBotao(estado: string, stateBtn: string) {
         if (stateBtn === 'goBackToList')
@@ -214,17 +203,11 @@ export class AddEditMedicalComponent implements OnInit {
         //formsElement.controls['specialtiesIds'].setValue(modelEntity?.specialtiesIds);
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
         // console.log(modelEntity?.specialtiesIds);
-        if (modelEntity?.specialtiesIds) {
-            modelEntity?.specialtiesIds.forEach(specialtyId => {
-                console.log(specialtyId)
-                const specialty = this.specialtiesOpts.find(opt => opt.id === specialtyId);
-                console.log(specialty);
-                if (specialty) {
-                    specialty.selected = true;
-                }
-            });
-        }
-        //console.log(this.specialtiesOpts);
+        //todo:ver como melhorar isso precisarei carregar os compos via store do redux antes de gerar o html
+        
+        this.setSpecialtiesOptsChecked(modelEntity);
+        //setTimeout(function () { }, 3000);
+
     }
     isValidFormName(): boolean {
         let isRequired = this.registerForm.get('name').errors?.required;
@@ -276,6 +259,22 @@ export class AddEditMedicalComponent implements OnInit {
             enable: formElement.controls['enableOpt']?.value,
         };
     }
+
+    setSpecialtiesOptsChecked(modelEntity): void {
+        if (modelEntity?.specialtiesIds) {
+            modelEntity?.specialtiesIds.forEach(specialtyId => {
+                if (this.specialtiesOpts && this.specialtiesOpts.length > 0) {
+                    const specialty = this.specialtiesOpts.find(opt => opt.id === specialtyId);
+                    if (specialty) {
+                        specialty.selected = true;
+                    }
+                }
+            });
+        }
+        console.log(modelEntity?.specialtiesIds);
+        console.log(this.specialtiesOpts);
+    }
+
     createEmptyRegister(): void {
         this.registerModel = {
             id: 0,

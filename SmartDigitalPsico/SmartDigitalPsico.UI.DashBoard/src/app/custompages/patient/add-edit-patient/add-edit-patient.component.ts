@@ -362,7 +362,7 @@ export class AddEditPatientComponent implements OnInit {
     onSelect(selectedValue: string) {
     }
     goBackToList() {
-        this.router.navigate(['/Patient/manage/']);
+        this.router.navigate(['/patient/manage/']);
     }
     modalSuccessAlert() {
         swal.fire({

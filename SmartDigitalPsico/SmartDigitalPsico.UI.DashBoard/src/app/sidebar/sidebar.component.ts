@@ -46,7 +46,7 @@ export const ROUTES: RouteInfo[] = [{
     icontype: 'pe-7s-users', 
     roleaccess: 'Read',
     children: [
-        { path: 'patient', title: 'Paciente', ab: 'P' },
+        { path: 'manage', title: 'Paciente', ab: 'P' },
         { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
     ]
 },

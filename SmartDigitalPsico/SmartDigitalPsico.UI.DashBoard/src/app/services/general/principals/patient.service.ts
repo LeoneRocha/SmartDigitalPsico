@@ -6,7 +6,10 @@ import { environment } from 'environments/environment';
 import { GenericService } from 'app/services/generic/generic.service'; 
 import { PatientModel } from 'app/models/principalsmodel/PatientModel';
 
-const basePathUrl = '/Patient/v1';
+//https://localhost:61949/api/patient/v1/Patient/FindAll?medicalId=1
+//https://localhost:61949/api/patient/v1/patient//FindAll?medicalId=1 
+//https://localhost:61949/api/patient/v1/patient//FindAll/1 
+const basePathUrl = '/patient/v1/patient';
 @Injectable()
 export class PatientService extends GenericService<ServiceResponse<PatientModel>, PatientModel, number> {
 

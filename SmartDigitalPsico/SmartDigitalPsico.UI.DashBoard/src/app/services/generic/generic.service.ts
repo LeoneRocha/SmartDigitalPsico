@@ -36,6 +36,11 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
     return this.http.get<T[]>(this.baseUrl + this.urlgetAll, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 
+  getAllByParentId(id: ID, parentProp: string): Observable<T[]> {
+    let headers = this.getHeaders();
+    return this.http.get<T[]>(`${this.baseUrl + this.urlgetAll}?${parentProp}=${id}`, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
+  }
+
   delete(id: ID): Observable<any> {
     let headers = this.getHeaders();
     return this.http.delete<T>(`${this.baseUrl}/${id}`, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
@@ -53,7 +58,7 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
   private customHandleError(error: Response) {
     //console.log('customHandleError');
     //console.log(error?.['error']);
-    const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error']};
+    const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error'] };
     console.log(erroFluentValidationResponse);
 
     if (error.status === 400)

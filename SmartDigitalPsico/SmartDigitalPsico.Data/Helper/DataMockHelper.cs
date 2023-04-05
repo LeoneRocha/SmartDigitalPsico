@@ -48,10 +48,9 @@ namespace SmartDigitalPsico.Repository.Helper
 
             addMockMedical(modelBuilder, specialtySAdd);
 
-            #endregion Medical
-
+            #endregion Medical 
         }
-
+         
         private static void addMockApplicationLanguage(ModelBuilder modelBuilder)
         {
             List<ApplicationLanguage> addRegisters = new List<ApplicationLanguage>();
@@ -119,7 +118,7 @@ namespace SmartDigitalPsico.Repository.Helper
             { SpecialtiesId = (long)1, MedicalsId = (long)1 }));
 
             modelBuilder.Entity<Medical>().HasData(newAddMedical);
-             
+
             var newAddUserMedical = new User
             {
                 Id = 2,
@@ -150,11 +149,48 @@ namespace SmartDigitalPsico.Repository.Helper
                 new { RoleGroupsId = (long)6, UsersId = (long)1 },
                 new { RoleGroupsId = (long)6, UsersId = (long)2 }));
 
+            #region Patient
+
+            addMockPatient(modelBuilder, newAddMedical);
+
+            #endregion Patient
+
 
         }
 
+        private static void addMockPatient(ModelBuilder modelBuilder, Medical medical)
+        {
+            var newAddPatient = new Patient
+            {
+                Id = 1,
+                Name = "Tiago Thales Mendes",
+                Email = "tiago.thales.mendes@andrade.com",
+                CreatedDate = DateTime.Now,
+                Enable = true,
+                LastAccessDate = DateTime.Now,
+                ModifyDate = DateTime.Now,
+                CreatedUserId = 1,
+                AddressCep = "45675-970",
+                AddressCity = "Aurelino Leal",
+                AddressNeighborhood = "Centro",
+                AddressState = "Bahia",
+                AddressStreet = "Avenida Presidente Médici 264",
+                Cpf = "947.846.605-42",
+                DateOfBirth = new DateTime(1960, 03, 11),
+                Education = "Superior",
+                EmergencyContactName = "Milena Isabelly Vanessa",
+                EmergencyContactPhoneNumber = "(73) 98540-4268",
+                GenderId = 1, 
+                MedicalId = 1,
+                PhoneNumber = "(73) 2877-3408",
+                Profession = "Professor",
+                Rg = "13.809.283-7",
+            };
+            modelBuilder.Entity<Patient>().HasData(newAddPatient);
+        }
+
         private static void addMockUser(ModelBuilder modelBuilder)
-        {  
+        {
             var newAddUser = new User
             {
                 Id = 1,
@@ -177,7 +213,7 @@ namespace SmartDigitalPsico.Repository.Helper
 
             newAddUser.RoleGroups = new List<RoleGroup>();
 
-            modelBuilder.Entity<User>().HasData(newAddUser); 
+            modelBuilder.Entity<User>().HasData(newAddUser);
         }
 
         private static string? getTimeZone()

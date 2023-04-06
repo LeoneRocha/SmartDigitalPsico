@@ -210,7 +210,7 @@ export class AddEditPatientComponent implements OnInit {
         };
         let modelEntity = this.registerModel;
         //let textdateOfBirth = modelEntity?.dateOfBirth;
-        let textdateOfBirth = this.datePipe.transform(modelEntity?.dateOfBirth, formatDate);
+        let textdateOfBirth = this.datePipe.transform(modelEntity?.dateOfBirth, 'yyyy-MM-dd');
 
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);
@@ -316,7 +316,8 @@ export class AddEditPatientComponent implements OnInit {
             addressState: new FormControl<string>('', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
             addressStreet: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             cpf: new FormControl<string>('', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]),
-            dateOfBirth: new FormControl<Date>(null, [Validators.required]),
+            //  dateOfBirth: new FormControl<Date>(null, [Validators.required]),
+            dateOfBirth: new FormControl<Date>(null),
             education: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             emergencyContactName: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             emergencyContactPhoneNumber: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
@@ -332,8 +333,8 @@ export class AddEditPatientComponent implements OnInit {
     getValuesForm() {
         let formElement = this.registerForm;
         let medicalIdCurrent = Number(formElement.controls['medicalId']?.value);
-
         let apiDateOfBirth = new Date(this.datePipe.transform(formElement.controls['dateOfBirth']?.value, 'yyyy-MM-dd'));
+
         this.registerModel = {
             medicalId: medicalIdCurrent ? medicalIdCurrent : 0,
             id: this.registerId ? this.registerId : 0,

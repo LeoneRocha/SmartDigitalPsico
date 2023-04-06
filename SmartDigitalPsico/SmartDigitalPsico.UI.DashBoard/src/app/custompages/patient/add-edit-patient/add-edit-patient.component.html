@@ -48,8 +48,9 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <!--datepicker-->
                                         <label for="dateOfBirth">DateOfBirth:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control datepicker" id="dateOfBirth"
+                                        <input type="date" class="form-control " id="dateOfBirth"
                                             name="dateOfBirth" formControlName="dateOfBirth" maxlength="10"
                                             [ngClass]="!isValidFormDateOfBirth() ? '' : 'error'"
                                             placeholder="dd-mm-yyyy" />

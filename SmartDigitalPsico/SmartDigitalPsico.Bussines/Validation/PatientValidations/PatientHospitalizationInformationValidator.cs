@@ -52,7 +52,7 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
               .WithMessage("O Usuário que está criando deve ser informado.");
 
             RuleFor(entity => entity.PatientId)
-              .NotNull().LessThanOrEqualTo(0)
+              .NotNull()
               .WithMessage("O PatientId deve ser informado.")
               .MustAsync(async (entity, value, c) => await PatientIdFound(entity, value))
               .WithMessage("O PatientId informado não existe.")

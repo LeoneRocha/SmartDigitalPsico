@@ -31,9 +31,9 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
             RuleFor(entity => entity.Annotation)
                 .NotNull().NotEmpty()
                 .WithMessage("A Annotation não pode ser vazia.");
-             
+
             RuleFor(entity => entity.AnnotationDate)
-             .NotNull() 
+             .NotNull()
              .WithMessage("A AnnotationDate não pode ser vazia.");
 
             #endregion Columns 
@@ -45,7 +45,7 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
               .WithMessage("O Usuário que está criando deve ser informado.");
 
             RuleFor(entity => entity.PatientId)
-              .NotNull().LessThanOrEqualTo(0)
+              .NotNull()
               .WithMessage("O PatientId deve ser informado.")
               .MustAsync(async (entity, value, c) => await PatientIdFound(entity, value))
               .WithMessage("O PatientId informado não existe.")

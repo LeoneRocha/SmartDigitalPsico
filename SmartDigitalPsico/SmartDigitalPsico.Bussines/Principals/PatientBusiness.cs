@@ -59,6 +59,8 @@ namespace SmartDigitalPsico.Business.Principals
                 entityAdd.CreatedUser = userAction;
 
                 #endregion User Action
+                
+                entityAdd.MedicalId = 1; // TESTE ARRUMAR NO FRONT 
 
                 response = await base.Validate(entityAdd);
                 if (response.Success)

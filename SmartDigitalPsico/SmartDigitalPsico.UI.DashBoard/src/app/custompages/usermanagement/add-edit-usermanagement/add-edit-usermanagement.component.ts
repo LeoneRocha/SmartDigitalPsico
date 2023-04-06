@@ -128,10 +128,10 @@ export class AddEditUserManagementComponent implements OnInit {
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
+            this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
-        }
-        this.goBackToList();
+        } 
     }
     processAddRegisterErro(response: ServiceResponse<UserModel>) {
         CaptureTologFunc('processAddRegisterErro-usermanagement', response);

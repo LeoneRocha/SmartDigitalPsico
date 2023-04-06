@@ -95,10 +95,11 @@ export class AddEditGenderComponent implements OnInit {
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
+            this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
         }
-        this.goBackToList();
+     
     }
     processAddRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processAddRegisterErro-gender', response);

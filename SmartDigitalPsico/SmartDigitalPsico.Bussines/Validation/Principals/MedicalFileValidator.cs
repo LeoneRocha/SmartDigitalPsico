@@ -38,7 +38,7 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
 
             #region Relationship
             RuleFor(entity => entity.MedicalId)
-            .NotNull().LessThanOrEqualTo(0)
+            .NotNull() 
             .WithMessage("O medical deve ser informado.")
             .MustAsync(async (entity, value, c) => await MedicalIdFound(entity, value))
             .WithMessage("O medical informado não existe.")

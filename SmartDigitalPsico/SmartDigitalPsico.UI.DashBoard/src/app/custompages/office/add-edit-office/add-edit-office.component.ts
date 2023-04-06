@@ -75,10 +75,11 @@ export class AddEditOfficeComponent implements OnInit {
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
+            this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
         }
-        this.goBackToList();
+        
     }
     processAddRegisterErro(response: ServiceResponse<OfficeModel>) {
         CaptureTologFunc('processAddRegisterErro-office', response);

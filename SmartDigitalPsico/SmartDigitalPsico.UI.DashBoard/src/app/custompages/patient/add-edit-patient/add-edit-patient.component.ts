@@ -13,6 +13,8 @@ import { forkJoin } from 'rxjs';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { ETypeMaritalStatusOptions } from 'app/common/enuns/etypemaritalstatus-options';
+import { DatePipe } from '@angular/common';
+
 
 declare var $: any;
 
@@ -44,6 +46,7 @@ export class AddEditPatientComponent implements OnInit {
         @Inject(Router) private router: Router,
         @Inject(PatientService) private registerService: PatientService,
         @Inject(GenderService) private genderService: GenderService,
+        private datePipe: DatePipe
     ) {
     }
     //https://netbasal.com/implementing-grouping-checkbox-behavior-with-angular-reactive-forms-9ba4e3ab3965
@@ -77,6 +80,7 @@ export class AddEditPatientComponent implements OnInit {
 
     ngAfterContentInit() {
         this.loadBoostrap();
+        this.loadDatePicker();
     }
     loadBoostrap() {
         //  Activate the tooltips
@@ -126,12 +130,14 @@ export class AddEditPatientComponent implements OnInit {
         });
     }
     addRegister() {
+        //console.log(this.registerModel);
         this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
     updateRegister() {
+        //console.log(this.registerModel);
         this.getValuesForm();
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
@@ -142,10 +148,10 @@ export class AddEditPatientComponent implements OnInit {
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
+            //this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
         }
-        this.goBackToList();
     }
     processAddRegisterErro(response: ServiceResponse<PatientModel>) {
         CaptureTologFunc('processAddRegisterErro-Patient', response);
@@ -173,6 +179,11 @@ export class AddEditPatientComponent implements OnInit {
         this.modalErroAlert("Error load!", response);
     }
     fillFieldsForm(): void {
+        let formatDate = 'dd/MM/yyyy';
+        let cultureUi = 'en'
+        let pipeDate = new DatePipe('pt-BR')
+
+
         let responseData: PatientModel = this.serviceResponse?.data;
         let formsElement = this.registerForm;
         this.registerModel = {
@@ -198,6 +209,9 @@ export class AddEditPatientComponent implements OnInit {
             maritalStatus: responseData?.maritalStatus,
         };
         let modelEntity = this.registerModel;
+        //let textdateOfBirth = modelEntity?.dateOfBirth;
+        let textdateOfBirth = this.datePipe.transform(modelEntity?.dateOfBirth, formatDate);
+
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);
         formsElement.controls['addressCep'].setValue(modelEntity?.addressCep);
@@ -206,7 +220,7 @@ export class AddEditPatientComponent implements OnInit {
         formsElement.controls['addressState'].setValue(modelEntity?.addressState);
         formsElement.controls['addressStreet'].setValue(modelEntity?.addressStreet);
         formsElement.controls['cpf'].setValue(modelEntity?.cpf);
-        formsElement.controls['dateOfBirth'].setValue(modelEntity?.dateOfBirth);
+        formsElement.controls['dateOfBirth'].setValue(textdateOfBirth);
         formsElement.controls['education'].setValue(modelEntity?.education);
         formsElement.controls['emergencyContactName'].setValue(modelEntity?.emergencyContactName);
         formsElement.controls['emergencyContactPhoneNumber'].setValue(modelEntity?.emergencyContactPhoneNumber);
@@ -217,8 +231,7 @@ export class AddEditPatientComponent implements OnInit {
         formsElement.controls['medicalId'].setValue(modelEntity?.medicalId);
         formsElement.controls['maritalStatus'].setValue(modelEntity?.maritalStatus);
         formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        console.log(modelEntity);
-
+        //console.log(modelEntity);
     }
     isValidFormName(): boolean {
         let isRequired = this.registerForm.get('name').errors?.required;
@@ -300,7 +313,7 @@ export class AddEditPatientComponent implements OnInit {
             addressCep: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
             addressCity: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             addressNeighborhood: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            addressState: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            addressState: new FormControl<string>('', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
             addressStreet: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             cpf: new FormControl<string>('', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]),
             dateOfBirth: new FormControl<Date>(null, [Validators.required]),
@@ -318,8 +331,11 @@ export class AddEditPatientComponent implements OnInit {
     }
     getValuesForm() {
         let formElement = this.registerForm;
+        let medicalIdCurrent = Number(formElement.controls['medicalId']?.value);
+
+        let apiDateOfBirth = new Date(this.datePipe.transform(formElement.controls['dateOfBirth']?.value, 'yyyy-MM-dd'));
         this.registerModel = {
-            medicalId: Number(formElement.controls['medicalId']?.value),
+            medicalId: medicalIdCurrent ? medicalIdCurrent : 0,
             id: this.registerId ? this.registerId : 0,
             name: formElement.controls['name']?.value,
             email: formElement.controls['email']?.value,
@@ -329,7 +345,7 @@ export class AddEditPatientComponent implements OnInit {
             addressState: formElement.controls['addressState']?.value,
             addressStreet: formElement.controls['email']?.value,
             cpf: formElement.controls['cpf']?.value,
-            dateOfBirth: formElement.controls['dateOfBirth']?.value,
+            dateOfBirth: apiDateOfBirth,
             education: formElement.controls['education']?.value,
             emergencyContactName: formElement.controls['emergencyContactName']?.value,
             emergencyContactPhoneNumber: formElement.controls['emergencyContactPhoneNumber']?.value,
@@ -393,6 +409,23 @@ export class AddEditPatientComponent implements OnInit {
                 confirmButton: "btn btn-fill btn-info",
             },
             buttonsStyling: false
+        });
+    }
+
+    loadDatePicker(): void {
+        $('.datepicker').datetimepicker({
+            format: 'DD/MM/YYYY',    //use this format if you want the 12hours timpiecker with AM/PM toggle
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
         });
     }
     onCheckboxChange(e) {

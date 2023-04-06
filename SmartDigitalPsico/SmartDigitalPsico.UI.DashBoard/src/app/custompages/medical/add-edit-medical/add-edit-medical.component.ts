@@ -147,10 +147,11 @@ export class AddEditMedicalComponent implements OnInit {
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
+            this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
         }
-        this.goBackToList();
+       
     }
     processAddRegisterErro(response: ServiceResponse<MedicalModel>) {
         CaptureTologFunc('processAddRegisterErro-Medical', response);

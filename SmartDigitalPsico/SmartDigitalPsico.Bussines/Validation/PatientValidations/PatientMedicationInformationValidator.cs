@@ -29,15 +29,15 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
             RuleFor(entity => entity.StartDate)
                 .NotNull()
                .WithMessage("A StartDate não pode ser vazia.");
-             
-            RuleFor(entity => entity.Dosage) 
+
+            RuleFor(entity => entity.Dosage)
                 .MaximumLength(255)
                 .WithMessage("O Dosage não pode ultrapassar {MaxLength} carateres.");
 
             RuleFor(entity => entity.Posology)
               .MaximumLength(255)
               .WithMessage("O Dosage não pode ultrapassar {MaxLength} carateres.");
-             
+
             RuleFor(entity => entity.MainDrug)
             .MaximumLength(255)
             .WithMessage("O Dosage não pode ultrapassar {MaxLength} carateres.");
@@ -51,7 +51,7 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
               .WithMessage("O Usuário que está criando deve ser informado.");
 
             RuleFor(entity => entity.PatientId)
-              .NotNull().LessThanOrEqualTo(0)
+              .NotNull()
               .WithMessage("O PatientId deve ser informado.")
               .MustAsync(async (entity, value, c) => await PatientIdFound(entity, value))
               .WithMessage("O PatientId informado não existe.")

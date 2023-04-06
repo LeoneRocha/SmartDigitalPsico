@@ -61,7 +61,7 @@
                                     <div class="form-group">
                                         <label for="cpf">CPF:</label> <span class="star">*</span>
                                         <input type="text" class="form-control" id="cpf" name="cpf"
-                                            formControlName="cpf" maxlength="100"
+                                            formControlName="cpf" maxlength="15"
                                             [ngClass]="!isValidFormCPF() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormCPF()" class="text-danger">
                                             CPF is required
@@ -72,7 +72,7 @@
                                     <div class="form-group">
                                         <label for="rg">RG:</label> <span class="star">*</span>
                                         <input type="text" class="form-control" id="rg" name="rg" formControlName="rg"
-                                            maxlength="100" [ngClass]="!isValidFormRG() ? '' : 'error'" />
+                                            maxlength="15" [ngClass]="!isValidFormRG() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormRG()" class="text-danger">
                                             RG is required
                                         </small>

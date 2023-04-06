@@ -1,3 +1,4 @@
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.Contracts.Interface;
@@ -62,6 +63,8 @@ namespace SmartDigitalPsico.Model.VO.Patient
 
         [MaxLength(20)]
         public string? EmergencyContactPhoneNumber { get; set; }
+
+        public EMaritalStatus MaritalStatus { get; set; }
 
 
         #endregion

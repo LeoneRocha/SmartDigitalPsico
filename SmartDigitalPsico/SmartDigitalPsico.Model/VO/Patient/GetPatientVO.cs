@@ -1,3 +1,4 @@
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -18,6 +19,10 @@ namespace SmartDigitalPsico.Model.VO.Patient
         #endregion Relationship
 
         #region Columns
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
@@ -53,11 +58,11 @@ namespace SmartDigitalPsico.Model.VO.Patient
 
       
         public string? EmergencyContactName { get; set; }
+        
+        public EMaritalStatus MaritalStatus { get; set; }
 
-     
         public string? EmergencyContactPhoneNumber { get; set; }
-       
-        public string Email { get; set; }
+        
         #endregion
 
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();

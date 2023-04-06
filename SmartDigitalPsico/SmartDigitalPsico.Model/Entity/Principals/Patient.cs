@@ -1,3 +1,4 @@
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -66,6 +67,11 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("Education", TypeName = "varchar(255)")]
         [MaxLength(255)]
         public string? Education { get; set; }
+
+
+        [Column("MaritalStatus")]        
+        public EMaritalStatus MaritalStatus { get; set; }
+              
 
         [Column("PhoneNumber", TypeName = "varchar(20)")]
         [MaxLength(20)]

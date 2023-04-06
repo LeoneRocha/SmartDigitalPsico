@@ -8,11 +8,11 @@ import { CaptureTologFunc } from 'app/common/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
 import { botaoAnimado } from 'app/common/animations/geral-trigger-animation';
 import { PatientModel } from 'app/models/principalsmodel/PatientModel';
-import { PatientService } from 'app/services/general/principals/patient.service';
-import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
-import { ETypeAccreditationOptions } from 'app/common/etypeaccreditation-options';
-import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
+import { PatientService } from 'app/services/general/principals/patient.service'; 
+import { ETypeAccreditationOptions } from 'app/common/etypeaccreditation-options'; 
 import { forkJoin } from 'rxjs';
+import { GenderModel } from 'app/models/simplemodel/GenderModel';
+import { GenderService } from 'app/services/general/simple/gender.service';
 
 declare var $: any;
 
@@ -36,14 +36,14 @@ export class AddEditPatientComponent implements OnInit {
     estadoBotao_goBackToList = 'inicial';
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
-    public officesOpts: OfficeModel[];  ///ServiceResponse<OfficeModel>[];
-    public specialtiesOpts: SpecialtyModel[];  //ServiceResponse<OfficeModel>[];  
+    public gendersOpts: GenderModel[];  
     public typeAccreditationOpts = ETypeAccreditationOptions;
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         private fb: FormBuilder,
         @Inject(Router) private router: Router,
         @Inject(PatientService) private registerService: PatientService,
+        @Inject(GenderService) private genderService: GenderService,
     ) {
 
     }
@@ -59,6 +59,8 @@ export class AddEditPatientComponent implements OnInit {
             this.estadoBotao_updateRegister = estado;
     }
     ngOnInit() {
+        this.loadOptionsForm();
+
         this.gerateFormRegister();
         this.loadFormRegister();
         if (this.registerId)
@@ -67,6 +69,13 @@ export class AddEditPatientComponent implements OnInit {
         if (this.registerModel?.id)
             this.createEmptyRegister();
     }
+    loadOptionsForm() {
+        let request1 = this.genderService.getAll(); 
+        forkJoin([request1]).subscribe(results => {
+            this.gendersOpts = results[0]['data']; 
+        });
+    }
+
     ngAfterContentInit() {
         this.loadBoostrap();
     }
@@ -179,32 +188,36 @@ export class AddEditPatientComponent implements OnInit {
             education: responseData?.education,
             emergencyContactName: responseData?.emergencyContactName,
             emergencyContactPhoneNumber: responseData?.emergencyContactPhoneNumber,
-            genderId: responseData?.genderId,
+            genderId: responseData?.gender?.id,
             phoneNumber: responseData?.phoneNumber,
             profession: responseData?.profession,
             rg: responseData?.rg,
-            medicalId: responseData?.medicalId,
+            medicalId: responseData?.medical?.id,
             enable: responseData?.enable,
+            maritalStatus: responseData?.maritalStatus,
         };
         let modelEntity = this.registerModel;
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);               
-        formsElement.controls['addressCep'].setValue(modelEntity?.enable);
-        formsElement.controls['addressCity'].setValue(modelEntity?.enable);
-        formsElement.controls['addressNeighborhood'].setValue(modelEntity?.enable);
-        formsElement.controls['addressState'].setValue(modelEntity?.enable);
-        formsElement.controls['addressStreet'].setValue(modelEntity?.enable);
-        formsElement.controls['cpf'].setValue(modelEntity?.enable);
-        formsElement.controls['dateOfBirth'].setValue(modelEntity?.enable);
-        formsElement.controls['education'].setValue(modelEntity?.enable);
-        formsElement.controls['emergencyContactName'].setValue(modelEntity?.enable);
-        formsElement.controls['emergencyContactPhoneNumber'].setValue(modelEntity?.enable);
-        formsElement.controls['genderId'].setValue(modelEntity?.enable);
-        formsElement.controls['phoneNumber'].setValue(modelEntity?.enable);
-        formsElement.controls['profession'].setValue(modelEntity?.enable);
-        formsElement.controls['rg'].setValue(modelEntity?.enable);
-        formsElement.controls['medicalId'].setValue(modelEntity?.enable);  
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);      
+        formsElement.controls['addressCep'].setValue(modelEntity?.addressCep);
+        formsElement.controls['addressCity'].setValue(modelEntity?.addressCity);
+        formsElement.controls['addressNeighborhood'].setValue(modelEntity?.addressNeighborhood);
+        formsElement.controls['addressState'].setValue(modelEntity?.addressState);
+        formsElement.controls['addressStreet'].setValue(modelEntity?.addressStreet);
+        formsElement.controls['cpf'].setValue(modelEntity?.cpf);
+        formsElement.controls['dateOfBirth'].setValue(modelEntity?.dateOfBirth);
+        formsElement.controls['education'].setValue(modelEntity?.education);
+        formsElement.controls['emergencyContactName'].setValue(modelEntity?.emergencyContactName);
+        formsElement.controls['emergencyContactPhoneNumber'].setValue(modelEntity?.emergencyContactPhoneNumber);
+        formsElement.controls['genderId'].setValue(modelEntity?.genderId);
+        formsElement.controls['phoneNumber'].setValue(modelEntity?.phoneNumber);
+        formsElement.controls['profession'].setValue(modelEntity?.profession);
+        formsElement.controls['rg'].setValue(modelEntity?.rg);
+        formsElement.controls['medicalId'].setValue(modelEntity?.medicalId);  
+        formsElement.controls['maritalStatus'].setValue(modelEntity?.maritalStatus);  
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);                  
+        console.log(modelEntity);
+        
     }
     isValidFormName(): boolean {
         let isRequired = this.registerForm.get('name').errors?.required;
@@ -274,6 +287,10 @@ export class AddEditPatientComponent implements OnInit {
         let isRequired = this.registerForm.get('genderId').errors?.required;
         return this.registerForm.controls['genderId'].touched && this.registerForm.controls['genderId'].invalid && isRequired;
     }
+    isValidFormMaritalStatus(): boolean {
+        let isRequired = this.registerForm.get('maritalStatus').errors?.required;
+        return this.registerForm.controls['maritalStatus'].touched && this.registerForm.controls['maritalStatus'].invalid && isRequired;
+    }
     gerateFormRegister() {
         this.registerForm = this.fb.group({
             id: new FormControl<number>(0),
@@ -291,8 +308,9 @@ export class AddEditPatientComponent implements OnInit {
             emergencyContactPhoneNumber: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
             phoneNumber: new FormControl<string>('', [Validators.required, Validators.minLength(10), Validators.maxLength(20)]),
             profession: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            rg: new FormControl<string>('', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]),
-            genderId: new FormControl<number>(0),
+            rg: new FormControl<string>('', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]),            
+            genderId: new FormControl<number>(null, [Validators.required]),//Quando for numerico a validacao deve ser do tipo 
+            maritalStatus: new FormControl<number>(null, [Validators.required]), 
             medicalId: new FormControl<number>(0),
             enableOpt: new FormControl<boolean>(false, Validators.required),
         });
@@ -300,8 +318,7 @@ export class AddEditPatientComponent implements OnInit {
     getValuesForm() {
         let formElement = this.registerForm;
         this.registerModel = {
-            medicalId: formElement.controls['medicalId']?.value,
-
+            medicalId: Number(formElement.controls['medicalId']?.value),
             id: this.registerId ? this.registerId : 0,
             name: formElement.controls['name']?.value,
             email: formElement.controls['email']?.value,
@@ -315,26 +332,14 @@ export class AddEditPatientComponent implements OnInit {
             education: formElement.controls['education']?.value,
             emergencyContactName: formElement.controls['emergencyContactName']?.value,
             emergencyContactPhoneNumber: formElement.controls['emergencyContactPhoneNumber']?.value,
-            genderId: formElement.controls['genderId']?.value,
+            genderId:  Number(formElement.controls['genderId']?.value),
             phoneNumber: formElement.controls['phoneNumber']?.value,
             profession: formElement.controls['profession']?.value,
             rg: formElement.controls['rg']?.value,
+            maritalStatus: formElement.controls['maritalStatus']?.value,
             enable: formElement.controls['enableOpt']?.value,
         };
-    }
-
-    setSpecialtiesOptsChecked(modelEntity): void {
-        if (modelEntity?.specialtiesIds) {
-            modelEntity?.specialtiesIds.forEach(specialtyId => {
-                if (this.specialtiesOpts && this.specialtiesOpts.length > 0) {
-                    const specialty = this.specialtiesOpts.find(opt => opt.id === specialtyId);
-                    if (specialty) {
-                        specialty.selected = true;
-                    }
-                }
-            });
-        }
-    }
+    } 
 
     createEmptyRegister(): void {
         this.registerModel = {
@@ -355,6 +360,7 @@ export class AddEditPatientComponent implements OnInit {
             phoneNumber: '',
             profession: '',
             rg: '',
+            maritalStatus:0,
             medicalId: 0,
             enable: false
         }

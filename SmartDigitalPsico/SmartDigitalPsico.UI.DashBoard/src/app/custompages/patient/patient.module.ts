@@ -5,6 +5,7 @@ import { PatientService } from 'app/services/general/principals/patient.service'
 import { PatientComponent } from './patient.component';
 import { PatientRoutes } from './patient.routing';
 import { AddEditPatientComponent } from './add-edit-patient/add-edit-patient.component'; 
+import { GenderService } from 'app/services/general/simple/gender.service';
 @NgModule({
     imports: [
         CustomPagesModule,
@@ -17,7 +18,7 @@ import { AddEditPatientComponent } from './add-edit-patient/add-edit-patient.com
     ]
     ,
     providers: [
-        PatientService, 
+        PatientService, GenderService
     ],
 })
 

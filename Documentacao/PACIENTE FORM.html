@@ -30,91 +30,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="role">Gender:</label> <span class="star">*</span>
-                                        <select formControlName="genderId" required name="genderId" class="form-control"
-                                            data-style="btn-default btn-block"
-                                            [ngClass]="!isValidFormGenderId() ? '' : 'error'" data-title="Select"
-                                            data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
-                                            <option value="">Select</option>
-                                            <option *ngFor="let c of gendersOpts" [value]="c.id">{{ c.description }}
-                                            </option>
-                                        </select>
-                                        <small [hidden]="!isValidFormGenderId()" class="text-danger">
-                                            Gender is required
+                                        <label for="email">Email:</label> <span class="star">*</span>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            formControlName="email" maxlength="100"
+                                            [ngClass]="!isValidFormEmail() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormEmail()" class="text-danger">
+                                            Email is required
                                         </small>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="dateOfBirth">DateOfBirth:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth"
-                                            formControlName="dateOfBirth" maxlength="100"
-                                            [ngClass]="!isValidFormDateOfBirth() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormDateOfBirth()" class="text-danger">
-                                            DateOfBirth is required
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="cpf">CPF:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="cpf" name="cpf"
-                                            formControlName="cpf" maxlength="100"
-                                            [ngClass]="!isValidFormCPF() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormCPF()" class="text-danger">
-                                            CPF is required
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="rg">RG:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="rg" name="rg" formControlName="rg"
-                                            maxlength="100" [ngClass]="!isValidFormRG() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormRG()" class="text-danger">
-                                            RG is required
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="profession">Profession:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="profession" name="profession"
-                                            formControlName="profession" maxlength="100"
-                                            [ngClass]="!isValidFormProfession() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormProfession()" class="text-danger">
-                                            Profession is required
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="education">Education:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="education" name="education"
-                                            formControlName="education" maxlength="100"
-                                            [ngClass]="!isValidFormEducation() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormEducation()" class="text-danger">
-                                            Education is required
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="maritalStatus">Marital Status:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="maritalStatus" name="maritalStatus"
-                                            formControlName="maritalStatus" maxlength="100"
-                                            [ngClass]="!isValidFormMaritalStatus() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormMaritalStatus()" class="text-danger">
-                                            Marital Status is required
-                                        </small>
-                                    </div>
-                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="addressCep">CEP:</label> <span class="star">*</span>
@@ -126,8 +52,6 @@
                                         </small>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="addressCity">City:</label> <span class="star">*</span>
@@ -136,17 +60,6 @@
                                             [ngClass]="!isValidFormAddressCity() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormAddressCity()" class="text-danger">
                                             City is required
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="addressState">State:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="addressState" name="addressState"
-                                            formControlName="addressState" maxlength="100"
-                                            [ngClass]="!isValidFormAddressState() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormAddressState()" class="text-danger">
-                                            State is required
                                         </small>
                                     </div>
                                 </div>
@@ -167,6 +80,19 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="addressState">State:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="addressState" name="addressState"
+                                            formControlName="addressState" maxlength="100"
+                                            [ngClass]="!isValidFormAddressState() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormAddressState()" class="text-danger">
+                                            State is required
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="addressStreet">Street:</label> <span class="star">*</span>
                                         <input type="text" class="form-control" id="addressStreet" name="addressStreet"
                                             formControlName="addressStreet" maxlength="100"
@@ -176,31 +102,43 @@
                                         </small>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cpf">CPF:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="cpf" name="cpf"
+                                            formControlName="cpf" maxlength="100"
+                                            [ngClass]="!isValidFormCPF() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormCPF()" class="text-danger">
+                                            CPF is required
+                                        </small>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="phoneNumber">Phone Number:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                                            formControlName="phoneNumber" maxlength="100"
-                                            [ngClass]="!isValidFormPhoneNumber() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormPhoneNumber()" class="text-danger">
-                                            Phone Number is required
+                                        <label for="dateOfBirth">DateOfBirth:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                                            formControlName="dateOfBirth" maxlength="100"
+                                            [ngClass]="!isValidFormDateOfBirth() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormDateOfBirth()" class="text-danger">
+                                            DateOfBirth is required
                                         </small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Email:</label> <span class="star">*</span>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                            formControlName="email" maxlength="100"
-                                            [ngClass]="!isValidFormEmail() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormEmail()" class="text-danger">
-                                            Email is required
+                                        <label for="education">Education:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="education" name="education"
+                                            formControlName="education" maxlength="100"
+                                            [ngClass]="!isValidFormEducation() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormEducation()" class="text-danger">
+                                            Education is required
                                         </small>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -225,6 +163,53 @@
                                             [ngClass]="!isValidFormEmergencyContactPhoneNumber() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormEmergencyContactPhoneNumber()" class="text-danger">
                                             Emergency Contact Phone Number is required
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phoneNumber">Phone Number:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                            formControlName="phoneNumber" maxlength="100"
+                                            [ngClass]="!isValidFormPhoneNumber() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormPhoneNumber()" class="text-danger">
+                                            Phone Number is required
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="profession">Profession:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="profession" name="profession"
+                                            formControlName="profession" maxlength="100"
+                                            [ngClass]="!isValidFormProfession() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormProfession()" class="text-danger">
+                                            Profession is required
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="genderId">Gender:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="genderId" name="genderId"
+                                            formControlName="genderId" maxlength="100"
+                                            [ngClass]="!isValidFormGenderId() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormGenderId()" class="text-danger">
+                                            Gender is required
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="rg">Profession:</label> <span class="star">*</span>
+                                        <input type="text" class="form-control" id="rg" name="rg" formControlName="rg"
+                                            maxlength="100" [ngClass]="!isValidFormRG() ? '' : 'error'" />
+                                        <small [hidden]="!isValidFormRG()" class="text-danger">
+                                            Profession is required
                                         </small>
                                     </div>
                                 </div>

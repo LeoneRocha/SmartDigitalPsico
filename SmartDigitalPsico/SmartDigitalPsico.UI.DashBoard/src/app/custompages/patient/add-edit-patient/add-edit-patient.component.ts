@@ -4,15 +4,16 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
+import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { botaoAnimado } from 'app/common/animations/geral-trigger-animation';
 import { PatientModel } from 'app/models/principalsmodel/PatientModel';
 import { PatientService } from 'app/services/general/principals/patient.service'; 
-import { ETypeAccreditationOptions } from 'app/common/etypeaccreditation-options'; 
+import { ETypeAccreditationOptions } from 'app/common/enuns/etypeaccreditation-options'; 
 import { forkJoin } from 'rxjs';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
 import { GenderService } from 'app/services/general/simple/gender.service';
+import { ETypeMaritalStatusOptions } from 'app/common/enuns/etypemaritalstatus-options';
 
 declare var $: any;
 
@@ -37,7 +38,7 @@ export class AddEditPatientComponent implements OnInit {
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
     public gendersOpts: GenderModel[];  
-    public typeAccreditationOpts = ETypeAccreditationOptions;
+    public maritalStatusOpts = ETypeMaritalStatusOptions;
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         private fb: FormBuilder,
@@ -45,7 +46,6 @@ export class AddEditPatientComponent implements OnInit {
         @Inject(PatientService) private registerService: PatientService,
         @Inject(GenderService) private genderService: GenderService,
     ) {
-
     }
     //https://netbasal.com/implementing-grouping-checkbox-behavior-with-angular-reactive-forms-9ba4e3ab3965
     animarBotao(estado: string, stateBtn: string) {
@@ -113,6 +113,8 @@ export class AddEditPatientComponent implements OnInit {
             formsElement.controls['profession'].disable();
             formsElement.controls['rg'].disable();
             formsElement.controls['medicalId'].disable();
+            formsElement.controls['phoneNumber'].disable();
+            formsElement.controls['maritalStatus'].disable();
             formsElement.controls['enableOpt'].disable();
         }
         this.registerId = Number(paramsUrl.get('id'));
@@ -409,4 +411,3 @@ export class AddEditPatientComponent implements OnInit {
         } //https://www.positronx.io/angular-checkbox-tutorial/          
     }
 }
-

@@ -4,9 +4,9 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { LanguageOptions } from 'app/common/language-options';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
+import { LanguageOptions } from 'app/common/enuns/language-options';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
+import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { RoleGroupModel } from 'app/models/simplemodel/RoleGroupModel';
 import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
 @Component({

@@ -4,14 +4,14 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
+import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { botaoAnimado } from 'app/common/animations/geral-trigger-animation';
 import { MedicalModel } from 'app/models/principalsmodel/MedicalModel';
 import { MedicalService } from 'app/services/general/principals/medical.service';
 import { OfficeService } from 'app/services/general/simple/office.service';
 import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
-import { ETypeAccreditationOptions } from 'app/common/etypeaccreditation-options';
+import { ETypeAccreditationOptions } from 'app/common/enuns/etypeaccreditation-options';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { forkJoin } from 'rxjs';

@@ -5,7 +5,7 @@ import { GenderModel } from 'app/models/simplemodel/GenderModel';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { Subscription } from 'rxjs';
 

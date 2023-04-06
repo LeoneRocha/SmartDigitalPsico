@@ -102,18 +102,26 @@
                                         </small>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="maritalStatus">Marital Status:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="maritalStatus" name="maritalStatus"
-                                            formControlName="maritalStatus" maxlength="100"
-                                            [ngClass]="!isValidFormMaritalStatus() ? '' : 'error'" />
+                                        <label for="maritalStatus">Marital Status:</label> <span
+                                            class="star">*</span>
+                                        <select formControlName="maritalStatus" required name="maritalStatus"
+                                            class="form-control" data-style="btn-default btn-block"
+                                            [ngClass]="!isValidFormMaritalStatus() ? '' : 'error'"
+                                            data-title="Select" data-menu-style="dropdown-blue"
+                                            (change)="onSelect($event.target.value)">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let c of maritalStatusOpts" [value]="c.code">{{ c.name
+                                                }}
+                                            </option>
+                                        </select>
                                         <small [hidden]="!isValidFormMaritalStatus()" class="text-danger">
                                             Marital Status is required
                                         </small>
-                                    </div>
+                                    </div> 
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -127,7 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row"> 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="addressCity">City:</label> <span class="star">*</span>
@@ -164,7 +172,7 @@
                                             Neighborhood is required
                                         </small>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="addressStreet">Street:</label> <span class="star">*</span>
@@ -176,7 +184,7 @@
                                         </small>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -188,7 +196,7 @@
                                             Phone Number is required
                                         </small>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email:</label> <span class="star">*</span>
@@ -199,7 +207,7 @@
                                             Email is required
                                         </small>
                                     </div>
-                                </div>
+                                </div>                              
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

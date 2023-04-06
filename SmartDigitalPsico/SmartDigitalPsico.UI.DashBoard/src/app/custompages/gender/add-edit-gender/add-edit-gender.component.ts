@@ -6,9 +6,9 @@ import { GenderModel } from 'app/models/simplemodel/GenderModel';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { LanguageOptions } from 'app/common/language-options';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse'; 
+import { LanguageOptions } from 'app/common/enuns/language-options';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
+import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse'; 
 import { botaoAnimado } from 'app/common/animations/geral-trigger-animation';
 @Component({
     moduleId: module.id,

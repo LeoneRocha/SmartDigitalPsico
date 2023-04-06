@@ -3,7 +3,7 @@ import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';    
 import { UserModel } from 'app/models/principalsmodel/UserModel';
 import { PatientService } from 'app/services/general/principals/patient.service';

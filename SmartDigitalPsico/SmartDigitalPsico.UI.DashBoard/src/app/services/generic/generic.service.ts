@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { GenericServiceModel } from 'app/models/GenericServiceModel';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Inject } from '@angular/core';
-import { BadInput } from 'app/common/bad-input';
-import { NotFoundError } from 'app/common/not-found-error';
-import { AppError } from 'app/common/app-error';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
+import { BadInput } from 'app/common/errohandler/bad-input';
+import { NotFoundError } from 'app/common/errohandler/not-found-error';
+import { AppError } from 'app/common/errohandler/app-error';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { FluentValidationResponse } from 'app/models/FluentValidationResponse';
 export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
   protected httpLocal: HttpClient;

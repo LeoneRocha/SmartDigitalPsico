@@ -4,15 +4,15 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { LanguageOptions } from 'app/common/language-options';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
+import { LanguageOptions } from 'app/common/enuns/language-options';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
+import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { UserModel } from 'app/models/principalsmodel/UserModel';
 import { UserService } from 'app/services/general/principals/user.service';
 import { SimpleGeneralModel } from 'app/models/contracts/SimpleModel';
 import { GlobalizationCultureService } from 'app/services/general/simple/globalizationculture.service';
 import { GlobalizationTimeZonesService } from 'app/services/general/simple/globalizationtimezone.service';
-import { RoleOptions } from 'app/common/role-options';
+import { RoleOptions } from 'app/common/enuns/role-options';
 import { MedicalService } from 'app/services/general/principals/medical.service';
 import { MedicalModel } from 'app/models/principalsmodel/MedicalModel';
 @Component({

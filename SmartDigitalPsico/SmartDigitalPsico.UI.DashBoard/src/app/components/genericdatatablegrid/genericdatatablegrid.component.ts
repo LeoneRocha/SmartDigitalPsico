@@ -4,7 +4,7 @@ import { SimpleModel } from 'app/models/contracts/SimpleModel';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { GenderService } from 'app/services/general/simple/gender.service';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
 
 declare var $: any;

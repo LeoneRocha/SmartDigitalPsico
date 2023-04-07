@@ -76,18 +76,16 @@ namespace SmartDigitalPsico.Repository.SystemDomains
         {
 
             try
-            {
+            { 
                 ApplicationLanguage item = await base.FindByID(id);
-
-                var localRegister = new LocalizationRecord()
-                {
-                    Key = $"{item.LanguageKey}",
-                    Text = item.LanguageValue,
-                    LocalizationCulture = item.Language,
-                    ResourceKey = item.ResourceKey //typeof(ApplicationLanguage).FullName
-                };
-
+                var localRegister = _localizationModelContext.LocalizationRecords
+                .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == item.LanguageKey);
+                 
                 _localizationModelContext.Remove(localRegister);
+
+                await _localizationModelContext.SaveChangesAsync(true);
+
+
                 _stringLocalizerFactory.ResetCache();
 
             }

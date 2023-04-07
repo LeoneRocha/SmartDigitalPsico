@@ -29,15 +29,15 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
             _entityService = entityService;
         }
         private void setUserIdCurrent()
-        { 
+        {
             _entityService.SetUserId(base.GetUserIdCurrent());
-        } 
+        }
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetApplicationLanguageVO>>>> Get()
         {
             this.setUserIdCurrent();
-            var result = _entityService.FindAll(); 
+            var result = _entityService.FindAll();
             return Ok(await result);
         }
         [HttpGet("{id}")]
@@ -75,7 +75,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         {
             this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
-            if (response.Data)
+            if (!response.Data)
             {
                 return NotFound(response);
             }

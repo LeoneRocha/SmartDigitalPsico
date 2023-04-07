@@ -38,6 +38,10 @@ export const AppRoutes: Routes = [
             canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/applicationconfigsetting/applicationconfigsetting.module').then(x => x.ApplicationConfigSettingModule)
         }, {
+            path: 'applicationlanguage',
+            canActivate: [AuthGuard, AdminAuthGuard],
+            loadChildren: () => import('./custompages/applicationlanguage/applicationlanguage.module').then(x => x.ApplicationLanguageModule)
+        }, {
             path: 'usermanagement',
             canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/usermanagement/usermanagement.module').then(x => x.UserManagementModule)

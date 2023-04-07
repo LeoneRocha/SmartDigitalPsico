@@ -26,13 +26,13 @@ namespace SmartDigitalPsico.Model.Mapper
         public AutoMapperProfile()
         {
             #region EntityBase
-             
-            CreateMap<EntityBase , EntityVOBaseName>();
-            CreateMap<EntityVOBaseName, EntityBase >(); 
+
+            CreateMap<EntityBase, EntityVOBaseName>();
+            CreateMap<EntityVOBaseName, EntityBase>();
 
             CreateMap<EntityBaseSimple, EntityVOBaseDomain>();
             CreateMap<EntityVOBaseDomain, EntityBaseSimple>();
-              
+
             #endregion
 
             #region ApplicationConfigSetting
@@ -45,11 +45,12 @@ namespace SmartDigitalPsico.Model.Mapper
             #endregion  ApplicationConfigSetting
 
             #region ApplicationLanguage
+
             CreateMap<ApplicationLanguage, GetApplicationLanguageVO>();
             CreateMap<GetApplicationLanguageVO, ApplicationLanguage>();
-
-            CreateMap<AddApplicationConfigSettingVO, ApplicationLanguage>();
-            CreateMap<UpdateApplicationConfigSettingVO, ApplicationLanguage>();
+            
+            CreateMap<AddApplicationLanguageVO, ApplicationLanguage>(); 
+            CreateMap<UpdateApplicationLanguageVO, ApplicationLanguage>();
 
             #endregion  ApplicationLanguage
 
@@ -108,13 +109,13 @@ namespace SmartDigitalPsico.Model.Mapper
             #region Specialty
             CreateMap<Specialty, GetSpecialtyVO>();
             CreateMap<GetSpecialtyVO, Specialty>();
-             
+
             CreateMap<AddSpecialtyVO, Specialty>();
-            CreateMap<UpdateSpecialtyVO, Specialty>(); 
+            CreateMap<UpdateSpecialtyVO, Specialty>();
             #endregion Specialty
 
             #region USER
-            CreateMap<User, GetUserVO>(); 
+            CreateMap<User, GetUserVO>();
             CreateMap<User, GetUserAuthenticatedVO>();
             CreateMap<GetUserVO, User>();
             CreateMap<UpdateUserVO, User>();

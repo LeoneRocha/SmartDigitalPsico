@@ -1,8 +1,10 @@
+using Localization.SqlLocalizer.DbStringLocalizer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,7 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using SmartDigitalPsico.Domains.Enuns;
+using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Mapper;
 using SmartDigitalPsico.Model.VO.Domains;
@@ -22,7 +25,9 @@ using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -107,6 +112,8 @@ namespace SmartDigitalPsico.WebAPI
             //// Migrate latest database changes during startup
             addAutoMigrate(app);
 
+
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
@@ -137,6 +144,8 @@ namespace SmartDigitalPsico.WebAPI
                 //HyperMedia
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
+
+
 
 
         }
@@ -213,8 +222,54 @@ namespace SmartDigitalPsico.WebAPI
                     break;
                 default:
                     break;
-            }
+            } 
+            addLocalization(services);
+
         }
+
+        private void addLocalization(IServiceCollection services)
+        {
+            var sqlConnectionString = Configuration["DbStringLocalizer:ConnectionString"];
+
+            services.AddDbContext<LocalizationModelContext>(options =>
+            options.UseSqlServer(
+                sqlConnectionString,
+                b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")
+                ),
+                ServiceLifetime.Singleton,
+                ServiceLifetime.Singleton
+                );
+
+            var useTypeFullNames = true;
+            var useOnlyPropertyNames = false;
+            var returnOnlyKeyIfNotFound = false;
+
+            // Requires that LocalizationModelContext is defined
+            services.AddSqlLocalization(options => options.UseSettings(useTypeFullNames, useOnlyPropertyNames, returnOnlyKeyIfNotFound, true));
+            // services.AddSqlLocalization(options => options.ReturnOnlyKeyIfNotFound = true);
+            // services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddMvc()
+                    .AddViewLocalization()
+                    .AddDataAnnotationsLocalization();
+
+            services.AddScoped<LanguageActionFilter>();
+
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = CultureDateTimeHelper.TranslateCulture(CultureDateTimeHelper.GetCultures());
+
+                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
+            //dotnet ef migrations add Localization --context LocalizationModelContext
+            //dotnet ef database update Localization --context LocalizationModelContext
+           
+        }
+
         private void addAutoMigrate(IApplicationBuilder app)
         {
             bool migreted = false;
@@ -227,6 +282,16 @@ namespace SmartDigitalPsico.WebAPI
                     context.Database.Migrate();
                 }
             }
+
+            addConfigLocalization(app);
+
+        }
+
+        private void addConfigLocalization(IApplicationBuilder app)
+        {
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
+
         }
         #endregion
 

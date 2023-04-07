@@ -12,6 +12,26 @@ https://blog.christian-schou.dk/how-to-use-fluentvalidation-in-asp-net-core6/
 https://stackoverflow.com/questions/13406270/fluentvalidation-unique-name-validation-using-database
 https://stackoverflow.com/questions/63058233/is-it-a-good-practice-to-inject-dbcontext-or-repository-into-fluent-validation-v
 ----------------------------------
+TRADUCAO 
+
+https://www.tektutorialshub.com/angular/angular-location-strategies/
+
+
+https://www.codeproject.com/Articles/5348357/Localizing-ASP-NET-Core-MVC-Applications-from-Data
+---
+ 
+
+https://blog.christian-schou.dk/how-to-use-fluentvalidation-in-asp-net-core6/
+ 
+
+https://www.youtube.com/watch?v=3bAJ5fS_1Z0
+
+https://www.nuget.org/packages/Arebis.MvcDashboardLocalize/
+
+https://www.nuget.org/packages/Arebis.MvcDashboardLocalize/
+
+
+----------------------
 https://refactoring.guru/design-patterns/factory-method
 
 npm install @auth0/angular-jwt --save
@@ -67,10 +87,16 @@ Com os objetos indivitual para cada acao
 
 https://fullcalendar.io/
 
+dotnet ef migrations add SmartDigitalPsicoDBMig0003 --context SmartDigitalPsicoDataContext
+
 dotnet ef migrations add SmartDigitalPsicoDBMig
 
 --------------REMOVE 
 dotnet ef database update 0
+
+ dotnet ef database update --context SmartDigitalPsicoDataContext
+
+
 dotnet ef migrations remove
 
 

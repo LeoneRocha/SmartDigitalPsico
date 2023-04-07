@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,11 @@ namespace SmartDigitalPsico.Repository.Helper
             addConfigureDefaultValues_PatientMedicationInformation(modelBuilder);
             addConfigureDefaultValues_PatientNotificationMessage(modelBuilder);
             addConfigureDefaultValues_PatientRecord(modelBuilder);
+
+
+            modelBuilder.Entity<ApplicationLanguage>().Property(u => u.ResourceKey).HasDefaultValue("ApplicationLanguage");
+
+
 
         }
         private static void addConfigureDefaultValues_PatientRecord(ModelBuilder modelBuilder)

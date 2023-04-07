@@ -148,7 +148,7 @@ export class AddEditPatientComponent implements OnInit {
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
-            //this.goBackToList();
+            this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
         }
@@ -384,7 +384,7 @@ export class AddEditPatientComponent implements OnInit {
         }
     }
     onSelect(selectedValue: string) {
-        console.log(this.registerForm);
+        //console.log(this.registerForm);
     }
     goBackToList() {
         this.router.navigate(['/patient/manage/']);

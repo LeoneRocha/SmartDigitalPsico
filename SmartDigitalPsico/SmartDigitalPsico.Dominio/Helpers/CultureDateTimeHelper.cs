@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 
 namespace SmartDigitalPsico.Domains.Helpers
@@ -7,6 +8,17 @@ namespace SmartDigitalPsico.Domains.Helpers
     {
 
         public CultureDateTimeHelper() { }
+
+        private static List<CultureInfo> getCulturesEnable()
+        {
+            List<CultureInfo> list = new List<CultureInfo>();
+
+            list.Add(new CultureInfo("en-US"));
+            list.Add(new CultureInfo("pt-BR"));
+            list.Add(new CultureInfo("es-ES"));
+
+            return list;
+        }
 
         public static List<TimeZoneDisplay> GetTimeZonesIds()
         {
@@ -25,11 +37,18 @@ namespace SmartDigitalPsico.Domains.Helpers
             CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
 
             foreach (CultureInfo cul in cinfo)
-
             {
                 result.Add(new CultureDisplay() { Id = cul.Name, Name = cul.DisplayName });
             }
+            var culturesEnables = getCulturesEnable().Select(cie => cie.Name).ToList();
+            result = result.Where(p => culturesEnables.Contains(p.Name)).ToList();
+
             return result;
+        }
+
+        public static List<CultureInfo> TranslateCulture(List<CultureDisplay> cultureDisplays)
+        {
+            return cultureDisplays.Select(cd => new CultureInfo(cd.Id)).ToList();
         }
     }
     public class CultureDisplay : TimeZoneDisplay

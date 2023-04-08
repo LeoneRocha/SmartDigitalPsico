@@ -14,7 +14,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
     {
         public RoleGroupBusiness(IMapper _mapper, IRoleGroupRepository entityRepository
-            , IValidator<RoleGroup> entityValidator)
-            : base(_mapper, entityRepository, entityValidator) { }
+            , IValidator<RoleGroup> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(_mapper, entityRepository, entityValidator, applicationLanguageRepository) { }
     }
 }

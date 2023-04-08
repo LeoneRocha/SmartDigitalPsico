@@ -84,7 +84,7 @@ namespace SmartDigitalPsico.Domains.Helpers
 
             }
             return result;
-        }
+        } 
     }
     public class CultureDisplay : TimeZoneDisplay
     {

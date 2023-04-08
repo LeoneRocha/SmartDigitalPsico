@@ -29,8 +29,8 @@ namespace SmartDigitalPsico.Business.SystemDomains
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository, ICacheBusiness cacheBusiness,
             IOptions<AuthConfigurationVO> configurationAuth,
             IValidator<Gender> entityValidator
-            , IStringLocalizer<SharedResource> localizer)
-            : base(mapper, entityRepository, entityValidator)
+            , IStringLocalizer<SharedResource> localizer, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _genericRepository = entityRepository;
@@ -81,12 +81,16 @@ namespace SmartDigitalPsico.Business.SystemDomains
                 {
                     response.Data = _mapper.Map<GetGenderVO>(entityResponse);
                     response.Success = true;
-                    response.Message = CultureDateTimeHelper.GetLocalizer(_localizer, "RegisterIsFound");
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                        ("RegisterIsFound", base._applicationLanguageRepository);  
                 }
                 else
                 {
                     response.Success = false;
-                    response.Message = CultureDateTimeHelper.GetLocalizer(_localizer, "RegisterIsNotFound");
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository);
+
+                    //response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>("RegisterIsNotFound", _localizer);
                 }
             }
             catch (Exception ex)

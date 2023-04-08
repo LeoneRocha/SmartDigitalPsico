@@ -1,4 +1,5 @@
 ﻿using Localization.SqlLocalizer.DbStringLocalizer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -75,6 +76,15 @@ namespace SmartDigitalPsico.Repository.SystemDomains
             }
             return await base.Update(item);
         }
+
+        public async Task<ApplicationLanguage> Find(string language, string languageKey, string resourceKey = "SharedResource")
+        {
+            return await dataset.SingleAsync(p =>
+            p.ResourceKey.ToUpper().Trim().Equals(resourceKey.ToUpper().Trim())
+            && p.LanguageKey.ToUpper().Trim().Equals(languageKey.ToUpper().Trim())
+            && p.Language.ToUpper().Trim().Equals(language.ToUpper().Trim())
+            );
+        } 
 
         public override async Task<bool> Delete(long id)
         {

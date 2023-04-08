@@ -32,8 +32,8 @@ namespace SmartDigitalPsico.Business.Principals
         public MedicalBusiness(IMapper mapper, IMedicalRepository entityRepository, IConfiguration configuration,
             IUserRepository userRepository, IOfficeRepository officeRepository
             , ISpecialtyRepository specialtyRepository
-            , IValidator<Medical> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<Medical> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _configuration = configuration;

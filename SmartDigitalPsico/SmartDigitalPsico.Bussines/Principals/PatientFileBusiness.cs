@@ -12,6 +12,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.FileManager;
 
 namespace SmartDigitalPsico.Business.Principals
@@ -29,8 +30,8 @@ namespace SmartDigitalPsico.Business.Principals
 
         public PatientFileBusiness(IMapper mapper, IPatientFileRepository entityRepository, IConfiguration configuration,
             IUserRepository userRepository, IPatientRepository patientRepository
-            , IValidator<PatientFile> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<PatientFile> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _configuration = configuration;

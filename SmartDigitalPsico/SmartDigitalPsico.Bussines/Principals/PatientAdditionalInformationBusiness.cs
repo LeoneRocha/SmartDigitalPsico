@@ -9,6 +9,7 @@ using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -23,8 +24,8 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IPatientRepository _patientRepository;
 
         public PatientAdditionalInformationBusiness(IMapper mapper, IPatientAdditionalInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository
-             , IValidator<PatientAdditionalInformation> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+             , IValidator<PatientAdditionalInformation> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _configuration = configuration;

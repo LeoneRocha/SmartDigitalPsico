@@ -14,7 +14,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
     public class OfficeBusiness : GenericBusinessEntityBaseSimple<Office, AddOfficeVO, UpdateOfficeVO, GetOfficeVO, IOfficeRepository>, IOfficeBusiness
 
     {
-        public OfficeBusiness(IMapper _mapper, IOfficeRepository entityRepository, IValidator<Office> entityValidator)
-            : base(_mapper, entityRepository, entityValidator) { }
+        public OfficeBusiness(IMapper _mapper, IOfficeRepository entityRepository, IValidator<Office> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(_mapper, entityRepository, entityValidator, applicationLanguageRepository) { }
     }
 }

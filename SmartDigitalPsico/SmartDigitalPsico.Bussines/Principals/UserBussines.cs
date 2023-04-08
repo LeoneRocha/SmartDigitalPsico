@@ -12,6 +12,7 @@ using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -28,8 +29,8 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly ITokenService _tokenService;
         AuthConfigurationVO _configurationAuth;
         public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
-            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _userRepository = entityRepository;

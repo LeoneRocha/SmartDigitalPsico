@@ -13,6 +13,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using System.Text;
 
 namespace SmartDigitalPsico.Business.Principals
@@ -28,8 +29,8 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IValidator<Patient> _entityValidator;
 
         public PatientBusiness(IMapper mapper, IPatientRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IMedicalRepository medicalRepository
-            , IValidator<Patient> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<Patient> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _configuration = configuration;

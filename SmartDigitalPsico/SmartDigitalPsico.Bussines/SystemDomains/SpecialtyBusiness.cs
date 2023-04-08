@@ -13,7 +13,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
     public class SpecialtyBusiness
         : GenericBusinessEntityBaseSimple<Specialty, AddSpecialtyVO, UpdateSpecialtyVO, GetSpecialtyVO, ISpecialtyRepository>, ISpecialtyBusiness
     {
-        public SpecialtyBusiness(IMapper _mapper, ISpecialtyRepository entityRepository, IValidator<Specialty> entityValidator)
-            : base(_mapper, entityRepository, entityValidator) { }
+        public SpecialtyBusiness(IMapper _mapper, ISpecialtyRepository entityRepository, IValidator<Specialty> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(_mapper, entityRepository, entityValidator, applicationLanguageRepository) { }
     }
 }

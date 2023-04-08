@@ -1,13 +1,18 @@
 using AutoMapper;
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Domains.Helpers;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
+using System.Globalization;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
@@ -16,14 +21,53 @@ namespace SmartDigitalPsico.Business.SystemDomains
     {
         private readonly IMapper _mapper;
         private readonly IApplicationLanguageRepository _genericRepository;
-       
-        public ApplicationLanguageBusiness(IMapper mapper, IApplicationLanguageRepository entityRepository
-             , IValidator<ApplicationLanguage> entityValidator)
-            : base(mapper, entityRepository, entityValidator) {
 
+        public ApplicationLanguageBusiness(IMapper mapper, IApplicationLanguageRepository entityRepository
+             , IValidator<ApplicationLanguage> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+        {
             _mapper = mapper;
-            _genericRepository = entityRepository; 
-         
-        } 
+            _genericRepository = entityRepository;
+
+        }
+        public static async Task<string> GetLocalization<T>(string key, Microsoft.Extensions.Localization.IStringLocalizer<T> localizer)
+        {
+            string result = "NotFoundLocalization";
+            try
+            {
+                var culturenameCurrent = CultureInfo.CurrentCulture;
+
+                var findKey = CultureDateTimeHelper.GetNameAndCulture(key);
+                string message = localizer.GetString(findKey);
+
+                result = message;
+            }
+            catch (Exception)
+            {
+
+            }
+            await Task.FromResult(string.Empty);
+
+            return result;
+        }
+        public static async Task<string> GetLocalization<T>(string key, IApplicationLanguageRepository languageRepository)
+        {
+            string result = "NotFoundLocalization";
+            try
+            {
+                var culturenameCurrent = CultureInfo.CurrentCulture;
+                var findKey = CultureDateTimeHelper.GetNameAndCulture(key);
+                var languageFind = await languageRepository.Find(culturenameCurrent.Name, key);
+                string message = languageFind.LanguageValue;
+
+                result = message;
+            }
+            catch (Exception)
+            {
+
+            } 
+
+            return result;
+        }
     }
 }

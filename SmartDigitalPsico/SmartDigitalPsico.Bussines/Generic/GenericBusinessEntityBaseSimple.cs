@@ -5,8 +5,8 @@ using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Business.Validation.Helper;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.VO.Contracts;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.Generic.Contracts;
 
 namespace SmartDigitalPsico.Business.Generic
@@ -24,16 +24,18 @@ namespace SmartDigitalPsico.Business.Generic
         private readonly Repo _genericRepository;
         private readonly IValidator<TEntity> _entityValidator;
         protected long UserId { get; private set; }
-
         private readonly IStringLocalizer<SharedResource> _localizer;
+        protected readonly IApplicationLanguageRepository _applicationLanguageRepository;
 
-        public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator
+        public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository,
+            IValidator<TEntity> entityValidator, IApplicationLanguageRepository applicationLanguageRepository
           )
         {
             _mapper = mapper;
             _genericRepository = UserRepository;
             _entityValidator = entityValidator;
-           // _localizer = localizer;
+            _applicationLanguageRepository = applicationLanguageRepository;
+            // _localizer = localizer;
         }
         public virtual async Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item)
         {
@@ -52,10 +54,10 @@ namespace SmartDigitalPsico.Business.Generic
                     TEntity entityResponse = await _genericRepository.Create(entityAdd);
                     response.Data = _mapper.Map<TEntityResult>(entityResponse);
                     response.Message = "Register Created.";
-                } 
+                }
             }
             catch (Exception)
-            { 
+            {
                 throw;
             }
 
@@ -102,7 +104,7 @@ namespace SmartDigitalPsico.Business.Generic
                     response.Success = false;
                     response.Message = "Register not found.";
                     return response;
-                } 
+                }
                 var entityUpdate = _mapper.Map<TEntity>(item);
                 response = await Validate(entityUpdate);
                 entityUpdate.ModifyDate = DateTime.Now;
@@ -112,12 +114,12 @@ namespace SmartDigitalPsico.Business.Generic
                     TEntity entityResponse = await _genericRepository.Update(entityUpdate);
                     response.Data = _mapper.Map<TEntityResult>(entityResponse);
                     response.Message = "Register Updated.";
-                } 
+                }
             }
             catch (Exception ex)
-            { 
+            {
                 throw ex;
-            } 
+            }
             return response;
         }
 

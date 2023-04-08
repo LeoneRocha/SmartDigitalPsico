@@ -8,6 +8,7 @@ using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -21,8 +22,8 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IPatientRepository _patientRepository;
 
         public PatientHospitalizationInformationBusiness(IMapper mapper, IPatientHospitalizationInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository
-            , IValidator<PatientHospitalizationInformation> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<PatientHospitalizationInformation> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _configuration = configuration;

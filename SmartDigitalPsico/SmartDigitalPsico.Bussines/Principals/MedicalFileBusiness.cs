@@ -12,6 +12,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.FileManager;
 
 namespace SmartDigitalPsico.Business.Principals
@@ -29,8 +30,8 @@ namespace SmartDigitalPsico.Business.Principals
 
         public MedicalFileBusiness(IMapper mapper, IMedicalFileRepository entityRepository, IMedicalRepository medicalRepository, IConfiguration configuration
             , IUserRepository userRepository, IRepositoryFileDisk repositoryFileDisk
-            , IValidator<MedicalFile> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<MedicalFile> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -52,7 +53,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetMedicalFileVO> response = new ServiceResponse<GetMedicalFileVO>();
             try
-            { 
+            {
                 IFormFile fileData = null;
                 if (entity != null)
                 {
@@ -110,7 +111,7 @@ namespace SmartDigitalPsico.Business.Principals
                 && fileEntity?.Medical?.Id == userAutenticated?.Medical?.Id)
             {
                 return false;
-            } 
+            }
 
             if (fileEntity != null)
             {

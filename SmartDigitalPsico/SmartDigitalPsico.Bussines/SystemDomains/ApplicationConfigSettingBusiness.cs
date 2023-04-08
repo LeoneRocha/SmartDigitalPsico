@@ -18,14 +18,15 @@ namespace SmartDigitalPsico.Business.SystemDomains
     {
         private readonly IMapper _mapper;
         private readonly IApplicationConfigSettingRepository _genericRepository;
-       
-        public ApplicationConfigSettingBusiness(IMapper mapper, 
+
+        public ApplicationConfigSettingBusiness(IMapper mapper,
             IApplicationConfigSettingRepository entityRepository
-            , IValidator<ApplicationConfigSetting> entityValidator)
-            : base(mapper, entityRepository, entityValidator   ) {
+            , IValidator<ApplicationConfigSetting> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+        {
 
             _mapper = mapper;
-            _genericRepository = entityRepository; 
-        } 
+            _genericRepository = entityRepository;
+        }
     }
 }

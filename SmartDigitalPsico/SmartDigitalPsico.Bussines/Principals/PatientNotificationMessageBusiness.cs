@@ -10,6 +10,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -24,7 +25,7 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IPatientRepository _patientRepository;
 
         public PatientNotificationMessageBusiness(IMapper mapper, IPatientNotificationMessageRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository
-             , IValidator<PatientNotificationMessage> entityValidator) : base(mapper, entityRepository, entityValidator)
+             , IValidator<PatientNotificationMessage> entityValidator, IApplicationLanguageRepository applicationLanguageRepository) : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
         {
             _mapper = mapper;
             _configuration = configuration;

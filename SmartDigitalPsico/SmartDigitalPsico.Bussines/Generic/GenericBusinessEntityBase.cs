@@ -5,7 +5,9 @@ using SmartDigitalPsico.Business.Validation.Helper;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.VO.Contracts;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.Generic.Contracts;
+using SmartDigitalPsico.Repository.SystemDomains;
 using System;
 
 namespace SmartDigitalPsico.Business.Generic
@@ -23,11 +25,13 @@ namespace SmartDigitalPsico.Business.Generic
         private readonly Repo _genericRepository;
         private readonly IValidator<TEntity> _entityValidator;
         protected long UserId { get; private set; }
-        public GenericBusinessEntityBase(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator)
+        protected readonly IApplicationLanguageRepository _applicationLanguageRepository;
+        public GenericBusinessEntityBase(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
         {
             _mapper = mapper;
             _genericRepository = UserRepository;
             _entityValidator = entityValidator;
+            _applicationLanguageRepository = applicationLanguageRepository;
         }
         public virtual async Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item)
         {

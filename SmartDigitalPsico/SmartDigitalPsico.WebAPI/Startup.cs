@@ -111,9 +111,7 @@ namespace SmartDigitalPsico.WebAPI
 
             //// Migrate latest database changes during startup
             addAutoMigrate(app);
-
-
-
+             
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
@@ -143,11 +141,7 @@ namespace SmartDigitalPsico.WebAPI
                 endpoints.MapControllers();
                 //HyperMedia
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
-            });
-
-
-
-
+            }); 
         }
 
         #region PRIVATES
@@ -222,13 +216,14 @@ namespace SmartDigitalPsico.WebAPI
                     break;
                 default:
                     break;
-            } 
-            addLocalization(services);
+            }
+          addLocalization(services);
 
         }
 
         private void addLocalization(IServiceCollection services)
         {
+
             var sqlConnectionString = Configuration["DbStringLocalizer:ConnectionString"];
 
             services.AddDbContext<LocalizationModelContext>(options =>
@@ -243,6 +238,9 @@ namespace SmartDigitalPsico.WebAPI
             var useTypeFullNames = true;
             var useOnlyPropertyNames = false;
             var returnOnlyKeyIfNotFound = false;
+
+            //services.AddSqlLocalization(options => options.UseSettings(Configuration.GetSection("LocalizationSettings")));
+
 
             // Requires that LocalizationModelContext is defined
             services.AddSqlLocalization(options => options.UseSettings(useTypeFullNames, useOnlyPropertyNames, returnOnlyKeyIfNotFound, true));
@@ -260,14 +258,14 @@ namespace SmartDigitalPsico.WebAPI
                 {
                     var supportedCultures = CultureDateTimeHelper.TranslateCulture(CultureDateTimeHelper.GetCultures());
 
-                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                    options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
 
                     options.SupportedCultures = supportedCultures;
                     options.SupportedUICultures = supportedCultures;
                 });
             //dotnet ef migrations add Localization --context LocalizationModelContext
             //dotnet ef database update Localization --context LocalizationModelContext
-           
+
         }
 
         private void addAutoMigrate(IApplicationBuilder app)

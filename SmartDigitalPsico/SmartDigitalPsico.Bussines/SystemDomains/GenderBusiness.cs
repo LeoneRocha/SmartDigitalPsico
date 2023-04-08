@@ -1,19 +1,20 @@
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Business.Validation.Helper;
+using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
-using System.Text;
 
 namespace SmartDigitalPsico.Business.SystemDomains
 {
@@ -23,16 +24,19 @@ namespace SmartDigitalPsico.Business.SystemDomains
         private readonly IMapper _mapper;
         private readonly IGenderRepository _genericRepository;
         private readonly ICacheBusiness _cacheBusiness;
-        AuthConfigurationVO _configurationAuth; 
+        AuthConfigurationVO _configurationAuth;
+        private readonly IStringLocalizer<SharedResource> _localizer;
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository, ICacheBusiness cacheBusiness,
             IOptions<AuthConfigurationVO> configurationAuth,
-            IValidator<Gender> entityValidator )
+            IValidator<Gender> entityValidator
+            , IStringLocalizer<SharedResource> localizer)
             : base(mapper, entityRepository, entityValidator)
         {
             _mapper = mapper;
             _genericRepository = entityRepository;
             _cacheBusiness = cacheBusiness;
-            _configurationAuth = configurationAuth.Value; 
+            _configurationAuth = configurationAuth.Value;
+            _localizer = localizer;
         }
 
         public override async Task<ServiceResponse<List<GetGenderVO>>> FindAll()
@@ -66,6 +70,34 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
             return result;
         }
+        public override async Task<ServiceResponse<GetGenderVO>> FindByID(long id)
+        {
+            ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
+            try
+            {
+                Gender entityResponse = await _genericRepository.FindByID(id);
+
+                if (entityResponse != null)
+                {
+                    response.Data = _mapper.Map<GetGenderVO>(entityResponse);
+                    response.Success = true;
+                    response.Message = CultureDateTimeHelper.GetLocalizer(_localizer, "RegisterIsFound");
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = CultureDateTimeHelper.GetLocalizer(_localizer, "RegisterIsNotFound");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return response;
+        }
+
+
         public override async Task<ServiceResponse<GetGenderVO>> Update(UpdateGenderVO item)
         {
             ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
@@ -75,14 +107,14 @@ namespace SmartDigitalPsico.Business.SystemDomains
             if (!entityExists)
             {
                 response.Success = false;
-                response.Message = "Register not found.";
+                response.Message = _localizer["GenderNotFound"];
                 return response;
             }
 
             Gender entityUpdate = _mapper.Map<Gender>(item);
 
             Gender entityFind = await _genericRepository.FindByID(item.Id);
-             
+
             Gender entityResponse = await _genericRepository.Update(entityUpdate);
 
             response.Data = _mapper.Map<GetGenderVO>(entityResponse);
@@ -90,6 +122,6 @@ namespace SmartDigitalPsico.Business.SystemDomains
             response.Message = "Register Updated.";
             return response;
 
-        }  
+        }
     }
 }

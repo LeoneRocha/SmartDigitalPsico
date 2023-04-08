@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
@@ -49,6 +50,40 @@ namespace SmartDigitalPsico.Domains.Helpers
         public static List<CultureInfo> TranslateCulture(List<CultureDisplay> cultureDisplays)
         {
             return cultureDisplays.Select(cd => new CultureInfo(cd.Id)).ToList();
+        }
+
+        public static string GetNameAndCulture(string localizedStringKeyName)
+        {
+
+            string culturenameCurrent = CultureInfo.CurrentCulture.Name;
+
+            //  return $"{localizedStringKeyName}.{culturenameCurrent}";
+            return $"{localizedStringKeyName}";
+
+        }
+        public static string GetKeyLocalizationRecordFormat(string LanguageKey, string Language)
+        {
+            //return $"{LanguageKey}.{Language}";
+            return $"{LanguageKey}";
+        }
+
+        public static string GetLocalizer<T>(Microsoft.Extensions.Localization.IStringLocalizer<T> localizer, string key)
+        {
+            string result = "NotFoundLocalization";
+            try
+            {
+                var culturenameCurrent = CultureInfo.CurrentCulture;
+
+                var findKey = CultureDateTimeHelper.GetNameAndCulture(key);
+                string message = localizer.GetString(findKey);
+
+                result = message;
+            }
+            catch (Exception)
+            {
+
+            }
+            return result;
         }
     }
     public class CultureDisplay : TimeZoneDisplay

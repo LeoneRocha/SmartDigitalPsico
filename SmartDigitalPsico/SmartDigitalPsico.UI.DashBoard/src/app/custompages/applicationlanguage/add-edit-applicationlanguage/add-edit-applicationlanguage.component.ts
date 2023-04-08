@@ -55,10 +55,9 @@ export class AddEditApplicationLanguageComponent implements OnInit {
         this.registerId = Number(paramsUrl.get('id'));
 
         if (this.registerId > 0) {
-
-            formsElement.controls['language'].disable();
-            formsElement.controls['resourceKey'].disable();
-            formsElement.controls['languageKey'].disable();            
+            // formsElement.controls['resourceKey'].disable();
+            formsElement.controls['languageKey'].disable();      
+            formsElement.controls['language'].disable();      
         }
     }
     ngAfterViewInit() {

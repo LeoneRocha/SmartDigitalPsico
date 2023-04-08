@@ -1,7 +1,9 @@
 using AutoMapper;
 using Azure;
 using FluentValidation;
+using Localization.SqlLocalizer.IntegrationTests;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.Validation.PatientValidations;

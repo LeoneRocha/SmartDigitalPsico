@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Business.Validation.Helper;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
@@ -24,11 +25,15 @@ namespace SmartDigitalPsico.Business.Generic
         private readonly IValidator<TEntity> _entityValidator;
         protected long UserId { get; private set; }
 
-        public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator)
+        private readonly IStringLocalizer<SharedResource> _localizer;
+
+        public GenericBusinessEntityBaseSimple(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator
+          )
         {
             _mapper = mapper;
             _genericRepository = UserRepository;
             _entityValidator = entityValidator;
+           // _localizer = localizer;
         }
         public virtual async Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item)
         {
@@ -163,12 +168,12 @@ namespace SmartDigitalPsico.Business.Generic
                 {
                     response.Data = _mapper.Map<TEntityResult>(entityResponse);
                     response.Success = true;
-                    response.Message = "Register find.";
+                    response.Message = "RegisterIsFound"; //_localizer["RegisterIsFound"]; 
                 }
                 else
                 {
                     response.Success = false;
-                    response.Message = "Register not found.";
+                    response.Message = "RegisterIsNotFound";// _localizer["RegisterIsNotFound"];  
                 }
             }
             catch (Exception ex)

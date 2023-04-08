@@ -1,5 +1,6 @@
 ﻿using Localization.SqlLocalizer.DbStringLocalizer;
 using Microsoft.Extensions.Localization;
+using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Repository.Context;
@@ -25,13 +26,15 @@ namespace SmartDigitalPsico.Repository.SystemDomains
         {
             try
             {
-                _localizationModelContext.Add(new LocalizationRecord
+                var newRessource = new LocalizationRecord
                 {
-                    Key = $"{item.LanguageKey}",
+                    Key = getKeyLocalizationRecord(item),
                     Text = item.LanguageValue,
                     LocalizationCulture = item.Language,
                     ResourceKey = item.ResourceKey //typeof(ApplicationLanguage).FullName
-                });
+                };
+
+                _localizationModelContext.Add(newRessource);
 
                 await _localizationModelContext.SaveChangesAsync();
                 _stringLocalizerFactory.ResetCache();
@@ -39,12 +42,15 @@ namespace SmartDigitalPsico.Repository.SystemDomains
             }
             catch (Exception)
             {
-
-                throw;
             }
 
 
             return await base.Create(item);
+        }
+
+        private string getKeyLocalizationRecord(ApplicationLanguage item)
+        {
+            return CultureDateTimeHelper.GetKeyLocalizationRecordFormat(item.LanguageKey, item.Language);
         }
 
         public override async Task<ApplicationLanguage> Update(ApplicationLanguage item)
@@ -52,7 +58,7 @@ namespace SmartDigitalPsico.Repository.SystemDomains
             try
             {
                 var localRegister = _localizationModelContext.LocalizationRecords
-                    .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == item.LanguageKey);
+                    .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == getKeyLocalizationRecord(item));
 
                 localRegister.Text = item.LanguageValue;
                 localRegister.LocalizationCulture = item.Language;
@@ -66,8 +72,6 @@ namespace SmartDigitalPsico.Repository.SystemDomains
             }
             catch (Exception)
             {
-
-                throw;
             }
             return await base.Update(item);
         }
@@ -76,11 +80,11 @@ namespace SmartDigitalPsico.Repository.SystemDomains
         {
 
             try
-            { 
+            {
                 ApplicationLanguage item = await base.FindByID(id);
                 var localRegister = _localizationModelContext.LocalizationRecords
-                .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == item.LanguageKey);
-                 
+                .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == getKeyLocalizationRecord(item));
+
                 _localizationModelContext.Remove(localRegister);
 
                 await _localizationModelContext.SaveChangesAsync(true);
@@ -92,7 +96,6 @@ namespace SmartDigitalPsico.Repository.SystemDomains
             catch (Exception)
             {
 
-                throw;
             }
 
             return await base.Delete(id);

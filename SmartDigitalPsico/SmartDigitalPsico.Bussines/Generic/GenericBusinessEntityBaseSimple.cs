@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 using SmartDigitalPsico.Business.Generic.Contracts;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Business.Validation.Helper;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
@@ -53,7 +54,7 @@ namespace SmartDigitalPsico.Business.Generic
                 {
                     TEntity entityResponse = await _genericRepository.Create(entityAdd);
                     response.Data = _mapper.Map<TEntityResult>(entityResponse);
-                    response.Message = "Register Created.";
+                    response.Message = await getMessageFromLocalization("RegisterCreated");
                 }
             }
             catch (Exception)
@@ -74,8 +75,12 @@ namespace SmartDigitalPsico.Business.Generic
                 if (!entityExists)
                 {
                     response.Success = false;
-                    response.Message = "Register not found.";
-                    response.Errors.Add(new ErrorResponse() { Message = "Register not found.", Name = "Delete" });
+                    response.Message = await getMessageFromLocalization("RegisterIsNotFound");
+                    response.Errors.Add(new ErrorResponse()
+                    {
+                        Message = response.Message,
+                        Name = "Delete"
+                    });
                     return response;
                 }
 
@@ -83,7 +88,7 @@ namespace SmartDigitalPsico.Business.Generic
 
                 response.Data = entityResponse;
                 response.Success = true;
-                response.Message = "Register Deleted.";
+                response.Message = await getMessageFromLocalization("RegisterDeleted");
             }
             catch (Exception ex)
             {
@@ -102,7 +107,7 @@ namespace SmartDigitalPsico.Business.Generic
                 if (!entityExists)
                 {
                     response.Success = false;
-                    response.Message = "Register not found.";
+                    response.Message = await getMessageFromLocalization("RegisterIsNotFound");
                     return response;
                 }
                 var entityUpdate = _mapper.Map<TEntity>(item);
@@ -113,7 +118,7 @@ namespace SmartDigitalPsico.Business.Generic
                 {
                     TEntity entityResponse = await _genericRepository.Update(entityUpdate);
                     response.Data = _mapper.Map<TEntityResult>(entityResponse);
-                    response.Message = "Register Updated.";
+                    response.Message = await getMessageFromLocalization("RegisterUpdated");
                 }
             }
             catch (Exception ex)
@@ -132,7 +137,7 @@ namespace SmartDigitalPsico.Business.Generic
 
                 response.Data = entityResponse;
                 response.Success = true;
-                response.Message = "Register exist.";
+                response.Message = await getMessageFromLocalization("RegisterExist");
             }
             catch (Exception ex)
             {
@@ -150,7 +155,7 @@ namespace SmartDigitalPsico.Business.Generic
                 response.Data = entityResponse.Select(c => _mapper.Map<TEntityResult>(c)).ToList();
 
                 response.Success = true;
-                response.Message = "Register exist.";
+                response.Message = await getMessageFromLocalization("RegisterExist");
             }
             catch (Exception ex)
             {
@@ -170,12 +175,12 @@ namespace SmartDigitalPsico.Business.Generic
                 {
                     response.Data = _mapper.Map<TEntityResult>(entityResponse);
                     response.Success = true;
-                    response.Message = "RegisterIsFound"; //_localizer["RegisterIsFound"]; 
+                    response.Message = await getMessageFromLocalization("RegisterIsFound");
                 }
                 else
                 {
                     response.Success = false;
-                    response.Message = "RegisterIsNotFound";// _localizer["RegisterIsNotFound"];  
+                    response.Message = await getMessageFromLocalization("RegisterIsNotFound");
                 }
             }
             catch (Exception ex)
@@ -194,7 +199,7 @@ namespace SmartDigitalPsico.Business.Generic
 
                 response.Data = entityResponse.Select(c => _mapper.Map<TEntityResult>(c)).ToList();
                 response.Success = true;
-                response.Message = "Register find.";
+                response.Message = await getMessageFromLocalization("RegisterIsFound");
             }
             catch (Exception ex)
             {
@@ -212,7 +217,7 @@ namespace SmartDigitalPsico.Business.Generic
 
                 response.Data = entityResponse;
                 response.Success = true;
-                response.Message = "Registers Counted.";
+                response.Message = await getMessageFromLocalization("RegisterCounted");
             }
             catch (Exception ex)
             {
@@ -231,7 +236,7 @@ namespace SmartDigitalPsico.Business.Generic
                 if (!exists)
                 {
                     response.Success = false;
-                    response.Message = "Register not found.";
+                    response.Message = await getMessageFromLocalization("RegisterIsNotFound");
                     return response;
                 }
                 else
@@ -239,7 +244,7 @@ namespace SmartDigitalPsico.Business.Generic
                     response.Success = await _genericRepository.EnableOrDisable(id);
                     if (response.Success)
                     {
-                        response.Message = "Register updated.";
+                        response.Message = await getMessageFromLocalization("RegisterUpdated");
                         response.Success = true;
                     }
                 }
@@ -271,6 +276,19 @@ namespace SmartDigitalPsico.Business.Generic
                 throw ex;
             }
             return response;
+        }
+        private async Task<string> getMessageFromLocalization(string key)
+        {
+            try
+            {
+                return await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                                   (key, this._applicationLanguageRepository);
+            }
+            catch (Exception)
+            {
+
+            }
+            return "Erro get Message";
         }
     }
 }

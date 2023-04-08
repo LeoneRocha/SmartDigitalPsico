@@ -90,7 +90,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
         public static async Task<string> GetLocalization<T>(string key, IApplicationLanguageRepository languageRepository)
         { 
-            string result = "NotFoundLocalization";
+            string result = $"NotFoundLocalization|{key}|";
             try
             { 
                 var culturenameCurrent = CultureInfo.CurrentCulture;

@@ -59,18 +59,23 @@ namespace SmartDigitalPsico.Business.SystemDomains
             List<GetApplicationLanguageVO> listEntity = new List<GetApplicationLanguageVO>();
 
             result = await CacheBusiness.GetDataFromCache<List<GetApplicationLanguageVO>>(base._cacheBusiness, keyCache);
-
-            if (result.Data == null && base._cacheBusiness.IsEnable())
+            if (base._cacheBusiness.IsEnable())
             {
-                result = await base.FindAll();
+                if (result.Data == null)
+                {
+                    result = await base.FindAll();
 
-                await CacheBusiness.SaveDataToCache(keyCache, result.Data, base._cacheBusiness);
+                    await CacheBusiness.SaveDataToCache(keyCache, result.Data, base._cacheBusiness);
+                }
+                else
+                {
+                    result.Data = result.Data;
+                }
             }
             else
             {
-                result.Data = result.Data;
+                result = await base.FindAll();
             } 
-
             return result;
         }
 

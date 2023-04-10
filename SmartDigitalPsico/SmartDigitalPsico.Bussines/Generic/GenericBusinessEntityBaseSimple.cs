@@ -62,9 +62,11 @@ namespace SmartDigitalPsico.Business.Generic
                     response.Message = await getMessageFromLocalization("RegisterCreated");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                response.Success = false;
+                response.Errors.Add(new ErrorResponse() { Name = "Create", Message = $"{ex?.Message}-{ex?.InnerException?.Message}" });
+                response.Message = await getMessageFromLocalization("RegisterCreated");
             }
 
             return response;
@@ -274,7 +276,7 @@ namespace SmartDigitalPsico.Business.Generic
 
                 response.Success = validationResult.IsValid;
                 response.Errors = HelperValidation.GetErrosMap(validationResult);
-                response.Message = HelperValidation.GetMessage(validationResult.IsValid); 
+                response.Message = HelperValidation.GetMessage(validationResult.IsValid);
                 //Translate Message  
                 if (response.Errors != null)
                 {

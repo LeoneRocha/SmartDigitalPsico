@@ -28,34 +28,28 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
                 .WithMessage("O Profession não pode ultrapassar {MaxLength} carateres.");
 
             RuleFor(entity => entity.Email)
-               .NotNull().NotEmpty()
-               //.WithMessage("O Email não pode ser vazia.")
+               .NotNull().NotEmpty() 
                .WithMessage("ErrorValidator_Email_Null")
-               .EmailAddress()
-               //.WithMessage("O Email invalido.")
+               .EmailAddress() 
                .WithMessage("ErrorValidator_Email_Invalid")
                .MaximumLength(100)
                .WithMessage("O Email não pode ultrapassar {MaxLength} carateres.")
-               .MustAsync(async (entity, value, c) => await UniqueEmail(entity, value))
-              //.WithMessage("Email must be unique.")
+               .MustAsync(async (entity, value, c) => await UniqueEmail(entity, value)) 
               .WithMessage("ErrorValidator_Email_Unique");
 
-            RuleFor(p => p.DateOfBirth).Must(BeAValidAge)
-               //.WithMessage("Invalid Date Of Birth")
+            RuleFor(p => p.DateOfBirth).Must(BeAValidAge) 
                 .WithMessage("ErrorValidator_DateOfBirth_Invalid");
 
             RuleFor(p => p.Rg)
                 .NotNull().NotEmpty()
-                .WithMessage("ErrorValidator_RG_Null")
-                //.WithMessage("O Rg não pode ser vazio.")
+                .WithMessage("ErrorValidator_RG_Null") 
                 .Length(10, 15)
                .WithMessage("Rg must be between 10 and {MaxLength} characters long");
             //.Matches("^[0-9]*$")//TODO: MUDAR REGEX PARA RG 
             // .WithMessage("Rg can only contain numbers");
 
             RuleFor(p => p.Cpf)
-                .NotNull().NotEmpty()
-                //.WithMessage("O CPF não pode ser vazio.")
+                .NotNull().NotEmpty() 
                 .WithMessage("ErrorValidator_CPF_Null")
                 .Length(10, 15)
                .WithMessage("Rg must be between 10 and {MaxLength} characters long");
@@ -117,26 +111,20 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
             #region Relationship
 
             RuleFor(entity => entity.CreatedUser)
-              .NotNull()
-              //.WithMessage("O Usuário que está criando deve ser informado.")
-              .WithMessage("ErrorValidator_CreatedUser_Invalid");
+              .NotNull() 
+              .WithMessage("ErrorValidator_CreatedUser_Null");
 
             RuleFor(entity => entity.MedicalId)
-            .NotNull()
-            //.WithMessage("O medical deve ser informado.")
+            .NotNull() 
             .WithMessage("ErrorValidator_MedicalId_Null")
-            .MustAsync(async (entity, value, c) => await MedicalIdFound(entity, value))
-            //.WithMessage("O medical informado não existe.")
+            .MustAsync(async (entity, value, c) => await MedicalIdFound(entity, value)) 
             .WithMessage("ErrorValidator_MedicalId_NotFound")
             .MustAsync(async (entity, value, c) => await MedicalChanged(entity, value))
             .WithMessage("ErrorValidator_Medical_Changed")
-            .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value))
-            //.WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem criar arquivos de outro medico.")
+            .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value)) 
             .WithMessage("ErrorValidator_MedicalCreated_Invalid")
-            .MustAsync(async (entity, value, c) => await MedicalModify(entity, value))
-            //.WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem modificar arquivos de outro medico.");
+            .MustAsync(async (entity, value, c) => await MedicalModify(entity, value)) 
             .WithMessage("ErrorValidator_MedicalModify_Invalid");
-
 
             #endregion Relationship 
         }

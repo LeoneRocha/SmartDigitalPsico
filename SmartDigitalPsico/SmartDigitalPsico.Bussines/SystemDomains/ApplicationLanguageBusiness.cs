@@ -68,8 +68,8 @@ namespace SmartDigitalPsico.Business.SystemDomains
             }
             else
             {
-                result = await base.FindAll();
-            }
+                result.Data = result.Data;
+            } 
 
             return result;
         }

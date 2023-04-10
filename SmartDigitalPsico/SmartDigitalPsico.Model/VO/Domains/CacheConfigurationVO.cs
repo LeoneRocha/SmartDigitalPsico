@@ -9,6 +9,7 @@ namespace SmartDigitalPsico.Model.VO.Domains
         //https://github.com/iammukeshm/RepositoryPatternWithCachingAndHangfire
         public int AbsoluteExpirationInHours { get; set; }
         public int SlidingExpirationInMinutes { get; set; }
+        public int AbsoluteExpirationInMinutes { get; set; }
 
         public string PathCache { get; set; }
 

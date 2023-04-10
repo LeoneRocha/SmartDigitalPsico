@@ -14,7 +14,7 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
 
             RuleFor(entity => entity.Language)
                 .NotNull().NotEmpty()
-                .WithMessage("ErrorValidator_Language_Null")//"O Language não pode ser vazia.") 
+                .WithMessage("ErrorValidator_Language_Null") 
                 .MaximumLength(10)
                 .WithMessage("ErrorValidator_Language_MaximumLength")  
                 .WithErrorCode("[{MaxLength}],"); //"O Language não pode ultrapassar {MaxLength} carateres.");

@@ -7,7 +7,7 @@ using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.Validation.Helper;
-using SmartDigitalPsico.Business.Validation.PatientValidations;
+using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;

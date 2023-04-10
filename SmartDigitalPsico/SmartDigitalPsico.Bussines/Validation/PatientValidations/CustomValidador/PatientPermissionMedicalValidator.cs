@@ -4,7 +4,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Principals;
 
-namespace SmartDigitalPsico.Business.Validation.PatientValidations
+namespace SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador
 {
     public class PatientPermissionMedicalValidator
     {

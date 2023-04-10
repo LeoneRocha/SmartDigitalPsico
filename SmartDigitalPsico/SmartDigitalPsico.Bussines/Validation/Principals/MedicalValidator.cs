@@ -15,25 +15,31 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
 
             RuleFor(entity => entity.Name)
                 .NotNull().NotEmpty()
-                .WithMessage("A Name não pode ser vazia.");
+                //.WithMessage("A Name não pode ser vazia.")
+                .WithMessage("ErrorValidator_Name_Null");
 
             RuleFor(entity => entity.Accreditation)
                 .NotNull().NotEmpty()
-                .WithMessage("O Accreditation não pode ser vazia.")
+                //.WithMessage("O Accreditation não pode ser vazia.")
+                .WithMessage("ErrorValidator_Accreditation_Null")
                 .MaximumLength(10)
                 .WithMessage("O Accreditation não pode ultrapassar {MaxLength} carateres.")
                 .MustAsync(async (entity, value, c) => await IsUniqueAccreditation(entity, value))
-              .WithMessage("Email must be unique."); ;
+              //.WithMessage("Email must be unique.")
+               .WithMessage("ErrorValidator_Accreditation_Unique"); 
 
             RuleFor(entity => entity.Email)
                .NotNull().NotEmpty()
-               .WithMessage("O Email não pode ser vazia.")
+               //.WithMessage("O Email não pode ser vazia.")
+               .WithMessage("ErrorValidator_Email_Null")
                .EmailAddress()
-               .WithMessage("O Email invalido.")
+                //.WithMessage("O Email invalido.")
+                .WithMessage("ErrorValidator_Email_Invalid")
                .MaximumLength(100)
                .WithMessage("O Email não pode ultrapassar {MaxLength} carateres.")
                .MustAsync(async (entity, value, c) => await IsUniqueEmail(entity, value))
-              .WithMessage("Email must be unique.");
+              //.WithMessage("Email must be unique.")
+               .WithMessage("ErrorValidator_Email_Unique");
 
             RuleFor(p => p.SecurityKey)
                 .MaximumLength(255)
@@ -45,7 +51,8 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
 
             RuleFor(entity => entity.CreatedUser)
               .NotNull()
-              .WithMessage("O Usuário que está criando deve ser informado.");
+              //.WithMessage("O Usuário que está criando deve ser informado.")
+              .WithMessage("ErrorValidator_CreatedUser_Invalid");
 
             #endregion Relationship 
         }

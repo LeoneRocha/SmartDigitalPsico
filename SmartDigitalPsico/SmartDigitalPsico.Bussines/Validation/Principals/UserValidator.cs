@@ -17,25 +17,31 @@ namespace SmartDigitalPsico.Business.Validation.Principals
 
             RuleFor(entity => entity.Name)
                 .NotNull().NotEmpty()
-                .WithMessage(" O nome não pode ser vazio.");
+                //.WithMessage(" O nome não pode ser vazio.")
+                .WithMessage("ErrorValidator_Name_Null");
 
             RuleFor(entity => entity.Login)
                 .NotNull().NotEmpty()
-                .WithMessage("O Login não pode ser vazia.")
+                //.WithMessage("O Login não pode ser vazia.")
+                .WithMessage("ErrorValidator_Login_Null")
                 .MaximumLength(25)
                 .WithMessage("O Login não pode ultrapassar {MaxLength} carateres.")
                 .MustAsync(async (entity, value, c) => await UniqueLogin(entity, value))
-               .WithMessage("Login must be unique.");
+               //.WithMessage("Login must be unique.")
+               .WithMessage("ErrorValidator_Login_Unique");
 
             RuleFor(entity => entity.Email)
                .NotNull().NotEmpty()
-               .WithMessage("O Email não pode ser vazia.")
+               //.WithMessage("O Email não pode ser vazia.")
+               .WithMessage("ErrorValidator_Email_Null")
                .EmailAddress()
-               .WithMessage("O Email invalido.")
+               //.WithMessage("O Email invalido.")
+               .WithMessage("ErrorValidator_Email_Invalid")
                .MaximumLength(100)
                .WithMessage("O Email não pode ultrapassar {MaxLength} carateres.")
                .MustAsync(async (entity, value, c) => await UniqueEmail(entity, value))
-              .WithMessage("Email must be unique.");
+            //  .WithMessage("Email must be unique.");
+               .WithMessage("ErrorValidator_Email_Unique");
 
         }
         private async Task<bool> UniqueEmail(User entity, string value)

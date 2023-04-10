@@ -38,15 +38,20 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
 
             #region Relationship
             RuleFor(entity => entity.MedicalId)
-            .NotNull() 
-            .WithMessage("O medical deve ser informado.")
+            .NotNull()
+            //.WithMessage("O medical deve ser informado.")
+            .WithMessage("ErrorValidator_MedicalId_Null")
             .MustAsync(async (entity, value, c) => await MedicalIdFound(entity, value))
-            .WithMessage("O medical informado não existe.")
+            //.WithMessage("O medical informado não existe.")
+            .WithMessage("ErrorValidator_MedicalId_NotFound")
             .MustAsync(async (entity, value, c) => await MedicalChanged(entity, value))
+            .WithMessage("ErrorValidator_Medical_Changed")
             .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value))
-            .WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem criar arquivos de outro medico.")
+            //.WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem criar arquivos de outro medico.")
+            .WithMessage("ErrorValidator_MedicalCreated_Invalid")
             .MustAsync(async (entity, value, c) => await MedicalModify(entity, value))
-            .WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem modificar arquivos de outro medico.");
+            //.WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem modificar arquivos de outro medico.");
+            .WithMessage("ErrorValidator_MedicalModify_Invalid");
 
             #endregion Relationship
         } 

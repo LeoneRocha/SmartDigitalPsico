@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Business.Validation.PatientValidations;
+using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains;

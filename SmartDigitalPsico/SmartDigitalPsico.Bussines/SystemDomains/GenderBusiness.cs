@@ -22,7 +22,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
       : GenericBusinessEntityBaseSimple<Gender, AddGenderVO, UpdateGenderVO, GetGenderVO, IGenderRepository>, IGenderBusiness
     {
         private readonly IMapper _mapper;
-        private readonly IGenderRepository _genericRepository;
+        private readonly IGenderRepository _entityRepository;
         private readonly ICacheBusiness _cacheBusiness;
         AuthConfigurationVO _configurationAuth;
         private readonly IStringLocalizer<SharedResource> _localizer;
@@ -34,7 +34,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
             : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
-            _genericRepository = entityRepository;
+            _entityRepository = entityRepository;
             _cacheBusiness = cacheBusiness;
             _configurationAuth = configurationAuth.Value; 
         }
@@ -75,7 +75,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
             ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
             try
             {
-                Gender entityResponse = await _genericRepository.FindByID(id);
+                Gender entityResponse = await _entityRepository.FindByID(id);
 
                 if (entityResponse != null)
                 {
@@ -100,30 +100,36 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
             return response;
         }
-
-
+         
         public override async Task<ServiceResponse<GetGenderVO>> Update(UpdateGenderVO item)
         {
             ServiceResponse<GetGenderVO> response = new ServiceResponse<GetGenderVO>();
 
-            bool entityExists = await _genericRepository.Exists(item.Id);
+            bool entityExists = await _entityRepository.Exists(item.Id);
 
             if (!entityExists)
             {
                 response.Success = false;
-                response.Message = _localizer["GenderNotFound"];
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
                 return response;
-            }
+            }   
+            Gender entityUpdate = await _entityRepository.FindByID(item.Id);
+            entityUpdate.Description = item.Description;
+            entityUpdate.Enable = item.Enable;
+            entityUpdate.Language = item.Language;            
 
-            Gender entityUpdate = _mapper.Map<Gender>(item);
+            response = await Validate(entityUpdate);
+            entityUpdate.ModifyDate = DateTime.Now;
+            if (response.Success)
+            {
+                Gender entityResponse = await _entityRepository.Update(entityUpdate);
 
-            Gender entityFind = await _genericRepository.FindByID(item.Id);
-
-            Gender entityResponse = await _genericRepository.Update(entityUpdate);
-
-            response.Data = _mapper.Map<GetGenderVO>(entityResponse);
-            response.Success = true;
-            response.Message = "Register Updated.";
+                response.Data = _mapper.Map<GetGenderVO>(entityResponse);
+                response.Success = true;
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                           ("RegisterUpdated", base._applicationLanguageRepository, base._cacheBusiness);
+            } 
             return response;
 
         }

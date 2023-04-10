@@ -274,7 +274,29 @@ namespace SmartDigitalPsico.Business.Generic
 
                 response.Success = validationResult.IsValid;
                 response.Errors = HelperValidation.GetErrosMap(validationResult);
-                response.Message = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
+                response.Message = HelperValidation.GetMessage(validationResult.IsValid); 
+                //Translate Message  
+                if (response.Errors != null)
+                {
+                    List<ErrorResponse> errosTranslated = new List<ErrorResponse>();
+                    foreach (var errosItem in response.Errors)
+                    {
+                        var errosAdd = new ErrorResponse()
+                        {
+                            Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>(errosItem.Message, this._applicationLanguageRepository, this._cacheBusiness)
+                            ,
+                            Name = errosItem.Name
+                        };
+
+                        errosAdd.Message = HelperValidation.TranslateErroCode(errosAdd.Message, errosAdd.ErrorCode);
+
+                        errosTranslated.Add(errosAdd);
+                    }
+                    response.Errors = errosTranslated;
+                }
+
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>(response.Message, this._applicationLanguageRepository, this._cacheBusiness);
+
             }
             catch (Exception ex)
             {

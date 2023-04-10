@@ -272,7 +272,7 @@ namespace SmartDigitalPsico.Business.Generic
 
                 response.Success = validationResult.IsValid;
                 response.Errors = HelperValidation.GetErrosMap(validationResult);
-                string validationMsg = HelperValidation.GetMessage(validationResult, validationResult.IsValid);
+                string validationMsg = HelperValidation.GetMessage(validationResult.IsValid);
                 //TODO: IMPLANTAR DO LANGUAGE
                 response.Message = validationMsg;
             }

@@ -25,7 +25,8 @@
                                         <th>{{ dataTable.headerRow[1] }}</th>
                                         <th>{{ dataTable.headerRow[2] }}</th>
                                         <th>{{ dataTable.headerRow[3] }}</th>
-                                        <th class="disabled-sorting text-right">{{ dataTable.headerRow[4] }}</th>
+                                        <th>{{ dataTable.footerRow[4] }}</th>
+                                        <th class="disabled-sorting text-right">{{ dataTable.headerRow[5] }}</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -34,7 +35,8 @@
                                         <th>{{ dataTable.footerRow[1] }}</th>
                                         <th>{{ dataTable.footerRow[2] }}</th>
                                         <th>{{ dataTable.footerRow[3] }}</th>
-                                        <th class="text-right">{{ dataTable.footerRow[4] }}</th>
+                                        <th>{{ dataTable.footerRow[4] }}</th>
+                                        <th class="text-right">{{ dataTable.footerRow[5] }}</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -43,6 +45,7 @@
                                         <td>{{ row.description }}</td>
                                         <td>{{ row.language }}</td>
                                         <td>{{ row.enable }}</td>
+                                        <td>{{ row.languageKey }}</td>
                                         <td class="text-right">
                                             <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon eye"
                                                 (click)="viewRegister(row.id)">

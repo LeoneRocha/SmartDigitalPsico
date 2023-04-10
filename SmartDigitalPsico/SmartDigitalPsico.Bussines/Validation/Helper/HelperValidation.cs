@@ -29,6 +29,7 @@ namespace SmartDigitalPsico.Business.Validation.Helper
                     errorsResult.Add(new ErrorResponse()
                     {
                         Message = erroItem.ErrorMessage,
+                        ErrorCode = erroItem.ErrorCode,
                         Name = erroItem.PropertyName
                     });
                 });
@@ -36,11 +37,19 @@ namespace SmartDigitalPsico.Business.Validation.Helper
             return errorsResult;
         }
 
-        internal static string GetMessage(FluentValidation.Results.ValidationResult validationResult, bool isValid)
+        internal static string GetMessage(bool isValid)
         {
-            return isValid ? "Valido" : "Ocorram erros.";
+            return isValid ? "LangValid" : "LangErrors";
         }
 
-       
+        internal static string TranslateErroCode(string message, string errorCode)
+        {
+            if (!string.IsNullOrEmpty(errorCode))
+            {
+                message = message.Replace("[MaxLength]", errorCode.Replace("[", "").Replace("]", "").Replace(",", ""));
+
+            }
+            return message;
+        }
     }
 }

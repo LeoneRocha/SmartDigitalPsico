@@ -68,16 +68,21 @@
                                         </small>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4"> 
                                     <div class="form-group">
                                         <label for="resourceKey">ResourceKey:</label> <span class="star">*</span>
-                                        <input type="text" class="form-control" id="resourceKey" name="resourceKey"
-                                            formControlName="resourceKey" maxlength="255"
-                                            [ngClass]="!isValidFormResourceKey() ? '' : 'error'" />
+                                        <select formControlName="resourceKey" required name="resourceKey" class="form-control"
+                                            data-style="btn-default btn-block"
+                                            [ngClass]="!isValidFormResourceKey() ? '' : 'error'" data-title="Select"
+                                            data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let c of resourceKeyOpts" [value]="c.code">{{ c.name }}
+                                            </option>
+                                        </select>
                                         <small [hidden]="!isValidFormResourceKey()" class="text-danger">
                                             ResourceKey is required
                                         </small>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
 

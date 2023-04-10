@@ -9,6 +9,7 @@ import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { ApplicationLanguageService } from 'app/services/general/simple/applicationlanguage.service';
 import { ApplicationLanguageModel } from 'app/models/simplemodel/ApplicationLanguageModel';
+import { ResourceKeyOptions } from 'app/common/enuns/language-options copy';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-applicationlanguage',
@@ -25,6 +26,7 @@ export class AddEditApplicationLanguageComponent implements OnInit {
     registerModel: ApplicationLanguageModel;
     serviceResponse: ServiceResponse<ApplicationLanguageModel>;
     public languages = LanguageOptions;
+    public resourceKeyOpts = ResourceKeyOptions;
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(ApplicationLanguageService) private registerService: ApplicationLanguageService,
@@ -54,10 +56,10 @@ export class AddEditApplicationLanguageComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
 
-        if (this.registerId > 0) {
-            // formsElement.controls['resourceKey'].disable();
+        if (this.registerId > 0) { 
             formsElement.controls['languageKey'].disable();      
-            formsElement.controls['language'].disable();      
+            formsElement.controls['language'].disable();   
+            //formsElement.controls['resourceKey'].disable();   
         }
     }
     ngAfterViewInit() {

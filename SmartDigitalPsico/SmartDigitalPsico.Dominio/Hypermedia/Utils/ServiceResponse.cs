@@ -17,6 +17,7 @@
         public string Name { get; set; }
 
         public string Message { get; set; }
+        public string ErrorCode { get; set; }
     }
 
     public interface IServiceResponse<T>

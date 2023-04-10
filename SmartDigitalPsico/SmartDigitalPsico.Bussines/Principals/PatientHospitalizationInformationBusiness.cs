@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -63,7 +64,8 @@ namespace SmartDigitalPsico.Business.Principals
                     PatientHospitalizationInformation entityResponse = await _entityRepository.Create(entityAdd);
 
                     response.Data = _mapper.Map<GetPatientHospitalizationInformationVO>(entityResponse); 
-                    response.Message = "Patient registred.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterCreated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception)
@@ -128,12 +130,14 @@ namespace SmartDigitalPsico.Business.Principals
             if (listResult == null || listResult.Count == 0)
             {
                 response.Success = false;
-                response.Message = "Patients not found.";
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
                 return response;
             }
             response.Data = listResult.Select(c => _mapper.Map<GetPatientHospitalizationInformationVO>(c)).ToList();
             response.Success = true;
-            response.Message = "Patients finded.";
+            response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);
             return response;
         }
 

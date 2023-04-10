@@ -4,7 +4,9 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -59,7 +61,8 @@ namespace SmartDigitalPsico.Business.Principals
                     PatientMedicationInformation entityResponse = await _entityRepository.Create(entityAdd);
 
                     response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse); 
-                    response.Message = "Patient registred.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterCreated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception)
@@ -102,7 +105,8 @@ namespace SmartDigitalPsico.Business.Principals
                     PatientMedicationInformation entityResponse = await _entityRepository.Update(entityUpdate);
 
                     response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse);
-                    response.Message = "PatientMedicationInformation updated.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterUpdated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception ex)

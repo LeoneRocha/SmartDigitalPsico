@@ -4,9 +4,11 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical;
@@ -71,7 +73,9 @@ namespace SmartDigitalPsico.Business.Principals
                     Medical entityResponse = await _entityRepository.Create(entityAdd);
 
                     response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
-                    response.Message = "Medical registred.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("MedicalRegistred", base._applicationLanguageRepository, base._cacheBusiness);
+
                 }
             }
             catch (Exception ex)
@@ -120,7 +124,8 @@ namespace SmartDigitalPsico.Business.Principals
                     Medical entityResponse = await _entityRepository.Update(entityUpdate);
 
                     response.Data = _mapper.Map<GetMedicalVO>(entityResponse);
-                    response.Message = "Medical updated.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("MedicalUpdated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception ex)
@@ -183,7 +188,9 @@ namespace SmartDigitalPsico.Business.Principals
             if (invalidAccess)
             {
                 response.Success = false;
-                response.Message = "Erro de permissão.";
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("PermissionDenied", base._applicationLanguageRepository, base._cacheBusiness);
+                //Permission error or was Denied                "Erro de permissão.";
                 response.Errors = new List<ErrorResponse>();
                 response.Errors.Add(validateResult);
                 return response;

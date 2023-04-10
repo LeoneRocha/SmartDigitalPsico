@@ -3,6 +3,7 @@ using Azure;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.Validation.Helper;
@@ -29,8 +30,9 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IValidator<Patient> _entityValidator;
 
         public PatientBusiness(IMapper mapper, IPatientRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IMedicalRepository medicalRepository
-            , IValidator<Patient> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
-            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+            , IValidator<Patient> entityValidator
+            , IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;

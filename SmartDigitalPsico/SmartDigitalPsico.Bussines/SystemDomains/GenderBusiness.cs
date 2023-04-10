@@ -29,14 +29,14 @@ namespace SmartDigitalPsico.Business.SystemDomains
         public GenderBusiness(IMapper mapper, IGenderRepository entityRepository, ICacheBusiness cacheBusiness,
             IOptions<AuthConfigurationVO> configurationAuth,
             IValidator<Gender> entityValidator
-            , IStringLocalizer<SharedResource> localizer, IApplicationLanguageRepository applicationLanguageRepository)
-            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+            , IApplicationLanguageRepository applicationLanguageRepository
+            , ICacheBusiness cacheBusines)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _genericRepository = entityRepository;
             _cacheBusiness = cacheBusiness;
-            _configurationAuth = configurationAuth.Value;
-            _localizer = localizer;
+            _configurationAuth = configurationAuth.Value; 
         }
 
         public override async Task<ServiceResponse<List<GetGenderVO>>> FindAll()
@@ -82,13 +82,13 @@ namespace SmartDigitalPsico.Business.SystemDomains
                     response.Data = _mapper.Map<GetGenderVO>(entityResponse);
                     response.Success = true;
                     response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
-                        ("RegisterIsFound", base._applicationLanguageRepository);  
+                        ("RegisterIsFound", base._applicationLanguageRepository,base._cacheBusiness);  
                 }
                 else
                 {
                     response.Success = false;
                     response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
-                       ("RegisterIsNotFound", base._applicationLanguageRepository);
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
 
                     //response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>("RegisterIsNotFound", _localizer);
                 }

@@ -1,12 +1,11 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -22,8 +21,9 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IPatientMedicationInformationRepository _entityRepository;
         private readonly IPatientRepository _patientRepository;
 
-        public PatientMedicationInformationBusiness(IMapper mapper, IPatientMedicationInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository, IValidator<PatientMedicationInformation> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
-            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+        public PatientMedicationInformationBusiness(IMapper mapper, IPatientMedicationInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository, IValidator<PatientMedicationInformation> entityValidator
+            , IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;

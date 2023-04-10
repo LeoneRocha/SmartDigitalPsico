@@ -1,5 +1,6 @@
 using AutoMapper;
 using FluentValidation;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -14,7 +15,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
     {
         public RoleGroupBusiness(IMapper _mapper, IRoleGroupRepository entityRepository
-            , IValidator<RoleGroup> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
-            : base(_mapper, entityRepository, entityValidator, applicationLanguageRepository) { }
+            , IValidator<RoleGroup> entityValidator, IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(_mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness) { }
     }
 }

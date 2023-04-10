@@ -4,6 +4,7 @@ using FluentValidation;
 using Localization.SqlLocalizer.IntegrationTests;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.Validation.PatientValidations;
@@ -32,8 +33,10 @@ namespace SmartDigitalPsico.Business.Principals
         public MedicalBusiness(IMapper mapper, IMedicalRepository entityRepository, IConfiguration configuration,
             IUserRepository userRepository, IOfficeRepository officeRepository
             , ISpecialtyRepository specialtyRepository
-            , IValidator<Medical> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
-            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+            , IValidator<Medical> entityValidator
+            , IApplicationLanguageRepository applicationLanguageRepository
+            , ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Business.Validation.Helper;
@@ -27,12 +28,15 @@ namespace SmartDigitalPsico.Business.Generic
         private readonly IValidator<TEntity> _entityValidator;
         protected long UserId { get; private set; }
         protected readonly IApplicationLanguageRepository _applicationLanguageRepository;
-        public GenericBusinessEntityBase(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
+        protected readonly ICacheBusiness _cacheBusiness;
+
+        public GenericBusinessEntityBase(IMapper mapper, Repo UserRepository, IValidator<TEntity> entityValidator, IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
         {
             _mapper = mapper;
             _genericRepository = UserRepository;
             _entityValidator = entityValidator;
             _applicationLanguageRepository = applicationLanguageRepository;
+            _cacheBusiness = cacheBusiness;
         }
         public virtual async Task<ServiceResponse<TEntityResult>> Create(TEntityAdd item)
         {
@@ -64,10 +68,10 @@ namespace SmartDigitalPsico.Business.Generic
             try
             {
                 return await ApplicationLanguageBusiness.GetLocalization<SharedResource>
-                                   (key, this._applicationLanguageRepository);
+                                   (key, this._applicationLanguageRepository, this._cacheBusiness);
             }
             catch (Exception)
-            { 
+            {
 
             }
             return "Erro get Message";

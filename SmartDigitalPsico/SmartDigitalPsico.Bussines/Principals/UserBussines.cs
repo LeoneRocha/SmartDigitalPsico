@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
@@ -29,8 +30,8 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly ITokenService _tokenService;
         AuthConfigurationVO _configurationAuth;
         public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
-            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator, IApplicationLanguageRepository applicationLanguageRepository)
-            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator, IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _userRepository = entityRepository;

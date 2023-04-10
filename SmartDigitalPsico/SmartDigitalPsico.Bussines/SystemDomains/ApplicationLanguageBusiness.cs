@@ -1,16 +1,12 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
-using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
@@ -24,16 +20,14 @@ namespace SmartDigitalPsico.Business.SystemDomains
     {
         private readonly IMapper _mapper;
         private readonly IApplicationLanguageRepository _genericRepository;
-        private readonly ICacheBusiness _cacheBusiness;
 
         public ApplicationLanguageBusiness(IMapper mapper, IApplicationLanguageRepository entityRepository
              , IValidator<ApplicationLanguage> entityValidator, IApplicationLanguageRepository applicationLanguageRepository,
                ICacheBusiness cacheBusiness)
-            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _genericRepository = entityRepository;
-            _cacheBusiness = cacheBusiness;
         }
         public static async Task<string> GetLocalization<T>(string key, Microsoft.Extensions.Localization.IStringLocalizer<T> localizer)
         {
@@ -57,27 +51,20 @@ namespace SmartDigitalPsico.Business.SystemDomains
         }
         public override async Task<ServiceResponse<List<GetApplicationLanguageVO>>> FindAll()
         {
+            long idu = this.UserId;
+
             string keyCache = "FindAll_GetApplicationLanguageVO";
 
             ServiceResponse<List<GetApplicationLanguageVO>> result = new ServiceResponse<List<GetApplicationLanguageVO>>();
             List<GetApplicationLanguageVO> listEntity = new List<GetApplicationLanguageVO>();
 
-            long idu = this.UserId;
+            result = await CacheBusiness.GetDataFromCache<List<GetApplicationLanguageVO>>(base._cacheBusiness, keyCache);
 
-            if (_cacheBusiness.IsEnable())
+            if (result.Data == null && base._cacheBusiness.IsEnable())
             {
-                bool existsCache = _cacheBusiness.TryGet<ServiceResponseCacheVO<List<GetApplicationLanguageVO>>>(keyCache, out ServiceResponseCacheVO<List<GetApplicationLanguageVO>> cachedResult);
-                if (!existsCache)
-                {
-                    result = await base.FindAll();
-                    ServiceResponseCacheVO<List<GetApplicationLanguageVO>> cacheSave = new ServiceResponseCacheVO<List<GetApplicationLanguageVO>>(result, keyCache, _cacheBusiness.GetSlidingExpiration());
+                result = await base.FindAll();
 
-                    bool resultAction = _cacheBusiness.Set<ServiceResponseCacheVO<List<GetApplicationLanguageVO>>>(keyCache, cacheSave);
-                }
-                else
-                {
-                    result.Data = cachedResult.Data;
-                }
+                await CacheBusiness.SaveDataToCache(keyCache, result.Data, base._cacheBusiness);
             }
             else
             {
@@ -86,28 +73,53 @@ namespace SmartDigitalPsico.Business.SystemDomains
 
             return result;
         }
-         
 
-        public static async Task<string> GetLocalization<T>(string key, IApplicationLanguageRepository languageRepository)
-        { 
-            string result = $"NotFoundLocalization|{key}|";
+        public static async Task<string> GetLocalization<T>(string key,
+            IApplicationLanguageRepository languageRepository, ICacheBusiness cacheBusiness)
+        {
+            string resultLocalization = $"NotFoundLocalization|{key}|";
             try
-            { 
+            {
                 var culturenameCurrent = CultureInfo.CurrentCulture;
                 var findKey = CultureDateTimeHelper.GetNameAndCulture(key);
 
-                var languageFind = await languageRepository.Find(culturenameCurrent.Name, key);
-                 
-                string message = languageFind.LanguageValue;
+                string keyCache = "FindAll_GetApplicationLanguageVO";
+                ServiceResponse<List<GetApplicationLanguageVO>> resultFromCache = new ServiceResponse<List<GetApplicationLanguageVO>>();
 
-                result = message;
+                resultFromCache = await CacheBusiness.GetDataFromCache<List<GetApplicationLanguageVO>>(cacheBusiness, keyCache);
+
+                string resourceKey = "SharedResource";
+                string language = culturenameCurrent.Name;
+                if (resultFromCache != null && resultFromCache.Data != null && resultFromCache.Data.Count > 0)
+                {
+                    try
+                    {
+                        GetApplicationLanguageVO languageFindFromCache = filterAndGetSingle(resultFromCache, resourceKey, key, language);
+                        resultLocalization = languageFindFromCache.LanguageValue;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    var languageFindDB = await languageRepository.Find(language, key, resourceKey);
+                    resultLocalization = languageFindDB.LanguageValue;
+                }
             }
             catch (Exception)
             {
 
             }
+            return resultLocalization;
+        }
 
-            return result;
+        private static GetApplicationLanguageVO filterAndGetSingle(ServiceResponse<List<GetApplicationLanguageVO>> resultFromCache, string resourceKey, string key, string language)
+        {
+            return resultFromCache.Data.Single(p => p.ResourceKey.ToUpper().Trim().Equals(resourceKey.ToUpper().Trim())
+            && p.LanguageKey.ToUpper().Trim().Equals(key.ToUpper().Trim())
+            && p.Language.ToUpper().Trim().Equals(language.ToUpper().Trim()));
         }
     }
 }

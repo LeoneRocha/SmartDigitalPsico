@@ -1,4 +1,3 @@
-using Localization.SqlLocalizer.DbStringLocalizer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -24,10 +23,6 @@ using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -111,7 +106,7 @@ namespace SmartDigitalPsico.WebAPI
 
             //// Migrate latest database changes during startup
             addAutoMigrate(app);
-             
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
@@ -141,7 +136,7 @@ namespace SmartDigitalPsico.WebAPI
                 endpoints.MapControllers();
                 //HyperMedia
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
-            }); 
+            });
         }
 
         #region PRIVATES
@@ -217,13 +212,13 @@ namespace SmartDigitalPsico.WebAPI
                 default:
                     break;
             }
-          addLocalization(services);
+            addLocalization(services);
 
         }
 
         private void addLocalization(IServiceCollection services)
         {
-
+            /*
             var sqlConnectionString = Configuration["DbStringLocalizer:ConnectionString"];
 
             services.AddDbContext<LocalizationModelContext>(options =>
@@ -246,7 +241,7 @@ namespace SmartDigitalPsico.WebAPI
             services.AddSqlLocalization(options => options.UseSettings(useTypeFullNames, useOnlyPropertyNames, returnOnlyKeyIfNotFound, true));
             // services.AddSqlLocalization(options => options.ReturnOnlyKeyIfNotFound = true);
             // services.AddLocalization(options => options.ResourcesPath = "Resources");
-
+            */
             services.AddMvc()
                     .AddViewLocalization()
                     .AddDataAnnotationsLocalization();
@@ -281,7 +276,7 @@ namespace SmartDigitalPsico.WebAPI
                 }
             }
 
-            addConfigLocalization(app);
+            //addConfigLocalization(app);
 
         }
 

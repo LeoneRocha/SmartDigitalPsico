@@ -80,14 +80,14 @@ export class AddEditGenderComponent implements OnInit {
     }
     addRegister() {
         this.getValuesForm(); 
-        this.registerModel.description = '';//TESTE 
+        //this.registerModel.description = '';//TESTE 
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<GenderModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
     updateRegister() {
         this.getValuesForm();
-        this.registerModel.description = '';//TESTE 
+        //this.registerModel.description = '';//TESTE 
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<GenderModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });

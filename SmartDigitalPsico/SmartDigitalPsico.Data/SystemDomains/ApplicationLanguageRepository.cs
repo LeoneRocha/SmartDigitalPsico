@@ -1,8 +1,6 @@
-﻿using Localization.SqlLocalizer.DbStringLocalizer;
+﻿
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 using SmartDigitalPsico.Domains.Helpers;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -12,38 +10,39 @@ namespace SmartDigitalPsico.Repository.SystemDomains
 {
     public class ApplicationLanguageRepository : GenericRepositoryEntityBaseSimple<ApplicationLanguage>, IApplicationLanguageRepository, IDisposable
     {
-        private LocalizationModelContext _localizationModelContext;
-        private IStringExtendedLocalizerFactory _stringLocalizerFactory;
+        //private LocalizationModelContext _localizationModelContext;
+        //private IStringExtendedLocalizerFactory _stringLocalizerFactory;
 
 
-        public ApplicationLanguageRepository(SmartDigitalPsicoDataContext context,
-              LocalizationModelContext localizationModelContext, IStringExtendedLocalizerFactory stringLocalizerFactory)
+        public ApplicationLanguageRepository(SmartDigitalPsicoDataContext context 
+           //   LocalizationModelContext localizationModelContext, IStringExtendedLocalizerFactory stringLocalizerFactory
+            )
             : base(context)
         {
-            _localizationModelContext = localizationModelContext;
-            _stringLocalizerFactory = stringLocalizerFactory;
+            //_localizationModelContext = localizationModelContext;
+            //_stringLocalizerFactory = stringLocalizerFactory;
         }
         public override async Task<ApplicationLanguage> Create(ApplicationLanguage item)
         {
-            try
-            {
-                var newRessource = new LocalizationRecord
-                {
-                    Key = getKeyLocalizationRecord(item),
-                    Text = item.LanguageValue,
-                    LocalizationCulture = item.Language,
-                    ResourceKey = item.ResourceKey //typeof(ApplicationLanguage).FullName
-                };
+            //try
+            //{
+            //    var newRessource = new LocalizationRecord
+            //    {
+            //        Key = getKeyLocalizationRecord(item),
+            //        Text = item.LanguageValue,
+            //        LocalizationCulture = item.Language,
+            //        ResourceKey = item.ResourceKey //typeof(ApplicationLanguage).FullName
+            //    };
 
-                _localizationModelContext.Add(newRessource);
+            //    _localizationModelContext.Add(newRessource);
 
-                await _localizationModelContext.SaveChangesAsync();
-                _stringLocalizerFactory.ResetCache();
+            //    await _localizationModelContext.SaveChangesAsync();
+            //    _stringLocalizerFactory.ResetCache();
 
-            }
-            catch (Exception)
-            {
-            }
+            //}
+            //catch (Exception)
+            //{
+            //}
 
 
             return await base.Create(item);
@@ -56,24 +55,24 @@ namespace SmartDigitalPsico.Repository.SystemDomains
 
         public override async Task<ApplicationLanguage> Update(ApplicationLanguage item)
         {
-            try
-            {
-                var localRegister = _localizationModelContext.LocalizationRecords
-                    .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == getKeyLocalizationRecord(item));
+            //try
+            //{
+            //    var localRegister = _localizationModelContext.LocalizationRecords
+            //        .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == getKeyLocalizationRecord(item));
 
-                localRegister.Text = item.LanguageValue;
-                localRegister.LocalizationCulture = item.Language;
+            //    localRegister.Text = item.LanguageValue;
+            //    localRegister.LocalizationCulture = item.Language;
 
-                _localizationModelContext.Update(localRegister);
+            //    _localizationModelContext.Update(localRegister);
 
-                await _localizationModelContext.SaveChangesAsync(true);
+            //    await _localizationModelContext.SaveChangesAsync(true);
 
-                _stringLocalizerFactory.ResetCache();
+            //    _stringLocalizerFactory.ResetCache();
 
-            }
-            catch (Exception)
-            {
-            }
+            //}
+            //catch (Exception)
+            //{
+            //}
             return await base.Update(item);
         }
 
@@ -89,24 +88,24 @@ namespace SmartDigitalPsico.Repository.SystemDomains
         public override async Task<bool> Delete(long id)
         {
 
-            try
-            {
-                ApplicationLanguage item = await base.FindByID(id);
-                var localRegister = _localizationModelContext.LocalizationRecords
-                .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == getKeyLocalizationRecord(item));
+            //try
+            //{
+            //    ApplicationLanguage item = await base.FindByID(id);
+            //    var localRegister = _localizationModelContext.LocalizationRecords
+            //    .Single(lc => lc.ResourceKey == item.ResourceKey && lc.Key == getKeyLocalizationRecord(item));
 
-                _localizationModelContext.Remove(localRegister);
+            //    _localizationModelContext.Remove(localRegister);
 
-                await _localizationModelContext.SaveChangesAsync(true);
+            //    await _localizationModelContext.SaveChangesAsync(true);
 
 
-                _stringLocalizerFactory.ResetCache();
+            //    _stringLocalizerFactory.ResetCache();
 
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
 
-            }
+            //}
 
             return await base.Delete(id);
         }

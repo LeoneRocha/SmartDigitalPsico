@@ -87,6 +87,8 @@ Com os objetos indivitual para cada acao
 
 https://fullcalendar.io/
 
+dotnet ef migrations add SmartDigitalPsicoDBMig0004 --context SmartDigitalPsicoDataContext
+
 dotnet ef migrations add SmartDigitalPsicoDBMig0003 --context SmartDigitalPsicoDataContext
 
 dotnet ef migrations add SmartDigitalPsicoDBMig

@@ -1,13 +1,28 @@
-{
-  "HELLO": "Hello World!",
-  "GenderTESTE": "Gender!",
+{  
+  "TESTE": "TESTE :) !",
+  "datagrid" : {
+    "searchPlaceholder": "Search records :)"
+  },  
+  "general":{
+    "select": "Select",
+    "enable": "Enable",
+    "backnav": "Back",
+    "newregisterbtn" : "New",
+    "updateregisterbtn" : "Update",
+    "saveregisterbtn" : "Save",
+    "description": "Description",
+    "description_required": "Description is required!",
+    "language": "Language!",
+    "language_required": "Language is required!"
+  },
   "gender": {
-    "label": "Gender@",
-    "select": "Select gender",
-    "options": {
-      "male": "Male",
-      "female": "Female",
-      "other": "Other"
-    }
+    "title": "Gender",
+    "form": {
+      "TitleAdd": "Add Gender",
+      "TitleEdit": "Edit Gender",
+      "TitleView": "View Gender"
+    },
+    "category": "List of Gender",
+    "select": "Select gender" 
   }
 }

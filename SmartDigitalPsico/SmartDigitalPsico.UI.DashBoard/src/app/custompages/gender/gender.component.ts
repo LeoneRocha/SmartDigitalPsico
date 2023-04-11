@@ -20,21 +20,41 @@ declare var $: any;
 })
 
 export class GenderComponent implements OnInit, OnDestroy {
-    public listResult: GenderModel[];  
+    public listResult: GenderModel[];
     serviceResponse: ServiceResponse<GenderModel>;
     public dataTable: DataTable;
     entityRoute: RouteEntity;
     private subscription: Subscription;
+    columlabel_1: string;
 
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router
-    ,@Inject(TranslateService) private translate: TranslateService) { }
+        , @Inject(TranslateService) private translate: TranslateService) {
+       
+    }
     ngOnInit() {
 
+        this.columlabel_1 = this.translateInformation('description');
         this.loadHeaderFooterDataTable();
         this.retrieveList();
+        //this.translate.use('pt-BR')
+        //this.translate.setDefaultLang('en'); // define o idioma padrão
+        //this.translate.use('en'); // usa o idioma definido
+        //  this.greeting = this.translate.instant('HELLO');
 
-        this.translate.use('pt-BR')
     }
+    translateInformation(infoKey: string): string {
+        let result: string = '';
+        result = this.translate.instant(infoKey);
+        console.log(result);
+        /*
+        this.translate.get(infoKey).subscribe((res: string) => {
+            console.log(res);
+            result = res;
+            return result
+        }); */
+        return result;
+    }
+
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
@@ -52,7 +72,7 @@ export class GenderComponent implements OnInit, OnDestroy {
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    retrieveList(): void { 
+    retrieveList(): void {
 
         this.subscription = this.registerService.getAll().subscribe({
             next: (response: any) => {
@@ -175,9 +195,8 @@ export class GenderComponent implements OnInit, OnDestroy {
             responsive: true,
             language: {
                 search: "_INPUT_",
-                searchPlaceholder: "Search records",
+                searchPlaceholder: "PROCURAR records:(",
             }
-
         });
         var table = $('#datatables').DataTable();
 
@@ -203,9 +222,11 @@ export class GenderComponent implements OnInit, OnDestroy {
             baseRoute: "/administrative/gender/genderaction"
         };
 
+
         this.dataTable = {
-            headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
+
+            headerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
+            footerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };

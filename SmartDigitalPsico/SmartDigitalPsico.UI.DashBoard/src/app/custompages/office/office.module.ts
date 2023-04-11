@@ -5,10 +5,12 @@ import { OfficeService } from 'app/services/general/simple/office.service';
 import { OfficeRoutes } from './office.routing';
 import { AddEditOfficeComponent } from './add-edit-office/add-edit-office.component';
 import { CustomPagesModule } from 'app/custommodules/custompages.module';
+import { NgxTranslateModule } from 'app/translate/translate.module';
 @NgModule({
     imports: [
         CustomPagesModule,
-        RouterModule.forChild(OfficeRoutes),
+        RouterModule.forChild(OfficeRoutes),    
+        NgxTranslateModule,    
     ],
     declarations: [
         OfficeComponent,

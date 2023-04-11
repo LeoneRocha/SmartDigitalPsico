@@ -41,6 +41,16 @@
       "TitleView": "View Language"
     }
   },
+  "office": {
+    "title": "Office",
+    "category": "List of Office",
+    "select": "Select Office" ,     
+    "form": {
+      "TitleAdd": "Add Office",
+      "TitleEdit": "Edit Office",
+      "TitleView": "View Office"
+    }
+  },
   "gender": {
     "title": "Gender",
     "category": "List of Gender",

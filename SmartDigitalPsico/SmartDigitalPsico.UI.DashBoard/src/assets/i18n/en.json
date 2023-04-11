@@ -25,6 +25,22 @@
       "TitleView": "View Configuration"
     }
   },
+  "applanguage": {
+    "title": "Language",
+    "category": "List of Language",
+    "select": "Select Language" ,    
+    "languageKey": "Key" ,  
+    "languageKey_required": "Language Key is required" ,  
+    "languageValue": "Value" ,  
+    "languageValue_required": "Language Value is required" ,  
+    "resourceKey": "Resource Key" ,  
+    "resourceKey_required": "Value" ,  
+    "form": {
+      "TitleAdd": "Add Language",
+      "TitleEdit": "Edit Language",
+      "TitleView": "View Language"
+    }
+  },
   "gender": {
     "title": "Gender",
     "category": "List of Gender",

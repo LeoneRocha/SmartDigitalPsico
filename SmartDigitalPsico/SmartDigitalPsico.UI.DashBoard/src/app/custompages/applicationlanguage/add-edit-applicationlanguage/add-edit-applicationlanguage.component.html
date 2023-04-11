@@ -5,13 +5,13 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title" class="lead pb-3" *ngIf="!isUpdateRegister && !isModeViewForm">
-                            Add New Language
+                            {{ "applanguage.form.TitleAdd" | translate }}
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isUpdateRegister">
-                            Edit Language
+                            {{ "applanguage.form.TitleEdit" | translate }}
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isModeViewForm">
-                            View Language
+                            {{ "applanguage.form.TitleView" | translate }}
                         </h4>
                     </div>
                     <div class="content">
@@ -19,28 +19,30 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="description">Description:</label> <span class="star">*</span>
+                                        <label for="description">{{ "general.description" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="text" class="form-control" id="description" name="description"
                                             formControlName="description" maxlength="50"
                                             [ngClass]="!isValidFormDescription() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormDescription()" class="text-danger">
-                                            Description is required
+                                            {{ "general.description_required" | translate }}
                                         </small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="language">Language:</label> <span class="star">*</span>
+                                        <label for="language">{{ "general.language" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <select formControlName="language" required name="language" class="form-control"
                                             data-style="btn-default btn-block"
                                             [ngClass]="!isValidFormLanguage() ? '' : 'error'" data-title="Select"
                                             data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
-                                            <option value="">Select</option>
+                                            <option value="">{{ "general.select" | translate }}</option>
                                             <option *ngFor="let c of languages" [value]="c.code">{{ c.name }}
                                             </option>
                                         </select>
                                         <small [hidden]="!isValidFormLanguage()" class="text-danger">
-                                            Language is required
+                                            {{ "general.language_required" | translate }}
                                         </small>
                                     </div>
                                 </div>
@@ -48,65 +50,78 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="languageKey">LanguageKey:</label> <span class="star">*</span>
+                                        <label for="languageKey">{{ "applanguage.languageKey" | translate }}:</label>
+                                        <span class="star">*</span>
                                         <input type="text" class="form-control" id="languageKey" name="languageKey"
                                             formControlName="languageKey" maxlength="255"
                                             [ngClass]="!isValidFormLanguageKey() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormLanguageKey()" class="text-danger">
-                                            LanguageKey is required
+                                            {{ "applanguage.languageKey_required" | translate }}
+
                                         </small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="languageValue">LanguageValue:</label> <span class="star">*</span>
+                                        <label for="languageValue">{{ "applanguage.languageValue" | translate
+                                            }}:</label> <span class="star">*</span>
                                         <input type="text" class="form-control" id="languageValue" name="languageValue"
                                             formControlName="languageValue" maxlength="255"
                                             [ngClass]="!isValidFormLanguageValue() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormLanguageValue()" class="text-danger">
-                                            LanguageKey is required
+                                            {{ "applanguage.languageValue_required" | translate }}
                                         </small>
                                     </div>
                                 </div>
-                                <div class="col-md-4"> 
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="resourceKey">ResourceKey:</label> <span class="star">*</span>
-                                        <select formControlName="resourceKey" required name="resourceKey" class="form-control"
-                                            data-style="btn-default btn-block"
+                                        <label for="resourceKey">{{ "applanguage.resourceKey" | translate
+                                        }}:</label> <span class="star">*</span>
+                                        <select formControlName="resourceKey" required name="resourceKey"
+                                            class="form-control" data-style="btn-default btn-block"
                                             [ngClass]="!isValidFormResourceKey() ? '' : 'error'" data-title="Select"
                                             data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
-                                            <option value="">Select</option>
+                                            <option value="">{{ "general.select" | translate }}</option>
                                             <option *ngFor="let c of resourceKeyOpts" [value]="c.code">{{ c.name }}
                                             </option>
                                         </select>
                                         <small [hidden]="!isValidFormResourceKey()" class="text-danger">
-                                            ResourceKey is required
+                                            {{ "applanguage.resourceKey_required" | translate }}  
                                         </small>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="enableOpt">Enable:</label>
+                                        <label for="enableOpt"> {{ "general.enable" | translate }}:</label>
                                         <div class="clearfix"></div>
                                         <bSwitch formControlName="enableOpt" required [switch-on-color]="'primary'">
                                         </bSwitch>
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-wd btn-default" (click)="goBackToList()">
+                            <button [@botaoAnimado]="estadoBotao_goBackToList"
+                                (mouseenter)="animarBotao('final', 'goBackToList')"
+                                (mouseleave)="animarBotao('inicial', 'goBackToList')" type="button"
+                                class="btn btn-wd btn-default" (click)="goBackToList()">
                                 <span class="btn-label">
                                     <i class="fa fa-arrow-left"></i>
                                 </span>
-                                Voltar
+                                {{ "general.backnav" | translate }}
                             </button>
-                            <button type="button" class="btn btn-info btn-fill pull-right" (click)="addRegister()"
-                                *ngIf="!isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">Save</button>
+                            <button type="button" [@botaoAnimado]="estadoBotao_addRegister"
+                                (mouseenter)="animarBotao('final', 'addRegister')"
+                                (mouseleave)="animarBotao('inicial', 'addRegister')"
+                                class="btn btn-info btn-fill pull-right" (click)="addRegister()"
+                                *ngIf="!isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">{{ "general.saveregisterbtn" | translate }}</button>
 
-                            <button type="button" class="btn btn-info btn-fill pull-right" (click)="updateRegister()"
-                                *ngIf="isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">Update</button>
+                            <button type="button" [@botaoAnimado]="estadoBotao_updateRegister"
+                                (mouseenter)="animarBotao('final','updateRegister')"
+                                (mouseleave)="animarBotao('inicial', 'updateRegister')"
+                                class="btn btn-info btn-fill pull-right" (click)="updateRegister()"
+                                *ngIf="isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">{{ "general.updateregisterbtn" | translate }}</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

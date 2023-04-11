@@ -119,6 +119,7 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.Name = updateUser.Name;
                 entityUpdate.Enable = updateUser.Enable;
                 entityUpdate.Email = updateUser.Email;
+                entityUpdate.Language = updateUser.Language;
                 if (!string.IsNullOrEmpty(updateUser.Password))
                 {
                     SecurityHelper.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);

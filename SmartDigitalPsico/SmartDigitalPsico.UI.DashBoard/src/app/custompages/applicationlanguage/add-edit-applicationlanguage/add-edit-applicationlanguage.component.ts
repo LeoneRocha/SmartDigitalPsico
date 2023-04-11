@@ -27,12 +27,27 @@ export class AddEditApplicationLanguageComponent implements OnInit {
     serviceResponse: ServiceResponse<ApplicationLanguageModel>;
     public languages = LanguageOptions;
     public resourceKeyOpts = ResourceKeyOptions;
+    estadoBotao_goBackToList = 'inicial';
+    estadoBotao_addRegister = 'inicial';
+    estadoBotao_updateRegister = 'inicial';
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(ApplicationLanguageService) private registerService: ApplicationLanguageService,
         private fb: FormBuilder, @Inject(Router) private router: Router) {
         this.gerateFormRegister();
     }
+
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+            if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+            if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado; 
+    } 
     ngOnInit() {
         this.loadFormRegister();
         if (this.registerId)

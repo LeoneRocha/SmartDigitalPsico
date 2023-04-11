@@ -42,7 +42,7 @@ namespace SmartDigitalPsico.Domains.Helpers
                 result.Add(new CultureDisplay() { Id = cul.Name, Name = cul.DisplayName });
             }
             var culturesEnables = getCulturesEnable().Select(cie => cie.Name).ToList();
-            result = result.Where(p => culturesEnables.Contains(p.Name)).ToList();
+            result = result.Where(ci => culturesEnables.Contains(ci.Id)).ToList();
 
             return result;
         }

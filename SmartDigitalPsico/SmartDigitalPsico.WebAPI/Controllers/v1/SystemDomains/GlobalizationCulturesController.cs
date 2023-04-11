@@ -8,20 +8,25 @@ using System.Threading.Tasks;
 namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 {
     [ApiController]
-    [ApiVersion("1")] 
+    [ApiVersion("1")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class GlobalizationCulturesController : ControllerBase
-    {  
-        public GlobalizationCulturesController( )
-        { 
+    {
+        public GlobalizationCulturesController()
+        {
         }
 
         [HttpGet("GetCultures")]
         // public async Task<ActionResult<ServiceResponse<List<CultureDisplay>>>> Get() 
         public async Task<ActionResult<List<CultureDisplay>>> Get()
-        {
+        { 
             await Task.FromResult(0);
-            return Ok(CultureDateTimeHelper.GetCultures());
+            var response = CultureDateTimeHelper.GetCultures();
+            if (response.Count <= 0)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
     }
 }

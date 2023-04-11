@@ -5,10 +5,12 @@ import { RoleGroupComponent } from './rolegroup.component';
 import { RoleGroupRoutes } from './rolegroup.routing';
 import { RoleGroupService } from 'app/services/general/simple/rolegroup.service'; 
 import { AddEditRoleGroupComponent } from './add-edit-rolegroup/add-edit-rolegroup.component';
+import { NgxTranslateModule } from 'app/translate/translate.module';
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(RoleGroupRoutes),
+        NgxTranslateModule,  
     ],
     declarations: [
         RoleGroupComponent, 

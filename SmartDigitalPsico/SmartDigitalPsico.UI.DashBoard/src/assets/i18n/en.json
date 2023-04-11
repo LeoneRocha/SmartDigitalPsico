@@ -1,15 +1,15 @@
-{  
+{
   "TESTE": "TESTE :) !",
-  "datagrid" : {
+  "datagrid": {
     "searchPlaceholder": "Search records :)"
-  },  
-  "general":{
+  },
+  "general": {
     "select": "Select",
     "enable": "Enable",
     "backnav": "Back",
-    "newregisterbtn" : "New",
-    "updateregisterbtn" : "Update",
-    "saveregisterbtn" : "Save",
+    "newregisterbtn": "New",
+    "updateregisterbtn": "Update",
+    "saveregisterbtn": "Save",
     "description": "Description",
     "description_required": "Description is required!",
     "language": "Language!",
@@ -18,7 +18,7 @@
   "appsetting": {
     "title": "Configuration",
     "category": "List of Configuration",
-    "select": "Select Configuration" ,    
+    "select": "Select Configuration",
     "form": {
       "TitleAdd": "Add Configuration",
       "TitleEdit": "Edit Configuration",
@@ -28,13 +28,13 @@
   "applanguage": {
     "title": "Language",
     "category": "List of Language",
-    "select": "Select Language" ,    
-    "languageKey": "Key" ,  
-    "languageKey_required": "Language Key is required" ,  
-    "languageValue": "Value" ,  
-    "languageValue_required": "Language Value is required" ,  
-    "resourceKey": "Resource Key" ,  
-    "resourceKey_required": "Value" ,  
+    "select": "Select Language",
+    "languageKey": "Key",
+    "languageKey_required": "Language Key is required",
+    "languageValue": "Value",
+    "languageValue_required": "Language Value is required",
+    "resourceKey": "Resource Key",
+    "resourceKey_required": "Value",
     "form": {
       "TitleAdd": "Add Language",
       "TitleEdit": "Edit Language",
@@ -44,7 +44,7 @@
   "office": {
     "title": "Office",
     "category": "List of Office",
-    "select": "Select Office" ,     
+    "select": "Select Office",
     "form": {
       "TitleAdd": "Add Office",
       "TitleEdit": "Edit Office",
@@ -54,11 +54,33 @@
   "gender": {
     "title": "Gender",
     "category": "List of Gender",
-    "select": "Select gender" ,
+    "select": "Select gender",
     "form": {
       "TitleAdd": "Add Gender",
       "TitleEdit": "Edit Gender",
       "TitleView": "View Gender"
+    }
+  },
+  "specialty": {
+    "title": "Specialty",
+    "category": "List of Specialty",
+    "select": "Select Specialty",
+    "form": {
+      "TitleAdd": "Add Specialty",
+      "TitleEdit": "Edit Specialty",
+      "TitleView": "View Specialty"
+    }
+  },
+  "rolegroup": {
+    "title": "Role Group",
+    "category": "List of Role Group",
+    "select": "Select Role Group",
+    "rolepolicyclaimcode": "Code",
+    "rolepolicyclaimcode_required": "Code is required",
+    "form": {
+      "TitleAdd": "Add Role Group",
+      "TitleEdit": "Edit Role Group",
+      "TitleView": "View Role Group"
     }
   }
 }

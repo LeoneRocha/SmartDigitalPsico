@@ -29,7 +29,9 @@ export class AddEditSpecialtyComponent implements OnInit {
     registerModel: SpecialtyModel;
     serviceResponse: ServiceResponse<SpecialtyModel>;
     public languages = LanguageOptions;
-
+    estadoBotao_goBackToList = 'inicial';
+    estadoBotao_addRegister = 'inicial';
+    estadoBotao_updateRegister = 'inicial';
     entityLoad$ = this.store.select(selectOneSpecialty);
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
@@ -38,6 +40,18 @@ export class AddEditSpecialtyComponent implements OnInit {
         private fb: FormBuilder, @Inject(Router) private router: Router) {
         this.gerateFormRegister();
     }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
+    }
+
     ngOnInit() {
 
         this.loadFormRegister();
@@ -98,8 +112,8 @@ export class AddEditSpecialtyComponent implements OnInit {
                 if (apState.apiStatus == 'success') {
 
                     this.processAddRegister(apState.resultAPI)
-                    this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })); 
-                } else { 
+                    this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } }));
+                } else {
                     this.processAddRegisterErro(apState?.resultAPI);
                 }
             }
@@ -139,7 +153,7 @@ export class AddEditSpecialtyComponent implements OnInit {
             this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
-        } 
+        }
     }
     processAddRegisterErro(response: ServiceResponse<SpecialtyModel>) {
         CaptureTologFunc('processAddRegisterErro-specialty', response);

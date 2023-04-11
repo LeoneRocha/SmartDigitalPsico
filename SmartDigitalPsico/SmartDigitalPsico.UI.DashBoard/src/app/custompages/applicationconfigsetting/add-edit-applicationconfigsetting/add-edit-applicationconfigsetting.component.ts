@@ -25,7 +25,10 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
     registerModel: ApplicationConfigSettingModel;
     serviceResponse: ServiceResponse<ApplicationConfigSettingModel>;
     public languages = LanguageOptions;
-
+    estadoBotao_goBackToList = 'inicial';
+    estadoBotao_addRegister = 'inicial';
+    estadoBotao_updateRegister = 'inicial';
+    
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(ApplicationConfigSettingService) private registerService: ApplicationConfigSettingService,
         private fb: FormBuilder, @Inject(Router) private router: Router) {
@@ -38,6 +41,17 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+    }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+            if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+            if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado; 
     }
     loadFormRegister() {
         let formsElement = this.registerForm;

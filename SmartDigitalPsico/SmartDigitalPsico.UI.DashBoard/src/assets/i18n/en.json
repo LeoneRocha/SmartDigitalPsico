@@ -15,14 +15,24 @@
     "language": "Language!",
     "language_required": "Language is required!"
   },
+  "appsetting": {
+    "title": "Configuration",
+    "category": "List of Configuration",
+    "select": "Select Configuration" ,    
+    "form": {
+      "TitleAdd": "Add Configuration",
+      "TitleEdit": "Edit Configuration",
+      "TitleView": "View Configuration"
+    }
+  },
   "gender": {
     "title": "Gender",
+    "category": "List of Gender",
+    "select": "Select gender" ,
     "form": {
       "TitleAdd": "Add Gender",
       "TitleEdit": "Edit Gender",
       "TitleView": "View Gender"
-    },
-    "category": "List of Gender",
-    "select": "Select gender" 
+    }
   }
 }

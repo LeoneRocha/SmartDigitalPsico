@@ -5,10 +5,12 @@ import { ApplicationConfigSettingRoutes } from './applicationconfigsetting.routi
 import { ApplicationConfigSettingComponent } from './applicationconfigsetting.component'; 
 import { ApplicationConfigSettingService } from 'app/services/general/simple/applicationconfigsetting.service';
 import { AddEditApplicationConfigSettingComponent } from './add-edit-applicationconfigsetting/add-edit-applicationconfigsetting.component';
+import { NgxTranslateModule } from 'app/translate/translate.module';
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(ApplicationConfigSettingRoutes),
+        NgxTranslateModule,   
     ],
     declarations: [
         ApplicationConfigSettingComponent ,

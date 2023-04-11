@@ -6,10 +6,16 @@ import { GenderRoutes } from './gender.routing';
 import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component'; 
 import { GenericDataTableGrid } from 'app/components/genericdatatablegrid/genericdatatablegrid.component';
 import { CustomPagesModule } from 'app/custommodules/custompages.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { NgxTranslateModule } from 'app/translate/translate.module';
+
+ 
 @NgModule({
     imports: [
         CustomPagesModule,
-        RouterModule.forChild(GenderRoutes),     
+        RouterModule.forChild(GenderRoutes), 
+        NgxTranslateModule,    
     ],
     declarations: [
         GenderComponent,

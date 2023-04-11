@@ -8,6 +8,7 @@ import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -25,11 +26,14 @@ export class GenderComponent implements OnInit, OnDestroy {
     entityRoute: RouteEntity;
     private subscription: Subscription;
 
-    constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router
+    ,@Inject(TranslateService) private translate: TranslateService) { }
     ngOnInit() {
 
         this.loadHeaderFooterDataTable();
         this.retrieveList();
+
+        this.translate.use('pt-BR')
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();

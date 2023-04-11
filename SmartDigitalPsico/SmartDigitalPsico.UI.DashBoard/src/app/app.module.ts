@@ -11,7 +11,7 @@ import { PagesnavbarModule } from './shared/pagesnavbar/pagesnavbar.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AppRoutes } from './app.routing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './services/auth/auth-guard.service';
 import { AdminAuthGuard, AdminOrMedicalAuthGuard } from './services/auth/admin-auth-guard.service';
@@ -28,7 +28,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './storereduxngrx/shared/app.reducer';
 import { GlobalizationCultureService } from './services/general/simple/globalizationculture.service';
 import { GlobalizationTimeZonesService } from './services/general/simple/globalizationtimezone.service';
-
+import { NgxTranslateModule } from './translate/translate.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+ 
+ 
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -41,8 +44,7 @@ import { GlobalizationTimeZonesService } from './services/general/simple/globali
         StoreModule.forRoot({ appState: appReducer }),//4)fourth time 
         EffectsModule.forRoot([]),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-        
-        
+        NgxTranslateModule, 
     ],
     declarations: [
         AppComponent,

@@ -1,0 +1,13 @@
+{
+  "HELLO": "Hello World!",
+  "GenderTESTE": "Gender!",
+  "gender": {
+    "label": "Gender@",
+    "select": "Select gender",
+    "options": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    }
+  }
+}

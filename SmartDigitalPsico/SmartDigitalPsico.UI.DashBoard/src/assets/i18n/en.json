@@ -117,6 +117,7 @@
     "title": "Gender",
     "category": "List of Gender",
     "select": "Select gender",
+	"required": "Gender is required",
     "form": {
       "TitleAdd": "Add Gender",
       "TitleEdit": "Edit Gender",
@@ -164,6 +165,77 @@
       "TitleAdd": "Add Medical",
       "TitleEdit": "Edit Medical",
       "TitleView": "View Medical"
+    }
+  },
+  "patient": {
+    "title": "Patient",
+    "required": "Patient is required",
+    "category": "List of Patient",
+    "select": "Select Patient", 
+	"name": {
+      "title":  "Name",
+      "required": " Date Of Birth is required"
+    },
+	"dateOfBirth": {
+      "title":  "Date Of Birth",
+      "required": "Date Of Birth is required"
+    },
+	"cpf": {
+      "title":  "CPF",
+      "required": "CPF is required"
+    },
+	"rg": {
+      "title":  "RG",
+      "required": "RG is required"
+    },
+	"profession": {
+      "title":  "Profession",
+      "required": "Profession is required"
+    },
+	"education": {
+      "title":  "Education",
+      "required": "Education is required"
+    },
+	"maritalStatus": {
+      "title":  " Marital Status",
+      "required": "Marital Status is required"
+    },
+	"addressCep": {
+      "title":  "CEP",
+      "required": "CEP is required"
+    },
+	"addressCity": {
+      "title":  "City",
+      "required": "City is required"
+    },
+	"addressState": {
+      "title":  "State",
+      "required": "State is required"
+    },
+	"addressNeighborhood": {
+      "title":  "Neighborhood",
+      "required": "Neighborhood is required"
+    },
+	"addressStreet": {
+      "title":  "Street",
+      "required": "Street is required"
+    },
+	"phoneNumber": {
+      "title":  "Phone Number",
+      "required": "Phone Number is required"
+    },
+	"emergencyContactName": {
+      "title":  "Emergency Contact Name",
+      "required": "Emergency Contact Name is required"
+    }, 
+	"emergencyContactPhoneNumber": {
+      "title":  "Emergency Contact Phone Number",
+      "required": "Emergency Contact Phone Number is required"
+    },
+    "form": {
+      "TitleAdd": "Add Patient",
+      "TitleEdit": "Edit Patient",
+      "TitleView": "View Patient"
     }
   },
   "rolegroup": {

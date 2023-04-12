@@ -64,3 +64,5 @@ export class LoginComponent implements OnInit {
         //value="mock123adm"
     }
 }
+//TODO: 1 ) TERMINAR PACIENTE E MEDICO I18n 
+//TODO: 2 ) COMECAR AS TELAS SEQUENTES A PACIENTE 

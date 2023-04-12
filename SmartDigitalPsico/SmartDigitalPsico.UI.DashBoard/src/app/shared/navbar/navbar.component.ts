@@ -1,7 +1,7 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, Directive, Inject } from '@angular/core';
-import { ROUTES } from '../.././sidebar/sidebar.component';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, Directive, Inject } from '@angular/core'; 
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from 'app/services/auth/auth.service';
+import { ROUTES } from 'app/sidebar/routerpaths';
 
 var misc: any = {
     navbar_menu_visible: 0,

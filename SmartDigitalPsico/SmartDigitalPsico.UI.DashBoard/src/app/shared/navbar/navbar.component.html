@@ -1,4 +1,3 @@
-
 <nav #navbar class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-minimize">
@@ -14,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">{{getTitle()}}</a>
+            <a class="navbar-brand">{{getTitle() | translate}}</a>
         </div>
         <div class="collapse navbar-collapse">
             <div class="" *ngIf="isMobileMenu()">
@@ -27,7 +26,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a ruterLinkActive = "active" [routerLink]="['/charts']">
+                        <a ruterLinkActive="active" [routerLink]="['/charts']">
                             <i class="fa fa-line-chart"></i>
                             <p>Stats</p>
                         </a>
@@ -93,11 +92,11 @@
                                     <i class="pe-7s-tools"></i> Settings
                                 </a>
                             </li>
-                            <li class="divider"></li> 
+                            <li class="divider"></li>
                             <li>
-                                <a *ngIf="authService.isLoggedIn()" class="text-danger"  (click)="authService.logout()">
+                                <a *ngIf="authService.isLoggedIn()" class="text-danger" (click)="authService.logout()">
                                     <i class="pe-7s-close-circle"></i>
-                                    Log out
+                                    {{ 'general.login.logout' | translate}}
                                 </a>
                             </li>
                         </ul>

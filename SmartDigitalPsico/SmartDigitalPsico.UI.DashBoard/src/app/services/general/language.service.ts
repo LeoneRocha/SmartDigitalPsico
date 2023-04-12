@@ -37,6 +37,8 @@ export class LanguageService {
     this.translate.setDefaultLang(lang);    
     console.log(lang);
     this.saveLanguageToLocalStorage(lang);
+
+    window.location.reload();//paliativa
   }
 
   private saveLanguageToLocalStorage(lang: string) {

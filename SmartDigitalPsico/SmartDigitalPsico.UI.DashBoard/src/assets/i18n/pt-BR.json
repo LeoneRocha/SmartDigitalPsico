@@ -26,7 +26,7 @@
   },
   "general": {
     "select": "Selecionar",
-    "enable": "Habilitar",
+    "enable": "Ativo",
     "admin": "Administrador",
     "backnav": "Voltar",
     "newregisterbtn": "Novo",
@@ -103,13 +103,13 @@
     }
   },
   "office": {
-    "title": "Escritório",
-    "category": "Lista de Escritórios",
-    "select": "Selecionar Escritório",
+    "title": "Profisão",
+    "category": "Lista de Profisão",
+    "select": "Selecionar Profisão",
     "form": {
-      "TitleAdd": "Adicionar Escritório",
-      "TitleEdit": "Editar Escritório",
-      "TitleView": "Visualizar Escritório"
+      "TitleAdd": "Adicionar Profisão",
+      "TitleEdit": "Editar Profisão",
+      "TitleView": "Visualizar Profisão"
     }
   },
   "gender": {
@@ -148,6 +148,14 @@
     "required": "Médico é obrigatório",
     "category": "Lista de Médicos",
     "select": "Selecionar Médico",
+    "typeAccreditation": {
+      "title": "Tipo Credenciamento",
+      "required": "Tipo Credenciamento is required"
+    },    
+    "accreditation": {
+      "title": "Credenciamento",
+      "required": "Credenciamento is required"
+    },
     "form": {
       "TitleAdd": "Adicionar Médico",
       "TitleEdit": "Editar Médico",

@@ -56,7 +56,7 @@
       "required": "Login is required",
       "header": "Access your account",
       "rememberme": "Remember me",
-      "register": "Register" ,
+      "register": "Register",
       "changelanguage": "Click to Change",
       "invalidLogin": "Invalid username and/or password."
     },
@@ -106,6 +106,7 @@
     "title": "Office",
     "category": "List of Office",
     "select": "Select Office",
+    "required": "Office is required",
     "form": {
       "TitleAdd": "Add Office",
       "TitleEdit": "Edit Office",
@@ -124,8 +125,11 @@
   },
   "specialty": {
     "title": "Specialty",
+    "titles": "Specialties",
     "category": "List of Specialty",
     "select": "Select Specialty",
+    "required": "Specialty is required",
+    "requireds": "Specialties is required",
     "form": {
       "TitleAdd": "Add Specialty",
       "TitleEdit": "Edit Specialty",
@@ -146,9 +150,16 @@
   "medical": {
     "title": "Medical",
     "required": "Medical is required",
-
     "category": "List of Medical",
     "select": "Select Medical",
+    "typeAccreditation": {
+      "title": "Type Accreditation",
+      "required": "Type Accreditation is required"
+    },
+    "accreditation": {
+      "title": "Accreditation",
+      "required": "Accreditation is required"
+    },
     "form": {
       "TitleAdd": "Add Medical",
       "TitleEdit": "Edit Medical",

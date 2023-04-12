@@ -5,13 +5,13 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title" class="lead pb-3" *ngIf="!isUpdateRegister && !isModeViewForm">
-                            Add New medical
+                            {{ "medical.form.TitleAdd" | translate }}
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isUpdateRegister">
-                            Edit medical
+                            {{ "medical.form.TitleEdit" | translate }}
                         </h4>
                         <h4 class="title" class="lead pb-3" *ngIf="isModeViewForm">
-                            View medical
+                            {{ "medical.form.TitleView" | translate }}
                         </h4>
                     </div>
                     <div class="content">
@@ -19,23 +19,25 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name">Name:</label> <span class="star">*</span>
+                                        <label for="name">{{ "general.name.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="text" class="form-control" id="name" name="name"
                                             formControlName="name" maxlength="255"
                                             [ngClass]="!isValidFormName() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormName()" class="text-danger">
-                                            Name is required
+                                            {{ "general.name.required" | translate }}
                                         </small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Email:</label> <span class="star">*</span>
+                                        <label for="email">{{ "general.email.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="email" class="form-control" id="email" name="email"
                                             formControlName="email" maxlength="100"
                                             [ngClass]="!isValidFormEmail() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormEmail()" class="text-danger">
-                                            Email is required
+                                            {{ "general.email.required" | translate }}
                                         </small>
                                     </div>
                                 </div>
@@ -43,31 +45,33 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="typeAccreditation">Type Accreditation :</label> <span
+                                        <label for="typeAccreditation">
+                                            {{ "medical.typeAccreditation.title" | translate }}:</label> <span
                                             class="star">*</span>
                                         <select formControlName="typeAccreditation" required name="typeAccreditation"
                                             class="form-control" data-style="btn-default btn-block"
                                             [ngClass]="!isValidFormTypeAccreditation() ? '' : 'error'"
                                             data-title="Select" data-menu-style="dropdown-blue"
                                             (change)="onSelect($event.target.value)">
-                                            <option value="">Select</option>
-                                            <option *ngFor="let c of typeAccreditationOpts" [value]="c.code">{{ c.name
-                                                }}
+                                            <option value="">{{ "general.select" | translate }}</option>
+                                            <option *ngFor="let c of typeAccreditationOpts" [value]="c.code">
+                                                {{ c.name }}
                                             </option>
                                         </select>
                                         <small [hidden]="!isValidFormTypeAccreditation()" class="text-danger">
-                                            Type Accreditation is required
+                                            {{ "medical.typeAccreditation.required" | translate }}
                                         </small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="accreditation">Accreditation:</label> <span class="star">*</span>
+                                        <label for="accreditation">{{ "medical.accreditation.title" | translate
+                                            }}:</label> <span class="star">*</span>
                                         <input type="text" class="form-control" id="accreditation" name="accreditation"
                                             formControlName="accreditation" maxlength="10"
                                             [ngClass]="!isValidFormAccreditation() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormAccreditation()" class="text-danger">
-                                            Accreditation is required
+                                            {{ "medical.accreditation.required" | translate }}
                                         </small>
                                     </div>
                                 </div>
@@ -75,17 +79,18 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="officeId">Office:</label> <span class="star">*</span>
+                                        <label for="officeId">{{ "office.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <select data-title="Select" data-menu-style="dropdown-blue"
                                             data-style="btn-default btn-block" class="form-control" name="officeId"
                                             formControlName="officeId" [ngClass]="!isValidFormOfficeId() ? '' : 'error'"
                                             required (change)="onSelect($event.target.value)">
-                                            <option value="">Select</option>
+                                            <option value="">{{ "general.select" | translate }}</option>
                                             <option *ngFor="let c of officesOpts" [value]="c.id">{{ c.description }}
                                             </option>
                                         </select>
                                         <small [hidden]="!isValidFormOfficeId()" class="text-danger">
-                                            Office is required
+                                            {{ "office.required" | translate }}
                                         </small>
                                     </div>
                                 </div>
@@ -110,7 +115,8 @@
                                             <option *ngFor="let c of specialtiesOpts" [value]="c.id">{{ c.description }}
                                             </option> 
                                         </select>  -->
-                                        <label for="specialtiesIds">Specialties:</label> <span class="star">*</span>
+                                        <label for="specialtiesIds"> {{ "specialty.titles" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <div *ngFor="let data of specialtiesOpts; let i=index">
                                             <div class="checkbox checkbox-inline">
                                                 <input [id]="'checkbox' + data.id" type="checkbox" [value]="data.id"
@@ -121,7 +127,7 @@
                                             </div>
                                         </div>
                                         <small [hidden]="!isValidFormSpecialtiesIds()" class="text-danger">
-                                            Specialties is required
+                                            {{ "specialty.requireds" | translate }}
                                         </small>
                                     </div>
                                 </div>
@@ -129,7 +135,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="enableOpt">Enable:</label>
+                                        <label for="enableOpt"> {{ "general.enable" | translate }}:</label>
                                         <div class="clearfix"></div>
                                         <bSwitch formControlName="enableOpt" required [switch-on-color]="'primary'">
                                         </bSwitch>
@@ -143,19 +149,21 @@
                                 <span class="btn-label">
                                     <i class="fa fa-arrow-left"></i>
                                 </span>
-                                Voltar
+                                {{ "general.backnav" | translate }}
                             </button>
                             <button type="button" [@botaoAnimado]="estadoBotao_addRegister"
                                 (mouseenter)="animarBotao('final', 'addRegister')"
                                 (mouseleave)="animarBotao('inicial', 'addRegister')"
                                 class="btn btn-info btn-fill pull-right" (click)="addRegister()"
-                                *ngIf="!isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">Save</button>
+                                *ngIf="!isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">{{
+                                "general.saveregisterbtn" | translate }}</button>
 
                             <button type="button" [@botaoAnimado]="estadoBotao_updateRegister"
                                 (mouseenter)="animarBotao('final','updateRegister')"
                                 (mouseleave)="animarBotao('inicial', 'updateRegister')"
                                 class="btn btn-info btn-fill pull-right" (click)="updateRegister()"
-                                *ngIf="isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">Update</button>
+                                *ngIf="isUpdateRegister" [disabled]="rF.invalid || this.isModeViewForm">{{
+                                "general.updateregisterbtn" | translate }}</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

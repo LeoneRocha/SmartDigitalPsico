@@ -1,5 +1,6 @@
 using AutoMapper;
 using FluentValidation;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -14,7 +15,7 @@ namespace SmartDigitalPsico.Business.SystemDomains
     public class OfficeBusiness : GenericBusinessEntityBaseSimple<Office, AddOfficeVO, UpdateOfficeVO, GetOfficeVO, IOfficeRepository>, IOfficeBusiness
 
     {
-        public OfficeBusiness(IMapper _mapper, IOfficeRepository entityRepository, IValidator<Office> entityValidator)
-            : base(_mapper, entityRepository, entityValidator) { }
+        public OfficeBusiness(IMapper _mapper, IOfficeRepository entityRepository, IValidator<Office> entityValidator, IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(_mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness) { }
     }
 }

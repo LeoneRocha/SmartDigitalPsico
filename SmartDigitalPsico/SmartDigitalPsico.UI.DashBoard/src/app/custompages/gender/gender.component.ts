@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { DataTable } from 'app/models/general/DataTable';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
+import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -17,39 +20,66 @@ declare var $: any;
     //styleUrls: ['./gender.component.css']
 })
 
-export class GenderComponent implements OnInit {
+export class GenderComponent implements OnInit, OnDestroy {
     public listResult: GenderModel[];
     serviceResponse: ServiceResponse<GenderModel>;
     public dataTable: DataTable;
+    entityRoute: RouteEntity;
+    private subscription: Subscription;
+    columlabel_1: string;
 
-    constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router
+        , @Inject(TranslateService) private translate: TranslateService
+        , @Inject(LanguageService) private languageService: LanguageService) {
+
+    }
     ngOnInit() {
+        this.languageService.loadLanguage();
+        this.columlabel_1 = this.translateInformation('description');
         this.loadHeaderFooterDataTable();
         this.retrieveList();
 
+        //vou ter que injetar o servico em cada componente e pegar do usuario ou storage qual o idioma que o usuario selecionou
+    }
+    translateInformation(infoKey: string): string {
+        let result: string = '';
+        result =this.languageService.setInstant(infoKey); ;
+        console.log(result);
+        /*
+        this.translate.get(infoKey).subscribe((res: string) => {
+            console.log(res);
+            result = res;
+            return result
+        }); */
+        return result;
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
     ngAfterViewInit() {
     }
     newRegister(): void {
-        this.router.navigate(['/administrative/gender/genderaction']);
+        this.router.navigate([this.entityRoute.baseRoute]);
     }
     viewRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'view', id: idRegister }]);
+        this.router.navigate([this.entityRoute.baseRoute, { modeForm: 'view', id: idRegister }]);
     }
     editRegister(idRegister: number): void {
-        this.router.navigate(['/administrative/gender/genderaction', { modeForm: 'edit', id: idRegister }]);
+        this.router.navigate([this.entityRoute.baseRoute, { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
 
-
-        this.registerService.getAll().subscribe({
+        this.subscription = this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
+                this.dataTable.dataRows = response["data"];
+                this.dataTable.dataRowsSimple = response["data"];
                 //console.log(this.listResult);
-                this.loadConfigDataTablesLazzy();
+                //this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-gender', response);
             },
@@ -164,9 +194,8 @@ export class GenderComponent implements OnInit {
             responsive: true,
             language: {
                 search: "_INPUT_",
-                searchPlaceholder: "Search records",
+                searchPlaceholder: "PROCURAR records:(",
             }
-
         });
         var table = $('#datatables').DataTable();
 
@@ -188,11 +217,17 @@ export class GenderComponent implements OnInit {
         });
     }
     loadHeaderFooterDataTable() {
+        this.entityRoute = {
+            baseRoute: "/administrative/gender/genderaction"
+        };
+
 
         this.dataTable = {
-            headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            dataRows: [], dataRowsSimple: []
+
+            headerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
+            footerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
+            dataRows: [], dataRowsSimple: [],
+            routes: this.entityRoute
         };
     }
 } 

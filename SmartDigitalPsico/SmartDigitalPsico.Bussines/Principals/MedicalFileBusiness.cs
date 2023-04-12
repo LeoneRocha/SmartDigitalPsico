@@ -3,6 +3,7 @@ using Azure;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
@@ -12,6 +13,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.FileManager;
 
 namespace SmartDigitalPsico.Business.Principals
@@ -29,8 +31,8 @@ namespace SmartDigitalPsico.Business.Principals
 
         public MedicalFileBusiness(IMapper mapper, IMedicalFileRepository entityRepository, IMedicalRepository medicalRepository, IConfiguration configuration
             , IUserRepository userRepository, IRepositoryFileDisk repositoryFileDisk
-            , IValidator<MedicalFile> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<MedicalFile> entityValidator, IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -52,7 +54,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetMedicalFileVO> response = new ServiceResponse<GetMedicalFileVO>();
             try
-            { 
+            {
                 IFormFile fileData = null;
                 if (entity != null)
                 {
@@ -110,7 +112,7 @@ namespace SmartDigitalPsico.Business.Principals
                 && fileEntity?.Medical?.Id == userAutenticated?.Medical?.Id)
             {
                 return false;
-            } 
+            }
 
             if (fileEntity != null)
             {

@@ -5,7 +5,7 @@ import { GenericService } from '../generic/generic.service';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { environment } from 'environments/environment'; 
 import { catchError, map, throwError } from 'rxjs';
-import { AppError } from 'app/common/app-error';
+import { AppError } from 'app/common/errohandler/app-error';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserAutenticateModel } from 'app/models/usermodels/UserAutenticateModel'; 
 import { TokenAuth } from 'app/models/general/TokenAuth';

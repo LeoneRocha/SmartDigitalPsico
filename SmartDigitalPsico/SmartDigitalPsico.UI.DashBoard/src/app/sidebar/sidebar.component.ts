@@ -1,100 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, Inject } from '@angular/core';
 import { AuthService } from 'app/services/auth/auth.service';
-
-
+import { ROUTES, RouteInfo } from './routerpaths';
 declare var $: any;
-//Metadata
-export interface RouteInfo {
-    path: string;
-    title: string;
-    type: string;
-    icontype: string; 
-    roleaccess: string;
-    // icon: string;
-    children?: ChildrenItems[];
-}
-
-export interface ChildrenItems {
-    path: string;
-    title: string;
-    ab: string;
-    type?: string;
-}
-
-//Menu Items
-export const ROUTES: RouteInfo[] = [{
-    path: '/administrative/dashboard',
-    title: 'Inicio',
-    type: 'link', 
-    roleaccess: 'Read',
-    icontype: 'pe-7s-home'
-},
-{
-    path: '/medical',
-    title: 'Médicos',
-    type: 'sub',
-    icontype: 'pe-7s-users', 
-    roleaccess: 'Read',
-    children: [
-        { path: '', title: 'Médicos', ab: 'M' },
-        { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
-    ]
-},
-{
-    path: '/patient',
-    title: 'Pacientes',
-    type: 'sub',
-    icontype: 'pe-7s-users', 
-    roleaccess: 'Read',
-    children: [
-        { path: 'patient', title: 'Paciente', ab: 'P' },
-        { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
-    ]
-},
-{
-    path: '/pages',
-    title: 'Usuários',
-    type: 'sub',
-    icontype: 'pe-7s-users', 
-    roleaccess: 'Read',
-    children: [
-        { path: 'users', title: 'Usuários', ab: 'U' }
-    ]
-}, {
-    path: '/administrative',
-    title: 'Configurações',
-    type: 'sub',
-    icontype: 'pe-7s-tools', 
-    roleaccess: 'Read',
-    children: [
-        { path: 'gender', title: 'Gender', ab: 'G' },
-        { path: 'office', title: 'Office', ab: 'O' },
-        { path: 'rolegroup', title: 'RoleGroup', ab: 'RG' },
-        { path: 'applicationsetting', title: 'Configurações Sistema', ab: 'CS' },
-        { path: 'applicationlanguage', title: 'Idiomas', ab: 'I' },
-    ]
-}, {
-    path: '/pages',
-    title: 'Cadastros',
-    type: 'sub',
-    icontype: 'pe-7s-gift', 
-    roleaccess: 'Read',
-    children: [
-        { path: 'user', title: 'User Page', ab: 'UP' },
-    ]
-}, {
-    path: '/authpages',
-    title: 'Modelos',
-    type: 'sub',
-    icontype: 'pe-7s-gift', 
-    roleaccess: 'Read',
-    children: [
-        { path: 'register', title: 'Register Page', ab: 'RP' }
-    ]
-}
-];
-
-
 @Component({
     moduleId: module.id,
     selector: 'sidebar-cmp',
@@ -102,7 +9,7 @@ export const ROUTES: RouteInfo[] = [{
 })
 
 export class SidebarComponent {
-
+    public userNameAtenticate: string;//= "Nome do Medico/User Logado";
     public menuItems: any[];
 
     isNotMobileMenu() {
@@ -133,7 +40,7 @@ export class SidebarComponent {
         return this.authService.isLoggedIn();
     }
     ngOnInit() {
-
+        this.userNameAtenticate = this.authService.getLocalStorageUser().name;
         var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
         this.menuItems = ROUTES.filter(menuItem => menuItem);
 

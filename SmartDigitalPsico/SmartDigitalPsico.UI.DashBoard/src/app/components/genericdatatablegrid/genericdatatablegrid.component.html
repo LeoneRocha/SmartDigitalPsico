@@ -5,31 +5,39 @@
         style="width:100%">
         <thead>
             <tr>
-                <th *ngFor="let title of dataTableIn.headerRow">{{ title }}</th>
-                <th class="disabled-sorting text-right">Actions</th>
+                <th>{{ dataTableIn.headerRow[0] }}</th>
+                <th>{{ dataTableIn.headerRow[1] }}</th>
+                <th>{{ dataTableIn.headerRow[2] }}</th>
+                <th>{{ dataTableIn.headerRow[3] }}</th>
+                <th class="disabled-sorting text-right">{{ dataTableIn.headerRow[4] }}</th>
             </tr>
         </thead>
         <tfoot>
-            <th *ngFor="let title of dataTableIn.headerRow">{{ title }}</th>
-            <th class="disabled-sorting text-right"> Actions</th>
+            <tr>
+                <th>{{ dataTableIn.footerRow[0] }}</th>
+                <th>{{ dataTableIn.footerRow[1] }}</th>
+                <th>{{ dataTableIn.footerRow[2] }}</th>
+                <th>{{ dataTableIn.footerRow[3] }}</th>
+                <th class="text-right">{{ dataTableIn.footerRow[4] }}</th>
+            </tr>
         </tfoot>
         <tbody>
-            <tr *ngFor="let row of dataTableIn.dataRows" >
-                <td class="text-center">{{ row.id }}</td>
-                <td>{{ row.description }}</td>
-                <td>{{ row.language }}</td>
-                <td>{{ row.enable | customtextactive }}</td>                
+            <tr *ngFor="let row of dataTableIn.dataRowsSimple" >
+                <td class="text-center">{{ this.row.id }}</td>
+                <td>{{ this.row.description }}</td>
+                <td>{{ this.row.language }}</td>
+                <td>{{ this.row.enable  }}</td>                
                 <td class="text-right">
                     <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon eye"
-                        (click)="viewRegister(row)">
+                        (click)="viewRegister(this.row)">
                         <i class="fa fa-eye"></i>
                     </a>
                     <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"
-                        (click)="editRegister(row)">
+                        (click)="editRegister(this.row)">
                         <i class="fa fa-edit"></i>
                     </a>
                     <a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon remove"
-                        (click)="removeRegister(row)">
+                        (click)="removeRegister(this.row)">
                         <i class="fa fa-times"></i>
                     </a>
                 </td>

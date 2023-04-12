@@ -1,5 +1,6 @@
 using AutoMapper;
 using FluentValidation;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.SystemDomains;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
@@ -18,14 +19,17 @@ namespace SmartDigitalPsico.Business.SystemDomains
     {
         private readonly IMapper _mapper;
         private readonly IApplicationConfigSettingRepository _genericRepository;
-       
-        public ApplicationConfigSettingBusiness(IMapper mapper, 
+
+        public ApplicationConfigSettingBusiness(IMapper mapper,
             IApplicationConfigSettingRepository entityRepository
-            , IValidator<ApplicationConfigSetting> entityValidator)
-            : base(mapper, entityRepository, entityValidator   ) {
+            , IValidator<ApplicationConfigSetting> entityValidator
+            , IApplicationLanguageRepository applicationLanguageRepository
+            , ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
+        {
 
             _mapper = mapper;
-            _genericRepository = entityRepository; 
-        } 
+            _genericRepository = entityRepository;
+        }
     }
 }

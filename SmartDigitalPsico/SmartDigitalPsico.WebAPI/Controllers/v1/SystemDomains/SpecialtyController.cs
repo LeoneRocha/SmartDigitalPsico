@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
@@ -16,7 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class SpecialtyController : ApiBaseController
     {
@@ -30,21 +31,31 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         private void setUserIdCurrent()
         {
             _entityService.SetUserId(base.GetUserIdCurrent());
-        } 
+        }
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetSpecialtyVO>>>> Get()
         {
-            this.setUserIdCurrent();
-            return Ok(await _entityService.FindAll());
+                this.setUserIdCurrent();
+            var response = await _entityService.FindAll();
+            if (response.Data == null)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetSpecialtyVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetSpecialtyVO>>> FindByID(int id)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindByID(id));
+            var response = await _entityService.FindByID(id);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
         [HttpPost]
@@ -52,7 +63,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         public async Task<ActionResult<ServiceResponse<GetSpecialtyVO>>> Create(AddSpecialtyVO newEntity)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.Create(newEntity));
+            var response = await _entityService.Create(newEntity);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
 
         [HttpPut]
@@ -66,17 +82,18 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
                 return NotFound(response);
             }
             return Ok(response);
-        } 
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)
         {
-            this.setUserIdCurrent();
-            var response = await _entityService.Delete(id);
-            if (response.Data)
+            this.setUserIdCurrent(); 
+            var response = await _entityService.Delete(id); 
+            if (!response.Success)
             {
                 return NotFound(response);
             }
+            //TODO: 1) SE TIVER ERROS RESPONDER BAD REQUEST 
             return Ok(response);
         }
     }

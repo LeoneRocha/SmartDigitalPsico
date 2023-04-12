@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
@@ -28,20 +29,20 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
             _entityService = entityService;
         }
         private void setUserIdCurrent()
-        { 
+        {
             _entityService.SetUserId(base.GetUserIdCurrent());
-        } 
+        }
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetApplicationLanguageVO>>>> Get()
         {
             this.setUserIdCurrent();
-            var result = _entityService.FindAll(); 
+            var result = _entityService.FindAll();
             return Ok(await result);
         }
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> FindByID(int id)
         {
             this.setUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
@@ -52,7 +53,12 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         public async Task<ActionResult<ServiceResponse<GetApplicationLanguageVO>>> Create(AddApplicationLanguageVO newEntity)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.Create(newEntity));
+            var response = await _entityService.Create(newEntity);
+            if (response.Data == null)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);             
         }
 
         [HttpPut]
@@ -74,7 +80,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         {
             this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
-            if (response.Data)
+            if (!response.Data)
             {
                 return NotFound(response);
             }

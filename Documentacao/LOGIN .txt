@@ -1,0 +1,237 @@
+{
+  "TESTE": "TESTE :) !",
+  "datagrid": {
+    "searchPlaceholder": "Search records :)"
+  },
+  "navbar": {
+    "home": "Home",
+    "company": "Company",
+    "portfolio": "Portfolio",
+    "blog": "Blog" 
+  },
+  "general": {
+    "select": "Select",
+    "enable": "Enable",
+    "admin": "Admin",
+    "backnav": "Back",
+    "newregisterbtn": "New",
+    "updateregisterbtn": "Update",
+    "saveregisterbtn": "Save",
+    "description": "Description",
+    "description_required": "Description is required!",
+    "altAdd": "Add",
+    "altEdit": "Edit",
+    "altView": "View",
+    "altDelete": "Delete",
+    "name": {
+      "title": "Name",
+      "required": "Name is required"
+    },
+    "language": {
+      "title": "Language",
+      "required": "Language is required"
+    },
+    "email": {
+      "title": "Email",
+      "required": "Email is required"
+    },
+    "login": {
+      "title": "Login",      
+      "required": "Login is required",
+      "header": "Access your account",
+      "rememberme": "Remember me",
+      "invalidLogin" : "Invalid username and/or password."
+    },
+    "timezone": {
+      "title": "Time Zone",
+      "required": "Time Zone is required"
+    },
+    "password": {
+      "title": "Password",
+      "required": "Password is required"
+    },
+    "mainrole": {
+      "title": "Main Role",
+      "required": "Main Role"
+    }
+  },
+  "modalAlert": {
+    "select": "Select"
+  },
+  "appsetting": {
+    "title": "Configuration",
+    "category": "List of Configuration",
+    "select": "Select Configuration",
+    "form": {
+      "TitleAdd": "Add Configuration",
+      "TitleEdit": "Edit Configuration",
+      "TitleView": "View Configuration"
+    }
+  },
+  "applanguage": {
+    "title": "Language",
+    "category": "List of Language",
+    "select": "Select Language",
+    "languageKey": "Key",
+    "languageKey_required": "Language Key is required",
+    "languageValue": "Value",
+    "languageValue_required": "Language Value is required",
+    "resourceKey": "Resource Key",
+    "resourceKey_required": "Value",
+    "form": {
+      "TitleAdd": "Add Language",
+      "TitleEdit": "Edit Language",
+      "TitleView": "View Language"
+    }
+  },
+  "office": {
+    "title": "Office",
+    "category": "List of Office",
+    "select": "Select Office",
+    "form": {
+      "TitleAdd": "Add Office",
+      "TitleEdit": "Edit Office",
+      "TitleView": "View Office"
+    }
+  },
+  "gender": {
+    "title": "Gender",
+    "category": "List of Gender",
+    "select": "Select gender",
+    "form": {
+      "TitleAdd": "Add Gender",
+      "TitleEdit": "Edit Gender",
+      "TitleView": "View Gender"
+    }
+  },
+  "specialty": {
+    "title": "Specialty",
+    "category": "List of Specialty",
+    "select": "Select Specialty",
+    "form": {
+      "TitleAdd": "Add Specialty",
+      "TitleEdit": "Edit Specialty",
+      "TitleView": "View Specialty"
+    }
+  },
+  "user": {
+    "title": "User",
+    "category": "List of User",
+    "select": "Select User",
+    "form": {
+      "TitleAdd": "Add User",
+      "TitleEdit": "Edit User",
+      "TitleView": "View User"
+    }
+  },
+  "medical": {
+    "title": "Medical",
+    "required": "Medical is required",
+    "category": "List of Medical",
+    "select": "Select Medical",
+    "form": {
+      "TitleAdd": "Add Medical",
+      "TitleEdit": "Edit Medical",
+      "TitleView": "View Medical"
+    }
+  },
+  "rolegroup": {
+    "title": "Role Group",
+    "category": "List of Role Group",
+    "select": "Select Role Group",
+    "rolepolicyclaimcode": "Code",
+    "rolepolicyclaimcode_required": "Code is required",
+    "form": {
+      "TitleAdd": "Add Role Group",
+      "TitleEdit": "Edit Role Group",
+      "TitleView": "View Role Group"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+<div class="wrapper wrapper-full-page">
+    <div class="full-page login-page" data-color="red" data-image="../../../assets/img/full-screen-image-1.jpg">
+
+        <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                        <form #fLogin="ngForm" (ngSubmit)="signIn()">
+
+                            <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
+                            <div class="card card-hidden">
+                                <div class="header text-center">{{ "general.login.header" | translate }}</div>
+                                <div class="content">
+                                    <div class="form-group">
+                                        <label>{{ "general.login.title" | translate }}</label>
+                                        <input type="text" [(ngModel)]="userLoginModel.login" placeholder="Enter Login"
+                                            class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ "general.password.title" | translate }} </label>
+                                        <input type="password" [(ngModel)]="userLoginModel.password"
+                                            placeholder="Enter Password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <input id="checkbox21" type="checkbox" checked="">
+                                            <label for="checkbox21">
+                                                {{ "general.login.rememberme" | translate }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer text-center">
+                                    <button type="submit" class="btn btn-fill btn-danger btn-wd">{{
+                                        "general.login.title" | translate }}</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div *ngIf="invalidLogin" class="alert alert-danger">{{ "general.login.invalidLogin" | translate
+                            }}</div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <footer class="footer footer-transparent">
+            <div class="container">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                {{ "navbar.home" | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{ "navbar.company" | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{ "navbar.portfolio" | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{ "navbar.blog" | translate }}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy; {{test | date: 'yyyy'}} <a href="https://www.creative-tim.com">Creative Tim</a>, made with
+                    love for a better web
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>

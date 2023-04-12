@@ -1,3 +1,4 @@
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -9,7 +10,14 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     [Table("Patients", Schema = "dbo")]
     public class Patient : EntityBase, IEntityBaseLogUser
     {
-        #region Relationship
+        #region Relationship  
+        //public ICollection<InfoTag> InfoTags { get; set; }
+        //public List<InfoTag> InfoTags { get; } = new();
+        //public ICollection<InfoTag> InfoTags { get; set; }
+        //public List<PatientInfoTag> PatientInfoTags { get; set; }
+        public List<PatientInfoTag> PatientInfoTags { get; set; }
+
+
         [Required]
         public Medical Medical { get; set; }
 
@@ -59,6 +67,11 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("Education", TypeName = "varchar(255)")]
         [MaxLength(255)]
         public string? Education { get; set; }
+
+
+        [Column("MaritalStatus")]        
+        public EMaritalStatus MaritalStatus { get; set; }
+              
 
         [Column("PhoneNumber", TypeName = "varchar(20)")]
         [MaxLength(20)]

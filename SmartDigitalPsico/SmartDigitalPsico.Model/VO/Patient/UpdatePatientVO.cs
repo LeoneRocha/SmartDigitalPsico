@@ -1,3 +1,4 @@
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia;
 using SmartDigitalPsico.Domains.Hypermedia.Abstract;
 using SmartDigitalPsico.Model.VO.Contracts;
@@ -60,6 +61,7 @@ namespace SmartDigitalPsico.Model.VO.Patient
 
         public long GenderId { get; set; }
 
+        public EMaritalStatus MaritalStatus { get; set; }
 
         #endregion
     }

@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  EnableCaptureResponseTolog : false,
+  EnableCaptureResponseTolog : true,
   APIUrl: 'https://localhost:61949/api',
 };

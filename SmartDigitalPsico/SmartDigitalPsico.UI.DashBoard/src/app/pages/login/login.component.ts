@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { UserLoginModel } from 'app/models/usermodels/UserLoginModel';
 import { AuthService } from 'app/services/auth/auth.service';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -17,23 +19,16 @@ export class LoginComponent implements OnInit {
     public userLoginModel: UserLoginModel;
 
     constructor(
-        @Inject(Router) private router: Router,
-        @Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(AuthService) private authService: AuthService) {
+        @Inject(Router) private router: Router
+        , @Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(AuthService) private authService: AuthService
+        , @Inject(LanguageService) private languageService: LanguageService
+        // @Inject(TranslateService) private translate: TranslateService
+    ) {
 
     }
-
-    checkFullPageBackgroundImage() {
-        var $page = $('.full-page');
-        var image_src = $page.data('image');
-
-        if (image_src !== undefined) {
-            var image_container = '<div class="full-page-background" style="background-image: url(' + image_src + ') "/>'
-            $page.append(image_container);
-        }
-    };
-
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.userLoginModel = {
             login: '', password: ''
         };
@@ -47,8 +42,19 @@ export class LoginComponent implements OnInit {
         if (isLoged) {
             let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
             this.router.navigate([returnUrl || '/administrative/dashboard']);
-         }
+        }
     }
+    checkFullPageBackgroundImage() {
+        var $page = $('.full-page');
+        var image_src = $page.data('image');
+
+        if (image_src !== undefined) {
+            var image_container = '<div class="full-page-background" style="background-image: url(' + image_src + ') "/>'
+            $page.append(image_container);
+        }
+    };
+
+
     signIn() {
         this.authService.login(this.userLoginModel).subscribe({
             next: (response: any) => {
@@ -61,3 +67,5 @@ export class LoginComponent implements OnInit {
         //value="mock123adm"
     }
 }
+//TODO: 1 ) TERMINAR PACIENTE E MEDICO I18n
+//TODO: 2 ) COMECAR AS TELAS SEQUENTES A PACIENTE 

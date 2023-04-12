@@ -21,9 +21,12 @@ namespace SmartDigitalPsico.Repository.CacheManager
             _cacheConfig = cacheConfig.Value;
             if (_cacheConfig != null)
             {
+                DateTime absoluteExpiration = DateTime.Now.AddHours(_cacheConfig.AbsoluteExpirationInHours);
+                absoluteExpiration = DateTime.Now.AddMinutes(_cacheConfig.AbsoluteExpirationInMinutes);
+
                 _cacheOptions = new MemoryCacheEntryOptions
-                {
-                    AbsoluteExpiration = DateTime.Now.AddHours(_cacheConfig.AbsoluteExpirationInHours),
+                { 
+                    AbsoluteExpiration = absoluteExpiration,
                     Priority = CacheItemPriority.High,
                     SlidingExpiration = TimeSpan.FromMinutes(_cacheConfig.SlidingExpirationInMinutes)
                 };
@@ -31,24 +34,43 @@ namespace SmartDigitalPsico.Repository.CacheManager
         }
         public bool TryGet<T>(string cacheKey, out T value)
         {
-            _memoryCache.TryGetValue(cacheKey, out value);
-            if (value == null) 
-                return false;                            
-            else                 
-                return true;
+            bool isSuccessGet = false;
+            try
+            {
+                value = _memoryCache.Get<T>(cacheKey);
+
+                _memoryCache.TryGetValue(cacheKey, out value);
+                if (value != null)
+                {
+
+                    isSuccessGet = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return isSuccessGet;
         }
 
         public bool Set<T>(string cacheKey, T value)
         {
+            bool isSuccessSet = false;
             try
             {
                 _memoryCache.Set(cacheKey, value, _cacheOptions);
+
+                isSuccessSet = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+
+                return isSuccessSet;
             }
-            return true;
+
+
+            return isSuccessSet;
         }
 
         public bool Remove(string cacheKey)

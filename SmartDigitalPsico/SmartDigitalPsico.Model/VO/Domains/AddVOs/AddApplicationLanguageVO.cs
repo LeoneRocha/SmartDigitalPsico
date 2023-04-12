@@ -19,5 +19,9 @@ namespace SmartDigitalPsico.Model.VO.Domains.AddVOs
 
         [MaxLength(255)]
         public string LanguageValue { get; set; }
+
+        [MaxLength(255)]
+        public string ResourceKey { get; set; }
+
     }
 }

@@ -1,13 +1,13 @@
 import { BaseEntityMedicalChildModel } from "../contracts/BaseEntityMedicalChildModel";
 import { BaseEntityModel } from "../contracts/BaseEntityModel";
-import { GenderModel } from "../simplemodel/GenderModel"; 
+import { GenderModel } from "../simplemodel/GenderModel";
 
 export interface PatientModel extends BaseEntityModel, BaseEntityMedicalChildModel {
-   
-    gender: GenderModel
+
+    gender?: GenderModel
     genderId: number;
 
-    dateOfBirth: string
+    dateOfBirth: Date
     profession: string
     cpf: string
     rg: string
@@ -19,5 +19,6 @@ export interface PatientModel extends BaseEntityModel, BaseEntityMedicalChildMod
     addressState: string
     addressCep: string
     emergencyContactName: string
-    emergencyContactPhoneNumber: string   
+    emergencyContactPhoneNumber: string,
+    maritalStatus: number
 } 

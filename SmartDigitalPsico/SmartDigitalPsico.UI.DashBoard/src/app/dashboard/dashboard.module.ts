@@ -6,13 +6,14 @@ import { LbdModule } from '../lbd/lbd.module';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutes } from './dashboard.routing';
+import { NgxTranslateModule } from 'app/translate/translate.module';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forChild(DashboardRoutes),
         FormsModule,
-        LbdModule
+        LbdModule, NgxTranslateModule, 
     ],
     declarations: [DashboardComponent]
 })

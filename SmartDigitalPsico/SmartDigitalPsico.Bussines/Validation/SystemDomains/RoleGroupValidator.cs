@@ -9,11 +9,11 @@ namespace SmartDigitalPsico.Business.Validation.SystemDomains
         {
             RuleFor(entity => entity.Description)
                 .NotNull().NotEmpty()
-                .WithMessage("A descrição não pode ser vazia.");
+                .WithMessage("ErrorValidator_Description_Null");
 
             RuleFor(entity => entity.Language)
                 .NotNull().NotEmpty()
-                .WithMessage("O Language não pode ser vazia.")
+                .WithMessage("ErrorValidator_Language_Null")
                 .MaximumLength(10)
                 .WithMessage("O Language não pode ultrapassar {MaxLength} carateres.");
         }

@@ -21,39 +21,40 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
 
             RuleFor(entity => entity.Name)
              .NotNull().NotEmpty()
-             .WithMessage("A descrição não pode ser vazia.");
+          .WithMessage("ErrorValidator_Description_Null");
 
             RuleFor(entity => entity.Profession)
                 .MaximumLength(255)
                 .WithMessage("O Profession não pode ultrapassar {MaxLength} carateres.");
 
             RuleFor(entity => entity.Email)
-               .NotNull().NotEmpty()
-               .WithMessage("O Email não pode ser vazia.")
-               .EmailAddress()
-               .WithMessage("O Email invalido.")
+               .NotNull().NotEmpty() 
+               .WithMessage("ErrorValidator_Email_Null")
+               .EmailAddress() 
+               .WithMessage("ErrorValidator_Email_Invalid")
                .MaximumLength(100)
                .WithMessage("O Email não pode ultrapassar {MaxLength} carateres.")
-               .MustAsync(async (entity, value, c) => await UniqueEmail(entity, value))
-              .WithMessage("Email must be unique.");
+               .MustAsync(async (entity, value, c) => await UniqueEmail(entity, value)) 
+              .WithMessage("ErrorValidator_Email_Unique");
 
-            RuleFor(p => p.DateOfBirth).Must(BeAValidAge).WithMessage("Invalid Date Of Birth");
+            RuleFor(p => p.DateOfBirth).Must(BeAValidAge) 
+                .WithMessage("ErrorValidator_DateOfBirth_Invalid");
 
             RuleFor(p => p.Rg)
                 .NotNull().NotEmpty()
-                .WithMessage("O Rg não pode ser vazio.")
+                .WithMessage("ErrorValidator_RG_Null") 
                 .Length(10, 15)
-               .WithMessage("Rg must be between 10 and {MaxLength} characters long")
-               .Matches("^[0-9]*$")//TODO: MUDAR REGEX PARA RG 
-               .WithMessage("Rg can only contain numbers");
+               .WithMessage("Rg must be between 10 and {MaxLength} characters long");
+            //.Matches("^[0-9]*$")//TODO: MUDAR REGEX PARA RG 
+            // .WithMessage("Rg can only contain numbers");
 
             RuleFor(p => p.Cpf)
-                .NotNull().NotEmpty()
-                .WithMessage("O Rg não pode ser vazio.")
+                .NotNull().NotEmpty() 
+                .WithMessage("ErrorValidator_CPF_Null")
                 .Length(10, 15)
-               .WithMessage("Rg must be between 10 and {MaxLength} characters long")
-               .Matches("^[0-9]*$")//TODO: MUDAR REGEX PARA RG 
-               .WithMessage("Rg can only contain numbers");
+               .WithMessage("Rg must be between 10 and {MaxLength} characters long");
+            //.Matches("^[0-9]*$")//TODO: MUDAR REGEX PARA RG 
+            // .WithMessage("Rg can only contain numbers");
 
 
             RuleFor(entity => entity.Profession)
@@ -69,9 +70,9 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
                 .MaximumLength(20)
                 .WithMessage("O PhoneNumber não pode ultrapassar {MaxLength} carateres.")
                 .Length(8, 20)
-               .WithMessage("PhoneNumber must be between 8 and {MaxLength} characters long")
-                .Matches("^[0-9]*$")
-               .WithMessage("Phone Number can only contain numbers");
+               .WithMessage("PhoneNumber must be between 8 and {MaxLength} characters long");
+            // .Matches("^[0-9]*$")
+            //.WithMessage("Phone Number can only contain numbers");
 
             RuleFor(entity => entity.AddressStreet)
                 .MaximumLength(255)
@@ -93,9 +94,9 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
                 .MaximumLength(20)
                 .WithMessage("O AddressCep não pode ultrapassar {MaxLength} carateres.")
                 .Length(8, 20)
-               .WithMessage("AddressCep must be between 8 and {MaxLength} characters long")
-                .Matches("^[0-9]*$")
-               .WithMessage("AddressCep can only contain numbers");
+               .WithMessage("AddressCep must be between 8 and {MaxLength} characters long");
+            // .Matches("^[0-9]*$")
+            //.WithMessage("AddressCep can only contain numbers");
 
             RuleFor(entity => entity.EmergencyContactName)
              .MaximumLength(255)
@@ -110,22 +111,23 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
             #region Relationship
 
             RuleFor(entity => entity.CreatedUser)
-              .NotNull()
-              .WithMessage("O Usuário que está criando deve ser informado.");
+              .NotNull() 
+              .WithMessage("ErrorValidator_CreatedUser_Null");
 
             RuleFor(entity => entity.MedicalId)
-              .NotNull().LessThanOrEqualTo(0)
-              .WithMessage("O medical deve ser informado.")
-              .MustAsync(async (entity, value, c) => await MedicalIdFound(entity, value))
-              .WithMessage("O PatientId informado não existe.")
-              .MustAsync(async (entity, value, c) => await MedicalChanged(entity, value))
-              .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value))
-              .WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem criar pacientes pra outro medico.")
-              .MustAsync(async (entity, value, c) => await MedicalModify(entity, value))
-              .WithMessage("O medico infomado deve ser o mesmo logado. Medicos nao podem modificar pacientes pra outro medico.");
+            .NotNull() 
+            .WithMessage("ErrorValidator_MedicalId_Null")
+            .MustAsync(async (entity, value, c) => await MedicalIdFound(entity, value)) 
+            .WithMessage("ErrorValidator_MedicalId_NotFound")
+            .MustAsync(async (entity, value, c) => await MedicalChanged(entity, value))
+            .WithMessage("ErrorValidator_Medical_Changed")
+            .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value)) 
+            .WithMessage("ErrorValidator_MedicalCreated_Invalid")
+            .MustAsync(async (entity, value, c) => await MedicalModify(entity, value)) 
+            .WithMessage("ErrorValidator_MedicalModify_Invalid");
 
             #endregion Relationship 
-        } 
+        }
         private async Task<bool> MedicalIdFound(Patient entity, long value)
         {
             var entityFind = await _medicalRepository.FindByID(entity.MedicalId);
@@ -136,58 +138,74 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
             return true;
         }
 
+        private async Task<bool> UniqueEmail(Patient entity, string value)
+        {
+            var entityActual = await _entityRepository.FindByID(entity.Id);
+            bool isNewEnity = entityActual == null;
+            var existingEnity = await _entityRepository.FindByEmail(value);
+            if (isNewEnity && existingEnity != null)
+            {
+                return false;
+            }
+            bool changingProp = entityActual != null && entityActual.Email != value;
+            if (changingProp)
+            {
+                return false;
+            }
+            return true;
+        }
         private async Task<bool> MedicalChanged(Patient entity, long value)
         {
-            long idUser = entity.CreatedUserId.GetValueOrDefault();
-            var entityBefore = await _entityRepository.FindByID(value);
-            if (entityBefore != null)
+            if (entity?.Id > 0)
             {
-                if (entityBefore.MedicalId != entity.MedicalId)
+                long idUser = entity.CreatedUserId.GetValueOrDefault();
+                var entityBefore = await _entityRepository.FindByID(value);
+                if (entityBefore != null)
+                {
+                    if (entityBefore.MedicalId != entity.MedicalId)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private async Task<bool> MedicalCreated(Patient entity, long value)
+        {
+            if (entity?.Id == 0)
+            {
+                long idUser = entity.CreatedUserId.GetValueOrDefault();
+                var medical = await _medicalRepository.FindByID(value);
+                if (medical == null || (medical.UserId != null && medical.UserId != idUser))
                 {
                     return false;
                 }
             }
             return true;
         }
-         
-        private async Task<bool> MedicalCreated(Patient entity, long value)
-        {
-            long idUser = entity.CreatedUserId.GetValueOrDefault();
-            var medical = await _medicalRepository.FindByID(value);
-            if (medical == null || medical.UserId != idUser)
-            {
-                return false;
-            }
-            return true;
-        }
 
         private async Task<bool> MedicalModify(Patient entity, long value)
         {
-            long idUser = entity.ModifyUserId.GetValueOrDefault();
-
-            var medical = await _medicalRepository.FindByID(value);
-            if (medical == null || medical.UserId != idUser)
+            if (entity?.Id > 0)
             {
-                return false;
+                long idUser = entity.ModifyUserId.GetValueOrDefault();
+
+                var medical = await _medicalRepository.FindByID(value);
+                if (medical == null || (medical.UserId != null && medical.UserId != idUser))
+                {
+                    return false;
+                }
             }
             return true;
         }
-         
+
         protected bool BeAValidAge(DateTime date)
         {
             int currentYear = DateTime.Now.Year;
             int dobYear = date.Year;
 
             if (dobYear <= currentYear && dobYear > (currentYear - 130))
-            {
-                return true;
-            }
-            return false;
-        }
-        private async Task<bool> UniqueEmail(Patient entity, string value)
-        {
-            var user = await _entityRepository.FindByEmail(value);
-            if (user == null || user?.Id == 0)
             {
                 return true;
             }

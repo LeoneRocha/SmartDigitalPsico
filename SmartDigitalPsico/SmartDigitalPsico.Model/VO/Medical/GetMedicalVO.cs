@@ -8,7 +8,9 @@ using SmartDigitalPsico.Model.VO.Patient;
 namespace SmartDigitalPsico.Model.VO.Medical
 {
     public class GetMedicalVO : EntityVOBase, ISupportsHyperMedia
-    {  
+    {
+        public string Name { get; set; }
+
         #region Relationship
 
         public GetOfficeVO Office { get; set; }
@@ -28,5 +30,10 @@ namespace SmartDigitalPsico.Model.VO.Medical
         #endregion Columns  
 
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+         
+        //public long OfficeId { get; set; }       
+         
+        //public List<long> SpecialtiesIds { get; set; }
+
     }
 }

@@ -7,6 +7,6 @@ namespace SmartDigitalPsico.Model.VO.Domains.UpdateVOs
 {
     public class UpdateRoleGroupVO : EntityVOBaseDomain
     {
-
+        public string RolePolicyClaimCode { get; set; }
     }
 }

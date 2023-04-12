@@ -3,16 +3,20 @@ using Azure;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Business.Validation.Helper;
-using SmartDigitalPsico.Business.Validation.PatientValidations;
+using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using System.Text;
 
 namespace SmartDigitalPsico.Business.Principals
@@ -28,8 +32,9 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IValidator<Patient> _entityValidator;
 
         public PatientBusiness(IMapper mapper, IPatientRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IMedicalRepository medicalRepository
-            , IValidator<Patient> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<Patient> entityValidator
+            , IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -59,6 +64,8 @@ namespace SmartDigitalPsico.Business.Principals
                 entityAdd.CreatedUser = userAction;
 
                 #endregion User Action
+                
+                entityAdd.MedicalId = 1; // TESTE ARRUMAR NO FRONT 
 
                 response = await base.Validate(entityAdd);
                 if (response.Success)
@@ -75,7 +82,8 @@ namespace SmartDigitalPsico.Business.Principals
 
                     Patient entityResponse = await _entityRepository.Create(entityAdd);
                     response.Data = _mapper.Map<GetPatientVO>(entityResponse);
-                    response.Message = "Patient registred.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterCreated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception ex)
@@ -141,7 +149,8 @@ namespace SmartDigitalPsico.Business.Principals
                 {
                     Patient entityResponse = await _entityRepository.Update(entityUpdate);
                     response.Data = _mapper.Map<GetPatientVO>(entityResponse);
-                    response.Message = "Patient Updated.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterUpdated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception ex)
@@ -163,12 +172,14 @@ namespace SmartDigitalPsico.Business.Principals
             if (patientFinded == null)
             {
                 response.Success = false;
-                response.Message = "Patient not found.";
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
                 return response;
             }
             response.Data = _mapper.Map<GetPatientVO>(patientFinded);
             response.Success = true;
-            response.Message = "Patient finded.";
+            response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);
             return response;
 
         }
@@ -192,7 +203,8 @@ namespace SmartDigitalPsico.Business.Principals
                 response.Data = entityResponse.Select(c => _mapper.Map<GetPatientVO>(c)).ToList();
 
                 response.Success = true;
-                response.Message = "Register exist.";
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);
             }
             catch (Exception ex)
             {
@@ -212,7 +224,9 @@ namespace SmartDigitalPsico.Business.Principals
             if (invalidAccess)
             {
                 response.Success = false;
-                response.Message = "Erro de permissão.";
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);
+
                 response.Errors = new List<ErrorResponse>();
                 response.Errors.Add(validateResult);
                 return response;

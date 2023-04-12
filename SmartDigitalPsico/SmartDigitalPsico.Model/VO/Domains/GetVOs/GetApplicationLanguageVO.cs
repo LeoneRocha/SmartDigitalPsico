@@ -19,6 +19,8 @@ namespace SmartDigitalPsico.Model.VO.Domains.GetVOs
 
 
         public string LanguageValue { get; set; }
+         
+        public string ResourceKey { get; set; }
 
     }
 }

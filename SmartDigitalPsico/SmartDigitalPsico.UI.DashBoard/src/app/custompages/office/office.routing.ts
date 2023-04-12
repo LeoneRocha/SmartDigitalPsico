@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';  
 import { OfficeComponent } from './office.component';
+import { AddEditOfficeComponent } from './add-edit-office/add-edit-office.component';
 
 export const OfficeRoutes: Routes = [{
     path: '',
@@ -7,5 +8,8 @@ export const OfficeRoutes: Routes = [{
         //path: 'pages/office',
         path: '',
         component: OfficeComponent
+    }, {
+        path: 'officeaction',
+        component: AddEditOfficeComponent
     }]
 }];

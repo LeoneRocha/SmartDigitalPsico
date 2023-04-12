@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
@@ -12,6 +13,7 @@ using SmartDigitalPsico.Model.VO.Patient;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Model.VO.Utils;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -26,10 +28,10 @@ namespace SmartDigitalPsico.Business.Principals
         IConfiguration _configuration;
         ITokenConfiguration _configurationToken;
         private readonly ITokenService _tokenService;
-        AuthConfigurationVO _configurationAuth; 
+        AuthConfigurationVO _configurationAuth;
         public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
-            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator, IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _userRepository = entityRepository;
@@ -96,7 +98,7 @@ namespace SmartDigitalPsico.Business.Principals
             {
                 //TODO: GENARATE LOGS
                 throw ex;
-            } 
+            }
             return response;
         }
 
@@ -105,11 +107,10 @@ namespace SmartDigitalPsico.Business.Principals
             ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
 
             try
-            { 
+            {
                 User entityUpdate = await _userRepository.FindByID(updateUser.Id);
 
-                bool exists = await UserExists(entityUpdate.Name);
-                if (!exists)
+                if (entityUpdate == null || entityUpdate?.Id == 0)
                 {
                     response.Success = false;
                     response.Message = "User not found.";
@@ -117,14 +118,34 @@ namespace SmartDigitalPsico.Business.Principals
                 }
                 entityUpdate.Name = updateUser.Name;
                 entityUpdate.Enable = updateUser.Enable;
-                entityUpdate.Email = updateUser.Email; 
+                entityUpdate.Email = updateUser.Email;
+                entityUpdate.Language = updateUser.Language;
+                if (!string.IsNullOrEmpty(updateUser.Password))
+                {
+                    SecurityHelper.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                    entityUpdate.PasswordHash = passwordHash;
+                    entityUpdate.PasswordSalt = passwordSalt;
+                }
+                var isAdmin =  updateUser?.Admin.GetValueOrDefault();
+                entityUpdate.Role = string.IsNullOrEmpty(updateUser?.Role) ? "Pendente" : updateUser?.Role;
+                entityUpdate.Admin = isAdmin != null && isAdmin == true ? true : false; 
 
-                User entityResponse = await _userRepository.Update(entityUpdate);
-                response.Success = true;
-                response.Data = _mapper.Map<GetUserVO>(entityResponse);
+                entityUpdate.ModifyDate = DateTime.Now;
+
+                entityUpdate.MedicalId = updateUser?.MedicalId;
+                 
+                response = await base.Validate(entityUpdate);
 
                 if (response.Success)
-                    response.Message = "User Updated.";
+                {
+
+                    User entityResponse = await _userRepository.Update(entityUpdate);
+                    response.Success = true;
+                    response.Data = _mapper.Map<GetUserVO>(entityResponse);
+
+                    if (response.Success)
+                        response.Message = "User Updated.";
+                } 
             }
             catch (Exception)
             {
@@ -132,6 +153,39 @@ namespace SmartDigitalPsico.Business.Principals
                 throw;
             }
 
+            return response;
+        }
+        public override async Task<ServiceResponse<GetUserVO>> Create(AddUserVO userRegisterVO)
+        {
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
+            try
+            {
+                SecurityHelper.CreatePasswordHash(userRegisterVO.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+                User entityAdd = _mapper.Map<User>(userRegisterVO);
+
+                entityAdd.PasswordHash = passwordHash;
+                entityAdd.PasswordSalt = passwordSalt;
+                entityAdd.CreatedDate = DateTime.Now;
+                entityAdd.ModifyDate = DateTime.Now;
+                entityAdd.LastAccessDate = DateTime.Now;
+                entityAdd.Role = string.IsNullOrEmpty(userRegisterVO?.Role) ? "Pendente" : "";
+                entityAdd.Admin = userRegisterVO?.Admin != null ? true : false;
+
+                response = await base.Validate(entityAdd);
+
+                if (response.Success)
+                {
+                    User entityResponse = await _userRepository.Register(entityAdd);
+                    response.Data = _mapper.Map<GetUserVO>(entityResponse);
+                    response.Message = "User registred.";
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: GENARATE LOGS
+                throw ex;
+            }
             return response;
         }
 
@@ -232,6 +286,6 @@ namespace SmartDigitalPsico.Business.Principals
                 accessToken,
                 refreshToken
                 );
-        } 
+        }
     }
 }

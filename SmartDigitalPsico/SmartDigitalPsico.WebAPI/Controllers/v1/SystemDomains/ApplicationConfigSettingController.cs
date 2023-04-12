@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
@@ -6,8 +7,7 @@ using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Domains.AddVOs;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Domains.UpdateVOs;
-using SmartDigitalPsico.Services.Contracts.SystemDomains; 
-using SmartDigitalPsico.WebAPI.Helper;
+using SmartDigitalPsico.Services.Contracts.SystemDomains;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class ApplicationConfigSettingController : ApiBaseController
     {
@@ -42,7 +42,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         }
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetApplicationConfigSettingVO>>> FindByID(int id)
         {
             this.setUserIdCurrent();
             return Ok(await _entityService.FindByID(id));

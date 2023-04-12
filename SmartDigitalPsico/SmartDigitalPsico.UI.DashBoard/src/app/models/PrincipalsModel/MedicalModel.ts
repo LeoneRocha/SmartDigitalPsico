@@ -4,10 +4,10 @@ import { OfficeModel } from "../simplemodel/OfficeModel";
 import { SpecialtyModel } from "../simplemodel/SpecialtyModel"; 
 
 export interface MedicalModel extends BaseEntityModel { 
-    office: OfficeModel
+    office?: OfficeModel
     officeId: number;
     specialtiesIds: Array<number>;
-    specialties: SpecialtyModel[] 
+    specialties?: SpecialtyModel[] 
     accreditation: string
-    typeAccreditation: ETypeAccreditation 
+    typeAccreditation: number 
 }

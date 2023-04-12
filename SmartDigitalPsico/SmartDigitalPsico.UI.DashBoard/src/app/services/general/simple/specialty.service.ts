@@ -6,7 +6,7 @@ import { environment } from 'environments/environment';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { GenericService } from 'app/services/generic/generic.service';
 
-const basePathUrl = '/Specialty/v1';
+const basePathUrl = '/specialty/v1';
 @Injectable()
 export class SpecialtyService extends GenericService<ServiceResponse<SpecialtyModel>, SpecialtyModel, number> {
 

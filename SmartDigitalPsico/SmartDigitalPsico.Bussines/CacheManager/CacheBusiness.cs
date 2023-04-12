@@ -2,8 +2,10 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Enuns;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Repository.CacheManager;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using System.Reflection;
@@ -139,6 +141,31 @@ namespace SmartDigitalPsico.Business.CacheManager
         {
             return DateTime.Now.AddHours(_cacheConfig.AbsoluteExpirationInHours).AddMinutes(_cacheConfig.SlidingExpirationInMinutes);
         }
+
+        public static async Task SaveDataToCache<T>(string keyCache, T dataToCache, ICacheBusiness cacheBusiness)
+        {
+            await Task.FromResult(0);
+
+            ServiceResponseCacheVO<T> cacheSave = new ServiceResponseCacheVO<T>(dataToCache, keyCache, cacheBusiness.GetSlidingExpiration());
+            bool resultAction = cacheBusiness.Set<ServiceResponseCacheVO<T>>(keyCache, cacheSave);
+        }
+        public static async Task<ServiceResponse<T>> GetDataFromCache<T>(ICacheBusiness cacheBusiness, string keyCache)
+        {
+            await Task.FromResult(0);
+
+            ServiceResponse<T> result = new ServiceResponse<T>();
+             
+            if (cacheBusiness.IsEnable())
+            {
+                bool existsCache = cacheBusiness.TryGet<ServiceResponseCacheVO<T>>(keyCache, out ServiceResponseCacheVO<T> cachedResult);
+                if (existsCache)
+                {
+                    result.Data = cachedResult.Data;
+                }
+            } 
+            return result;
+        }
+
 
         #region PRIVATES
         private bool processCacheRepositoryDisk<T>(string cacheKey, T? value)

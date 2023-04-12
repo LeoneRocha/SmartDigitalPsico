@@ -1,14 +1,16 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Entity.Domains;
+using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Medical;
 using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
 namespace SmartDigitalPsico.Business.Principals
 {
@@ -21,8 +23,9 @@ namespace SmartDigitalPsico.Business.Principals
         private readonly IPatientMedicationInformationRepository _entityRepository;
         private readonly IPatientRepository _patientRepository;
 
-        public PatientMedicationInformationBusiness(IMapper mapper, IPatientMedicationInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository, IValidator<PatientMedicationInformation> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+        public PatientMedicationInformationBusiness(IMapper mapper, IPatientMedicationInformationRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository, IValidator<PatientMedicationInformation> entityValidator
+            , IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -58,7 +61,8 @@ namespace SmartDigitalPsico.Business.Principals
                     PatientMedicationInformation entityResponse = await _entityRepository.Create(entityAdd);
 
                     response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse); 
-                    response.Message = "Patient registred.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterCreated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception)
@@ -101,7 +105,8 @@ namespace SmartDigitalPsico.Business.Principals
                     PatientMedicationInformation entityResponse = await _entityRepository.Update(entityUpdate);
 
                     response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse);
-                    response.Message = "PatientMedicationInformation updated.";
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterUpdated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
             }
             catch (Exception ex)

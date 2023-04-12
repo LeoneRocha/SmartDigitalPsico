@@ -1,3 +1,26 @@
+  https://ngrx.io/guide/store
+  https://codeburst.io/angular-10-ngrx-store-by-example-333cbf16862c
+  https://github.com/angular-redux/ng-redux#installation
+
+ngrx
+e a mais usada 
+
+ng add 
+
+$ npm install @ngrx/store-devtools@latest --force
+
+
+
+  $ npm install @ngrx/core --force
+$ npm install @ngrx/store --force
+$ npm install @ngrx/effects --force
+
+ng add @ngrx/store-devtools@latest
+
+
+  https://www.learmoreseekmore.com/2022/06/angular-14-statemanagement-crud-example-with-rxjs14.html
+
+
   <div class="fresh-datatables">
                              <!--      Transformar em componente   -->
                             <table id="datatables" class="table table-striped table-no-bordered table-hover"

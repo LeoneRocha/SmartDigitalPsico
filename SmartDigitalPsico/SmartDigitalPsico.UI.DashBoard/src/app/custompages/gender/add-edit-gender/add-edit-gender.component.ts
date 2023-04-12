@@ -3,17 +3,22 @@ import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
-import {  ServiceResponse } from 'app/models/ServiceResponse';
+import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { LanguageOptions } from 'app/common/language-options';
-import { CaptureTologFunc } from 'app/common/app-error-handler';
-import { GetMsgServiceResponse } from 'app/common/GetMsgServiceResponse';
+import { LanguageOptions } from 'app/common/enuns/language-options';
+import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
+import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
+import { botaoAnimado } from 'app/common/animations/geral-trigger-animation';
+import { LanguageService } from 'app/services/general/language.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-gender',
-    templateUrl: 'add-edit-gender.component.html'
+    templateUrl: 'add-edit-gender.component.html',
     //styleUrls: ['./gender.component.css']
+    animations: [
+        botaoAnimado
+    ]
 })
 //5-  a lista
 
@@ -25,19 +30,37 @@ export class AddEditGenderComponent implements OnInit {
     registerModel: GenderModel;
     serviceResponse: ServiceResponse<GenderModel>;
     public languages = LanguageOptions;
+    estadoBotao_goBackToList = 'inicial';
+    estadoBotao_addRegister = 'inicial';
+    estadoBotao_updateRegister = 'inicial';
 
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(GenderService) private registerService: GenderService,
-        private fb: FormBuilder, @Inject(Router) private router: Router) {
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(GenderService) private registerService: GenderService
+        , private fb: FormBuilder, @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) {
         this.gerateFormRegister();
     }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+    }
+    ngAfterViewInit() {
+    }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -51,8 +74,7 @@ export class AddEditGenderComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
-    ngAfterViewInit() {
-    }
+
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
             next: (response: ServiceResponse<GenderModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
@@ -60,12 +82,14 @@ export class AddEditGenderComponent implements OnInit {
     }
     addRegister() {
         this.getValuesForm();
+        //this.registerModel.description = '';//TESTE 
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<GenderModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
     updateRegister() {
         this.getValuesForm();
+        //this.registerModel.description = '';//TESTE 
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<GenderModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -75,10 +99,11 @@ export class AddEditGenderComponent implements OnInit {
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
+            this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
         }
-        this.goBackToList();
+
     }
     processAddRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processAddRegisterErro-gender', response);

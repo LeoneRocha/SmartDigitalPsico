@@ -3,6 +3,7 @@ using Azure;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Enuns;
@@ -12,6 +13,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
+using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.FileManager;
 
 namespace SmartDigitalPsico.Business.Principals
@@ -29,8 +31,10 @@ namespace SmartDigitalPsico.Business.Principals
 
         public PatientFileBusiness(IMapper mapper, IPatientFileRepository entityRepository, IConfiguration configuration,
             IUserRepository userRepository, IPatientRepository patientRepository
-            , IValidator<PatientFile> entityValidator)
-            : base(mapper, entityRepository, entityValidator)
+            , IValidator<PatientFile> entityValidator
+            , IApplicationLanguageRepository applicationLanguageRepository
+            , ICacheBusiness cacheBusiness)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository,cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;

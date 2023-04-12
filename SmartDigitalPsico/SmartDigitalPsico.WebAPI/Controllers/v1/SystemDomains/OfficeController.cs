@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
@@ -16,7 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class OfficeController : ApiBaseController
     {
@@ -36,12 +37,17 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         public async Task<ActionResult<ServiceResponse<List<GetOfficeVO>>>> Get()
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindAll());
+            var response = await _entityService.FindAll();
+            if (response.Data == null)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response); 
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetOfficeVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetOfficeVO>>> FindByID(int id)
         {
             this.setUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
@@ -73,7 +79,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         {
             this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
-            if (response.Data)
+            if (!response.Success)
             {
                 return NotFound(response);
             }

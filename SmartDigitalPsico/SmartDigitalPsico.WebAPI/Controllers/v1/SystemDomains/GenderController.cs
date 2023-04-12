@@ -48,7 +48,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> GetById(int id)
+        public async Task<ActionResult<ServiceResponse<GetGenderVO>>> FindByID(int id)
         {
             this.setUserIdCurrent();
             return Ok(await _entityService.FindByID(id));
@@ -80,7 +80,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.SystemDomains
         {
             this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
-            if (!response.Data)
+            if (!response.Success)
             {
                 return NotFound(response);
             }

@@ -45,6 +45,7 @@ namespace SmartDigitalPsico.WebAPI.Helper
             services.AddScoped<IRepositoryFileDisk, RepositoryFileDisk>();
             services.AddScoped<IMemoryCacheRepository, MemoryCacheRepository>();
             services.AddScoped<IDiskCacheRepository, DiskCacheRepository>();
+            //services.AddScoped<IStringLocalizer<SharedResource>, IStringLocalizer<SharedResource>>();
 
             //services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

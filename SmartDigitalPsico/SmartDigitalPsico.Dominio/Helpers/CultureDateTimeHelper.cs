@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartDigitalPsico.Domains.Helpers
 {
@@ -12,6 +9,17 @@ namespace SmartDigitalPsico.Domains.Helpers
     {
 
         public CultureDateTimeHelper() { }
+
+        private static List<CultureInfo> getCulturesEnable()
+        {
+            List<CultureInfo> list = new List<CultureInfo>();
+
+            list.Add(new CultureInfo("en-US"));
+            list.Add(new CultureInfo("pt-BR"));
+            list.Add(new CultureInfo("es-ES"));
+
+            return list;
+        }
 
         public static List<TimeZoneDisplay> GetTimeZonesIds()
         {
@@ -30,12 +38,53 @@ namespace SmartDigitalPsico.Domains.Helpers
             CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
 
             foreach (CultureInfo cul in cinfo)
-
             {
                 result.Add(new CultureDisplay() { Id = cul.Name, Name = cul.DisplayName });
             }
+            var culturesEnables = getCulturesEnable().Select(cie => cie.Name).ToList();
+            result = result.Where(ci => culturesEnables.Contains(ci.Id)).ToList();
+
             return result;
         }
+
+        public static List<CultureInfo> TranslateCulture(List<CultureDisplay> cultureDisplays)
+        {
+            return cultureDisplays.Select(cd => new CultureInfo(cd.Id)).ToList();
+        }
+
+        public static string GetNameAndCulture(string localizedStringKeyName)
+        {
+
+            string culturenameCurrent = CultureInfo.CurrentCulture.Name;
+
+            //  return $"{localizedStringKeyName}.{culturenameCurrent}";
+            return $"{localizedStringKeyName}";
+
+        }
+        public static string GetKeyLocalizationRecordFormat(string LanguageKey, string Language)
+        {
+            //return $"{LanguageKey}.{Language}";
+            return $"{LanguageKey}";
+        }
+
+        public static string GetLocalizer<T>(Microsoft.Extensions.Localization.IStringLocalizer<T> localizer, string key)
+        {
+            string result = "NotFoundLocalization";
+            try
+            {
+                var culturenameCurrent = CultureInfo.CurrentCulture;
+
+                var findKey = CultureDateTimeHelper.GetNameAndCulture(key);
+                string message = localizer.GetString(findKey);
+
+                result = message;
+            }
+            catch (Exception)
+            {
+
+            }
+            return result;
+        } 
     }
     public class CultureDisplay : TimeZoneDisplay
     {

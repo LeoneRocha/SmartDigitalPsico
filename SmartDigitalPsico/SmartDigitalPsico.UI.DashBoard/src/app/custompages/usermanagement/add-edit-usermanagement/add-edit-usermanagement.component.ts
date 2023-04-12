@@ -36,6 +36,9 @@ export class AddEditUserManagementComponent implements OnInit {
     public timeZonesGlobal: SimpleGeneralModel[];
     public medicalsOpts: MedicalModel[];
 
+    estadoBotao_goBackToList = 'inicial';
+    estadoBotao_addRegister = 'inicial';
+    estadoBotao_updateRegister = 'inicial';
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
         @Inject(UserService) private registerService: UserService,
@@ -45,6 +48,18 @@ export class AddEditUserManagementComponent implements OnInit {
         private fb: FormBuilder, @Inject(Router) private router: Router) {
         this.gerateFormRegister();
     }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+            if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+            if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado; 
+    }
+
     ngOnInit() {
 
         this.loadGlobalization();

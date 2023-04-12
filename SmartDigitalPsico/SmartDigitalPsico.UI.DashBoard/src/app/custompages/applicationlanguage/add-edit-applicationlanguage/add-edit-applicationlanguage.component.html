@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="language">{{ "general.language" | translate }}:</label> <span
+                                        <label for="language">{{ "general.language.title" | translate }}:</label> <span
                                             class="star">*</span>
                                         <select formControlName="language" required name="language" class="form-control"
                                             data-style="btn-default btn-block"
@@ -42,7 +42,7 @@
                                             </option>
                                         </select>
                                         <small [hidden]="!isValidFormLanguage()" class="text-danger">
-                                            {{ "general.language_required" | translate }}
+                                            {{ "general.language.required" | translate }}
                                         </small>
                                     </div>
                                 </div>

@@ -6,14 +6,48 @@
   "general": {
     "select": "Select",
     "enable": "Enable",
+    "admin": "Admin",
     "backnav": "Back",
     "newregisterbtn": "New",
     "updateregisterbtn": "Update",
     "saveregisterbtn": "Save",
     "description": "Description",
     "description_required": "Description is required!",
-    "language": "Language!",
-    "language_required": "Language is required!"
+    "altAdd": "Add",
+    "altEdit": "Edit",
+    "altView": "View",
+    "altDelete": "Delete",
+    "name": {
+      "title": "Name",
+      "required": "Name is required"
+    },
+    "language": {
+      "title": "Language",
+      "required": "Language is required"
+    },
+    "email": {
+      "title": "Email",
+      "required": "Email is required"
+    },
+    "login": {
+      "title": "Login",
+      "required": "Login is required"
+    },
+    "timezone": {
+      "title": "Time Zone",
+      "required": "Time Zone is required"
+    },
+    "password": {
+      "title": "Password",
+      "required": "Password is required"
+    },
+    "mainrole": {
+      "title": "Main Role",
+      "required": "Main Role"
+    }
+  },
+  "modalAlert": {
+    "select": "Select"
   },
   "appsetting": {
     "title": "Configuration",
@@ -69,6 +103,28 @@
       "TitleAdd": "Add Specialty",
       "TitleEdit": "Edit Specialty",
       "TitleView": "View Specialty"
+    }
+  },
+  "user": {
+    "title": "User",
+    "category": "List of User",
+    "select": "Select User",
+    "form": {
+      "TitleAdd": "Add User",
+      "TitleEdit": "Edit User",
+      "TitleView": "View User"
+    }
+  },
+  "medical": {
+    "title": "Medical",
+    "required": "Medical is required",
+
+    "category": "List of Medical",
+    "select": "Select Medical",
+    "form": {
+      "TitleAdd": "Add Medical",
+      "TitleEdit": "Edit Medical",
+      "TitleView": "View Medical"
     }
   },
   "rolegroup": {

@@ -105,7 +105,7 @@
       "TitleView": "View Specialty"
     }
   },
-  "user": {
+  "usermgt": {
     "title": "User",
     "category": "List of User",
     "select": "Select User",

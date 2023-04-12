@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { UserLoginModel } from 'app/models/usermodels/UserLoginModel';
 import { AuthService } from 'app/services/auth/auth.service';
 
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
     constructor(
         @Inject(Router) private router: Router,
         @Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(AuthService) private authService: AuthService) {
+        @Inject(AuthService) private authService: AuthService,
+        // @Inject(TranslateService) private translate: TranslateService
+    ) {
 
     }
 
@@ -47,7 +50,7 @@ export class LoginComponent implements OnInit {
         if (isLoged) {
             let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
             this.router.navigate([returnUrl || '/administrative/dashboard']);
-         }
+        }
     }
     signIn() {
         this.authService.login(this.userLoginModel).subscribe({

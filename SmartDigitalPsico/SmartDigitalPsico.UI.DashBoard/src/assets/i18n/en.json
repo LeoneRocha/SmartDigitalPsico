@@ -7,7 +7,22 @@
     "home": "Home",
     "company": "Company",
     "portfolio": "Portfolio",
-    "blog": "Blog" 
+    "blog": "Blog",
+    "dashboard": "Dashboard",
+    "patient": "Patients",
+    "users": "Users",
+    "patientrecord": "records",
+    "configurations": "Configurations",
+    "registers": "Registers",
+    "userpage": "User Page",
+    "userregisterpage": "Register Page",
+    "gender": "Gender",
+    "office": "Office",
+    "rolegroup": "Role Group",
+    "specialty": "Specialty",
+    "applicationsetting": "Configurações Sistema",
+    "applicationlanguage": "Idiomas",
+    "medicals": "Medicals"
   },
   "general": {
     "select": "Select",
@@ -36,12 +51,12 @@
       "required": "Email is required"
     },
     "login": {
-      "title": "Login",      
+      "title": "Login",
       "logout": "Log out",
       "required": "Login is required",
       "header": "Access your account",
       "rememberme": "Remember me",
-      "invalidLogin" : "Invalid username and/or password."
+      "invalidLogin": "Invalid username and/or password."
     },
     "timezone": {
       "title": "Time Zone",

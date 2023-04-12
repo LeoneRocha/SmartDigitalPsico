@@ -6,6 +6,7 @@ declare var $: any;
 //Metadata
 export interface RouteInfo {
     path: string;
+    id: string;
     title: string;
     type: string;
     icontype: string;
@@ -24,14 +25,16 @@ export interface ChildrenItems {
 //Menu Items
 export const ROUTES: RouteInfo[] = [{
     path: '/administrative/dashboard',
-    title: 'Inicio',
+    title: 'navbar.dashboard',//Inicio
+    id: "dashboard",
     type: 'link',
     roleaccess: 'Read',
     icontype: 'pe-7s-home'
 },
 {
     path: '/medical',
-    title: 'Médicos',
+    id: "medical",
+    title: 'navbar.medicals',
     type: 'sub',
     icontype: 'pe-7s-users',
     roleaccess: 'Read',
@@ -41,55 +44,60 @@ export const ROUTES: RouteInfo[] = [{
 },
 {
     path: '/patient',
-    title: 'Pacientes',
+    id: "patient",
+    title: 'navbar.patient',
     type: 'sub',
     icontype: 'pe-7s-users',
     roleaccess: 'Read',
     children: [
-        { path: 'manage', title: 'Paciente', ab: 'P' },
-        { path: 'patientrecord', title: 'Pontuarios', ab: 'PP' },
+        { path: 'manage', title: 'navbar.patient', ab: 'P' },
+        { path: 'patientrecord', title: 'navbar.patientrecord', ab: 'PP' },
     ]
 },
 {
     path: '/administrative',
-    title: 'Usuários',
+    id: "users",
+    title: 'navbar.users',
     type: 'sub',
     icontype: 'pe-7s-users',
     roleaccess: 'Read',
     children: [
-        { path: 'usermanagement', title: 'Usuários', ab: 'U' }
+        { path: 'usermanagement', title: 'navbar.users', ab: 'U' }
     ]
 }, {
     path: '/administrative',
-    title: 'Configurações',
+    id: "administrative",
+    title: 'navbar.configurations', //'Configurações',
     type: 'sub',
     icontype: 'pe-7s-tools',
     roleaccess: 'Read',
     children: [
-        { path: 'gender', title: 'Gender', ab: 'G' },
-        { path: 'office', title: 'Office', ab: 'O' },
-        { path: 'rolegroup', title: 'Role Group', ab: 'RG' },
-        { path: 'specialty', title: 'Specialty', ab: 'S' },
-        { path: 'applicationsetting', title: 'Configurações Sistema', ab: 'CS' },
-        { path: 'applicationlanguage', title: 'Idiomas', ab: 'I' },
+        { path: 'gender', title: 'navbar.gender', ab: 'G' },
+        { path: 'office', title: 'navbar.office', ab: 'O' },
+        { path: 'rolegroup', title: 'navbar.rolegroup', ab: 'RG' },
+        { path: 'specialty', title: 'navbar.specialty', ab: 'S' },
+        { path: 'applicationsetting', title: 'navbar.applicationsetting', ab: 'CS' },
+        { path: 'applicationlanguage', title: 'navbar.applicationlanguage', ab: 'I' },
     ]
 }, {
     path: '/pages',
-    title: 'Cadastros',
+    id: "pages",
+    title: 'navbar.registers',//'Cadastros',
     type: 'sub',
     icontype: 'pe-7s-gift',
     roleaccess: 'Read',
     children: [
-        { path: 'user', title: 'User Page', ab: 'UP' },
+        { path: 'user', title: 'navbar.userpage', ab: 'UP' },
     ]
 }, {
     path: '/authpages',
-    title: 'Modelos',
+    id: "authpages",
+    title: 'Models',
     type: 'sub',
     icontype: 'pe-7s-gift',
     roleaccess: 'Read',
     children: [
-        { path: 'register', title: 'Register Page', ab: 'RP' }
+        { path: 'register', title: 'navbar.userregisterpage', ab: 'RP' }
     ]
 }
 ];
@@ -102,7 +110,7 @@ export const ROUTES: RouteInfo[] = [{
 })
 
 export class SidebarComponent {
-    public userNameAtenticate: string ;//= "Nome do Medico/User Logado";
+    public userNameAtenticate: string;//= "Nome do Medico/User Logado";
     public menuItems: any[];
 
     isNotMobileMenu() {

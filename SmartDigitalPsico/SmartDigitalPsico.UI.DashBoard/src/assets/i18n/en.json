@@ -37,6 +37,7 @@
     },
     "login": {
       "title": "Login",      
+      "logout": "Log out",
       "required": "Login is required",
       "header": "Access your account",
       "rememberme": "Remember me",
@@ -114,10 +115,11 @@
       "TitleView": "View Specialty"
     }
   },
-  "usermgt": {
+  "user": {
     "title": "User",
     "category": "List of User",
     "select": "Select User",
+    "myprofile": "My Profile",
     "form": {
       "TitleAdd": "Add User",
       "TitleEdit": "Edit User",

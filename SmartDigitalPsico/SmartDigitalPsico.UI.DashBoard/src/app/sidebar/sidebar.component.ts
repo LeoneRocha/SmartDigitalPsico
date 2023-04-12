@@ -8,7 +8,7 @@ export interface RouteInfo {
     path: string;
     title: string;
     type: string;
-    icontype: string; 
+    icontype: string;
     roleaccess: string;
     // icon: string;
     children?: ChildrenItems[];
@@ -25,7 +25,7 @@ export interface ChildrenItems {
 export const ROUTES: RouteInfo[] = [{
     path: '/administrative/dashboard',
     title: 'Inicio',
-    type: 'link', 
+    type: 'link',
     roleaccess: 'Read',
     icontype: 'pe-7s-home'
 },
@@ -33,17 +33,17 @@ export const ROUTES: RouteInfo[] = [{
     path: '/medical',
     title: 'Médicos',
     type: 'sub',
-    icontype: 'pe-7s-users', 
+    icontype: 'pe-7s-users',
     roleaccess: 'Read',
     children: [
-        { path: 'manage', title: 'Médicos', ab: 'M' }, 
+        { path: 'manage', title: 'Médicos', ab: 'M' },
     ]
 },
 {
     path: '/patient',
     title: 'Pacientes',
     type: 'sub',
-    icontype: 'pe-7s-users', 
+    icontype: 'pe-7s-users',
     roleaccess: 'Read',
     children: [
         { path: 'manage', title: 'Paciente', ab: 'P' },
@@ -54,7 +54,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/administrative',
     title: 'Usuários',
     type: 'sub',
-    icontype: 'pe-7s-users', 
+    icontype: 'pe-7s-users',
     roleaccess: 'Read',
     children: [
         { path: 'usermanagement', title: 'Usuários', ab: 'U' }
@@ -63,7 +63,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/administrative',
     title: 'Configurações',
     type: 'sub',
-    icontype: 'pe-7s-tools', 
+    icontype: 'pe-7s-tools',
     roleaccess: 'Read',
     children: [
         { path: 'gender', title: 'Gender', ab: 'G' },
@@ -77,7 +77,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/pages',
     title: 'Cadastros',
     type: 'sub',
-    icontype: 'pe-7s-gift', 
+    icontype: 'pe-7s-gift',
     roleaccess: 'Read',
     children: [
         { path: 'user', title: 'User Page', ab: 'UP' },
@@ -86,7 +86,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/authpages',
     title: 'Modelos',
     type: 'sub',
-    icontype: 'pe-7s-gift', 
+    icontype: 'pe-7s-gift',
     roleaccess: 'Read',
     children: [
         { path: 'register', title: 'Register Page', ab: 'RP' }
@@ -102,7 +102,7 @@ export const ROUTES: RouteInfo[] = [{
 })
 
 export class SidebarComponent {
-
+    public userNameAtenticate: string ;//= "Nome do Medico/User Logado";
     public menuItems: any[];
 
     isNotMobileMenu() {
@@ -133,7 +133,7 @@ export class SidebarComponent {
         return this.authService.isLoggedIn();
     }
     ngOnInit() {
-
+        this.userNameAtenticate = this.authService.getLocalStorageUser().name;
         var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
         this.menuItems = ROUTES.filter(menuItem => menuItem);
 

@@ -1,30 +1,29 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { GenderComponent } from './gender.component';
 import { GenderRoutes } from './gender.routing';
-import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component'; 
+import { AddEditGenderComponent } from './add-edit-gender/add-edit-gender.component';
 import { GenericDataTableGrid } from 'app/components/genericdatatablegrid/genericdatatablegrid.component';
-import { CustomPagesModule } from 'app/custommodules/custompages.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
+import { CustomPagesModule } from 'app/custommodules/custompages.module'; 
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { LanguageService } from 'app/services/general/language.service';
 
- 
+
 @NgModule({
     imports: [
         CustomPagesModule,
-        RouterModule.forChild(GenderRoutes), 
-        NgxTranslateModule,    
+        RouterModule.forChild(GenderRoutes),
+        NgxTranslateModule,
     ],
     declarations: [
         GenderComponent,
-        AddEditGenderComponent,  
+        AddEditGenderComponent,
         GenericDataTableGrid
     ]
     ,
     providers: [
-        GenderService
+        GenderService, LanguageService
     ],
 })
 

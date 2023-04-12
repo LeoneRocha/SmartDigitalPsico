@@ -57,7 +57,7 @@
       "header": "Acesse sua conta",
       "rememberme": "Lembrar de mim",
       "register": "Registra-se" ,
-      "changelanguage": "Clique para mudar idoma",
+      "changelanguage": "Mudar idoma",
       "invalidLogin": "Usuário e/ou senha inválidos."
     },
     "timezone": {

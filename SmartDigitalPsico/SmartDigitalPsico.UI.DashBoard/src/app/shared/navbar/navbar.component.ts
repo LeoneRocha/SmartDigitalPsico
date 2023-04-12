@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef, Directive, Inject 
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from 'app/services/auth/auth.service';
 import { ROUTES } from 'app/sidebar/routerpaths';
+import { AppComponent } from 'app/app.component';
 
 var misc: any = {
     navbar_menu_visible: 0,
@@ -26,7 +27,8 @@ export class NavbarComponent implements OnInit {
     @ViewChild("navbar-cmp") button;
 
     constructor(location: Location, private renderer: Renderer2, private element: ElementRef
-        , @Inject(AuthService) private authService: AuthService) {
+        , @Inject(AuthService) private authService: AuthService
+        , @Inject(AppComponent) private appComponent: AppComponent) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -66,6 +68,11 @@ export class NavbarComponent implements OnInit {
                 clearInterval(simulateWindowResize);
             }, 1000);
         });
+    }
+    ChangeLanguage(idLanguage: string) {
+        //alert('OK');
+        this.appComponent.ChangeLanguage(idLanguage);
+        //  this.languageService.setLanguage(idLanguage);
     }
 
     isMobileMenu() {

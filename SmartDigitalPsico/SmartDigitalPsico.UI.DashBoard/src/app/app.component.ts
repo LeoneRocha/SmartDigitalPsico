@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { LanguageService } from './services/general/language.service';
 
 @Component({
@@ -7,9 +7,13 @@ import { LanguageService } from './services/general/language.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   constructor(@Inject(LanguageService) private languageService: LanguageService) {
+  }
+
+  ngOnInit() {
+    this.languageService.loadLanguage();  
   }
 
   ChangeLanguage(idLanguage: string) {

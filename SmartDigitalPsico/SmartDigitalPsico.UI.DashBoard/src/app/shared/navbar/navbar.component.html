@@ -92,6 +92,13 @@
                                     <i class="pe-7s-tools"></i> Settings
                                 </a>
                             </li>
+
+                            <li>
+                                <a  (click)="ChangeLanguage('pt-BR')">
+                                    <i class="fa fa-language"></i> {{ 'general.login.changelanguage' | translate}}
+                                </a>
+                            </li>
+
                             <li class="divider"></li>
                             <li>
                                 <a *ngIf="authService.isLoggedIn()" class="text-danger" (click)="authService.logout()">

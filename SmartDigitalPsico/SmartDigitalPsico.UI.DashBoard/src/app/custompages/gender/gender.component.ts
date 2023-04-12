@@ -9,6 +9,7 @@ import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -28,23 +29,21 @@ export class GenderComponent implements OnInit, OnDestroy {
     columlabel_1: string;
 
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router
-        , @Inject(TranslateService) private translate: TranslateService) {
-       
+        , @Inject(TranslateService) private translate: TranslateService
+        , @Inject(LanguageService) private languageService: LanguageService) {
+
     }
     ngOnInit() {
-
         this.columlabel_1 = this.translateInformation('description');
         this.loadHeaderFooterDataTable();
         this.retrieveList();
-        //this.translate.use('pt-BR')
-        //this.translate.setDefaultLang('en'); // define o idioma padrão
-        //this.translate.use('en'); // usa o idioma definido
-        //  this.greeting = this.translate.instant('HELLO');
+        this.languageService.loadLanguage();
 
+        //vou ter que injetar o servico em cada componente e pegar do usuario ou storage qual o idioma que o usuario selecionou
     }
     translateInformation(infoKey: string): string {
         let result: string = '';
-        result = this.translate.instant(infoKey);
+        result =this.languageService.setInstant(infoKey); ;
         console.log(result);
         /*
         this.translate.get(infoKey).subscribe((res: string) => {

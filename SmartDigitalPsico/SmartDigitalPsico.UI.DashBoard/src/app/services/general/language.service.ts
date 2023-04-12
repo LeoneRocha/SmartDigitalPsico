@@ -5,32 +5,53 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root'
 })
 export class LanguageService {
-  constructor(private translate: TranslateService) {}
 
-  setLanguage(lang: string) {
-   // this.translate.use(lang);
-   // this.translate.setDefaultLang(lang);
+  private keyLanguage: string = "AppLanguageId";
 
-    if (this.translate.currentLang === 'pt-BR') {
-      this.translate.use('en');
-      this.translate.setDefaultLang('en');
-    } else {
-      this.translate.use(lang);//'pt-BR')
-      this.translate.setDefaultLang(lang);//'en'); // define o idioma padrão
-    }
+  constructor(private translate: TranslateService) { }
 
+  loadLanguage() {
+    let lang: string;
 
+    lang = this.getLanguageToLocalStorage();
+
+    this.translate.use(lang); 
+    this.translate.setDefaultLang(lang);
   }
 
-  ChangeLanguage(idLanguage: string, translate: TranslateService) {
-    console.log(translate.currentLang);    
-    if (translate.currentLang === 'pt-BR') {
-      translate.use('en');
-      translate.setDefaultLang('en');
+  setInstant(infoKey: string): any {
+    return this.translate.instant(infoKey)
+  }
+
+  setLanguage(lang: string) {
+
+    this.removeLanguageToLocalStorage();
+    console.log(this.translate.currentLang);
+
+    if (this.translate.currentLang === 'pt-BR') {
+      lang = 'en';
     } else {
-      translate.use(idLanguage);//'pt-BR')
-      translate.setDefaultLang(idLanguage);//'en'); // define o idioma padrão
+      lang = 'pt-BR'; 
     }
-    //https://localazy.com/p/smartdigitalpsico/phrases/1065/translate ou chat gpt
+    this.translate.use(lang);
+    this.translate.setDefaultLang(lang);    
+    console.log(lang);
+    this.saveLanguageToLocalStorage(lang);
+  }
+
+  private saveLanguageToLocalStorage(lang: string) {
+    localStorage.setItem(this.keyLanguage, lang);
+  }
+  private removeLanguageToLocalStorage() {
+    localStorage.removeItem(this.keyLanguage);
+  }
+  private getLanguageToLocalStorage(): string {
+    let result: string;
+    result = localStorage.getItem(this.keyLanguage);
+
+    if (result === undefined || result === null || result === '')
+      return "en";
+
+    return result;
   }
 }

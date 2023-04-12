@@ -15,7 +15,7 @@ export class LanguageService {
 
     lang = this.getLanguageToLocalStorage();
 
-    this.translate.use(lang); 
+    this.translate.use(lang);
     this.translate.setDefaultLang(lang);
   }
 
@@ -31,10 +31,10 @@ export class LanguageService {
     if (this.translate.currentLang === 'pt-BR') {
       lang = 'en';
     } else {
-      lang = 'pt-BR'; 
+      lang = 'pt-BR';
     }
     this.translate.use(lang);
-    this.translate.setDefaultLang(lang);    
+    this.translate.setDefaultLang(lang);
     console.log(lang);
     this.saveLanguageToLocalStorage(lang);
 
@@ -47,7 +47,7 @@ export class LanguageService {
   private removeLanguageToLocalStorage() {
     localStorage.removeItem(this.keyLanguage);
   }
-  private getLanguageToLocalStorage(): string {
+  getLanguageToLocalStorage(): string {
     let result: string;
     result = localStorage.getItem(this.keyLanguage);
 

@@ -10,7 +10,7 @@ export const PatientRoutes: Routes = [{
         component: PatientComponent
     } , {
         path: 'patientaction',
-        title: 'Patients',
+        //title: 'navbar.patient',
         component: AddEditPatientComponent
     } ]
 }];

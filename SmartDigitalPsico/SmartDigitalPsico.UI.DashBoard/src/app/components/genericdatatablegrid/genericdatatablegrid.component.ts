@@ -17,6 +17,8 @@ export class GenericDataTableGrid implements OnInit {
   @Input() dataTableIn: DataTable;
   @Input() listDataIn: SimpleModel[];
   @Input() numberOfColumns: number
+  @Input() language: string
+
   public listResult: any[];
 
   constructor(@Inject(Router) private router: Router, @Inject(GenderService) private registerServiceGender: GenderService,) { }
@@ -154,19 +156,20 @@ export class GenericDataTableGrid implements OnInit {
   }
 
   loadConfigDataTablesV1(): void {
-    $('#datatables').DataTable({
+    var table =  $('#datatables').DataTable({
       "pagingType": "full_numbers",
       "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
       //data: listData,
       //columns: columnsData,
       responsive: true,
       language: {
-        search: "_INPUT_",
-        searchPlaceholder: "Search records",
+        //search: "_INPUT_",
+        //searchPlaceholder: "Search records :)",
+        url: './assets/i18n/datatable_'+ this.language +'.json'
       }
     });
 
-    var table = $('#datatables').DataTable();
+    //var table = $('#datatables').DataTable();
 
     // Edit record
     table.on('click', '.edit', function () {

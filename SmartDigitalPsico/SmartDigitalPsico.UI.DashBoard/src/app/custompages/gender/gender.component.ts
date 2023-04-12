@@ -43,7 +43,7 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     translateInformation(infoKey: string): string {
         let result: string = '';
-        result =this.languageService.setInstant(infoKey); ;
+        result = this.languageService.setInstant(infoKey);;
         console.log(result);
         /*
         this.translate.get(infoKey).subscribe((res: string) => {
@@ -53,7 +53,9 @@ export class GenderComponent implements OnInit, OnDestroy {
         }); */
         return result;
     }
-
+    getLanguage() : string {
+        return this.languageService.getLanguageToLocalStorage();
+    }
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
@@ -188,16 +190,18 @@ export class GenderComponent implements OnInit, OnDestroy {
         }, 100);
     }
     loadConfigDataTables(): void {
-        $('#datatables').DataTable({
+        //var table = $('#datatables').DataTable();
+        /*var table = $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
             language: {
+               // url: '../assets/i18n/datatable_pt_br.json'
                 search: "_INPUT_",
                 searchPlaceholder: "PROCURAR records:(",
             }
         });
-        var table = $('#datatables').DataTable();
+        
 
         // Edit record
         table.on('click', '.edit', function () {
@@ -214,7 +218,7 @@ export class GenderComponent implements OnInit, OnDestroy {
         //Like record
         table.on('click', '.like', function () {
             // alert('You clicked on Like button');
-        });
+        });*/
     }
     loadHeaderFooterDataTable() {
         this.entityRoute = {

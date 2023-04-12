@@ -162,17 +162,15 @@ export class ApplicationLanguageComponent implements OnInit {
         }, 100);
     }
     loadConfigDataTables(): void {
-        $('#datatables').DataTable({
+        var table = $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
             language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
+                url: './assets/i18n/datatable_' + this.languageService.getLanguageToLocalStorage() + '.json'
             }
 
         });
-        var table = $('#datatables').DataTable();
 
         // Edit record
         table.on('click', '.edit', function () {

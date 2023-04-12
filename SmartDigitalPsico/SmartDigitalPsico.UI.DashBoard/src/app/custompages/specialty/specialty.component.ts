@@ -189,23 +189,17 @@ export class SpecialtyComponent implements OnInit {
             this.loadConfigDataTables();
         }, 100);
     }
-    loadConfigDataTables(): void {
-
-        //let tableDT = $('#example').DataTable();
-        //tableDT.destroy();
-
-        $('#datatables').DataTable({
+    loadConfigDataTables(): void {        
+        var table =  $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
             //destroy: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
+            language: { 
+                url: './assets/i18n/datatable_' + this.languageService.getLanguageToLocalStorage() + '.json'
             }
 
-        });
-        var table = $('#datatables').DataTable();
+        }); 
 
         // Edit record
         table.on('click', '.edit', function () {

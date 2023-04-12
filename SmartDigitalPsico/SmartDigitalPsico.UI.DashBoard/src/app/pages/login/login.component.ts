@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router'; 
 import { UserLoginModel } from 'app/models/usermodels/UserLoginModel';
 import { AuthService } from 'app/services/auth/auth.service';
 import { LanguageService } from 'app/services/general/language.service';

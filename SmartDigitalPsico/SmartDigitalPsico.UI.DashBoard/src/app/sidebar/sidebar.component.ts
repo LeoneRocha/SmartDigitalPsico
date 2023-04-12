@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, Inject } from '@angular/core';
 import { AuthService } from 'app/services/auth/auth.service';
-import { ROUTES, RouteInfo } from './routerpaths';
+import { ROUTES, RouteInfo } from '../common/routerpaths';
 declare var $: any;
 @Component({
     moduleId: module.id,

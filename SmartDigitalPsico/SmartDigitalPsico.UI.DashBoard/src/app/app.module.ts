@@ -30,8 +30,9 @@ import { GlobalizationCultureService } from './services/general/simple/globaliza
 import { GlobalizationTimeZonesService } from './services/general/simple/globalizationtimezone.service';
 import { NgxTranslateModule } from './translate/translate.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
- 
- 
+import { LanguageService } from './services/general/language.service';
+
+
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -44,7 +45,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         StoreModule.forRoot({ appState: appReducer }),//4)fourth time 
         EffectsModule.forRoot([]),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-        NgxTranslateModule, 
+        NgxTranslateModule,
     ],
     declarations: [
         AppComponent,
@@ -56,10 +57,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     providers: [
         //Services
         AuthService
-        ,GlobalizationCultureService
-        ,GlobalizationTimeZonesService
+        , GlobalizationCultureService
+        , GlobalizationTimeZonesService
+        , LanguageService
         //Guards
-        ,AuthGuard, AdminAuthGuard, AdminOrMedicalAuthGuard, AuthGuard,  MedicalAuthGuard, PatientAuthGuard
+        , AuthGuard, AdminAuthGuard, AdminOrMedicalAuthGuard, AuthGuard, MedicalAuthGuard, PatientAuthGuard
     ],
 })
 

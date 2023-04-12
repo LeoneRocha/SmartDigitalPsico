@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { LanguageService } from './services/general/language.service';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {}
+export class AppComponent {
+
+  constructor(@Inject(LanguageService) private languageService: LanguageService) {
+  }
+
+  ChangeLanguage(idLanguage: string) {
+    this.languageService.setLanguage(idLanguage);
+  }
+}

@@ -14,13 +14,13 @@
                 <li>
                     <a routerLinkActive="active" [routerLink]="['/pages/register']">
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
-                        <p>Register</p>
+                        <p>{{ 'general.login.register' | translate}}</p>
                     </a>
                 </li> 
                 <li>
-                    <a>
+                    <a (click)="ChangeLanguage('pt-BR')">
                         <i class="fa fa-language" aria-hidden="true"></i>
-                        <p>Change to portugues</p>
+                        <p>{{ 'general.login.changelanguage' | translate}}</p>
                     </a>
                 </li> 
             </ul>

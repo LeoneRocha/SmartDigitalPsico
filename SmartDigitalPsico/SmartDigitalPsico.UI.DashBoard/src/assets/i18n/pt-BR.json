@@ -1,167 +1,169 @@
 {
-	"TESTE": "TESTE :) !",
-	"datagrid": {
-		"searchPlaceholder": "Pesquisar registros :)"
-	},
-	"navbar": {
-		"home": "Início",
-		"company": "Empresa",
-		"portfolio": "Portfólio",
-		"blog": "Blog",
-		"dashboard": "Dashboard",
-		"patient": "Pacientes",
-		"users": "Usuários",
-		"patientrecord": "Registros",
-		"configurations": "Configurações",
-		"registers": "Registros",
-		"userpage": "Página do Usuário",
-		"userregisterpage": "Página de Registro",
-		"gender": "Gênero",
-		"office": "Cargo",
-		"rolegroup": "Grupo de Funções",
-		"specialty": "Especialidade",
-		"applicationsetting": "Configurações do Sistema",
-		"applicationlanguage": "Idiomas",
-		"medicals": "Médicos"
-	},
-	"general": {
-		"select": "Selecionar",
-		"enable": "Habilitar",
-		"admin": "Administrador",
-		"backnav": "Voltar",
-		"newregisterbtn": "Novo",
-		"updateregisterbtn": "Atualizar",
-		"saveregisterbtn": "Salvar",
-		"description": "Descrição",
-		"description_required": "A descrição é obrigatória!",
-		"altAdd": "Adicionar",
-		"altEdit": "Editar",
-		"altView": "Visualizar",
-		"altDelete": "Excluir",
-		"name": {
-			"title": "Nome",
-			"required": "O nome é obrigatório"
-		},
-		"language": {
-			"title": "Idioma",
-			"required": "Idioma é obrigatório"
-		},
-		"email": {
-			"title": "E-mail",
-			"required": "E-mail é obrigatório"
-		},
-		"login": {
-			"title": "Login",
-			"logout": "Sair",
-			"required": "Login é obrigatório",
-			"header": "Acesse sua conta",
-			"rememberme": "Lembrar de mim",
-			"invalidLogin": "Usuário e/ou senha inválidos."
-		},
-		"timezone": {
-			"title": "Fuso Horário",
-			"required": "Fuso Horário é obrigatório"
-		},
-		"password": {
-			"title": "Senha",
-			"required": "Senha é obrigatória"
-		},
-		"mainrole": {
-			"title": "Papel Principal",
-			"required": "Papel Principal é obrigatório"
-		}
-	},
-	"modalAlert": {
-		"select": "Selecionar"
-	},
-	"appsetting": {
-		"title": "Configuração",
-		"category": "Lista de Configurações",
-		"select": "Selecionar Configuração",
-		"form": {
-			"TitleAdd": "Adicionar Configuração",
-			"TitleEdit": "Editar Configuração",
-			"TitleView": "Visualizar Configuração"
-		}
-	},
-	"applanguage": {
-		"title": "Idioma",
-		"category": "Lista de Idiomas",
-		"select": "Selecionar Idioma",
-		"languageKey": "Chave",
-		"languageKey_required": "Chave do Idioma é obrigatória",
-		"languageValue": "Valor",
-		"languageValue_required": "Valor do Idioma é obrigatório",
-		"resourceKey": "Chave do Recurso",
-		"resourceKey_required": "Chave do Recurso é obrigatória",
-		"form": {
-			"TitleAdd": "Adicionar Idioma",
-			"TitleEdit": "Editar Idioma",
-			"TitleView": "Visualizar Idioma"
-		}
-	},
-	"office": {
-		"title": "Escritório",
-		"category": "Lista de Escritórios",
-		"select": "Selecionar Escritório",
-		"form": {
-			"TitleAdd": "Adicionar Escritório",
-			"TitleEdit": "Editar Escritório",
-			"TitleView": "Visualizar Escritório"
-		}
-	},
-	"gender": {
-		"title": "Gênero",
-		"category": "Lista de Gêneros",
-		"select": "Selecionar Gênero",
-		"form": {
-			"TitleAdd": "Adicionar Gênero",
-			"TitleEdit": "Editar Gênero",
-			"TitleView": "Visualizar Gênero"
-		}
-	},
-	"specialty": {
-		"title": "Especialidade",
-		"category": "Lista de Especialidades",
-		"select": "Selecionar Especialidade",
-		"form": {
-			"TitleAdd": "Adicionar Especialidade",
-			"TitleEdit": "Editar Especialidade",
-			"TitleView": "Visualizar Especialidade"
-		}
-	},
-	"user": {
-		"title": "Usuário",
-		"category": "Lista de Usuários",
-		"select": "Selecionar Usuário",
-		"myprofile": "Meu Perfil",
-		"form": {
-			"TitleAdd": "Adicionar Usuário",
-			"TitleEdit": "Editar Usuário",
-			"TitleView": "Visualizar Usuário"
-		}
-	},
-	"medical": {
-		"title": "Médico",
-		"required": "Médico é obrigatório",
-		"category": "Lista de Médicos",
-		"select": "Selecionar Médico",
-		"form": {
-			"TitleAdd": "Adicionar Médico",
-			"TitleEdit": "Editar Médico",
-			"TitleView": "Visualizar Médico"
-		}
-	},
-	"rolegroup": {
-		"title": "Grupo de Funções",
-		"category": "Lista de Grupos de Funções",
-		"select": "Selecionar Grupo de Funções",
-		"rolepolicyclaimcode": "Código",
-		"rolepolicyclaimcode_required": "Código é obrigatório",
-		"form": {
-			"TitleAdd": "Adicionar Grupo de Funções",
-			"TitleEdit": "Editar Grupo de Funções",
-			"TitleView": "Visualizar Grupo de Funções"
-		}
-	}
+  "TESTE": "TESTE :) !",
+  "datagrid": {
+    "searchPlaceholder": "Pesquisar registros :)"
+  },
+  "navbar": {
+    "home": "Início",
+    "company": "Empresa",
+    "portfolio": "Portfólio",
+    "blog": "Blog",
+    "dashboard": "Dashboard",
+    "patient": "Pacientes",
+    "users": "Usuários",
+    "patientrecord": "Registros",
+    "configurations": "Configurações",
+    "registers": "Registros",
+    "userpage": "Página do Usuário",
+    "userregisterpage": "Página de Registro",
+    "gender": "Gênero",
+    "office": "Cargo",
+    "rolegroup": "Grupo de Funções",
+    "specialty": "Especialidade",
+    "applicationsetting": "Configurações do Sistema",
+    "applicationlanguage": "Idiomas",
+    "medicals": "Médicos"
+  },
+  "general": {
+    "select": "Selecionar",
+    "enable": "Habilitar",
+    "admin": "Administrador",
+    "backnav": "Voltar",
+    "newregisterbtn": "Novo",
+    "updateregisterbtn": "Atualizar",
+    "saveregisterbtn": "Salvar",
+    "description": "Descrição",
+    "description_required": "A descrição é obrigatória!",
+    "altAdd": "Adicionar",
+    "altEdit": "Editar",
+    "altView": "Visualizar",
+    "altDelete": "Excluir",
+    "name": {
+      "title": "Nome",
+      "required": "O nome é obrigatório"
+    },
+    "language": {
+      "title": "Idioma",
+      "required": "Idioma é obrigatório"
+    },
+    "email": {
+      "title": "E-mail",
+      "required": "E-mail é obrigatório"
+    },
+    "login": {
+      "title": "Login",
+      "logout": "Sair",
+      "required": "Login é obrigatório",
+      "header": "Acesse sua conta",
+      "rememberme": "Lembrar de mim",
+      "register": "Registra-se" ,
+      "changelanguage": "Clique para mudar idoma",
+      "invalidLogin": "Usuário e/ou senha inválidos."
+    },
+    "timezone": {
+      "title": "Fuso Horário",
+      "required": "Fuso Horário é obrigatório"
+    },
+    "password": {
+      "title": "Senha",
+      "required": "Senha é obrigatória"
+    },
+    "mainrole": {
+      "title": "Papel Principal",
+      "required": "Papel Principal é obrigatório"
+    }
+  },
+  "modalAlert": {
+    "select": "Selecionar"
+  },
+  "appsetting": {
+    "title": "Configuração",
+    "category": "Lista de Configurações",
+    "select": "Selecionar Configuração",
+    "form": {
+      "TitleAdd": "Adicionar Configuração",
+      "TitleEdit": "Editar Configuração",
+      "TitleView": "Visualizar Configuração"
+    }
+  },
+  "applanguage": {
+    "title": "Idioma",
+    "category": "Lista de Idiomas",
+    "select": "Selecionar Idioma",
+    "languageKey": "Chave",
+    "languageKey_required": "Chave do Idioma é obrigatória",
+    "languageValue": "Valor",
+    "languageValue_required": "Valor do Idioma é obrigatório",
+    "resourceKey": "Chave do Recurso",
+    "resourceKey_required": "Chave do Recurso é obrigatória",
+    "form": {
+      "TitleAdd": "Adicionar Idioma",
+      "TitleEdit": "Editar Idioma",
+      "TitleView": "Visualizar Idioma"
+    }
+  },
+  "office": {
+    "title": "Escritório",
+    "category": "Lista de Escritórios",
+    "select": "Selecionar Escritório",
+    "form": {
+      "TitleAdd": "Adicionar Escritório",
+      "TitleEdit": "Editar Escritório",
+      "TitleView": "Visualizar Escritório"
+    }
+  },
+  "gender": {
+    "title": "Gênero",
+    "category": "Lista de Gêneros",
+    "select": "Selecionar Gênero",
+    "form": {
+      "TitleAdd": "Adicionar Gênero",
+      "TitleEdit": "Editar Gênero",
+      "TitleView": "Visualizar Gênero"
+    }
+  },
+  "specialty": {
+    "title": "Especialidade",
+    "category": "Lista de Especialidades",
+    "select": "Selecionar Especialidade",
+    "form": {
+      "TitleAdd": "Adicionar Especialidade",
+      "TitleEdit": "Editar Especialidade",
+      "TitleView": "Visualizar Especialidade"
+    }
+  },
+  "user": {
+    "title": "Usuário",
+    "category": "Lista de Usuários",
+    "select": "Selecionar Usuário",
+    "myprofile": "Meu Perfil",
+    "form": {
+      "TitleAdd": "Adicionar Usuário",
+      "TitleEdit": "Editar Usuário",
+      "TitleView": "Visualizar Usuário"
+    }
+  },
+  "medical": {
+    "title": "Médico",
+    "required": "Médico é obrigatório",
+    "category": "Lista de Médicos",
+    "select": "Selecionar Médico",
+    "form": {
+      "TitleAdd": "Adicionar Médico",
+      "TitleEdit": "Editar Médico",
+      "TitleView": "Visualizar Médico"
+    }
+  },
+  "rolegroup": {
+    "title": "Grupo de Funções",
+    "category": "Lista de Grupos de Funções",
+    "select": "Selecionar Grupo de Funções",
+    "rolepolicyclaimcode": "Código",
+    "rolepolicyclaimcode_required": "Código é obrigatório",
+    "form": {
+      "TitleAdd": "Adicionar Grupo de Funções",
+      "TitleEdit": "Editar Grupo de Funções",
+      "TitleView": "Visualizar Grupo de Funções"
+    }
+  }
 }

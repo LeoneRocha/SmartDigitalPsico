@@ -10,7 +10,7 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
     imports: [
         CustomPagesModule,
         RouterModule.forChild(RoleGroupRoutes),
-        NgxTranslateModule,  
+       // NgxTranslateModule,  
     ],
     declarations: [
         RoleGroupComponent, 

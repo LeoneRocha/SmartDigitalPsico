@@ -56,6 +56,8 @@
       "required": "Login is required",
       "header": "Access your account",
       "rememberme": "Remember me",
+      "register": "Register" ,
+      "changelanguage": "Click to Change",
       "invalidLogin": "Invalid username and/or password."
     },
     "timezone": {

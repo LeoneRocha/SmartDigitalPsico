@@ -10,7 +10,7 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
     imports: [
         CustomPagesModule,
         RouterModule.forChild(ApplicationLanguageRoutes),
-        NgxTranslateModule,    
+       // NgxTranslateModule,    
     ],
     declarations: [
         ApplicationLanguageComponent ,

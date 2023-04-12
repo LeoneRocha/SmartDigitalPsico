@@ -3,6 +3,12 @@
   "datagrid": {
     "searchPlaceholder": "Search records :)"
   },
+  "navbar": {
+    "home": "Home",
+    "company": "Company",
+    "portfolio": "Portfolio",
+    "blog": "Blog" 
+  },
   "general": {
     "select": "Select",
     "enable": "Enable",
@@ -30,8 +36,11 @@
       "required": "Email is required"
     },
     "login": {
-      "title": "Login",
-      "required": "Login is required"
+      "title": "Login",      
+      "required": "Login is required",
+      "header": "Access your account",
+      "rememberme": "Remember me",
+      "invalidLogin" : "Invalid username and/or password."
     },
     "timezone": {
       "title": "Time Zone",

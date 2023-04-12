@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { LanguageService } from 'app/services/general/language.service';
 @NgModule({
     imports: [
         CommonModule,
@@ -23,7 +24,10 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
         LockComponent, 
         NoAccessComponent, 
         NotFoundComponent
-    ]
+    ] ,
+    providers: [
+         LanguageService
+    ],
 })
 
 export class PagesModule { }

@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable';    
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { UserModel } from 'app/models/principalsmodel/UserModel';
 import { PatientService } from 'app/services/general/principals/patient.service';
 import { PatientModel } from 'app/models/principalsmodel/PatientModel';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -24,8 +25,11 @@ export class PatientComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
 
-    constructor(@Inject(PatientService) private registerService: PatientService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(PatientService) private registerService: PatientService
+        , @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) { }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
         this.retrieveList();
     }
@@ -43,9 +47,9 @@ export class PatientComponent implements OnInit {
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    retrieveList(): void { 
-        let medicalId : number = 1
-         this.registerService.getAllByParentId(medicalId, "medicalId").subscribe({
+    retrieveList(): void {
+        let medicalId: number = 1
+        this.registerService.getAllByParentId(medicalId, "medicalId").subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
                 console.log(this.listResult);

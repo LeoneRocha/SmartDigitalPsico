@@ -15,6 +15,7 @@ import { selectAppState } from 'app/storereduxngrx/shared/app.selector';
 import { selectOneSpecialty } from 'app/storereduxngrx/selectors/specialty.selector';
 import { switchMap } from 'rxjs';
 import { setAPIStatus } from 'app/storereduxngrx/shared/app.action';
+import { LanguageService } from 'app/services/general/language.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-specialty',
@@ -34,32 +35,24 @@ export class AddEditSpecialtyComponent implements OnInit {
     estadoBotao_updateRegister = 'inicial';
     entityLoad$ = this.store.select(selectOneSpecialty);
 
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
         //@Inject(SpecialtyService) private registerService: SpecialtyService,
-        private store: Store, private appStore: Store<Appstate>,
-        private fb: FormBuilder, @Inject(Router) private router: Router) {
+        , private store: Store
+        , private appStore: Store<Appstate>
+        , private fb: FormBuilder, @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) {
         this.gerateFormRegister();
-    }
-    animarBotao(estado: string, stateBtn: string) {
-        // alert(estado);
-        if (stateBtn === 'goBackToList')
-            this.estadoBotao_goBackToList = estado;
-
-        if (stateBtn === 'addRegister')
-            this.estadoBotao_addRegister = estado;
-
-        if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado;
-    }
-
+    } 
     ngOnInit() {
-
+        this.languageService.loadLanguage();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+    }
+    ngAfterViewInit() {
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -74,7 +67,16 @@ export class AddEditSpecialtyComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
-    ngAfterViewInit() {
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadRegister() {
         /*

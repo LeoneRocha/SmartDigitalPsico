@@ -15,6 +15,7 @@ import { GlobalizationTimeZonesService } from 'app/services/general/simple/globa
 import { RoleOptions } from 'app/common/enuns/role-options';
 import { MedicalService } from 'app/services/general/principals/medical.service';
 import { MedicalModel } from 'app/models/principalsmodel/MedicalModel';
+import { LanguageService } from 'app/services/general/language.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-usermanagement',
@@ -40,41 +41,40 @@ export class AddEditUserManagementComponent implements OnInit {
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
 
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(UserService) private registerService: UserService,
-        @Inject(GlobalizationCultureService) private globalizationCultureService: GlobalizationCultureService,
-        @Inject(GlobalizationTimeZonesService) private globalizationTimeZonesService: GlobalizationTimeZonesService,
-        @Inject(MedicalService) private medicalService: MedicalService,
-        private fb: FormBuilder, @Inject(Router) private router: Router) {
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(UserService) private registerService: UserService
+        , @Inject(GlobalizationCultureService) private globalizationCultureService: GlobalizationCultureService
+        , @Inject(GlobalizationTimeZonesService) private globalizationTimeZonesService: GlobalizationTimeZonesService
+        , @Inject(MedicalService) private medicalService: MedicalService
+        , private fb: FormBuilder
+        , @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) {
         this.gerateFormRegister();
+    } 
+    ngOnInit() {
+        this.languageService.loadLanguage();
+        this.loadGlobalization();
+        this.loadMedicals();
+        this.loadFormParameters();
+        this.loadFormRegister();
+        if (this.registerId)
+            this.loadRegister();
+
+        if (this.registerModel?.id)
+            this.createEmptyRegister();
+    }
+    ngAfterViewInit() {
     }
     animarBotao(estado: string, stateBtn: string) {
         // alert(estado);
         if (stateBtn === 'goBackToList')
             this.estadoBotao_goBackToList = estado;
 
-            if (stateBtn === 'addRegister')
+        if (stateBtn === 'addRegister')
             this.estadoBotao_addRegister = estado;
 
-            if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado; 
-    }
-
-    ngOnInit() {
-
-        this.loadGlobalization();
-
-        this.loadMedicals();
-
-        this.loadFormParameters();
-
-        this.loadFormRegister();
-
-        if (this.registerId)
-            this.loadRegister();
-
-        if (this.registerModel?.id)
-            this.createEmptyRegister();
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadMedicals() {
         this.medicalService.getAll().subscribe({
@@ -116,9 +116,7 @@ export class AddEditUserManagementComponent implements OnInit {
             formsElement.controls['enableOpt'].disable();
             formsElement.controls['role'].disable();
         }
-    }
-    ngAfterViewInit() {
-    }
+    } 
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
             next: (response: ServiceResponse<UserModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
@@ -146,7 +144,7 @@ export class AddEditUserManagementComponent implements OnInit {
             this.goBackToList();
         } else {
             this.modalErroAlert("Error adding!", response);
-        } 
+        }
     }
     processAddRegisterErro(response: ServiceResponse<UserModel>) {
         CaptureTologFunc('processAddRegisterErro-usermanagement', response);

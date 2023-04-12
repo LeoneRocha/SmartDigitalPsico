@@ -7,11 +7,13 @@ import { PatientRoutes } from './patient.routing';
 import { AddEditPatientComponent } from './add-edit-patient/add-edit-patient.component';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { DatePipe } from '@angular/common';
+import { LanguageService } from 'app/services/general/language.service';
+import { NgxTranslateModule } from 'app/translate/translate.module';
 @NgModule({
     imports: [
         CustomPagesModule,
-        RouterModule.forChild(PatientRoutes)
-
+        RouterModule.forChild(PatientRoutes),
+        NgxTranslateModule,
     ],
     declarations: [
         PatientComponent,
@@ -19,7 +21,7 @@ import { DatePipe } from '@angular/common';
     ]
     ,
     providers: [
-        PatientService, GenderService, DatePipe
+        PatientService, GenderService, DatePipe, LanguageService
     ],
 })
 

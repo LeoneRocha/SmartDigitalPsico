@@ -14,6 +14,7 @@ import { GenderModel } from 'app/models/simplemodel/GenderModel';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { ETypeMaritalStatusOptions } from 'app/common/enuns/etypemaritalstatus-options';
 import { DatePipe } from '@angular/common';
+import { LanguageService } from 'app/services/general/language.service';
 
 
 declare var $: any;
@@ -41,13 +42,36 @@ export class AddEditPatientComponent implements OnInit {
     public gendersOpts: GenderModel[];
     public maritalStatusOpts = ETypeMaritalStatusOptions;
 
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        private fb: FormBuilder,
-        @Inject(Router) private router: Router,
-        @Inject(PatientService) private registerService: PatientService,
-        @Inject(GenderService) private genderService: GenderService,
-        private datePipe: DatePipe
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , private fb: FormBuilder
+        , @Inject(Router) private router: Router
+        , @Inject(PatientService) private registerService: PatientService
+        , @Inject(GenderService) private genderService: GenderService
+        , private datePipe: DatePipe
+        , @Inject(LanguageService) private languageService: LanguageService
     ) {
+    }
+
+    ngOnInit() {
+        this.languageService.loadLanguage();
+        this.loadOptionsForm();
+        this.gerateFormRegister();
+        this.loadFormRegister();
+        if (this.registerId)
+            this.loadRegister();
+
+        if (this.registerModel?.id)
+            this.createEmptyRegister();
+    }
+    ngAfterContentInit() {
+        this.loadBoostrap();
+        this.loadDatePicker();
+    }
+    loadOptionsForm() {
+        let request1 = this.genderService.getAll();
+        forkJoin([request1]).subscribe(results => {
+            this.gendersOpts = results[0]['data'];
+        });
     }
     //https://netbasal.com/implementing-grouping-checkbox-behavior-with-angular-reactive-forms-9ba4e3ab3965
     animarBotao(estado: string, stateBtn: string) {
@@ -59,28 +83,6 @@ export class AddEditPatientComponent implements OnInit {
 
         if (stateBtn === 'updateRegister')
             this.estadoBotao_updateRegister = estado;
-    }
-    ngOnInit() {
-        this.loadOptionsForm();
-
-        this.gerateFormRegister();
-        this.loadFormRegister();
-        if (this.registerId)
-            this.loadRegister();
-
-        if (this.registerModel?.id)
-            this.createEmptyRegister();
-    }
-    loadOptionsForm() {
-        let request1 = this.genderService.getAll();
-        forkJoin([request1]).subscribe(results => {
-            this.gendersOpts = results[0]['data'];
-        });
-    }
-
-    ngAfterContentInit() {
-        this.loadBoostrap();
-        this.loadDatePicker();
     }
     loadBoostrap() {
         //  Activate the tooltips

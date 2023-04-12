@@ -6,11 +6,12 @@ import { ApplicationLanguageComponent } from './applicationlanguage.component';
 import { AddEditApplicationLanguageComponent } from './add-edit-applicationlanguage/add-edit-applicationlanguage.component';
 import { ApplicationLanguageService } from 'app/services/general/simple/applicationlanguage.service';
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { LanguageService } from 'app/services/general/language.service';
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(ApplicationLanguageRoutes),
-       // NgxTranslateModule,    
+         NgxTranslateModule,    
     ],
     declarations: [
         ApplicationLanguageComponent ,
@@ -18,7 +19,7 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
     ]
     ,
     providers: [
-        ApplicationLanguageService
+        ApplicationLanguageService, LanguageService
     ],
 })
 

@@ -7,11 +7,13 @@ import { MedicalRoutes } from './medical.routing';
 import { AddEditMedicalComponent } from './add-edit-medical/add-edit-medical.component';
 import { OfficeService } from 'app/services/general/simple/office.service';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';  
+import { LanguageService } from 'app/services/general/language.service';
+import { NgxTranslateModule } from 'app/translate/translate.module';
 @NgModule({
     imports: [
         CustomPagesModule,
-        RouterModule.forChild(MedicalRoutes)
-       
+        RouterModule.forChild(MedicalRoutes),
+        NgxTranslateModule,
     ],
     declarations: [
         MedicalComponent, 
@@ -20,7 +22,7 @@ import { SpecialtyService } from 'app/services/general/simple/specialty.service'
     ,
     providers: [
         MedicalService,
-        OfficeService, SpecialtyService, 
+        OfficeService, SpecialtyService, , LanguageService
     ],
 })
 

@@ -10,6 +10,7 @@ import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse'
 import { ApplicationLanguageService } from 'app/services/general/simple/applicationlanguage.service';
 import { ApplicationLanguageModel } from 'app/models/simplemodel/ApplicationLanguageModel';
 import { ResourceKeyOptions } from 'app/common/enuns/language-options copy';
+import { LanguageService } from 'app/services/general/language.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-applicationlanguage',
@@ -31,30 +32,33 @@ export class AddEditApplicationLanguageComponent implements OnInit {
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
 
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(ApplicationLanguageService) private registerService: ApplicationLanguageService,
-        private fb: FormBuilder, @Inject(Router) private router: Router) {
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(ApplicationLanguageService) private registerService: ApplicationLanguageService
+        , private fb: FormBuilder, @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) {
         this.gerateFormRegister();
     }
-
-    animarBotao(estado: string, stateBtn: string) {
-        // alert(estado);
-        if (stateBtn === 'goBackToList')
-            this.estadoBotao_goBackToList = estado;
-
-            if (stateBtn === 'addRegister')
-            this.estadoBotao_addRegister = estado;
-
-            if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado; 
-    } 
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+    }
+    ngAfterViewInit() {
+    }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -71,13 +75,11 @@ export class AddEditApplicationLanguageComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
 
-        if (this.registerId > 0) { 
-            formsElement.controls['languageKey'].disable();      
-            formsElement.controls['language'].disable();   
+        if (this.registerId > 0) {
+            formsElement.controls['languageKey'].disable();
+            formsElement.controls['language'].disable();
             //formsElement.controls['resourceKey'].disable();   
         }
-    }
-    ngAfterViewInit() {
     }
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({

@@ -7,6 +7,7 @@ import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
 import { OfficeService } from 'app/services/general/simple/office.service';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -23,11 +24,13 @@ export class OfficeComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
 
-    constructor(@Inject(OfficeService) private registerService: OfficeService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(OfficeService) private registerService: OfficeService
+        , @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) { }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
         this.retrieveList();
-
     }
     ngAfterViewInit() {
     }

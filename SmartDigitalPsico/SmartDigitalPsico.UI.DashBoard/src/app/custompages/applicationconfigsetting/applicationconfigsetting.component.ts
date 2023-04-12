@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable';   
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { ApplicationConfigSettingModel } from 'app/models/simplemodel/ApplicationConfigSettingModel';
 import { ApplicationConfigSettingService } from 'app/services/general/simple/applicationconfigsetting.service';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -23,11 +24,13 @@ export class ApplicationConfigSettingComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
 
-    constructor(@Inject(ApplicationConfigSettingService) private registerService: ApplicationConfigSettingService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(ApplicationConfigSettingService) private registerService: ApplicationConfigSettingService
+        , @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) { }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
         this.retrieveList();
-
     }
     ngAfterViewInit() {
     }
@@ -43,8 +46,8 @@ export class ApplicationConfigSettingComponent implements OnInit {
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    retrieveList(): void { 
-         this.registerService.getAll().subscribe({
+    retrieveList(): void {
+        this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
                 //console.log(this.listResult);
@@ -186,7 +189,7 @@ export class ApplicationConfigSettingComponent implements OnInit {
             // alert('You clicked on Like button');
         });
     }
-    loadHeaderFooterDataTable() { 
+    loadHeaderFooterDataTable() {
         this.dataTable = {
             headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
             footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],

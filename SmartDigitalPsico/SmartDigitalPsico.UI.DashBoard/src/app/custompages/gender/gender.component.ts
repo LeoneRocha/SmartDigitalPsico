@@ -34,10 +34,10 @@ export class GenderComponent implements OnInit, OnDestroy {
 
     }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.columlabel_1 = this.translateInformation('description');
         this.loadHeaderFooterDataTable();
         this.retrieveList();
-        this.languageService.loadLanguage();
 
         //vou ter que injetar o servico em cada componente e pegar do usuario ou storage qual o idioma que o usuario selecionou
     }

@@ -6,6 +6,7 @@ import { OfficeRoutes } from './office.routing';
 import { AddEditOfficeComponent } from './add-edit-office/add-edit-office.component';
 import { CustomPagesModule } from 'app/custommodules/custompages.module';
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { LanguageService } from 'app/services/general/language.service';
 @NgModule({
     imports: [
         CustomPagesModule,
@@ -18,7 +19,7 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
     ]
     ,
     providers: [
-        OfficeService
+        OfficeService, LanguageService
     ],
 })
 

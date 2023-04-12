@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable';    
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { UserService } from 'app/services/general/principals/user.service';
 import { UserModel } from 'app/models/principalsmodel/UserModel';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -23,11 +24,13 @@ export class UserManagementComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
 
-    constructor(@Inject(UserService) private registerService: UserService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(UserService) private registerService: UserService
+        , @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) { }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
         this.retrieveList();
-
     }
     ngAfterViewInit() {
     }
@@ -43,8 +46,8 @@ export class UserManagementComponent implements OnInit {
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    retrieveList(): void { 
-         this.registerService.getAll().subscribe({
+    retrieveList(): void {
+        this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
                 //console.log(this.listResult);

@@ -11,6 +11,7 @@ import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { SpecialtyEffect } from 'app/storereduxngrx/effects/specialty.effects';
 import { specialtyReducer } from 'app/storereduxngrx/reducers/specialty.reducer';
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { LanguageService } from 'app/services/general/language.service';
 
 @NgModule({
     imports: [
@@ -26,7 +27,7 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
         AddEditSpecialtyComponent
     ],
     providers: [
-        SpecialtyService
+        SpecialtyService, LanguageService
     ],
 })
 

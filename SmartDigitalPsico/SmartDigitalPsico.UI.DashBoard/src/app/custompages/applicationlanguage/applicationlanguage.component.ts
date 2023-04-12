@@ -7,6 +7,7 @@ import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { ApplicationLanguageModel } from 'app/models/simplemodel/ApplicationLanguageModel';
 import { ApplicationLanguageService } from 'app/services/general/simple/applicationlanguage.service';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -23,11 +24,13 @@ export class ApplicationLanguageComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
 
-    constructor(@Inject(ApplicationLanguageService) private registerService: ApplicationLanguageService, @Inject(Router) private router: Router) { }
+    constructor(@Inject(ApplicationLanguageService) private registerService: ApplicationLanguageService
+        , @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) { }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
         this.retrieveList();
-
     }
     ngAfterViewInit() {
     }
@@ -75,7 +78,7 @@ export class ApplicationLanguageComponent implements OnInit {
             },
             error: (err) => { this.modalErroAlert('Error of delete.'); }
         });
-        
+
 
     }
     removeItemFromList<T>(lista: Array<T>, idRemove: number): Array<T> {

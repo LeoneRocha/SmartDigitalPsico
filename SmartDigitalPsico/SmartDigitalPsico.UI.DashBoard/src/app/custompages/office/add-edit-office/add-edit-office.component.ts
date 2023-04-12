@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { OfficeService } from 'app/services/general/simple/office.service';
 import { Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; 
-import {  ServiceResponse } from 'app/models/ServiceResponse';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { LanguageOptions } from 'app/common/enuns/language-options';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { OfficeModel } from 'app/models/simplemodel/OfficeModel';
+import { LanguageService } from 'app/services/general/language.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-office',
@@ -28,30 +29,34 @@ export class AddEditOfficeComponent implements OnInit {
     estadoBotao_goBackToList = 'inicial';
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
-    
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(OfficeService) private registerService: OfficeService,
-        private fb: FormBuilder, @Inject(Router) private router: Router) {
+
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(OfficeService) private registerService: OfficeService
+        , private fb: FormBuilder, @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) {
         this.gerateFormRegister();
-    }
-    animarBotao(estado: string, stateBtn: string) {
-        // alert(estado);
-        if (stateBtn === 'goBackToList')
-            this.estadoBotao_goBackToList = estado;
-
-            if (stateBtn === 'addRegister')
-            this.estadoBotao_addRegister = estado;
-
-            if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado; 
-    }
+    } 
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+    } 
+    ngAfterViewInit() {
+    }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -65,8 +70,7 @@ export class AddEditOfficeComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
-    ngAfterViewInit() {
-    }
+   
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
             next: (response: ServiceResponse<OfficeModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
@@ -93,7 +97,7 @@ export class AddEditOfficeComponent implements OnInit {
         } else {
             this.modalErroAlert("Error adding!", response);
         }
-        
+
     }
     processAddRegisterErro(response: ServiceResponse<OfficeModel>) {
         CaptureTologFunc('processAddRegisterErro-office', response);

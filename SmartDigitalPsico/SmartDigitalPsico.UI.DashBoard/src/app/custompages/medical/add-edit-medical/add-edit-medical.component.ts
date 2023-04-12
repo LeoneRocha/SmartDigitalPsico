@@ -15,6 +15,7 @@ import { ETypeAccreditationOptions } from 'app/common/enuns/etypeaccreditation-o
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';
 import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { forkJoin } from 'rxjs';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -42,27 +43,18 @@ export class AddEditMedicalComponent implements OnInit {
     public specialtiesOpts: SpecialtyModel[];  //ServiceResponse<OfficeModel>[];  
     public typeAccreditationOpts = ETypeAccreditationOptions;
 
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        private fb: FormBuilder,
-        @Inject(Router) private router: Router,
-        @Inject(MedicalService) private registerService: MedicalService,
-        @Inject(OfficeService) private officeService: OfficeService,
-        @Inject(SpecialtyService) private specialtyService: SpecialtyService,
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , private fb: FormBuilder
+        , @Inject(Router) private router: Router
+        , @Inject(MedicalService) private registerService: MedicalService
+        , @Inject(OfficeService) private officeService: OfficeService
+        , @Inject(SpecialtyService) private specialtyService: SpecialtyService
+        , @Inject(LanguageService) private languageService: LanguageService
     ) {
 
-    }
-    //https://netbasal.com/implementing-grouping-checkbox-behavior-with-angular-reactive-forms-9ba4e3ab3965
-    animarBotao(estado: string, stateBtn: string) {
-        if (stateBtn === 'goBackToList')
-            this.estadoBotao_goBackToList = estado;
-
-        if (stateBtn === 'addRegister')
-            this.estadoBotao_addRegister = estado;
-
-        if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado;
-    }
+    } 
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.gerateFormRegister();
         this.loadOfficesAndSpcialty();
         this.loadFormRegister();
@@ -75,6 +67,17 @@ export class AddEditMedicalComponent implements OnInit {
     ngAfterContentInit() {
         this.loadBoostrap();
 
+    }
+     //https://netbasal.com/implementing-grouping-checkbox-behavior-with-angular-reactive-forms-9ba4e3ab3965
+     animarBotao(estado: string, stateBtn: string) {
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadBoostrap() {
         //  Activate the tooltips
@@ -101,7 +104,7 @@ export class AddEditMedicalComponent implements OnInit {
     loadOffices() {
         this.officeService.getAll().subscribe({
             next: (response: any) => { this.officesOpts = response['data']; }, error: (err) => { console.log(err); },
-        }); 
+        });
     }
     loadSpecialties() {
         this.specialtyService.getAll().subscribe({
@@ -131,7 +134,7 @@ export class AddEditMedicalComponent implements OnInit {
         });
     }
     addRegister() {
-        this.getValuesForm(); 
+        this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<MedicalModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
@@ -151,7 +154,7 @@ export class AddEditMedicalComponent implements OnInit {
         } else {
             this.modalErroAlert("Error adding!", response);
         }
-       
+
     }
     processAddRegisterErro(response: ServiceResponse<MedicalModel>) {
         CaptureTologFunc('processAddRegisterErro-Medical', response);
@@ -191,13 +194,13 @@ export class AddEditMedicalComponent implements OnInit {
             specialtiesIds: responseData?.specialties.map(ent => Number(ent.id) ?? null),
             enable: responseData?.enable,
         };
-        let modelEntity = this.registerModel; 
+        let modelEntity = this.registerModel;
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['email'].setValue(modelEntity?.email);
         formsElement.controls['accreditation'].setValue(modelEntity?.accreditation);
         formsElement.controls['typeAccreditation'].setValue(modelEntity?.typeAccreditation);
-        formsElement.controls['officeId'].setValue(modelEntity?.officeId); 
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
+        formsElement.controls['officeId'].setValue(modelEntity?.officeId);
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
         //todo:ver como melhorar isso precisarei carregar os compos via store do redux antes de gerar o html 
         setTimeout(() => { this.setSpecialtiesOptsChecked(modelEntity); }, 500);
 
@@ -263,7 +266,7 @@ export class AddEditMedicalComponent implements OnInit {
                     }
                 }
             });
-        } 
+        }
     }
 
     createEmptyRegister(): void {
@@ -278,7 +281,7 @@ export class AddEditMedicalComponent implements OnInit {
             enable: false
         }
     }
-    onSelect(selectedValue: string) { 
+    onSelect(selectedValue: string) {
     }
     goBackToList() {
         this.router.navigate(['/medical/manage/']);

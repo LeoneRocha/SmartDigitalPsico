@@ -6,6 +6,7 @@ import { ApplicationConfigSettingComponent } from './applicationconfigsetting.co
 import { ApplicationConfigSettingService } from 'app/services/general/simple/applicationconfigsetting.service';
 import { AddEditApplicationConfigSettingComponent } from './add-edit-applicationconfigsetting/add-edit-applicationconfigsetting.component';
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { LanguageService } from 'app/services/general/language.service';
 @NgModule({
     imports: [
         CustomPagesModule,
@@ -18,7 +19,7 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
     ]
     ,
     providers: [
-        ApplicationConfigSettingService
+        ApplicationConfigSettingService, LanguageService
     ],
 })
 

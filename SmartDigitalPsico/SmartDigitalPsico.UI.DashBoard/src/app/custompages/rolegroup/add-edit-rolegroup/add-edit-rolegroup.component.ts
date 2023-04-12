@@ -9,6 +9,7 @@ import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { RoleGroupModel } from 'app/models/simplemodel/RoleGroupModel';
 import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
+import { LanguageService } from 'app/services/general/language.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-rolegroup',
@@ -29,30 +30,33 @@ export class AddEditRoleGroupComponent implements OnInit {
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
 
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(RoleGroupService) private registerService: RoleGroupService,
-        private fb: FormBuilder, @Inject(Router) private router: Router) {
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(RoleGroupService) private registerService: RoleGroupService
+        , private fb: FormBuilder, @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) {
         this.gerateFormRegister();
-    }
-
-    animarBotao(estado: string, stateBtn: string) {
-        // alert(estado);
-        if (stateBtn === 'goBackToList')
-            this.estadoBotao_goBackToList = estado;
-
-            if (stateBtn === 'addRegister')
-            this.estadoBotao_addRegister = estado;
-
-            if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado; 
-    }
+    } 
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+    }
+    ngAfterViewInit() {
+    }
+    animarBotao(estado: string, stateBtn: string) {
+        // alert(estado);
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -67,8 +71,7 @@ export class AddEditRoleGroupComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
-    ngAfterViewInit() {
-    }
+    
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
             next: (response: ServiceResponse<RoleGroupModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
@@ -147,7 +150,7 @@ export class AddEditRoleGroupComponent implements OnInit {
     isValidFormLanguage(): boolean {
         let isValid = this.registerForm.get('language').errors?.required;
         return this.registerForm.controls['language'].touched && this.registerForm.controls['language'].invalid && isValid;
-    } 
+    }
     isValidFormRolePolicyClaimCode(): boolean {
         let isValid = this.registerForm.get('rolepolicyclaimcode').errors?.required;
         return this.registerForm.controls['rolepolicyclaimcode'].touched && this.registerForm.controls['rolepolicyclaimcode'].invalid && isValid;

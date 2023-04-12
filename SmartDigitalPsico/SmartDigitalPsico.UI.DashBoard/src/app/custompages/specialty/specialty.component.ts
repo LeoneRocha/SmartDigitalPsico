@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable'; 
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'app/storereduxngrx/shared/appstate';
 import { selectSpecialty } from 'app/storereduxngrx/selectors/specialty.selector';
-import { selectAppState } from 'app/storereduxngrx/shared/app.selector'; 
+import { selectAppState } from 'app/storereduxngrx/shared/app.selector';
 import { invokeDeleteSpecialtyAPI, invokeSpecialtysAPI } from 'app/storereduxngrx/actions/specialty.action';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 
@@ -20,19 +21,21 @@ declare var $: any;
     //styleUrls: ['./Specialty.component.css']
 })
 
-export class SpecialtyComponent implements OnInit {  
+export class SpecialtyComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
-    
+
     entityEff$ = this.store.pipe(select(selectSpecialty));
 
     constructor(
-        private store: Store, private appStore: Store<Appstate>, 
-        @Inject(Router) private router: Router
+        private store: Store, private appStore: Store<Appstate>
+        , @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService
     ) {
 
     }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
         this.retrieveList();
     }
@@ -56,7 +59,7 @@ export class SpecialtyComponent implements OnInit {
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe({
             next: (apState) => {
-                if (apState.apiStatus === 'success' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {                     
+                if (apState.apiStatus === 'success' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {
                     this.loadConfigDataTablesLazzy();
                 }
                 if (apState.apiStatus === 'error' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {
@@ -88,7 +91,7 @@ export class SpecialtyComponent implements OnInit {
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe({
             next: (apState) => {
-                if (apState.apiStatus === 'success') { 
+                if (apState.apiStatus === 'success') {
                     this.modalAlertDeleted();
                 }
                 if (apState.apiStatus === 'error') {

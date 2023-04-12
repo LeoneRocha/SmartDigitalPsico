@@ -8,7 +8,8 @@ import { LanguageOptions } from 'app/common/enuns/language-options';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { ApplicationConfigSettingService } from 'app/services/general/simple/applicationconfigsetting.service';
-import { ApplicationConfigSettingModel } from 'app/models/simplemodel/ApplicationConfigSettingModel'; 
+import { ApplicationConfigSettingModel } from 'app/models/simplemodel/ApplicationConfigSettingModel';
+import { LanguageService } from 'app/services/general/language.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-ApplicationConfigSetting',
@@ -28,13 +29,15 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
     estadoBotao_goBackToList = 'inicial';
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
-    
-    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(ApplicationConfigSettingService) private registerService: ApplicationConfigSettingService,
-        private fb: FormBuilder, @Inject(Router) private router: Router) {
+
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(ApplicationConfigSettingService) private registerService: ApplicationConfigSettingService
+        , private fb: FormBuilder, @Inject(Router) private router: Router
+        , @Inject(LanguageService) private languageService: LanguageService) {
         this.gerateFormRegister();
     }
     ngOnInit() {
+        this.languageService.loadLanguage();
         this.loadFormRegister();
         if (this.registerId)
             this.loadRegister();
@@ -42,16 +45,18 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
         if (this.registerModel?.id)
             this.createEmptyRegister();
     }
+    ngAfterViewInit() {
+    }
     animarBotao(estado: string, stateBtn: string) {
         // alert(estado);
         if (stateBtn === 'goBackToList')
             this.estadoBotao_goBackToList = estado;
 
-            if (stateBtn === 'addRegister')
+        if (stateBtn === 'addRegister')
             this.estadoBotao_addRegister = estado;
 
-            if (stateBtn === 'updateRegister')
-            this.estadoBotao_updateRegister = estado; 
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
     }
     loadFormRegister() {
         let formsElement = this.registerForm;
@@ -66,8 +71,7 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
         }
         this.registerId = Number(paramsUrl.get('id'));
     }
-    ngAfterViewInit() {
-    }
+
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
             next: (response: ServiceResponse<ApplicationConfigSettingModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
@@ -135,9 +139,9 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
         formsElement.controls['description'].setValue(modelEntity?.description);
         formsElement.controls['language'].setValue(modelEntity?.language);
         //this.registerModel_Enable = modelEntity?.enable;
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
     }
-    
+
     isValidFormDescription(): boolean {
         let isValid = this.registerForm.get('description').errors?.required;
         return this.registerForm.controls['description'].touched && this.registerForm.controls['description'].invalid && isValid;
@@ -162,8 +166,8 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
             description: formElement.controls['description']?.value,
             language: formElement.controls['language']?.value,
             enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable, 
-            endPointUrl_Cache : formElement.controls['endPointUrl_Cache']?.value,//this.registerModel_Enable, 
-            endPointUrl_StorageFiles : formElement.controls['endPointUrl_StorageFiles']?.value,//this.registerModel_Enable, 
+            endPointUrl_Cache: formElement.controls['endPointUrl_Cache']?.value,//this.registerModel_Enable, 
+            endPointUrl_StorageFiles: formElement.controls['endPointUrl_StorageFiles']?.value,//this.registerModel_Enable, 
         };
 
         //console.log(this.registerModel);

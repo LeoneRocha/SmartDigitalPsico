@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,6 +11,8 @@ import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { GetMsgServiceResponse } from 'app/common/helpers/GetMsgServiceResponse';
 import { botaoAnimado } from 'app/common/animations/geral-trigger-animation';
 import { LanguageService } from 'app/services/general/language.service';
+import { ModalData } from 'app/models/general/ModalData';
+import { ModalAlertComponent } from 'app/components/modalalert/modalalert.component';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-gender',
@@ -33,6 +35,15 @@ export class AddEditGenderComponent implements OnInit {
     estadoBotao_goBackToList = 'inicial';
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
+    modalData: ModalData = {
+        show: false,
+        cancelButtonText: '',
+        confirmButtonText: '',
+        text: '',
+        title: '',
+        typeModal: ''
+    };
+    @ViewChild('modalAlert') modalAlert: ModalAlertComponent;
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
         , @Inject(GenderService) private registerService: GenderService
@@ -48,6 +59,27 @@ export class AddEditGenderComponent implements OnInit {
 
         if (this.registerModel?.id)
             this.createEmptyRegister();
+    }
+/*
+    chamarMetodoFilho() {
+        this.modalAlert.dispararEvento();
+    } onEventoFilho(evento: () => void) {
+        evento();
+    }
+*/  
+    onSuccessAlertShow() {
+        //this.modalData.show = true; this.modalData.typeModal = 'Success';
+        this.modalData.show = false; this.modalData.typeModal = 'Success';
+        console.log('onSuccessAlertShow');
+    }
+
+    showModalAlertSuccess() {
+        this.modalData.show = true; this.modalData.typeModal = 'Success';
+        this.modalAlert.ShowModalAlertSuccess();
+        //this.chamarMetodoFilho();
+        //this.modalData.show = false; this.modalData.typeModal = 'Success';
+        //*ngIf="this.modalData.show"
+        console.log('showModalAlertSuccess');
     }
     ngAfterViewInit() {
     }
@@ -98,11 +130,13 @@ export class AddEditGenderComponent implements OnInit {
         CaptureTologFunc('processAddRegister-gender', response);
         this.serviceResponse = response;
         if (response?.errors?.length == 0) {
-            this.modalSuccessAlert();
+            //this.modalSuccessAlert();
+            this.showModalAlertSuccess();
             this.goBackToList();
         } else {
+
             this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
-        } 
+        }
     }
     processAddRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processAddRegisterErro-gender', response);
@@ -112,7 +146,9 @@ export class AddEditGenderComponent implements OnInit {
     processUpdateRegister(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processUpdateRegister-gender', response);
         this.serviceResponse = response;
-        this.modalSuccessAlert();
+        ///this.modalSuccessAlert();
+        //this.modalData.show = true; this.modalData.typeModal = 'Success';
+        this.showModalAlertSuccess();
     }
     processUpdateRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processUpdateRegisterErro-gender', response);
@@ -189,18 +225,18 @@ export class AddEditGenderComponent implements OnInit {
         //console.log(result);
         return result;
     }
-    modalSuccessAlert() {
-        swal.fire({
-            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
-            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
-            timer: 5000,
-            buttonsStyling: false,
-            customClass: {
-                confirmButton: "btn btn-fill btn-success",
-            },
-            icon: "success"
-        });
-    }
+    // modalSuccessAlert() {
+    //     swal.fire({
+    //         title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+    //         text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
+    //         timer: 5000,
+    //         buttonsStyling: false,
+    //         customClass: {
+    //             confirmButton: "btn btn-fill btn-success",
+    //         },
+    //         icon: "success"
+    //     });
+    // }
     modalErroAlert(msgErro: string, response: ServiceResponse<GenderModel>) {
         swal.fire({
             title: msgErro,

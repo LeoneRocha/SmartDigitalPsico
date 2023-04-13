@@ -8,6 +8,7 @@ import { GenericDataTableGrid } from 'app/components/genericdatatablegrid/generi
 import { CustomPagesModule } from 'app/custommodules/custompages.module'; 
 import { NgxTranslateModule } from 'app/translate/translate.module';
 import { LanguageService } from 'app/services/general/language.service';
+import { ModalAlertComponent } from 'app/components/modalalert/modalalert.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { LanguageService } from 'app/services/general/language.service';
     declarations: [
         GenderComponent,
         AddEditGenderComponent,
+        ModalAlertComponent,
         GenericDataTableGrid
     ]
     ,

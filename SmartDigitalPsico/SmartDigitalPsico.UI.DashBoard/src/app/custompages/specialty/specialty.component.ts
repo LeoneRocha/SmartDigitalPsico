@@ -24,6 +24,13 @@ declare var $: any;
 export class SpecialtyComponent implements OnInit {
     public dataTable: DataTable;
     entityRoute: RouteEntity;
+    columlabelsDT: string[] = [
+        'Id'
+        , 'general.description'
+        , 'applanguage.title'
+        , 'general.enable'
+        , 'general.actions'
+    ];
 
     entityEff$ = this.store.pipe(select(selectSpecialty));
 
@@ -220,11 +227,19 @@ export class SpecialtyComponent implements OnInit {
     }
     loadHeaderFooterDataTable() {
 
+        let dtLabels = this.getDTLabels();
         this.dataTable = {
-            headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
+            headerRow: dtLabels,
+            footerRow: dtLabels, 
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };
+    }
+    getDTLabels(): string[] {
+        return this.languageService.translateInformationAsync(this.columlabelsDT);
+    }
+    getTranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        return result;
     }
 } 

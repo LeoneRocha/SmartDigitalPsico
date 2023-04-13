@@ -23,6 +23,13 @@ export class UserManagementComponent implements OnInit {
     serviceResponse: ServiceResponse<UserModel>;
     public dataTable: DataTable;
     entityRoute: RouteEntity;
+    columlabelsDT: string[] = [
+        'Id'
+        , 'general.description'
+        , 'applanguage.title'
+        , 'general.enable'
+        , 'general.actions'
+    ];
 
     constructor(@Inject(UserService) private registerService: UserService
         , @Inject(Router) private router: Router
@@ -188,11 +195,19 @@ export class UserManagementComponent implements OnInit {
     }
     loadHeaderFooterDataTable() {
 
+        let dtLabels = this.getDTLabels();
         this.dataTable = {
-            headerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Description', 'Language', 'Enable', 'Actions'],
+            headerRow: dtLabels,
+            footerRow: dtLabels, 
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };
+    }
+    getDTLabels(): string[] {
+        return this.languageService.translateInformationAsync(this.columlabelsDT);
+    }
+    getTranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        return result;
     }
 } 

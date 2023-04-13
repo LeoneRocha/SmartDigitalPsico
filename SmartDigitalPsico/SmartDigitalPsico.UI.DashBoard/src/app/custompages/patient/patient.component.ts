@@ -24,6 +24,13 @@ export class PatientComponent implements OnInit {
     serviceResponse: ServiceResponse<PatientModel>;
     public dataTable: DataTable;
     entityRoute: RouteEntity;
+    columlabelsDT: string[] = [
+        'Id'
+        , 'general.description'
+        , 'applanguage.title'
+        , 'general.enable'
+        , 'general.actions'
+    ];
 
     constructor(@Inject(PatientService) private registerService: PatientService
         , @Inject(Router) private router: Router
@@ -191,11 +198,19 @@ export class PatientComponent implements OnInit {
     }
     loadHeaderFooterDataTable() {
 
+        let dtLabels = this.getDTLabels();
         this.dataTable = {
-            headerRow: ['Id', 'Name', 'Email', 'Enable', 'Actions'],
-            footerRow: ['Id', 'Name', 'Email', 'Enable', 'Actions'],
+            headerRow: dtLabels,
+            footerRow: dtLabels, 
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };
+    }
+    getDTLabels(): string[] {
+        return this.languageService.translateInformationAsync(this.columlabelsDT);
+    }
+    getTranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        return result;
     }
 } 

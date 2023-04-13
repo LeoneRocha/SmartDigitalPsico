@@ -116,15 +116,15 @@ export class GenderComponent implements OnInit, OnDestroy {
         lista.splice(indexReg, 1);
         return lista;
     }
- 
+
     modalAlertRemove(idRegister: number) {
         swal.fire({
-            title:'merda? ',// this.gettranslateInformationAsync('modalalert.remove.title'), //'Are you sure?',
-            text: 'You will not be able to recover register!',
+            title: this.gettranslateInformationAsync('modalalert.remove.title'),//'merda? ',// this.gettranslateInformationAsync('modalalert.remove.title'), //'Are you sure?',
+            text: this.gettranslateInformationAsync('modalalert.remove.text'),//'You will not be able to recover register!',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it',
+            confirmButtonText: this.gettranslateInformationAsync('modalalert.remove.confirmButtonText'),//'Yes, delete it!',
+            cancelButtonText: this.gettranslateInformationAsync('modalalert.remove.cancelButtonText'),//'No, keep it',
             customClass: {
                 confirmButton: "btn btn-fill btn-success btn-mr-5",
                 cancelButton: "btn btn-fill btn-danger",
@@ -140,8 +140,8 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     modalAlertDeleted() {
         swal.fire({
-            title: 'Deleted!',
-            text: 'Register has been deleted. I will close in 5 seconds.',
+            title: this.gettranslateInformationAsync('modalalert.deleted.title'),//'Deleted!',
+            text: this.gettranslateInformationAsync('modalalert.deleted.text'),// 'Register has been deleted. I will close in 5 seconds.',
             timer: 5000,
             icon: 'success',
             customClass: {
@@ -152,8 +152,8 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     modalAlertCancelled() {
         swal.fire({
-            title: 'Cancelled',
-            text: "Register hasn't been deleted",
+            title: this.gettranslateInformationAsync('modalalert.cancelled.title'),//'Cancelled',
+            text: this.gettranslateInformationAsync('modalalert.cancelled.text'),//"Register hasn't been deleted",
             icon: 'error',
             customClass: {
                 confirmButton: "btn btn-fill btn-info",
@@ -163,7 +163,7 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     modalErroAlert(msgErro: string) {
         swal.fire({
-            title: 'Error!',
+            title: this.gettranslateInformationAsync('modalalert.error.title'),//' 'Error!',
             text: msgErro,
             icon: 'error',
             customClass: {
@@ -226,6 +226,7 @@ export class GenderComponent implements OnInit, OnDestroy {
         this.entityRoute = {
             baseRoute: "/administrative/gender/genderaction"
         };
+
         this.dataTable = {
 
             headerRow: ['Id', 'labels[0]', 'Language', 'Enable', 'Actions'],
@@ -234,4 +235,10 @@ export class GenderComponent implements OnInit, OnDestroy {
             routes: this.entityRoute
         };
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        //console.log(result);
+        return result;
+    }
+
 } 

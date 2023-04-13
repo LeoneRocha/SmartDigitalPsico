@@ -71,7 +71,7 @@ export class GenericDataTableGrid implements OnInit {
       text: this.gettranslateInformationAsync('modalalert.remove.text'), //'You will not be able to recover register!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: this.gettranslateInformationAsync('modalalert.remove.confirmButtonText'), //'Yes, delete it!',
+      confirmButtonText: this.gettranslateInformationAsync('modalalert.remove.confirmButtonText'),//'Yes, delete it!',
       cancelButtonText: this.gettranslateInformationAsync('modalalert.remove.cancelButtonText'),// 'No, keep it',
       customClass: {
         confirmButton: "btn btn-fill btn-success btn-mr-5",

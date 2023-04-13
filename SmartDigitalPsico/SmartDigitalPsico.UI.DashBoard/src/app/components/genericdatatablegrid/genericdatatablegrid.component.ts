@@ -39,7 +39,7 @@ export class GenericDataTableGrid implements OnInit {
 
   gettranslateInformationAsync(key: string): string {
     let result = this.languageService.translateInformationAsync([key])[0];
-    console.log(result);
+    //console.log(result);
     return result;
   }
 

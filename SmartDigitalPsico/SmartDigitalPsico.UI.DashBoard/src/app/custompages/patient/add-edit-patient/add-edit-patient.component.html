@@ -19,7 +19,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name"> {{ "patient.name.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="name"> {{ "patient.name.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="text" class="form-control" id="name" name="name"
                                             formControlName="name" maxlength="255"
                                             [ngClass]="!isValidFormName() ? '' : 'error'" />
@@ -30,7 +31,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="role">{{ "gender.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="role">{{ "gender.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <select formControlName="genderId" required name="genderId" class="form-control"
                                             data-style="btn-default btn-block"
                                             [ngClass]="!isValidFormGenderId() ? '' : 'error'" data-title="Select"
@@ -49,7 +51,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <!--datepicker-->
-                                        <label for="dateOfBirth">{{ "patient.dateOfBirth.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="dateOfBirth">{{ "patient.dateOfBirth.title" | translate }}:</label>
+                                        <span class="star">*</span>
                                         <input type="date" class="form-control " id="dateOfBirth" name="dateOfBirth"
                                             formControlName="dateOfBirth" maxlength="10"
                                             [ngClass]="!isValidFormDateOfBirth() ? '' : 'error'"
@@ -61,7 +64,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="cpf">{{ "patient.cpf.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="cpf">{{ "patient.cpf.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="text" class="form-control" id="cpf" name="cpf"
                                             formControlName="cpf" maxlength="15"
                                             [ngClass]="!isValidFormCPF() ? '' : 'error'" />
@@ -72,7 +76,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="rg">{{ "patient.rg.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="rg">{{ "patient.rg.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="text" class="form-control" id="rg" name="rg" formControlName="rg"
                                             maxlength="15" [ngClass]="!isValidFormRG() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormRG()" class="text-danger">
@@ -84,7 +89,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="profession">{{ "patient.profession.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="profession">{{ "patient.profession.title" | translate }}:</label>
+                                        <span class="star">*</span>
                                         <input type="text" class="form-control" id="profession" name="profession"
                                             formControlName="profession" maxlength="100"
                                             [ngClass]="!isValidFormProfession() ? '' : 'error'" />
@@ -237,8 +243,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="emergencyContactPhoneNumber">
-                                            {{ "patient.emergencyContactPhoneNumber.title" | translate }}
-                                            Emergency Contact Phone Number:</label>
+                                            {{ "patient.emergencyContactPhoneNumber.title" | translate }} </label>
                                         <span class="star">*</span>
                                         <input type="text" class="form-control" id="emergencyContactPhoneNumber"
                                             name="emergencyContactPhoneNumber"

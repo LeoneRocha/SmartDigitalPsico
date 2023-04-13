@@ -26,8 +26,8 @@ export class MedicalComponent implements OnInit {
     entityRoute: RouteEntity;
     columlabelsDT: string[] = [
         'Id'
-        , 'general.description'
-        , 'applanguage.title'
+        , 'general.name.title'
+        , 'general.email.title'
         , 'general.enable'
         , 'general.actions'
     ];

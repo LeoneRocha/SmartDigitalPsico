@@ -52,7 +52,7 @@ export class PatientComponent implements OnInit {
         this.registerService.getAllByParentId(medicalId, "medicalId").subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
-                console.log(this.listResult);
+                //console.log(this.listResult);
                 this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-patient', response);

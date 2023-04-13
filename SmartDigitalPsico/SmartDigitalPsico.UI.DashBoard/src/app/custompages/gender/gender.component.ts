@@ -27,6 +27,14 @@ export class GenderComponent implements OnInit, OnDestroy {
     entityRoute: RouteEntity;
     private subscription: Subscription;
     columlabel_1: string;
+    columlabelsDT: string[] = [
+        'Id'
+        , 'general.description'
+        , 'applanguage.title'
+        , 'general.enable'
+        , 'general.actions'
+    ];
+    public labelsDT: string[];
 
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router
         , @Inject(TranslateService) private translate: TranslateService
@@ -35,25 +43,18 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.languageService.loadLanguage();
-        this.columlabel_1 = this.translateInformation('description');
+
+        // this.columlabel_1 =  this.languageService.translateInformation('general.description');         
         this.loadHeaderFooterDataTable();
         this.retrieveList();
 
         //vou ter que injetar o servico em cada componente e pegar do usuario ou storage qual o idioma que o usuario selecionou
     }
-    translateInformation(infoKey: string): string {
-        let result: string = '';
-        result = this.languageService.setInstant(infoKey);;
-        console.log(result);
-        /*
-        this.translate.get(infoKey).subscribe((res: string) => {
-            console.log(res);
-            result = res;
-            return result
-        }); */
-        return result;
+
+    getDTLabels(): string[] {
+        return this.languageService.translateInformationAsync(this.columlabelsDT);
     }
-    getLanguage() : string {
+    getLanguage(): string {
         return this.languageService.getLanguageToLocalStorage();
     }
     ngOnDestroy() {
@@ -224,12 +225,10 @@ export class GenderComponent implements OnInit, OnDestroy {
         this.entityRoute = {
             baseRoute: "/administrative/gender/genderaction"
         };
-
-
         this.dataTable = {
 
-            headerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
+            headerRow: ['Id', 'labels[0]', 'Language', 'Enable', 'Actions'],
+            footerRow: ['Id', 'abels[0]', 'Language', 'Enable', 'Actions'],
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };

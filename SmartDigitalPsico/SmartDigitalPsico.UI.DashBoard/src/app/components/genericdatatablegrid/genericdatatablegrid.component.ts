@@ -18,6 +18,7 @@ export class GenericDataTableGrid implements OnInit {
   @Input() listDataIn: SimpleModel[];
   @Input() numberOfColumns: number
   @Input() language: string
+  @Input() labels: string[]
 
   public listResult: any[];
 

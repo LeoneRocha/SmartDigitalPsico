@@ -278,7 +278,7 @@ export class AddEditUserManagementComponent implements OnInit {
             role: formElement.controls['role']?.value,
             roleGroupsIds: [],// formElement.controls['roleGroupsIds']?.value,
         };
-        console.log(this.registerModel);
+        //console.log(this.registerModel);
     }
     createEmptyRegister(): void {
         this.registerModel = {

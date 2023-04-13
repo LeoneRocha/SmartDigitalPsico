@@ -152,12 +152,12 @@ export class AddEditPatientComponent implements OnInit {
             this.modalSuccessAlert();
             this.goBackToList();
         } else {
-            this.modalErroAlert("Error adding!", response);
+            this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
         }
     }
     processAddRegisterErro(response: ServiceResponse<PatientModel>) {
         CaptureTologFunc('processAddRegisterErro-Patient', response);
-        this.modalErroAlert("Error adding!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
     }
 
     processUpdateRegister(response: ServiceResponse<PatientModel>) {
@@ -167,7 +167,7 @@ export class AddEditPatientComponent implements OnInit {
     }
     processUpdateRegisterErro(response: ServiceResponse<PatientModel>) {
         CaptureTologFunc('processUpdateRegisterErro-Patient', response);
-        this.modalErroAlert("Error update!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erroupdate'), response);
     }
 
     processLoadRegister(response: ServiceResponse<PatientModel>) {
@@ -178,7 +178,7 @@ export class AddEditPatientComponent implements OnInit {
     }
     processLoadRegisterErro(response: ServiceResponse<PatientModel>) {
         CaptureTologFunc('processLoadRegisterErro-Patient', response);
-        this.modalErroAlert("Error load!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
         let formatDate = 'dd/MM/yyyy';
@@ -391,10 +391,15 @@ export class AddEditPatientComponent implements OnInit {
     goBackToList() {
         this.router.navigate(['/patient/manage/']);
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        //console.log(result);
+        return result;
+    }
     modalSuccessAlert() {
         swal.fire({
-            title: "Register is saved!",
-            text: "I will close in 5 seconds.",
+            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
             timer: 5000,
             buttonsStyling: false,
             customClass: {
@@ -402,7 +407,7 @@ export class AddEditPatientComponent implements OnInit {
             },
             icon: "success"
         });
-    }
+    } 
     modalErroAlert(msgErro: string, response: ServiceResponse<PatientModel>) {
         swal.fire({
             title: msgErro,

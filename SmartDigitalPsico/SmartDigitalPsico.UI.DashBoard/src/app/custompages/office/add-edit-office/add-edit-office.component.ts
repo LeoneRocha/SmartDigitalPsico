@@ -95,13 +95,13 @@ export class AddEditOfficeComponent implements OnInit {
             this.modalSuccessAlert();
             this.goBackToList();
         } else {
-            this.modalErroAlert("Error adding!", response);
+            this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
         }
 
     }
     processAddRegisterErro(response: ServiceResponse<OfficeModel>) {
         CaptureTologFunc('processAddRegisterErro-office', response);
-        this.modalErroAlert("Error adding!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
     }
 
     processUpdateRegister(response: ServiceResponse<OfficeModel>) {
@@ -111,7 +111,7 @@ export class AddEditOfficeComponent implements OnInit {
     }
     processUpdateRegisterErro(response: ServiceResponse<OfficeModel>) {
         CaptureTologFunc('processUpdateRegisterErro-office', response);
-        this.modalErroAlert("Error update!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erroupdate'), response);
     }
 
     processLoadRegister(response: ServiceResponse<OfficeModel>) {
@@ -122,7 +122,7 @@ export class AddEditOfficeComponent implements OnInit {
     }
     processLoadRegisterErro(response: ServiceResponse<OfficeModel>) {
         CaptureTologFunc('processLoadRegisterErro-office', response);
-        this.modalErroAlert("Error load!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
         let responseData: any = this.serviceResponse?.data;
@@ -179,10 +179,15 @@ export class AddEditOfficeComponent implements OnInit {
     goBackToList() {
         this.router.navigate(['/administrative/office']);
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        //console.log(result);
+        return result;
+    }
     modalSuccessAlert() {
         swal.fire({
-            title: "Register is saved!",
-            text: "I will close in 5 seconds.",
+            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
             timer: 5000,
             buttonsStyling: false,
             customClass: {
@@ -190,7 +195,7 @@ export class AddEditOfficeComponent implements OnInit {
             },
             icon: "success"
         });
-    }
+    } 
     modalErroAlert(msgErro: string, response: ServiceResponse<OfficeModel>) {
         swal.fire({
             title: msgErro,

@@ -101,13 +101,12 @@ export class AddEditGenderComponent implements OnInit {
             this.modalSuccessAlert();
             this.goBackToList();
         } else {
-            this.modalErroAlert("Error adding!", response);
-        }
-
+            this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
+        } 
     }
     processAddRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processAddRegisterErro-gender', response);
-        this.modalErroAlert("Error adding!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
     }
 
     processUpdateRegister(response: ServiceResponse<GenderModel>) {
@@ -117,7 +116,7 @@ export class AddEditGenderComponent implements OnInit {
     }
     processUpdateRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processUpdateRegisterErro-gender', response);
-        this.modalErroAlert("Error update!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erroupdate'), response);
     }
 
     processLoadRegister(response: ServiceResponse<GenderModel>) {
@@ -128,7 +127,7 @@ export class AddEditGenderComponent implements OnInit {
     }
     processLoadRegisterErro(response: ServiceResponse<GenderModel>) {
         CaptureTologFunc('processLoadRegisterErro-gender', response);
-        this.modalErroAlert("Error load!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.error'), response);
     }
     fillFieldsForm(): void {
         let responseData: any = this.serviceResponse?.data;
@@ -185,10 +184,15 @@ export class AddEditGenderComponent implements OnInit {
     goBackToList() {
         this.router.navigate(['/administrative/gender']);
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        console.log(result);
+        return result;
+    }
     modalSuccessAlert() {
         swal.fire({
-            title: "Register is saved!",
-            text: "I will close in 5 seconds.",
+            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
             timer: 5000,
             buttonsStyling: false,
             customClass: {

@@ -116,9 +116,10 @@ export class GenderComponent implements OnInit, OnDestroy {
         lista.splice(indexReg, 1);
         return lista;
     }
+ 
     modalAlertRemove(idRegister: number) {
         swal.fire({
-            title: 'Are you sure?',
+            title:'merda? ',// this.gettranslateInformationAsync('modalalert.remove.title'), //'Are you sure?',
             text: 'You will not be able to recover register!',
             icon: 'warning',
             showCancelButton: true,

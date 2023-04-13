@@ -1,5 +1,39 @@
 {
-  "TESTE": "TESTE :) !", 
+  "TESTE": "TESTE :) !",
+  "modalalert": {
+    "remove": {
+      "title": "Are you sure?",
+      "text": "You will not be able to recover register!",
+      "confirmButtonText": "Yes, delete it!",
+      "cancelButtonText": "No, keep it",
+      "erro": "Error of delete."
+    },
+    "cancelled": {
+      "title": "Cancelled",
+      "text": "Register hasn't been deleted",
+      "erro": "Error of cancel."
+    },
+    "deleted": {
+      "title": "Deleted!",
+      "text": "Register has been deleted. I will close in 5 seconds",
+      "erro": "Error of delete."
+    },
+    "saved": {
+      "title": "Register is saved!",
+      "text": "I will close in 5 seconds",
+      "erro": "Error adding!",
+      "erroupdate": "Error update!"
+    }, 
+    "load": {
+      "title": "Error load!",
+      "text": "Error MSG"
+    },
+    "error": {
+      "title": "Error load!",
+      "erro": "Error load!",
+      "text": "Error MSG"
+    }
+  },
   "navbar": {
     "home": "Home",
     "company": "Company",
@@ -71,9 +105,6 @@
       "required": "Main Role"
     }
   },
-  "modalAlert": {
-    "select": "Select"
-  },
   "appsetting": {
     "title": "Configuration",
     "category": "List of Configuration",
@@ -115,7 +146,7 @@
     "title": "Gender",
     "category": "List of Gender",
     "select": "Select gender",
-	"required": "Gender is required",
+    "required": "Gender is required",
     "form": {
       "TitleAdd": "Add Gender",
       "TitleEdit": "Edit Gender",
@@ -169,65 +200,65 @@
     "title": "Patient",
     "required": "Patient is required",
     "category": "List of Patient",
-    "select": "Select Patient", 
-	"name": {
-      "title":  "Name",
+    "select": "Select Patient",
+    "name": {
+      "title": "Name",
       "required": " Date Of Birth is required"
     },
-	"dateOfBirth": {
-      "title":  "Date Of Birth",
+    "dateOfBirth": {
+      "title": "Date Of Birth",
       "required": "Date Of Birth is required"
     },
-	"cpf": {
-      "title":  "CPF",
+    "cpf": {
+      "title": "CPF",
       "required": "CPF is required"
     },
-	"rg": {
-      "title":  "RG",
+    "rg": {
+      "title": "RG",
       "required": "RG is required"
     },
-	"profession": {
-      "title":  "Profession",
+    "profession": {
+      "title": "Profession",
       "required": "Profession is required"
     },
-	"education": {
-      "title":  "Education",
+    "education": {
+      "title": "Education",
       "required": "Education is required"
     },
-	"maritalStatus": {
-      "title":  " Marital Status",
+    "maritalStatus": {
+      "title": " Marital Status",
       "required": "Marital Status is required"
     },
-	"addressCep": {
-      "title":  "CEP",
+    "addressCep": {
+      "title": "CEP",
       "required": "CEP is required"
     },
-	"addressCity": {
-      "title":  "City",
+    "addressCity": {
+      "title": "City",
       "required": "City is required"
     },
-	"addressState": {
-      "title":  "State",
+    "addressState": {
+      "title": "State",
       "required": "State is required"
     },
-	"addressNeighborhood": {
-      "title":  "Neighborhood",
+    "addressNeighborhood": {
+      "title": "Neighborhood",
       "required": "Neighborhood is required"
     },
-	"addressStreet": {
-      "title":  "Street",
+    "addressStreet": {
+      "title": "Street",
       "required": "Street is required"
     },
-	"phoneNumber": {
-      "title":  "Phone Number",
+    "phoneNumber": {
+      "title": "Phone Number",
       "required": "Phone Number is required"
     },
-	"emergencyContactName": {
-      "title":  "Emergency Contact Name",
+    "emergencyContactName": {
+      "title": "Emergency Contact Name",
       "required": "Emergency Contact Name is required"
-    }, 
-	"emergencyContactPhoneNumber": {
-      "title":  "Emergency Contact Phone Number",
+    },
+    "emergencyContactPhoneNumber": {
+      "title": "Emergency Contact Phone Number",
       "required": "Emergency Contact Phone Number is required"
     },
     "form": {

@@ -4,8 +4,34 @@
     "remove": {
       "title": "Tem certeza?",
       "text": "Você não poderá recuperar o registro!",
-      "confirmButtonText": "Sim, exclua!",
-      "cancelButtonText": "Não, mantenha"
+      "confirmButtonText": "Sim, exclua-o!",
+      "cancelButtonText": "Não, mantenha-o",
+      "erro": "Erro ao excluir."
+    },
+    "cancelled": {
+      "title": "Cancelado",
+      "text": "O registro não foi excluído",
+      "erro": "Erro ao cancelar."
+    },
+    "deleted": {
+      "title": "Excluído!",
+      "text": "O registro foi excluído. Eu fecharei em 5 segundos",
+      "erro": "Erro ao excluir."
+    },
+    "saved": {
+      "title": "Registro salvo!",
+      "text": "Eu fecharei em 5 segundos",
+      "erro": "Erro ao adicionar!",
+      "erroupdate": "Erro ao atualizar!"
+    },
+    "load": {
+      "title": "Erro ao carregar!",
+      "text": "Mensagem de erro"
+    },
+    "error": {
+      "title": "Erro ao carregar!",
+      "erro": "Erro ao carregar!",
+      "text": "Mensagem de erro"
     }
   },
   "navbar": {

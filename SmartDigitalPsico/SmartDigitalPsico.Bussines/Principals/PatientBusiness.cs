@@ -8,7 +8,7 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Business.Validation.Helper;
-using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador;
+using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidator;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Domains;

@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable';
-import { UserModel } from 'app/models/principalsmodel/UserModel';
-import { PatientService } from 'app/services/general/principals/patient.service';
+import { DataTable, RouteEntity } from 'app/models/general/DataTable'; 
 import { PatientModel } from 'app/models/principalsmodel/PatientModel';
 import { LanguageService } from 'app/services/general/language.service';
-
+import { PatientAdditionalInformationService } from 'app/services/general/principals/patientadditionalinformation.service';
 declare var $: any;
-
 @Component({
     moduleId: module.id,
-    selector: 'patient-list',
-    templateUrl: 'patient.component.html'
+    selector: 'patient_additionalinformation-list',
+    templateUrl: 'patient_additionalinformation.component.html'
     //styleUrls: ['./Patient.component.css']
+    //fonts icon https://fontawesome.com/search?q=info&o=r&s=light&f=classic
 })
 
-export class PatientComponent implements OnInit {
+export class PatientAdditionalInformationComponent implements OnInit {
     public listResult: PatientModel[];
     serviceResponse: ServiceResponse<PatientModel>;
     public dataTable: DataTable;
@@ -32,10 +30,12 @@ export class PatientComponent implements OnInit {
         , 'general.actions'
     ];
 
-    constructor(@Inject(PatientService) private registerService: PatientService
+    constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
+        , @Inject(PatientAdditionalInformationService) private registerService: PatientAdditionalInformationService
         , @Inject(Router) private router: Router
         , @Inject(LanguageService) private languageService: LanguageService) { }
     ngOnInit() {
+        debugger;
         this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
         this.retrieveList();
@@ -43,23 +43,24 @@ export class PatientComponent implements OnInit {
     ngAfterViewInit() {
     }
     newRegister(): void {
-        this.router.navigate(['/patient/manage/patientaction']);
-    }
-    manageChildren(idRegister: number, actionRoute: string): void {
-        this.router.navigate([`/patient/manage/${actionRoute}`, { id: idRegister }]);
+        this.router.navigate(['/patient/manage/additionalinformationaction']);
     }
     viewRegister(idRegister: number): void {
-        this.router.navigate(['/patient/manage/patientaction', { modeForm: 'view', id: idRegister }]);
+        this.router.navigate(['/patient/manage/additionalinformationaction', { modeForm: 'view', id: idRegister }]);
     }
     editRegister(idRegister: number): void {
-        this.router.navigate(['/patient/manage/patientaction', { modeForm: 'edit', id: idRegister }]);
+        this.router.navigate(['/patient/manage/additionalinformationaction', { modeForm: 'edit', id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    retrieveList(): void {
-        let medicalId: number = 1
-        this.registerService.getAllByParentId(medicalId, "medicalId").subscribe({
+    private getPatientId() : number {
+        let paramsUrl = this.route.snapshot.paramMap;
+        return Number(paramsUrl.get('patientId'));
+    }
+    retrieveList(): void { 
+        //let patientId: number = 1
+        this.registerService.getAllByParentId(this.getPatientId(), "patientId").subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
                 //console.log(this.listResult);

@@ -145,6 +145,7 @@
     "title": "Gênero",
     "category": "Lista de Gêneros",
     "select": "Selecionar Gênero",
+    "required": "O gênero é obrigatório",
     "form": {
       "TitleAdd": "Adicionar Gênero",
       "TitleEdit": "Editar Gênero",
@@ -153,8 +154,11 @@
   },
   "specialty": {
     "title": "Especialidade",
+    "titles": "Especialidades",
     "category": "Lista de Especialidades",
-    "select": "Selecionar Especialidade",
+    "select": "Selecione uma Especialidade",
+    "required": "Especialidade é obrigatória",
+    "requireds": "Especialidades são obrigatórias",
     "form": {
       "TitleAdd": "Adicionar Especialidade",
       "TitleEdit": "Editar Especialidade",

@@ -9,8 +9,8 @@
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                             <div class="content table-responsive table-full-width">
-                                <button type="button" class="btn btn-info btn-fill pull-left" (click)="newRegister()">{{
-                                    "general.newregisterbtn" | translate }}</button>
+                                <button type="button" class="btn btn-info btn-fill pull-left"
+                                    (click)="newRegister()">{{ "general.newregisterbtn" | translate }}</button>
                             </div>
                         </div>
                         <div class="fresh-datatables">
@@ -42,12 +42,6 @@
                                         <td>{{ row.email }}</td>
                                         <td>{{ row.enable }}</td>
                                         <td class="text-right">
-                                            <button class="btn btn-info btn-simple btn-icon" data-placement="left"
-                                                rel="tooltip" title="Additional Information" type="button"
-                                                data-original-title="Additional Information"
-                                                (click)="manageChildren(row.id, 'additionalinformation')">
-                                                <i class="fa fa-info"></i>
-                                            </button>
                                             <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon eye"
                                                 (click)="viewRegister(row.id)">
                                                 <i class="fa fa-eye"></i>
@@ -62,7 +56,6 @@
                                                 (click)="removeRegister(row.id)">
                                                 <i class="fa fa-times"></i>
                                             </a>
-
                                         </td>
                                     </tr>
                                 </tbody>

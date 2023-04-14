@@ -9,6 +9,8 @@ import { GenderService } from 'app/services/general/simple/gender.service';
 import { DatePipe } from '@angular/common';
 import { LanguageService } from 'app/services/general/language.service';
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { PatientAdditionalInformationComponent } from './additionalinformation/patient_additionalinformation.component';
+import { PatientAdditionalInformationService } from 'app/services/general/principals/patientadditionalinformation.service';
 @NgModule({
     imports: [
         CustomPagesModule,
@@ -18,10 +20,15 @@ import { NgxTranslateModule } from 'app/translate/translate.module';
     declarations: [
         PatientComponent,
         AddEditPatientComponent,
+        PatientAdditionalInformationComponent
     ]
     ,
     providers: [
-        PatientService, GenderService, DatePipe, LanguageService
+        PatientService
+        , GenderService
+        , DatePipe
+        , LanguageService
+        , PatientAdditionalInformationService
     ],
 })
 

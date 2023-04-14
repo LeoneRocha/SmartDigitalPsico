@@ -9,6 +9,7 @@ using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientMedicationInformation;
+using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
@@ -34,10 +35,10 @@ namespace SmartDigitalPsico.Business.Principals
             _patientRepository = patientRepository;
         }
         public override async Task<ServiceResponse<GetPatientMedicationInformationVO>> Create(AddPatientMedicationInformationVO item)
-        { 
+        {
             ServiceResponse<GetPatientMedicationInformationVO> response = new ServiceResponse<GetPatientMedicationInformationVO>();
             try
-            { 
+            {
                 PatientMedicationInformation entityAdd = _mapper.Map<PatientMedicationInformation>(item);
 
                 #region Relationship
@@ -60,7 +61,7 @@ namespace SmartDigitalPsico.Business.Principals
                 {
                     PatientMedicationInformation entityResponse = await _entityRepository.Create(entityAdd);
 
-                    response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse); 
+                    response.Data = _mapper.Map<GetPatientMedicationInformationVO>(entityResponse);
                     response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
                        ("RegisterCreated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
@@ -79,7 +80,7 @@ namespace SmartDigitalPsico.Business.Principals
             try
             {
                 PatientMedicationInformation entityUpdate = await _entityRepository.FindByID(item.Id);
-                 
+
                 entityUpdate.ModifyDate = DateTime.Now;
                 entityUpdate.LastAccessDate = DateTime.Now;
 
@@ -95,7 +96,7 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.MainDrug = item.MainDrug;
                 entityUpdate.Description = item.Description;
                 entityUpdate.Dosage = item.Dosage;
-                entityUpdate.Posology = item.Posology;                
+                entityUpdate.Posology = item.Posology;
                 #endregion Columns
 
                 response = await base.Validate(entityUpdate);
@@ -117,9 +118,6 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
         }
 
-
-
-
         public async Task<ServiceResponse<List<GetPatientMedicationInformationVO>>> FindAllByPatient(long patientId)
         {
             ServiceResponse<List<GetPatientMedicationInformationVO>> response = new ServiceResponse<List<GetPatientMedicationInformationVO>>();
@@ -136,6 +134,20 @@ namespace SmartDigitalPsico.Business.Principals
             response.Success = true;
             response.Message = "Patients finded.";
             return response;
+        }
+
+        public async override Task<ServiceResponse<List<GetPatientMedicationInformationVO>>> FindAll()
+        {
+            var result = new ServiceResponse<List<GetPatientMedicationInformationVO>>();
+            result.Success = false;
+            result.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
+
+            return result;
+        }
+        public async override Task<ServiceResponse<GetPatientMedicationInformationVO>> FindByID(long id)
+        {
+            return await base.FindByID(id);
         }
     }
 }

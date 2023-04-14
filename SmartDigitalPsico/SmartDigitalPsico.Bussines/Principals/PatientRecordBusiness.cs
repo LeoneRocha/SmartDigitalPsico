@@ -4,10 +4,12 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient;
+using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
@@ -26,7 +28,7 @@ namespace SmartDigitalPsico.Business.Principals
         public PatientRecordBusiness(IMapper mapper, IPatientRecordRepository entityRepository, IConfiguration configuration, IUserRepository userRepository, IPatientRepository patientRepository
             , IValidator<PatientRecord> entityValidator
             , IApplicationLanguageRepository applicationLanguageRepository
-            , ICacheBusiness cacheBusiness) 
+            , ICacheBusiness cacheBusiness)
             : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
@@ -39,7 +41,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             ServiceResponse<GetPatientRecordVO> response = new ServiceResponse<GetPatientRecordVO>();
             try
-            { 
+            {
                 PatientRecord entityAdd = _mapper.Map<PatientRecord>(item);
 
                 #region Relationship
@@ -59,8 +61,8 @@ namespace SmartDigitalPsico.Business.Principals
 
                 if (response.Success)
                 {
-                    PatientRecord entityResponse = await _entityRepository.Create(entityAdd); 
-                    response.Data = _mapper.Map<GetPatientRecordVO>(entityResponse); 
+                    PatientRecord entityResponse = await _entityRepository.Create(entityAdd);
+                    response.Data = _mapper.Map<GetPatientRecordVO>(entityResponse);
                     response.Message = "Patient registred.";
                 }
             }
@@ -70,7 +72,7 @@ namespace SmartDigitalPsico.Business.Principals
                 throw;
             }
             return response;
-        } 
+        }
         public override async Task<ServiceResponse<GetPatientRecordVO>> Update(UpdatePatientRecordVO item)
         {
             ServiceResponse<GetPatientRecordVO> response = new ServiceResponse<GetPatientRecordVO>();
@@ -97,10 +99,10 @@ namespace SmartDigitalPsico.Business.Principals
                 #endregion Relationship
 
                 #region Columns
-                entityUpdate.Enable = item.Enable; 
+                entityUpdate.Enable = item.Enable;
                 entityUpdate.Annotation = item.Annotation;
                 entityUpdate.Description = item.Description;
-                entityUpdate.AnnotationDate = item.AnnotationDate;  
+                entityUpdate.AnnotationDate = item.AnnotationDate;
                 #endregion Columns
 
                 response = await base.Validate(entityUpdate);
@@ -135,6 +137,19 @@ namespace SmartDigitalPsico.Business.Principals
             response.Success = true;
             response.Message = "Patients finded.";
             return response;
+        }
+        public async override Task<ServiceResponse<List<GetPatientRecordVO>>> FindAll()
+        {
+            var result = new ServiceResponse<List<GetPatientRecordVO>>();
+            result.Success = false;
+            result.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
+
+            return result;
+        } 
+        public async override Task<ServiceResponse<GetPatientRecordVO>> FindByID(long id)
+        {
+            return await base.FindByID(id);
         }
     }
 }

@@ -33,10 +33,10 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
 
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetPatientNotificationMessageVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetPatientNotificationMessageVO>>>> FindAll(int patientId)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindAll());
+            return Ok(await _entityService.FindAllByPatient(patientId));
         }
 
         [HttpGet("{id}")]

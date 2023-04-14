@@ -22,8 +22,9 @@ namespace SmartDigitalPsico.Business.Validation.Contratcs
         {
             bool userHasPermission = false;
             User userLogged = await base._userRepository.FindByID(userIdLogged);
+            if (recordsList.Records.Count == 0 || userLogged == null) { return false; }
 
-            userHasPermission = recordsList.Records.All(rg => 
+            userHasPermission = recordsList.Records.All(rg =>
             rg.CreatedUser?.Id == userIdLogged
             && rg.Patient.Medical.UserId == userIdLogged);
             //var userLo = await _authorizationService.AuthorizeAsync(loggedInUser, recordsList, "RetrieveRecordsList");
@@ -31,6 +32,6 @@ namespace SmartDigitalPsico.Business.Validation.Contratcs
             return userHasPermission;
         }
 
-       
+
     }
 }

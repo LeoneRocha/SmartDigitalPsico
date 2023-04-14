@@ -56,7 +56,9 @@ export class PatientAdditionalInformationComponent implements OnInit {
     }
     private getPatientId(): number {
         let paramsUrl = this.route.snapshot.paramMap;
-        return Number(paramsUrl.get('patientId'));
+        const idParent: number = Number(paramsUrl.get('parentId'));
+
+        return idParent;
     }
     retrieveList(): void {
         //let patientId: number = 1

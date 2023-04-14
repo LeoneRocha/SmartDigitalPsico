@@ -46,7 +46,7 @@ export class PatientComponent implements OnInit {
         this.router.navigate(['/patient/manage/patientaction']);
     }
     manageChildren(idRegister: number, actionRoute: string): void {
-        this.router.navigate([`/patient/manage/${actionRoute}`, { id: idRegister }]);
+        this.router.navigate([`/patient/manage/${actionRoute}`, { parentId: idRegister }]);
     }
     viewRegister(idRegister: number): void {
         this.router.navigate(['/patient/manage/patientaction', { modeForm: 'view', id: idRegister }]);

@@ -34,10 +34,10 @@
       "text": "Error MSG"
     },
     "notification": {
-      "title": "Erro do notification!",
-      "text": "Erro do notification!",
+      "title": "Error of notification!",
+      "text": "Error of notification!",
       "erro": {
-        "connection": "Erro ao conectar!"
+        "connection": "Error of connection!"
       }
     }
   },

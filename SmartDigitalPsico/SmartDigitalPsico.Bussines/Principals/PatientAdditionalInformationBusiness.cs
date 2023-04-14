@@ -1,10 +1,13 @@
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Business.Validation.Contratcs;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -128,14 +131,30 @@ namespace SmartDigitalPsico.Business.Principals
 
             return response;
         }
-         
+
         public async Task<ServiceResponse<List<GetPatientAdditionalInformationVO>>> FindAllByPatient(long patientId)
         {
             ServiceResponse<List<GetPatientAdditionalInformationVO>> response = new ServiceResponse<List<GetPatientAdditionalInformationVO>>();
 
             var listResult = await _entityRepository.FindAllByPatient(patientId);
 
-            //TODO:VALIDATE USER GET REGISTER
+            var recordsList = new RecordsList<PatientAdditionalInformation>
+            {
+                UserIdLogged = base.UserId,
+                Records = listResult
+
+            };
+            var validator = new PatientAdditionalInformationSelectListValidator(_userRepository);
+            var validationResult = await validator.ValidateAsync(recordsList);
+
+            if (!validationResult.IsValid)
+            {
+                response.Errors = validator.GetMapErros(validationResult.Errors);
+                response.Success = false;
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("ErrorValidator_User_Not_Permission", base._applicationLanguageRepository, base._cacheBusiness);
+                return response;
+            }
 
             if (listResult == null || listResult.Count == 0)
             {

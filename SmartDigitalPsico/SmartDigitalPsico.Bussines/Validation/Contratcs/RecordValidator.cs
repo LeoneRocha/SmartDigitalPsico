@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -28,6 +30,10 @@ namespace SmartDigitalPsico.Business.Validation.Contratcs
             //var userLo = await _authorizationService.AuthorizeAsync(loggedInUser, recordsList, "RetrieveRecordsList");
 
             return userHasPermission;
+        }
+        public List<ErrorResponse> GetMapErros(List<ValidationFailure> errors)
+        {
+            return errors.Select(er => new ErrorResponse() { ErrorCode = er.ErrorCode, Message = er.ErrorMessage, Name = er.PropertyName }).ToList();
         }
     }
 }

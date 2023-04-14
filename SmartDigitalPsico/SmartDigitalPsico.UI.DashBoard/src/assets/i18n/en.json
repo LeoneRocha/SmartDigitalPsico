@@ -32,6 +32,13 @@
       "title": "Error load!",
       "erro": "Error load!",
       "text": "Error MSG"
+    },
+    "notification": {
+      "title": "Erro do notification!",
+      "text": "Erro do notification!",
+      "erro": {
+        "connection": "Erro ao conectar!"
+      }
     }
   },
   "navbar": {

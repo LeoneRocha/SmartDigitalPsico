@@ -86,7 +86,7 @@ export class GenderComponent implements OnInit, OnDestroy {
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-gender', response);
             },
-            error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
+            error: (err) => { this.showNotification('top', 'center', this.gettranslateInformationAsync('modalalert.notification.erro.connection'), 'danger'); }
         });
 
         // alert('You clicked on Like button');

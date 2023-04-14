@@ -32,6 +32,13 @@
       "title": "Erro ao carregar!",
       "erro": "Erro ao carregar!",
       "text": "Mensagem de erro"
+    },
+    "notification": {
+      "title": "Erro do notification!",
+      "text": "Erro do notification!",
+      "erro": {
+        "connection": "Erro ao conectar!"
+      }
     }
   },
   "navbar": {

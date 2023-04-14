@@ -63,7 +63,7 @@ export class ApplicationLanguageComponent implements OnInit {
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-ApplicationLanguage', response);
             },
-            error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
+            error: (err) => { this.showNotification('top', 'center', this.gettranslateInformationAsync('modalalert.notification.erro.connection'), 'danger'); }
         });
 
         // alert('You clicked on Like button');
@@ -201,7 +201,7 @@ export class ApplicationLanguageComponent implements OnInit {
         let dtLabels = this.getDTLabels();
         this.dataTable = {
             headerRow: dtLabels,
-            footerRow: dtLabels, 
+            footerRow: dtLabels,
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };

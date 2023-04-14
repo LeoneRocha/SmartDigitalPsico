@@ -63,7 +63,7 @@ export class MedicalComponent implements OnInit {
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-Medical', response);
             },
-            error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
+            error: (err) => { this.showNotification('top', 'center', this.gettranslateInformationAsync('modalalert.notification.erro.connection'), 'danger'); }
         });
 
         // alert('You clicked on Like button');
@@ -147,7 +147,7 @@ export class MedicalComponent implements OnInit {
             buttonsStyling: false
         });
     }
-     gettranslateInformationAsync(key: string): string {
+    gettranslateInformationAsync(key: string): string {
         let result = this.languageService.translateInformationAsync([key])[0];
         //console.log(result);
         return result;
@@ -177,7 +177,7 @@ export class MedicalComponent implements OnInit {
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
             language: {
-                url: './assets/i18n/datatable_'+ this.languageService.getLanguageToLocalStorage() +'.json'
+                url: './assets/i18n/datatable_' + this.languageService.getLanguageToLocalStorage() + '.json'
             }
 
         });
@@ -211,5 +211,5 @@ export class MedicalComponent implements OnInit {
     }
     getDTLabels(): string[] {
         return this.languageService.translateInformationAsync(this.columlabelsDT);
-    } 
+    }
 } 

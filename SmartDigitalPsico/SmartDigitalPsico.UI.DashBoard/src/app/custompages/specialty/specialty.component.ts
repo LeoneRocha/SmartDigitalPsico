@@ -70,7 +70,7 @@ export class SpecialtyComponent implements OnInit {
                     this.loadConfigDataTablesLazzy();
                 }
                 if (apState.apiStatus === 'error' && apState.apiResponseMessage === 'invokeSpecialtysAPI') {
-                    this.showNotification('top', 'center', 'Erro ao conectar!', 'danger');
+                    this.showNotification('top', 'center', this.gettranslateInformationAsync('modalalert.notification.erro.connection'), 'danger');
                 }
             },
             //error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
@@ -177,7 +177,7 @@ export class SpecialtyComponent implements OnInit {
             buttonsStyling: false
         });
     }
-     gettranslateInformationAsync(key: string): string {
+    gettranslateInformationAsync(key: string): string {
         let result = this.languageService.translateInformationAsync([key])[0];
         //console.log(result);
         return result;
@@ -201,17 +201,17 @@ export class SpecialtyComponent implements OnInit {
             this.loadConfigDataTables();
         }, 100);
     }
-    loadConfigDataTables(): void {        
-        var table =  $('#datatables').DataTable({
+    loadConfigDataTables(): void {
+        var table = $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
             //destroy: true,
-            language: { 
+            language: {
                 url: './assets/i18n/datatable_' + this.languageService.getLanguageToLocalStorage() + '.json'
             }
 
-        }); 
+        });
 
         // Edit record
         table.on('click', '.edit', function () {
@@ -235,12 +235,12 @@ export class SpecialtyComponent implements OnInit {
         let dtLabels = this.getDTLabels();
         this.dataTable = {
             headerRow: dtLabels,
-            footerRow: dtLabels, 
+            footerRow: dtLabels,
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };
     }
     getDTLabels(): string[] {
         return this.languageService.translateInformationAsync(this.columlabelsDT);
-    }     
+    }
 } 

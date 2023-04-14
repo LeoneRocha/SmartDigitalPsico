@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
-import { DataTable, RouteEntity } from 'app/models/general/DataTable'; 
+import { DataTable, RouteEntity } from 'app/models/general/DataTable';
 import { PatientModel } from 'app/models/principalsmodel/PatientModel';
 import { LanguageService } from 'app/services/general/language.service';
 import { PatientAdditionalInformationService } from 'app/services/general/principals/patientadditionalinformation.service';
@@ -54,11 +54,11 @@ export class PatientAdditionalInformationComponent implements OnInit {
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
-    private getPatientId() : number {
+    private getPatientId(): number {
         let paramsUrl = this.route.snapshot.paramMap;
         return Number(paramsUrl.get('patientId'));
     }
-    retrieveList(): void { 
+    retrieveList(): void {
         //let patientId: number = 1
         this.registerService.getAllByParentId(this.getPatientId(), "patientId").subscribe({
             next: (response: any) => {
@@ -68,7 +68,7 @@ export class PatientAdditionalInformationComponent implements OnInit {
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-patient', response);
             },
-            error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
+            error: (err) => { this.showNotification('top', 'center', this.gettranslateInformationAsync('modalalert.notification.erro.connection'), 'danger'); }
         });
 
         // alert('You clicked on Like button');

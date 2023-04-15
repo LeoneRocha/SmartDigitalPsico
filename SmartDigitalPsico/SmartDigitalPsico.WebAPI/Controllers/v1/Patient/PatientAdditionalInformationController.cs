@@ -29,7 +29,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         private void setUserIdCurrent()
         {
             _entityService.SetUserId(base.GetUserIdCurrent());
-        } 
+        }
 
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
@@ -74,11 +74,11 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         {
             this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
-            if (response.Data)
+            if (response.Success)
             {
-                return NotFound(response);
+                return Ok(response);
             }
-            return Ok(response);
+            return NotFound(response);
         }
 
     }

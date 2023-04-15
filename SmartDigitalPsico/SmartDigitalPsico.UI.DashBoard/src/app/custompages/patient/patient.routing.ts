@@ -5,6 +5,8 @@ import { PatientAdditionalInformationComponent } from './additionalinformation/p
 import { AddEditPatientAdditionalInformationComponent } from './additionalinformation/add-edit-patient_additionalinformation.component';
 import { AddEditPatientHospitalizationInformationComponent } from './hospitalizationinformation/add-edit-patient_hospitalizationinformation.component';
 import { PatientHospitalizationinformationComponent } from './hospitalizationinformation/patient_hospitalizationinformation.component';
+import { AddEditPatientMedicationInformationComponent } from './patientmedicationinformation/add-edit-patientmedicationinformation.component';
+import { PatientMedicationInformationComponent } from './patientmedicationinformation/patient_medicationinformation.component';
 
 export const PatientRoutes: Routes = [{
     path: '',
@@ -12,28 +14,41 @@ export const PatientRoutes: Routes = [{
         //path: 'pages/Patient',
         path: '',
         component: PatientComponent
-    }, {
+    },
+    {
         path: 'patientaction',
         //title: 'navbar.patient',
         component: AddEditPatientComponent
-    }, {
+    },
+    {
         path: 'additionalinformation',
         //title: 'navbar.patient',
         component: PatientAdditionalInformationComponent
-    }, {
+    },
+    {
         path: 'additionalinformationaction',
         //title: 'navbar.patient',
         component: AddEditPatientAdditionalInformationComponent
-    }
-    , {
+    },
+    {
         path: 'hospitalizationinformation',
         //title: 'navbar.patient',
         component: PatientHospitalizationinformationComponent
-    }
-    , {
+    },
+    {
         path: 'hospitalizationinformationaction',
         //title: 'navbar.patient',
         component: AddEditPatientHospitalizationInformationComponent
+    },
+    {
+        path: 'medicationinformation',
+        //title: 'navbar.patient',
+        component: PatientMedicationInformationComponent
+    },
+    {
+        path: 'medicationinformationaction',
+        //title: 'navbar.patient',
+        component: AddEditPatientMedicationInformationComponent
     }
     ]
 }];

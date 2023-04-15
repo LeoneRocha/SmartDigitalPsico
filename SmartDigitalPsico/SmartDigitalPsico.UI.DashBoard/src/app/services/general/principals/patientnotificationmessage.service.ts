@@ -6,7 +6,8 @@ import { environment } from 'environments/environment';
 import { GenericService } from 'app/services/generic/generic.service';    
 import { PatientNotificationMessageModel } from 'app/models/principalsmodel/PatientNotificationMessageModel';
 
-const basePathUrl = '/PatientNotificationMessage/v1';
+//localhost:61949/api/patient/v1/PatientAdditionalInformation/FindAll?patientId=1
+const basePathUrl = '/patient/v1/PatientNotificationMessage';
 @Injectable()
 export class PatientNotificationMessageService extends GenericService<ServiceResponse<PatientNotificationMessageModel>, PatientNotificationMessageModel, number> {
 

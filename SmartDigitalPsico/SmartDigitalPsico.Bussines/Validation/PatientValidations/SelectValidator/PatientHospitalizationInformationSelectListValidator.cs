@@ -1,8 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
-using SmartDigitalPsico.Domains.Hypermedia.Utils;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Contracts.Interface;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
 

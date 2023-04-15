@@ -1,15 +1,12 @@
-using System.Collections.Generic;
+using SmartDigitalPsico.Model.Contracts;
+using SmartDigitalPsico.Model.Contracts.Interface;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity.Domains;
 
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("PatientMedicationInformations", Schema = "dbo")]
-    public class PatientMedicationInformation : EntityBaseSimple
+    public class PatientMedicationInformation : EntityBaseSimple, IEntityBaseLogUser
     {
         #region Relationship 
         [Required]

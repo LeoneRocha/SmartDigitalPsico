@@ -4,10 +4,10 @@ using SmartDigitalPsico.Repository.Contract.Principals;
 
 namespace SmartDigitalPsico.Business.Validation.Contratcs
 {
-    public class PatientAdditionalInformationSelectValidator : RecordValidator<PatientAdditionalInformation>
+    public class PatientMedicationInformationSelectListValidator : RecordsListValidator<PatientMedicationInformation>
     {
 
-        public PatientAdditionalInformationSelectValidator(IUserRepository userRepository)
+        public PatientMedicationInformationSelectListValidator(IUserRepository userRepository)
             : base(userRepository)
         {
             RuleFor(recordsList => recordsList.UserIdLogged)

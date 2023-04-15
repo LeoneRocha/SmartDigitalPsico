@@ -5,6 +5,7 @@ using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Business.Validation.Contratcs;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -127,6 +128,23 @@ namespace SmartDigitalPsico.Business.Principals
 
             var listResult = await _entityRepository.FindAllByPatient(patientId);
 
+            var recordsList = new RecordsList<PatientRecord>
+            {
+                UserIdLogged = base.UserId,
+                Records = listResult
+
+            };
+            var validator = new PatientRecordSelectListValidator(_userRepository);
+            var validationResult = await validator.ValidateAsync(recordsList);
+            if (!validationResult.IsValid)
+            {
+                response.Errors = validator.GetMapErros(validationResult.Errors);
+                response.Success = false;
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("ErrorValidator_User_Not_Permission", base._applicationLanguageRepository, base._cacheBusiness);
+                return response;
+            }
+
             if (listResult == null || listResult.Count == 0)
             {
                 response.Success = false;
@@ -136,6 +154,7 @@ namespace SmartDigitalPsico.Business.Principals
             response.Data = listResult.Select(c => _mapper.Map<GetPatientRecordVO>(c)).ToList();
             response.Success = true;
             response.Message = "Patients finded.";
+              
             return response;
         }
         public async override Task<ServiceResponse<List<GetPatientRecordVO>>> FindAll()

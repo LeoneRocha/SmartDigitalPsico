@@ -322,6 +322,35 @@
       "TitleAdd": "Adicionar Informações de Hospitalização",
       "TitleEdit": "Editar Informações de Hospitalização",
       "TitleView": "Visualizar Informações de Hospitalização"
+    },
+    "medicationinformation": {
+      "title": "Informações sobre Medicamentos",
+      "required": "Informações sobre Medicamentos são obrigatórias",
+      "category": "Lista de Informações sobre Medicamentos",
+      "select": "Selecionar Informações sobre Medicamentos",
+      "startDate": {
+        "title": "Data de Início",
+        "required": "A Data de Início é obrigatória"
+      },
+      "endDate": {
+        "title": "Data de Fim",
+        "required": "A Data de Fim é obrigatória"
+      },
+      "dosage": {
+        "title": "Dosagem",
+        "required": "A Dosagem é obrigatória"
+      },
+      "mainDrug": {
+        "title": "Medicamento Principal",
+        "required": "O Medicamento Principal é obrigatório"
+      },
+      "posology": {
+        "title": "Posologia",
+        "required": "A Posologia é obrigatória"
+      },
+      "TitleAdd": "Adicionar Informações sobre Medicamentos",
+      "TitleEdit": "Editar Informações sobre Medicamentos",
+      "TitleView": "Visualizar Informações sobre Medicamentos"
     }
   },
   "rolegroup": {

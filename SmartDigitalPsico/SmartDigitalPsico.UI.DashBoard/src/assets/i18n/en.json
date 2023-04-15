@@ -323,6 +323,35 @@
       "TitleAdd": "Add Hospitalization Information",
       "TitleEdit": "Edit Hospitalization Information",
       "TitleView": "View Hospitalization Information"
+    },
+    "medicationinformation": {
+      "title": "Medication Information",
+      "required": "Medication Information is required",
+      "category": "List of Medication Information",
+      "select": "Select Medication Information",
+      "startDate": {
+        "title": "Start Date",
+        "required": "Start Date is required"
+      },
+      "endDate": {
+        "title": "End Date",
+        "required": "End Date is required"
+      },
+      "dosage": {
+        "title": "Dosage",
+        "required": "Dosage is required"
+      },
+      "mainDrug": {
+        "title": "Main Drug",
+        "required": "Main Drug is required"
+      },
+      "posology": {
+        "title": "Posology",
+        "required": "Posology is required"
+      },
+      "TitleAdd": "Add Medication Information",
+      "TitleEdit": "Edit Medication Information",
+      "TitleView": "View Medication Information"
     }
   },
   "rolegroup": {

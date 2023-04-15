@@ -16,8 +16,8 @@ import { ShortenStringPipe } from 'app/common/custompipe/shortenstring.pipe';
 import { AddEditPatientHospitalizationInformationComponent } from './hospitalizationinformation/add-edit-patient_hospitalizationinformation.component';
 import { PatientHospitalizationInformationService } from 'app/services/general/principals/patienthospitalizationinformation.service';
 import { PatientHospitalizationinformationComponent } from './hospitalizationinformation/patient_hospitalizationinformation.component';
-import { PatientMedicationInformationComponent } from './patientmedicationinformation/patient_medicationinformation.component';
-import { AddEditPatientMedicationInformationComponent } from './patientmedicationinformation/add-edit-patientmedicationinformation.component';
+import { PatientMedicationInformationComponent } from './medicationinformation/patient_medicationinformation.component';
+import { AddEditPatientMedicationInformationComponent } from './medicationinformation/add-edit-patientmedicationinformation.component';
 import { PatientMedicationInformationService } from 'app/services/general/principals/patientmedicationinformation.service';
 
 @NgModule({

@@ -54,14 +54,20 @@
                                                 rel="tooltip" title="Hospitalization Information" type="button"
                                                 data-original-title="Hospitalization Information"
                                                 (click)="manageChildren(row.id, 'hospitalizationinformation')">
-                                                <i class="fa fa-hospital-o"></i> 
+                                                <i class="fa fa-hospital-o"></i>
                                             </button>
                                             <button class="btn btn-success btn-simple btn-icon" data-placement="left"
-                                            rel="tooltip" title="Hospitalization Information" type="button"
-                                            data-original-title="Hospitalization Information"
-                                            (click)="manageChildren(row.id, 'medicationinformation')">
-                                            <i class="fa fa-hospital-o"></i> 
-                                        </button>
+                                                rel="tooltip" title="Hospitalization Information" type="button"
+                                                data-original-title="Hospitalization Information"
+                                                (click)="manageChildren(row.id, 'medicationinformation')">
+                                                <i class="fa fa-medkit"></i>
+                                            </button>
+                                            <button class="btn btn-success btn-simple btn-icon" data-placement="left"
+                                                rel="tooltip" title="Records" type="button"
+                                                data-original-title="Records"
+                                                (click)="manageChildren(row.id, 'record')">
+                                                <i class="fa fa-stethoscope"></i>
+                                            </button>
 
                                         </td>
                                         <td class="text-right">

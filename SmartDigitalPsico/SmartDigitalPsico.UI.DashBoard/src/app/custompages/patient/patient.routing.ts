@@ -5,8 +5,8 @@ import { PatientAdditionalInformationComponent } from './additionalinformation/p
 import { AddEditPatientAdditionalInformationComponent } from './additionalinformation/add-edit-patient_additionalinformation.component';
 import { AddEditPatientHospitalizationInformationComponent } from './hospitalizationinformation/add-edit-patient_hospitalizationinformation.component';
 import { PatientHospitalizationinformationComponent } from './hospitalizationinformation/patient_hospitalizationinformation.component';
-import { AddEditPatientMedicationInformationComponent } from './patientmedicationinformation/add-edit-patientmedicationinformation.component';
-import { PatientMedicationInformationComponent } from './patientmedicationinformation/patient_medicationinformation.component';
+import { AddEditPatientMedicationInformationComponent } from './medicationinformation/add-edit-patientmedicationinformation.component';
+import { PatientMedicationInformationComponent } from './medicationinformation/patient_medicationinformation.component';
 
 export const PatientRoutes: Routes = [{
     path: '',

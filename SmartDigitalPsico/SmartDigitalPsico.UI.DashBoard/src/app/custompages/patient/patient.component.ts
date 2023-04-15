@@ -29,8 +29,10 @@ export class PatientComponent implements OnInit {
         , 'general.name.title'
         , 'general.email.title'
         , 'general.enable'
+        , 'general.patientrecords'
         , 'general.actions'
     ];
+    
 
     constructor(@Inject(PatientService) private registerService: PatientService
         , @Inject(Router) private router: Router

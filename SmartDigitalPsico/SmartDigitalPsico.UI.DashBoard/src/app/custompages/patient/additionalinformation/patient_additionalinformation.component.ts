@@ -30,7 +30,9 @@ export class PatientAdditionalInformationComponent implements OnInit {
         , 'general.actions'
     ];
     parentId: number;
-
+    estadoBotao_goBackToList = 'inicial';
+    estadoBotao_addRegister = 'inicial';
+    estadoBotao_updateRegister = 'inicial';
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
         , @Inject(PatientAdditionalInformationService) private registerService: PatientAdditionalInformationService
@@ -43,6 +45,19 @@ export class PatientAdditionalInformationComponent implements OnInit {
         this.retrieveList();
     }
     ngAfterViewInit() {
+    }
+    animarBotao(estado: string, stateBtn: string) {
+        if (stateBtn === 'goBackToList')
+            this.estadoBotao_goBackToList = estado;
+
+        if (stateBtn === 'addRegister')
+            this.estadoBotao_addRegister = estado;
+
+        if (stateBtn === 'updateRegister')
+            this.estadoBotao_updateRegister = estado;
+    }
+    goBackToList() { 
+        this.router.navigate(['/patient/manage/', { parentId: this.parentId }]);
     }
     newRegister(): void {
         this.router.navigate(['/patient/manage/additionalinformationaction', { parentId: this.parentId }]);

@@ -78,6 +78,10 @@
     "altEdit": "Edit",
     "altView": "View",
     "altDelete": "Delete",
+    "datetime": {
+      "title": "Date",
+      "required": "Date is required"
+    },
     "name": {
       "title": "Name",
       "required": "Name is required"
@@ -290,6 +294,35 @@
       "TitleAdd": "Add Additional Information",
       "TitleEdit": "Edit Additional Information",
       "TitleView": "View Additional Information"
+    },
+    "hospitalizationinformation": {
+      "title": "Hospitalization Information",
+      "required": "Hospitalization Information is required",
+      "category": "List of Hospitalization Information",
+      "select": "Select Hospitalization Information",
+      "CID": {
+        "title": "CID",
+        "required": "CID is required"
+      },
+      "startDate": {
+        "title": "Start Date",
+        "required": "Start Date is required"
+      },
+      "endDate": {
+        "title": "End Date",
+        "required": "End Date is required"
+      },
+      "hospitalization": {
+        "title": "hospitalization",
+        "required": "hospitalization is required"
+      },
+      "observation": {
+        "title": "Observation",
+        "required": "Observation is required"
+      },
+      "TitleAdd": "Add Hospitalization Information",
+      "TitleEdit": "Edit Hospitalization Information",
+      "TitleView": "View Hospitalization Information"
     }
   },
   "rolegroup": {

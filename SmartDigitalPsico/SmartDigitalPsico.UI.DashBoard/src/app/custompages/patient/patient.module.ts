@@ -13,27 +13,33 @@ import { PatientAdditionalInformationComponent } from './additionalinformation/p
 import { PatientAdditionalInformationService } from 'app/services/general/principals/patientadditionalinformation.service';
 import { AddEditPatientAdditionalInformationComponent } from './additionalinformation/add-edit-patient_additionalinformation.component';
 import { ShortenStringPipe } from 'app/common/custompipe/shortenstring.pipe';
+import { AddEditPatientHospitalizationInformationComponent } from './hospitalizationinformation/add-edit-patient_hospitalizationinformation.component';
+import { PatientHospitalizationInformationService } from 'app/services/general/principals/patienthospitalizationinformation.service';
+import { PatientHospitalizationinformationComponent } from './hospitalizationinformation/patient_hospitalizationinformation.component';
 
 @NgModule({
     imports: [
-        CustomPagesModule,
-        RouterModule.forChild(PatientRoutes),
-        NgxTranslateModule,
+        CustomPagesModule
+        , RouterModule.forChild(PatientRoutes)
+        , NgxTranslateModule,
     ],
     declarations: [
-        ShortenStringPipe,
-        PatientComponent,
-        AddEditPatientComponent,
-        PatientAdditionalInformationComponent,
-        AddEditPatientAdditionalInformationComponent
+        ShortenStringPipe
+        , PatientComponent
+        , AddEditPatientComponent
+        , PatientAdditionalInformationComponent
+        , AddEditPatientAdditionalInformationComponent
+        , PatientHospitalizationinformationComponent
+        , AddEditPatientHospitalizationInformationComponent
     ]
     ,
     providers: [
-        PatientService
-        , GenderService
         , DatePipe
+        , PatientService
+        , GenderService
         , LanguageService
         , PatientAdditionalInformationService
+        , PatientHospitalizationInformationService
     ],
 })
 

@@ -51,11 +51,11 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
              .WithMessage("ErrorValidator_Patient_NotFound")
              .MustAsync(async (entity, value, c) => await PatientIdChanged(entity, value)) 
              .WithMessage("ErrorValidator_Patient_Changed")
-             .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value)) 
+              /*  .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value)) 
              .WithMessage("ErrorValidator_Patient_Medical_Created")
-             .MustAsync(async (entity, value, c) => await MedicalModify(entity, value)) 
-             .WithMessage("ErrorValidator_Patient_Medical_Modify");
-             
+               .MustAsync(async (entity, value, c) => await MedicalModify(entity, value)) 
+               .WithMessage("ErrorValidator_Patient_Medical_Modify")*/;
+
             #endregion Relationship  
         }
 

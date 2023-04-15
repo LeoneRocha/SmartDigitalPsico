@@ -78,6 +78,10 @@
     "altEdit": "Editar",
     "altView": "Visualizar",
     "altDelete": "Excluir",
+    "datetime": {
+      "title": "Data",
+      "required": "Data é obrigatório"
+    },
     "name": {
       "title": "Nome",
       "required": "O nome é obrigatório"
@@ -274,21 +278,50 @@
       "TitleView": "Visualizar Paciente"
     },
     "additionalinformation": {
-      "title": "Additional Information",
-      "required": "Additional Information is required",
-      "category": "List of Additional Information",
-      "select": "Select Additional Information",
+      "title": "Informações Complementares",
+      "required": "Informações Complementares são obrigatórias",
+      "category": "Lista de Informações Complementares",
+      "select": "Selecione uma Informação Complementares",
       "FollowUp_Neurological": {
-        "title": "FollowUp Neurological",
-        "required": "FollowUp Neurological is required"
+        "title": "Acompanhamento Neurológico",
+        "required": "Acompanhamento Neurológico é obrigatório"
       },
       "FollowUp_Psychiatric": {
-        "title": "FollowUp Psychiatric",
-        "required": "FollowUp Psychiatric is required"
+        "title": "Acompanhamento Psiquiátrico",
+        "required": "Acompanhamento Psiquiátrico é obrigatório"
       },
-      "TitleAdd": "Add Additional Information",
-      "TitleEdit": "Edit Additional Information",
-      "TitleView": "View Additional Information"
+      "TitleAdd": "Adicionar Informação Adicional",
+      "TitleEdit": "Editar Informação Adicional",
+      "TitleView": "Ver Informação Adicional"
+    },
+    "hospitalizationinformation": {
+      "title": "Informações de Hospitalização",
+      "required": "Informações de Hospitalização são obrigatórias",
+      "category": "Lista de Informações de Hospitalização",
+      "select": "Selecione as Informações de Hospitalização",
+      "CID": {
+        "title": "CID",
+        "required": "CID é obrigatório"
+      },
+      "startDate": {
+        "title": "Data de Início",
+        "required": "Data de Início é obrigatória"
+      },
+      "endDate": {
+        "title": "Data de Fim",
+        "required": "Data de Fim é obrigatória"
+      },
+      "hospitalization": {
+        "title": "Hospitalização",
+        "required": "Hospitalização é obrigatória"
+      },
+      "observation": {
+        "title": "Observação",
+        "required": "Observação é obrigatória"
+      },
+      "TitleAdd": "Adicionar Informações de Hospitalização",
+      "TitleEdit": "Editar Informações de Hospitalização",
+      "TitleView": "Visualizar Informações de Hospitalização"
     }
   },
   "rolegroup": {

@@ -24,9 +24,13 @@ namespace SmartDigitalPsico.Business.Validation.Contratcs
         protected virtual async Task<bool> HasPermissionAsync(RecordsList<T> recordsList, long userIdLogged, CancellationToken cancellationToken)
         {
             bool userHasPermission = false;
-            User userLogged = await _userRepository.FindByID(userIdLogged);
+            User userLogged = await this._userRepository.FindByID(userIdLogged);
+            if (recordsList.Records.Count == 0 || userLogged == null) { return false; }
 
-            userHasPermission = recordsList.Records.All(rg => rg.CreatedUser?.Id == userIdLogged);
+            userHasPermission = recordsList.Records.All(rg =>
+            rg.CreatedUser?.Id == userIdLogged
+            //&& rg.Patient.Medical.UserId == userIdLogged
+            );
             //var userLo = await _authorizationService.AuthorizeAsync(loggedInUser, recordsList, "RetrieveRecordsList");
 
             return userHasPermission;

@@ -8,6 +8,10 @@ export interface SimpleModel extends SimpleModelBase{
     enable: boolean; 
   }  
 
+  export interface SimpleModelBaseDescription extends SimpleModelBase{ 
+    description: string; 
+  }  
+
 
 
   export interface SimpleGeneralModel{

@@ -42,10 +42,11 @@ namespace SmartDigitalPsico.Business.Principals
             {
                 PatientMedicationInformation entityAdd = _mapper.Map<PatientMedicationInformation>(item);
 
+
                 #region Relationship
 
                 User userAction = await _userRepository.FindByID(this.UserId);
-                //entityAdd.CreatedUser = userAction;
+                entityAdd.CreatedUser = userAction;
 
                 Patient patientAdd = await _patientRepository.FindByID(item.PatientId);
                 entityAdd.Patient = patientAdd;

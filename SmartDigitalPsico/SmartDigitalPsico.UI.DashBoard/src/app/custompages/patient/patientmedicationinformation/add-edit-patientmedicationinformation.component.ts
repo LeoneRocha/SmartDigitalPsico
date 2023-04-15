@@ -95,8 +95,7 @@ export class AddEditPatientMedicationInformationComponent implements OnInit {
         let formsElement = this.registerForm;
         let paramsUrl = this.route.snapshot.paramMap;
         this.isModeViewForm = paramsUrl.get('modeForm') === 'view';
-        if (this.isModeViewForm) {
-            formsElement.controls['cid'].disable();
+        if (this.isModeViewForm) { 
             formsElement.controls['description'].disable();
             formsElement.controls['dosage'].disable();
             formsElement.controls['mainDrug'].disable();
@@ -267,7 +266,7 @@ export class AddEditPatientMedicationInformationComponent implements OnInit {
         console.log(this.registerForm);
     }
     goBackToList() {
-        this.router.navigate(['/patient/manage/patientmedicationinformation', { parentId: this.parentId }]);
+        this.router.navigate(['/patient/manage/medicationinformation', { parentId: this.parentId }]);
     }
     gettranslateInformationAsync(key: string): string {
         let result = this.languageService.translateInformationAsync([key])[0];

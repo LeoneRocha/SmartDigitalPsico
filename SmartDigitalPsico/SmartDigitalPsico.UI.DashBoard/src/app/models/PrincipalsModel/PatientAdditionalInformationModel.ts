@@ -1,9 +1,7 @@
 import { BaseEntityPatientChildModel } from "../contracts/BaseEntityPatientChildModel";
-import { SimpleModel } from "../contracts/SimpleModel";
+import { SimpleModel, SimpleModelBase } from "../contracts/SimpleModel";
 
-export interface PatientAdditionalInformationModel extends SimpleModel, BaseEntityPatientChildModel {    
-    startDate: Date;
-    endDate: Date;
-    cid: string;
-    observation: string;
+export interface PatientAdditionalInformationModel extends SimpleModelBase, BaseEntityPatientChildModel {        
+    followUp_Neurological: string;
+    followUp_Psychiatric: string;
 }

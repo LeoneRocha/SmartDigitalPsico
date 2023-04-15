@@ -5,7 +5,7 @@ import swal from 'sweetalert2';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { DataTable, RouteEntity } from 'app/models/general/DataTable';
-import { PatientModel } from 'app/models/principalsmodel/PatientModel';
+import { PatientAdditionalInformationModel } from 'app/models/principalsmodel/PatientAdditionalInformationModel';
 import { LanguageService } from 'app/services/general/language.service';
 import { PatientAdditionalInformationService } from 'app/services/general/principals/patientadditionalinformation.service';
 declare var $: any;
@@ -18,17 +18,19 @@ declare var $: any;
 })
 
 export class PatientAdditionalInformationComponent implements OnInit {
-    public listResult: PatientModel[];
-    serviceResponse: ServiceResponse<PatientModel>;
+    public listResult: PatientAdditionalInformationModel[];
+    serviceResponse: ServiceResponse<PatientAdditionalInformationModel>;
     public dataTable: DataTable;
     entityRoute: RouteEntity;
     columlabelsDT: string[] = [
         'Id'
-        , 'general.name.title'
-        , 'general.email.title'
+        , 'patient.name.title'
+        , 'patient.additionalinformation.FollowUp_Neurological.title'
         , 'general.enable'
         , 'general.actions'
     ];
+    parentId: number;
+
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
         , @Inject(PatientAdditionalInformationService) private registerService: PatientAdditionalInformationService
@@ -43,22 +45,21 @@ export class PatientAdditionalInformationComponent implements OnInit {
     ngAfterViewInit() {
     }
     newRegister(): void {
-        this.router.navigate(['/patient/manage/additionalinformationaction']);
+        this.router.navigate(['/patient/manage/additionalinformationaction', { parentId: this.parentId }]);
     }
     viewRegister(idRegister: number): void {
-        this.router.navigate(['/patient/manage/additionalinformationaction', { modeForm: 'view', id: idRegister }]);
+        this.router.navigate(['/patient/manage/additionalinformationaction', { modeForm: 'view', parentId: this.parentId, id: idRegister }]);
     }
     editRegister(idRegister: number): void {
-        this.router.navigate(['/patient/manage/additionalinformationaction', { modeForm: 'edit', id: idRegister }]);
+        this.router.navigate(['/patient/manage/additionalinformationaction', { modeForm: 'edit', parentId: this.parentId, id: idRegister }]);
     }
     removeRegister(idRegister: number): void {
         this.modalAlertRemove(idRegister);
     }
     private getPatientId(): number {
         let paramsUrl = this.route.snapshot.paramMap;
-        const idParent: number = Number(paramsUrl.get('parentId'));
-
-        return idParent;
+        this.parentId = Number(paramsUrl.get('parentId'));
+        return this.parentId;
     }
     retrieveList(): void {
         //let patientId: number = 1
@@ -88,7 +89,7 @@ export class PatientAdditionalInformationComponent implements OnInit {
         this.registerService.delete(idRegister).subscribe({
             next: (response: any) => {
                 CaptureTologFunc('executeDeleteRegister-Patient', response);
-                this.listResult = this.removeItemFromList<PatientModel>(this.listResult, idRegister);
+                this.listResult = this.removeItemFromList<PatientAdditionalInformationModel>(this.listResult, idRegister);
                 this.modalAlertDeleted();
             },
             error: (err) => { this.modalErroAlert('Error of delete.'); }

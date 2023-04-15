@@ -1,9 +1,13 @@
-export interface SimpleModel{
-    id: number;
+export interface SimpleModel extends SimpleModelBase{    
     description: string; 
-    language: string; 
+    language: string;     
+  } 
+  
+  export interface SimpleModelBase{
+    id: number;  
     enable: boolean; 
   }  
+
 
 
   export interface SimpleGeneralModel{

@@ -4,13 +4,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="content">
-                        <h4 class="title">{{ "patient.title" | translate }}</h4>
-                        <p class="category">{{ "patient.category" | translate }}</p>
+                        <h4 class="title">{{ "patient.additionalinformation.title" | translate }}</h4>
+                        <p class="category">{{ "patient.title" | translate }}</p>
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                             <div class="content table-responsive table-full-width">
-                                <button type="button" class="btn btn-info btn-fill pull-left"
-                                    (click)="newRegister()">{{ "general.newregisterbtn" | translate }}</button>
+                                <button type="button" class="btn btn-info btn-fill pull-left" (click)="newRegister()">{{
+                                    "general.newregisterbtn" | translate }}</button>
                             </div>
                         </div>
                         <div class="fresh-datatables">
@@ -38,8 +38,8 @@
                                 <tbody>
                                     <tr *ngFor="let row of listResult">
                                         <td class="text-center">{{ row.id }}</td>
-                                        <td>{{ row.name }}</td>
-                                        <td>{{ row.email }}</td>
+                                        <td>{{ row.patient?.name }}</td>
+                                        <td>{{ row.followUp_Neurological | shortenString: 255 }}</td>
                                         <td>{{ row.enable }}</td>
                                         <td class="text-right">
                                             <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon eye"

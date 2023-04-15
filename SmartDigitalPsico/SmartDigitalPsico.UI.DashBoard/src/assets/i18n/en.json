@@ -23,7 +23,7 @@
       "text": "I will close in 5 seconds",
       "erro": "Error adding!",
       "erroupdate": "Error update!"
-    }, 
+    },
     "load": {
       "title": "Error load!",
       "text": "Error MSG"
@@ -272,6 +272,23 @@
       "TitleAdd": "Add Patient",
       "TitleEdit": "Edit Patient",
       "TitleView": "View Patient"
+    },
+    "additionalinformation": {
+      "title": "Additional Information",
+      "required": "Additional Information is required",
+      "category": "List of Additional Information",
+      "select": "Select Additional Information",
+      "FollowUp_Neurological": {
+        "title": "FollowUp Neurological",
+        "required": "FollowUp Neurological is required"
+      },
+      "FollowUp_Psychiatric": {
+        "title": "FollowUp Psychiatric",
+        "required": "FollowUp Psychiatric is required"
+      },
+      "TitleAdd": "Add Additional Information",
+      "TitleEdit": "Edit Additional Information",
+      "TitleView": "View Additional Information"
     }
   },
   "rolegroup": {

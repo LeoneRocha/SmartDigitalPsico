@@ -11,6 +11,9 @@ import { LanguageService } from 'app/services/general/language.service';
 import { NgxTranslateModule } from 'app/translate/translate.module';
 import { PatientAdditionalInformationComponent } from './additionalinformation/patient_additionalinformation.component';
 import { PatientAdditionalInformationService } from 'app/services/general/principals/patientadditionalinformation.service';
+import { AddEditPatientAdditionalInformationComponent } from './additionalinformation/add-edit-patient_additionalinformation.component';
+import { ShortenStringPipe } from 'app/common/custompipe/shortenstring.pipe';
+
 @NgModule({
     imports: [
         CustomPagesModule,
@@ -18,9 +21,11 @@ import { PatientAdditionalInformationService } from 'app/services/general/princi
         NgxTranslateModule,
     ],
     declarations: [
+        ShortenStringPipe,
         PatientComponent,
         AddEditPatientComponent,
-        PatientAdditionalInformationComponent
+        PatientAdditionalInformationComponent,
+        AddEditPatientAdditionalInformationComponent
     ]
     ,
     providers: [

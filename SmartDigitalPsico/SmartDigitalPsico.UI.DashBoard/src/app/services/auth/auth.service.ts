@@ -30,8 +30,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
       return this.processLoginApi(response);
     }), catchError(this.customHandleErrorAuthService));
   }
-  processLoginApi(response: ServiceResponse<UserAutenticateModel>) {
-    //console.log(response);
+  processLoginApi(response: ServiceResponse<UserAutenticateModel>) { 
     this.userAutenticate = response?.data;
     let token = this.userAutenticate.tokenAuth;
     if (token && token?.authenticated && token.accessToken) {
@@ -42,23 +41,19 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
   }
   setLocalStorageUser(token: TokenAuth): void {
     const userLogged = this.userAutenticate;
-    localStorage.setItem(this.keyLocalStorage, token.accessToken);
-    //console.log(this.userAutenticate); 
+    localStorage.setItem(this.keyLocalStorage, token.accessToken); 
     let userCache: UserAutenticateView = {
       id: userLogged.id,
       name: userLogged.name,
       roleGroups: userLogged.roleGroups
     };
-    const strUserAutenticate = JSON.stringify(userCache);
-    //console.log(strUserAutenticate);
+    const strUserAutenticate = JSON.stringify(userCache); 
     localStorage.setItem(this.keyLocalStorage + '_user', strUserAutenticate);
   }
   getLocalStorageUser(): UserAutenticateView {
-    const strUserAutenticate = localStorage.getItem(this.keyLocalStorage + '_user');
-    //console.log(strUserAutenticate);
+    const strUserAutenticate = localStorage.getItem(this.keyLocalStorage + '_user'); 
     let userLoaded: UserAutenticateView
-    userLoaded = JSON.parse(strUserAutenticate);
-    //console.log(userLoaded);
+    userLoaded = JSON.parse(strUserAutenticate); 
     return userLoaded;
   }
   getRolesUser(): RoleGroupModel[] {
@@ -111,8 +106,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     return sessionTokenActive;
   }
 
-  private customHandleErrorAuthService(error: Response) {
-    //console.log('customHandleError-AuthService');
+  private customHandleErrorAuthService(error: Response) { 
     /*if (error.status === 400)
       return throwError(() => new BadInput(error.json()));
 

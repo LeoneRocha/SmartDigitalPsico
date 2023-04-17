@@ -80,8 +80,7 @@ export class GenderComponent implements OnInit, OnDestroy {
             next: (response: any) => {
                 this.listResult = response["data"];
                 this.dataTable.dataRows = response["data"];
-                this.dataTable.dataRowsSimple = response["data"];
-                //console.log(this.listResult);
+                this.dataTable.dataRowsSimple = response["data"];                
                 //this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-gender', response);
@@ -237,7 +236,6 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     gettranslateInformationAsync(key: string): string {
         let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
         return result;
     }
 

@@ -25,14 +25,11 @@ export class SidebarComponent {
         this.authService.logout();
     }
     checkCanAccess(menuItem: RouteInfo): boolean {
-        let isCanAccess: boolean = true;
-        //console.log(menuItem?.roleaccess);
+        let isCanAccess: boolean = true; 
         let userCanRoleMenu = this.authService.isUserContainsRole(menuItem?.roleaccess);
-        isCanAccess = userCanRoleMenu;
-        //console.log(userCanRoleMenu);
+        isCanAccess = userCanRoleMenu; 
         if (menuItem.path.indexOf('administrative') >= 0) {
-            isCanAccess = this.authService.isUserContainsRole('Admin');
-            //console.log('Admin + ' + isCanAccess);
+            isCanAccess = this.authService.isUserContainsRole('Admin'); 
         }
         return isCanAccess;
     }

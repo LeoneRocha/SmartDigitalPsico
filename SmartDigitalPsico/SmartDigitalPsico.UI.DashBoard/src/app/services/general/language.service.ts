@@ -98,8 +98,7 @@ export class LanguageService {
    let infoTranslated = response[element];
    result.push(infoTranslated);
  });
- .subscribe((res: string[]) => {
-   console.log(res);
+ .subscribe((res: string[]) => { 
    infoKeys.forEach(element => {
      let infoTranslated = res[element];
      result.push(infoTranslated);

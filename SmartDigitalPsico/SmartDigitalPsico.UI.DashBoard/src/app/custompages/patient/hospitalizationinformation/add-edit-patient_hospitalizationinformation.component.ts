@@ -114,18 +114,14 @@ export class AddEditPatientHospitalizationInformationComponent implements OnInit
             next: (response: ServiceResponse<PatientHospitalizationInformationModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
         });
     }
-    addRegister() {
-        //console.log(this.registerModel);
-        this.getValuesForm();
-        console.log(this.registerModel);
+    addRegister() {        
+        this.getValuesForm();        
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientHospitalizationInformationModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
-    updateRegister() {
-        //console.log(this.registerModel);
-        this.getValuesForm();
-        console.log(this.registerModel);
+    updateRegister() {        
+        this.getValuesForm();        
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientHospitalizationInformationModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -196,8 +192,7 @@ export class AddEditPatientHospitalizationInformationComponent implements OnInit
         formsElement.controls['observation'].setValue(modelEntity?.observation);
         formsElement.controls['startDate'].setValue(text_startDate);
         formsElement.controls['endDate'].setValue(text_endDate);
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        //console.log(modelEntity);
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
     }
     isValidFormCID(): boolean {
         let isRequired = this.registerForm.get('cid').errors?.required;
@@ -257,15 +252,13 @@ export class AddEditPatientHospitalizationInformationComponent implements OnInit
             enable: false
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(this.registerForm);
+    onSelect(selectedValue: string) { 
     }
     goBackToList() {
         this.router.navigate(['/patient/manage/hospitalizationinformation', { parentId: this.parentId }]);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0]; 
         return result;
     }
     modalSuccessAlert() {

@@ -5,8 +5,7 @@ import { environment } from 'environments/environment';
 
 export class AppErrorHandler implements ErrorHandler {
     handleError(error: any) {
-        //alert('An unexpected error occurred.');
-        //console.log(error);
+        //alert('An unexpected error occurred.'); 
         CaptureTologFunc('AppErrorHandler', error);
     }
 }

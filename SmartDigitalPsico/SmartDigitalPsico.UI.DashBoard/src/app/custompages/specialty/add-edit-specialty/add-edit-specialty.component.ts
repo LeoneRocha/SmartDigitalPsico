@@ -226,9 +226,7 @@ export class AddEditSpecialtyComponent implements OnInit {
             description: formElement.controls['description']?.value,
             language: formElement.controls['language']?.value,
             enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable, 
-        };
-
-        //console.log(this.registerModel);
+        }; 
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -238,16 +236,14 @@ export class AddEditSpecialtyComponent implements OnInit {
             enable: false,
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(selectedValue);
+    onSelect(selectedValue: string) { 
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/specialty']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0]; 
         return result;
     }
     modalSuccessAlert() {

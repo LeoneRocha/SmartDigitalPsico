@@ -172,16 +172,14 @@ export class AddEditOfficeComponent implements OnInit {
             enable: false
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(selectedValue);
+    onSelect(selectedValue: string) { 
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/office']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0]; 
         return result;
     }
     modalSuccessAlert() {

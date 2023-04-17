@@ -168,9 +168,7 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
             enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable, 
             endPointUrl_Cache: formElement.controls['endPointUrl_Cache']?.value,//this.registerModel_Enable, 
             endPointUrl_StorageFiles: formElement.controls['endPointUrl_StorageFiles']?.value,//this.registerModel_Enable, 
-        };
-
-        //console.log(this.registerModel);
+        }; 
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -182,16 +180,14 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
             endPointUrl_StorageFiles: ''
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(selectedValue);
+    onSelect(selectedValue: string) { 
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/applicationsetting']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0];        
         return result;
     }
     modalSuccessAlert() {

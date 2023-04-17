@@ -184,15 +184,13 @@ export class AddEditRoleGroupComponent implements OnInit {
         }
     }
     onSelect(selectedValue: string) {
-        //console.log(selectedValue);
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/rolegroup']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0];        
         return result;
     }
     modalSuccessAlert() {

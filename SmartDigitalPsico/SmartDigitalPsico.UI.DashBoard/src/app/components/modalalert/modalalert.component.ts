@@ -28,16 +28,7 @@ export class ModalAlertComponent implements OnInit {
     if (dataAlert.show && dataAlert.typeModal === 'Success') {
       this._showSuccessAlert();
     }
-  }
-  /*public meuMetodo() {
-    this.callShowModal();
-    //console.log('Método chamado pelo componente pai!');
-  }
-
-  dispararEvento() {
-    this.meuEvento.emit(() => this.meuMetodo());
-  }
-*/
+  } 
   public ShowModalAlertSuccess() {
     this._showSuccessAlert();
   }

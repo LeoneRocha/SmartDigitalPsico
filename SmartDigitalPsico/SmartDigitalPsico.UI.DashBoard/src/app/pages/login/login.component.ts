@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
             // after 1000 ms we add the class animated to the login/register card
             $('.card').removeClass('card-hidden');
         }, 700);
-        const isLoged: boolean = this.authService.isLoggedIn();
-        //console.log(isLoged);
+        const isLoged: boolean = this.authService.isLoggedIn(); 
         if (isLoged) {
             let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
             this.router.navigate([returnUrl || '/administrative/dashboard']);
@@ -66,4 +65,5 @@ export class LoginComponent implements OnInit {
         //value="mock123adm"
     }
 } 
-//TODO: 2 ) COMECAR AS TELAS SEQUENTES A PACIENTE 
+//TODO:  ) TELAS DO USUARIO LOGADO.
+//TODO:  ) TELAS DO MEDICO LOGADO.

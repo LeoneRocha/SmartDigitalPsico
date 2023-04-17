@@ -129,9 +129,7 @@ export class AddEditUserManagementComponent implements OnInit {
         });
     }
     updateRegister() {
-        this.getValuesForm();
-        //console.log(this.registerModel);
-        //console.log(JSON.stringify(this.registerModel));
+        this.getValuesForm(); 
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<UserModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -277,8 +275,7 @@ export class AddEditUserManagementComponent implements OnInit {
             admin: formElement.controls['adminOpt']?.value,
             role: formElement.controls['role']?.value,
             roleGroupsIds: [],// formElement.controls['roleGroupsIds']?.value,
-        };
-        //console.log(this.registerModel);
+        }; 
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -296,16 +293,14 @@ export class AddEditUserManagementComponent implements OnInit {
             roleGroupsIds: [],
         };
     }
-    onSelect(selectedValue: string) {
-        //console.log(selectedValue);
+    onSelect(selectedValue: string) { 
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/usermanagement']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0]; 
         return result;
     }
     modalSuccessAlert() {

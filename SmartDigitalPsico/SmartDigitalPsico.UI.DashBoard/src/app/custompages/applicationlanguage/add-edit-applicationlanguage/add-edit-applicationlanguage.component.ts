@@ -198,9 +198,7 @@ export class AddEditApplicationLanguageComponent implements OnInit {
             languageKey: formElement.controls['languageKey']?.value,
             languageValue: formElement.controls['languageValue']?.value,
             resourceKey: formElement.controls['resourceKey']?.value,
-        };
-
-        //console.log(this.registerModel);
+        }; 
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -214,7 +212,6 @@ export class AddEditApplicationLanguageComponent implements OnInit {
         }
     }
     onSelect(selectedValue: string) {
-        //console.log(selectedValue);
         //demo
     }
     goBackToList() {
@@ -222,7 +219,6 @@ export class AddEditApplicationLanguageComponent implements OnInit {
     }
     gettranslateInformationAsync(key: string): string {
         let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
         return result;
     }
     modalSuccessAlert() {

@@ -178,8 +178,7 @@ export class SpecialtyComponent implements OnInit {
         });
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0];        
         return result;
     }
     showNotification(from, align, messageCustom: string, colorType: string) {

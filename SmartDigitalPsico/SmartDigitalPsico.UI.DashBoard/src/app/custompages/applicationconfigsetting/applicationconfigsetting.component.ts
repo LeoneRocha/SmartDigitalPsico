@@ -57,8 +57,7 @@ export class ApplicationConfigSettingComponent implements OnInit {
     retrieveList(): void {
         this.registerService.getAll().subscribe({
             next: (response: any) => {
-                this.listResult = response["data"];
-                //console.log(this.listResult);
+                this.listResult = response["data"];                
                 this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-ApplicationConfigSetting', response);
@@ -94,8 +93,7 @@ export class ApplicationConfigSettingComponent implements OnInit {
         return lista;
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0];        
         return result;
     }
     modalAlertRemove(idRegister: number) {

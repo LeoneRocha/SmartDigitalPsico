@@ -58,7 +58,6 @@ export class ApplicationLanguageComponent implements OnInit {
         this.registerService.getAll().subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];
-                //console.log(this.listResult);
                 this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-ApplicationLanguage', response);
@@ -211,7 +210,6 @@ export class ApplicationLanguageComponent implements OnInit {
     }
     gettranslateInformationAsync(key: string): string {
         let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
         return result;
     }
 } 

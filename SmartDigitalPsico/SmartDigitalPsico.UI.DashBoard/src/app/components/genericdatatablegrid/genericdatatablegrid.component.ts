@@ -39,30 +39,20 @@ export class GenericDataTableGrid implements OnInit {
 
   gettranslateInformationAsync(key: string): string {
     let result = this.languageService.translateInformationAsync([key])[0];
-    //console.log(result);
     return result;
   }
 
   viewRegister(register: any): void {
     let idRegister: number = register['id'];
-    //console.log(idRegister);
-    //console.log(register);
     this.router.navigate([this.dataTableIn?.routes?.baseRoute, { modeForm: 'view', id: idRegister }]);
-    //alert('id :' + register.toString());
-
   }
   editRegister(register: SimpleModel): void {
     let idRegister: number = register['id'];
-    //console.log(idRegister);
-    //console.log(this.dataTableIn?.routes?.baseRoute);
     this.router.navigate([this.dataTableIn?.routes?.baseRoute, { modeForm: 'edit', id: idRegister }]);
-    //lert('id :' + register.toString());
   }
   removeRegister(register: SimpleModel): void {
-    let idRegister: number = register['id'];
-    //console.log(idRegister);
-    this.modalAlertRemove(idRegister);
-    //alert('id :' + register.toString());
+    let idRegister: number = register['id'];    
+    this.modalAlertRemove(idRegister);    
   }
 
   modalAlertRemove(idRegister: number) {
@@ -139,15 +129,7 @@ export class GenericDataTableGrid implements OnInit {
       buttonsStyling: false
     });
   }
-  loadConfigDataTablesLazzy(dataTableVal: any): void {
-    //console.log(dataTableVal);
-    //console.log(dataTableVal?.dataRows);
-    //onsole.log(dataTableVal?.dataRows?.length);
-    /*if (dataTableVal?.dataRows?.length > 0) {
-      const lista1D = this.convertArray2dToList(dataTableVal?.dataRows);
-      //console.log(lista1D);
-      this.loadConfigDataTables(lista1D, dataTableVal.headerRow);
-    }*/
+  loadConfigDataTablesLazzy(dataTableVal: any): void {   
     this.loadConfigDataTablesV1();
   }
 

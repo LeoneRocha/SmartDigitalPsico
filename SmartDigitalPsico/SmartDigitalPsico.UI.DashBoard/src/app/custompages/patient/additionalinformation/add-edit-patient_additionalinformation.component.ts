@@ -112,18 +112,15 @@ export class AddEditPatientAdditionalInformationComponent implements OnInit {
             next: (response: ServiceResponse<PatientAdditionalInformationModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
         });
     }
-    addRegister() {
-        //console.log(this.registerModel);
-        this.getValuesForm();
-        console.log(this.registerModel);
+    addRegister() { 
+        this.getValuesForm(); 
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientAdditionalInformationModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
     updateRegister() {
-        //console.log(this.registerModel);
-        this.getValuesForm();
-        console.log(this.registerModel);
+        
+        this.getValuesForm();        
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientAdditionalInformationModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -180,12 +177,10 @@ export class AddEditPatientAdditionalInformationComponent implements OnInit {
             enable: responseData?.enable,
         };
         let modelEntity = this.registerModel;
-
-        //formsElement.controls['patientId'].setValue(modelEntity?.patientId); 
+ 
         formsElement.controls['followUp_Neurological'].setValue(modelEntity?.followUp_Neurological);
         formsElement.controls['followUp_Psychiatric'].setValue(modelEntity?.followUp_Psychiatric);
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        //console.log(modelEntity);
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);        
     }
     isValidFormFollowUp_Neurological(): boolean {
         let isRequired = this.registerForm.get('followUp_Neurological').errors?.required;
@@ -223,15 +218,13 @@ export class AddEditPatientAdditionalInformationComponent implements OnInit {
             enable: false
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(this.registerForm);
+    onSelect(selectedValue: string) { 
     }
     goBackToList() { 
         this.router.navigate(['/patient/manage/additionalinformation', { parentId: this.parentId }]);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0];        
         return result;
     }
     modalSuccessAlert() {

@@ -287,8 +287,7 @@ export class AddEditMedicalComponent implements OnInit {
         this.router.navigate(['/medical/manage/']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0]; 
         return result;
     }
     modalSuccessAlert() {

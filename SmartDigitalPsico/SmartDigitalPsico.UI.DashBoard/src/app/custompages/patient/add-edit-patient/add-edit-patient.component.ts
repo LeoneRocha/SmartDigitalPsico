@@ -131,15 +131,13 @@ export class AddEditPatientComponent implements OnInit {
             next: (response: ServiceResponse<PatientModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
         });
     }
-    addRegister() {
-        //console.log(this.registerModel);
+    addRegister() { 
         this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
-    updateRegister() {
-        //console.log(this.registerModel);
+    updateRegister() { 
         this.getValuesForm();
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
@@ -232,8 +230,7 @@ export class AddEditPatientComponent implements OnInit {
         formsElement.controls['rg'].setValue(modelEntity?.rg);
         formsElement.controls['medicalId'].setValue(modelEntity?.medicalId);
         formsElement.controls['maritalStatus'].setValue(modelEntity?.maritalStatus);
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        //console.log(modelEntity);
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
     }
     isValidFormName(): boolean {
         let isRequired = this.registerForm.get('name').errors?.required;
@@ -385,8 +382,7 @@ export class AddEditPatientComponent implements OnInit {
             enable: false
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(this.registerForm);
+    onSelect(selectedValue: string) { 
     }
     goBackToList() {
         this.router.navigate(['/patient/manage/']);

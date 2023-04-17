@@ -110,18 +110,14 @@ export class AddEditPatientRecordComponent implements OnInit {
             next: (response: ServiceResponse<PatientRecordModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
         });
     }
-    addRegister() {
-        //console.log(this.registerModel);
-        this.getValuesForm();
-        console.log(this.registerModel);
+    addRegister() {        
+        this.getValuesForm(); 
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientRecordModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
-    updateRegister() {
-        //console.log(this.registerModel);
-        this.getValuesForm();
-        console.log(this.registerModel);
+    updateRegister() {        
+        this.getValuesForm(); 
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientRecordModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -183,10 +179,8 @@ export class AddEditPatientRecordComponent implements OnInit {
         //formsElement.controls['patientId'].setValue(modelEntity?.patientId); 
         formsElement.controls['description'].setValue(modelEntity?.description);        
         formsElement.controls['annotation'].setValue(modelEntity?.annotation);        
-        formsElement.controls['annotationDate'].setValue(text_Date);
-        
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
-        //console.log(modelEntity);
+        formsElement.controls['annotationDate'].setValue(text_Date);        
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
     }
     isValidFormAnnotation(): boolean {
         let isRequired = this.registerForm.get('annotation').errors?.required;
@@ -232,15 +226,13 @@ export class AddEditPatientRecordComponent implements OnInit {
             enable: false
         }
     }
-    onSelect(selectedValue: string) {
-        console.log(this.registerForm);
+    onSelect(selectedValue: string) { 
     }
     goBackToList() {
         this.router.navigate(['/patient/manage/record', { parentId: this.parentId }]);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
+        let result = this.languageService.translateInformationAsync([key])[0]; 
         return result;
     }
     modalSuccessAlert() {

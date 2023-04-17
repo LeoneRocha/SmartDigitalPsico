@@ -70,7 +70,6 @@ export class AddEditGenderComponent implements OnInit {
     onSuccessAlertShow() {
         //this.modalData.show = true; this.modalData.typeModal = 'Success';
         this.modalData.show = false; this.modalData.typeModal = 'Success';
-        console.log('onSuccessAlertShow');
     }
 
     showModalAlertSuccess() {
@@ -79,7 +78,6 @@ export class AddEditGenderComponent implements OnInit {
         //this.chamarMetodoFilho();
         //this.modalData.show = false; this.modalData.typeModal = 'Success';
         //*ngIf="this.modalData.show"
-        console.log('showModalAlertSuccess');
     }
     ngAfterViewInit() {
     }
@@ -214,7 +212,6 @@ export class AddEditGenderComponent implements OnInit {
         }
     }
     onSelect(selectedValue: string) {
-        //console.log(selectedValue);
         //demo
     }
     goBackToList() {
@@ -222,7 +219,6 @@ export class AddEditGenderComponent implements OnInit {
     }
     gettranslateInformationAsync(key: string): string {
         let result = this.languageService.translateInformationAsync([key])[0];
-        //console.log(result);
         return result;
     }
     // modalSuccessAlert() {

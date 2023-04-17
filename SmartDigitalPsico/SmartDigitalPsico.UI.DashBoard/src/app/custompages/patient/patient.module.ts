@@ -19,6 +19,9 @@ import { PatientHospitalizationinformationComponent } from './hospitalizationinf
 import { PatientMedicationInformationComponent } from './medicationinformation/patient_medicationinformation.component';
 import { AddEditPatientMedicationInformationComponent } from './medicationinformation/add-edit-patientmedicationinformation.component';
 import { PatientMedicationInformationService } from 'app/services/general/principals/patientmedicationinformation.service';
+import { PatientRecordComponent } from './record/patient_record.component';
+import { AddEditPatientRecordComponent } from './record/add-edit-patient_record.component';
+import { PatientRecordService } from 'app/services/general/principals/patientrecord.service';
 
 @NgModule({
     imports: [
@@ -36,6 +39,8 @@ import { PatientMedicationInformationService } from 'app/services/general/princi
         , AddEditPatientHospitalizationInformationComponent
         , PatientMedicationInformationComponent
         , AddEditPatientMedicationInformationComponent
+        , PatientRecordComponent
+        , AddEditPatientRecordComponent
     ]
     ,
     providers: [
@@ -46,6 +51,7 @@ import { PatientMedicationInformationService } from 'app/services/general/princi
         , PatientAdditionalInformationService
         , PatientHospitalizationInformationService
         , PatientMedicationInformationService
+        , PatientRecordService
     ],
 })
 

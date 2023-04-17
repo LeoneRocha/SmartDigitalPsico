@@ -351,6 +351,23 @@
       "TitleAdd": "Adicionar Informações sobre Medicamentos",
       "TitleEdit": "Editar Informações sobre Medicamentos",
       "TitleView": "Visualizar Informações sobre Medicamentos"
+    },
+    "record": {
+      "title": "Anotação do Registro",
+      "required": "Anotação do Registro é obrigatória",
+      "category": "Lista de Anotações do Registro",
+      "select": "Selecionar Anotação do Registro",
+      "annotationDate": {
+        "title": "Data da Anotação",
+        "required": "Data da Anotação é obrigatória"
+      },
+      "annotation": {
+        "title": "Anotação",
+        "required": "Anotação é obrigatória"
+      },
+      "TitleAdd": "Adicionar Anotação do Registro",
+      "TitleEdit": "Editar Anotação do Registro",
+      "TitleView": "Visualizar Anotação do Registro"
     }
   },
   "rolegroup": {

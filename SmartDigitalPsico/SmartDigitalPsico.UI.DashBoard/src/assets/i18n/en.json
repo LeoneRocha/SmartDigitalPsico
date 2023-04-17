@@ -352,6 +352,23 @@
       "TitleAdd": "Add Medication Information",
       "TitleEdit": "Edit Medication Information",
       "TitleView": "View Medication Information"
+    },     
+    "record": {
+      "title": "Record Annotation",
+      "required": "Record Annotation is required",
+      "category": "List of Record Annotation",
+      "select": "Select Record Annotation",
+      "annotationDate": {
+        "title": "Annotation Date",
+        "required": "Annotation Date is required"
+      },
+      "annotation": {
+        "title": "Annotation",
+        "required": "Annotation is required"
+      },
+      "TitleAdd": "Add Record Annotation",
+      "TitleEdit": "Edit Record Annotation",
+      "TitleView": "View Record Annotation"
     }
   },
   "rolegroup": {

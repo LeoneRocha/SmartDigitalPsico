@@ -7,6 +7,8 @@ import { AddEditPatientHospitalizationInformationComponent } from './hospitaliza
 import { PatientHospitalizationinformationComponent } from './hospitalizationinformation/patient_hospitalizationinformation.component';
 import { AddEditPatientMedicationInformationComponent } from './medicationinformation/add-edit-patientmedicationinformation.component';
 import { PatientMedicationInformationComponent } from './medicationinformation/patient_medicationinformation.component';
+import { PatientRecordComponent } from './record/patient_record.component';
+import { AddEditPatientRecordComponent } from './record/add-edit-patient_record.component';
 
 export const PatientRoutes: Routes = [{
     path: '',
@@ -49,6 +51,16 @@ export const PatientRoutes: Routes = [{
         path: 'medicationinformationaction',
         //title: 'navbar.patient',
         component: AddEditPatientMedicationInformationComponent
+    },
+    {
+        path: 'record',
+        //title: 'navbar.patient',
+        component: PatientRecordComponent
+    },
+    {
+        path: 'recordaction',
+        //title: 'navbar.patient',
+        component: AddEditPatientRecordComponent
     }
     ]
 }];

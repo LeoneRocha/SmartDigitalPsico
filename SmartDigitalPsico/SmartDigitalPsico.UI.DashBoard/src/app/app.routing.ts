@@ -80,6 +80,7 @@ export const AppRoutes: Routes = [
             loadChildren: () => import('./userpage/user.module').then(x => x.UserModule)
         }, {
             path: 'userprofile',
+            //title: 'userprofile.title',
             canActivate: [AuthGuard],
             loadChildren: () => import('./custompages/userprofile/userprofile.module').then(x => x.UserProfileModule)
         }]

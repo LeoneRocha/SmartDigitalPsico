@@ -74,7 +74,7 @@ export const ROUTES: RouteInfo[] = [{
         { path: 'applicationsetting', title: 'navbar.applicationsetting', ab: 'CS' },
         { path: 'applicationlanguage', title: 'navbar.applicationlanguage', ab: 'I' },
     ]
-}, {
+}, /*{
     path: '/pages',
     id: "pages",
     title: 'navbar.registers',//'Cadastros',
@@ -85,10 +85,10 @@ export const ROUTES: RouteInfo[] = [{
         { path: 'user', title: 'navbar.userpage', ab: 'UM' },
         { path: 'userprofile', title: 'navbar.userpage', ab: 'UP' },
     ]
-}, {
+}, */{
     path: '/authpages',
     id: "authpages",
-    title: 'Models',
+    title: 'XXXXXXXXXXXX',
     type: 'sub',
     icontype: 'pe-7s-gift',
     roleaccess: 'Read',

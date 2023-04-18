@@ -51,14 +51,14 @@ export class LoginComponent implements OnInit {
             $page.append(image_container);
         }
     };
-    proccessSignIn(response: any) { 
+    proccessSignIn(response: any) {
         const userLoged = this.authService.getLocalStorageUser()
-         this.languageService.setLanguage(userLoged.language);
+        this.languageService.setLanguage(userLoged.language);
         let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
         this.router.navigate([returnUrl || '/administrative/dashboard']);
     }
 
-    signIn() { 
+    signIn() {
         this.authService.login(this.userLoginModel).subscribe({
             next: (response: any) => {
                 this.proccessSignIn(response);
@@ -68,6 +68,8 @@ export class LoginComponent implements OnInit {
         //(ngSubmit)="signIn()"  type="submit"
         //value="admin"
         //value="mock123adm"
+        //doctor doctor123
+
     }
 }
 //TODO:  ) TELAS DO MEDICO LOGADO.

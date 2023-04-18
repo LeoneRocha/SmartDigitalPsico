@@ -67,6 +67,8 @@
     "enable": "Enable",
     "admin": "Admin",
     "actions": "Actions",
+    "actived": "Enabled",
+    "desactived": "Disabled",
     "patientrecords": "Details Patient",
     "backnav": "Back",
     "newregisterbtn": "New",

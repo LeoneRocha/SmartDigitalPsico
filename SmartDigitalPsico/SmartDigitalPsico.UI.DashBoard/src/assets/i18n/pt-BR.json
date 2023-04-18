@@ -68,6 +68,8 @@
     "admin": "Administrador",
     "patientrecords": "Detalhes Paciente",
     "actions": "Ações",
+    "actived": "Ativo",
+    "desactived": "Inativo",
     "backnav": "Voltar",
     "newregisterbtn": "Novo",
     "updateregisterbtn": "Atualizar",

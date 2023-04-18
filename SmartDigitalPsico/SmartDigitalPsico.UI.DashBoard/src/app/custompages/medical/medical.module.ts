@@ -8,14 +8,16 @@ import { AddEditMedicalComponent } from './add-edit-medical/add-edit-medical.com
 import { OfficeService } from 'app/services/general/simple/office.service';
 import { SpecialtyService } from 'app/services/general/simple/specialty.service';  
 import { LanguageService } from 'app/services/general/language.service';
-import { NgxTranslateModule } from 'app/translate/translate.module';
+import { NgxTranslateModule } from 'app/translate/translate.module'; 
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(MedicalRoutes),
-        NgxTranslateModule,
+        NgxTranslateModule
+        ,CustomPipesModule
     ],
-    declarations: [
+    declarations: [ 
         MedicalComponent, 
         AddEditMedicalComponent,  
     ]

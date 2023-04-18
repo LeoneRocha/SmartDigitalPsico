@@ -6,14 +6,16 @@ import { ApplicationConfigSettingComponent } from './applicationconfigsetting.co
 import { ApplicationConfigSettingService } from 'app/services/general/simple/applicationconfigsetting.service';
 import { AddEditApplicationConfigSettingComponent } from './add-edit-applicationconfigsetting/add-edit-applicationconfigsetting.component';
 import { NgxTranslateModule } from 'app/translate/translate.module';
-import { LanguageService } from 'app/services/general/language.service';
+import { LanguageService } from 'app/services/general/language.service'; 
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(ApplicationConfigSettingRoutes),
-        NgxTranslateModule,   
+        NgxTranslateModule    
+        ,CustomPipesModule
     ],
-    declarations: [
+    declarations: [ 
         ApplicationConfigSettingComponent ,
         AddEditApplicationConfigSettingComponent
     ]

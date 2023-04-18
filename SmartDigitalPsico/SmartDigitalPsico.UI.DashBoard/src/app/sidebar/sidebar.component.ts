@@ -20,10 +20,7 @@ export class SidebarComponent {
     }
     constructor(@Inject(AuthService) private authService: AuthService) {
 
-    }
-    logOut(): void {
-        this.authService.logout();
-    }
+    } 
     checkCanAccess(menuItem: RouteInfo): boolean {
         let isCanAccess: boolean = true; 
         let userCanRoleMenu = this.authService.isUserContainsRole(menuItem?.roleaccess);

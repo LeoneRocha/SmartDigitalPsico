@@ -6,14 +6,16 @@ import { RoleGroupRoutes } from './rolegroup.routing';
 import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
 import { AddEditRoleGroupComponent } from './add-edit-rolegroup/add-edit-rolegroup.component';
 import { NgxTranslateModule } from 'app/translate/translate.module';
-import { LanguageService } from 'app/services/general/language.service';
+import { LanguageService } from 'app/services/general/language.service'; 
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(RoleGroupRoutes),
-        NgxTranslateModule,
+        NgxTranslateModule
+        ,CustomPipesModule
     ],
-    declarations: [
+    declarations: [ 
         RoleGroupComponent,
         AddEditRoleGroupComponent
     ]

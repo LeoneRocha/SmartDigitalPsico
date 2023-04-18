@@ -11,7 +11,8 @@ import { SpecialtyModel } from 'app/models/simplemodel/SpecialtyModel';
 import { SpecialtyEffect } from 'app/storereduxngrx/effects/specialty.effects';
 import { specialtyReducer } from 'app/storereduxngrx/reducers/specialty.reducer';
 import { NgxTranslateModule } from 'app/translate/translate.module';
-import { LanguageService } from 'app/services/general/language.service';
+import { LanguageService } from 'app/services/general/language.service'; 
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 
 @NgModule({
     imports: [
@@ -20,9 +21,10 @@ import { LanguageService } from 'app/services/general/language.service';
         StoreModule.forFeature('myspecialties', specialtyReducer),
         StoreModule.forFeature('onespecialty', specialtyReducer),
         EffectsModule.forFeature([SpecialtyEffect]),
-        NgxTranslateModule,
+        NgxTranslateModule
+        ,CustomPipesModule
     ],
-    declarations: [
+    declarations: [ 
         SpecialtyComponent,
         AddEditSpecialtyComponent
     ],

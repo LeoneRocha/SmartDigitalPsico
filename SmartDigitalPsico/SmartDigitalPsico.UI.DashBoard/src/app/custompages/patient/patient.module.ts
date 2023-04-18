@@ -22,12 +22,14 @@ import { PatientMedicationInformationService } from 'app/services/general/princi
 import { PatientRecordComponent } from './record/patient_record.component';
 import { AddEditPatientRecordComponent } from './record/add-edit-patient_record.component';
 import { PatientRecordService } from 'app/services/general/principals/patientrecord.service';
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 
 @NgModule({
     imports: [
         CustomPagesModule
         , RouterModule.forChild(PatientRoutes)
-        , NgxTranslateModule,
+        , NgxTranslateModule
+        , CustomPipesModule
     ],
     declarations: [
         ShortenStringPipe

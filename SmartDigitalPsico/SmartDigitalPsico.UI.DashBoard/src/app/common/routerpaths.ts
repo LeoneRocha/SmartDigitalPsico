@@ -88,7 +88,7 @@ export const ROUTES: RouteInfo[] = [{
 }, */{
     path: '/authpages',
     id: "authpages",
-    title: 'XXXXXXXXXXXX',
+    title: 'navbar.dashboard',
     type: 'sub',
     icontype: 'pe-7s-gift',
     roleaccess: 'Read',

@@ -12,6 +12,7 @@ import { MedicalService } from 'app/services/general/principals/medical.service'
 import { LanguageService } from 'app/services/general/language.service';
 import { PatientService } from 'app/services/general/principals/patient.service';
 import { CustomPagesModule } from 'app/custommodules/custompages.module';
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 @NgModule({
     imports: [
         CommonModule,
@@ -19,6 +20,7 @@ import { CustomPagesModule } from 'app/custommodules/custompages.module';
         RouterModule.forChild(UserProfileRoutes),
         FormsModule,
         NgxTranslateModule
+        ,CustomPipesModule
     ],
     declarations: [
         UserProfileComponent

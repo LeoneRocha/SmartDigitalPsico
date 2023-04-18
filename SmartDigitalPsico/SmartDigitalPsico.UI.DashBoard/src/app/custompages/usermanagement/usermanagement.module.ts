@@ -7,14 +7,16 @@ import { UserService } from 'app/services/general/principals/user.service';
 import { AddEditUserManagementComponent } from './add-edit-usermanagement/add-edit-usermanagement.component';
 import { MedicalService } from 'app/services/general/principals/medical.service';
 import { NgxTranslateModule } from 'app/translate/translate.module';
-import { LanguageService } from 'app/services/general/language.service';
+import { LanguageService } from 'app/services/general/language.service'; 
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(UserManagementRoutes),
-        NgxTranslateModule,
+        NgxTranslateModule
+        ,CustomPipesModule
     ],
-    declarations: [
+    declarations: [ 
         UserManagementComponent,
         AddEditUserManagementComponent
     ]

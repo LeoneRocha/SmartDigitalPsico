@@ -42,7 +42,7 @@
                                         <td class="text-center">{{ row.id }}</td>
                                         <td>{{ row.name }}</td>
                                         <td>{{ row.email }}</td>
-                                        <td>{{ row.enable }}</td>
+                                        <td>{{ row.enable | customtextactive | translate }}</td>
                                         <td class="text-left">
                                             <button class="btn btn-info btn-simple btn-icon" data-placement="left"
                                                 rel="tooltip" title="Additional Information" type="button"

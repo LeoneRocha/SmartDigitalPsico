@@ -16,18 +16,19 @@
                 <img src="../assets/img/default-avatar.png" />
             </div>
             <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                <span [innerHTML]="userNameAtenticate">
+                <span>
+                    {{ userNameAtenticate }}
                     <b class="caret"></b>
                 </span>
             </a>
             <div class="collapse" id="collapseExample">
                 <ul class="nav">
                     <li>
-                        <a routerLink="/pages/userprofile">
+                        <a routerLinkActive="active" routerLink="/pages/userprofile">
                             <span class="sidebar-mini">MP</span>
                             <span class="sidebar-normal">{{ "user.myprofile" | translate }}</span>
                         </a>
-                        <a *ngIf="isLoggedIn()" (click)="logOut()">
+                        <a routerLinkActive="active" *ngIf="isLoggedIn()" routerLink="/authpages/logout">
                             <span class="sidebar-mini">LO</span>
                             <span class="sidebar-normal">{{ "general.login.logout" | translate }}</span>
                         </a>

@@ -8,16 +8,18 @@ import { GenericDataTableGrid } from 'app/components/genericdatatablegrid/generi
 import { CustomPagesModule } from 'app/custommodules/custompages.module'; 
 import { NgxTranslateModule } from 'app/translate/translate.module';
 import { LanguageService } from 'app/services/general/language.service';
-import { ModalAlertComponent } from 'app/components/modalalert/modalalert.component';
+import { ModalAlertComponent } from 'app/components/modalalert/modalalert.component'; 
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
 
 
 @NgModule({
     imports: [
         CustomPagesModule,
         RouterModule.forChild(GenderRoutes),
-        NgxTranslateModule,
+        NgxTranslateModule
+        ,CustomPipesModule
     ],
-    declarations: [
+    declarations: [ 
         GenderComponent,
         AddEditGenderComponent,
         ModalAlertComponent,

@@ -22,8 +22,8 @@ namespace SmartDigitalPsico.Business.Validation.Contratcs
             if (recordsList.Records.Count == 0 || userLogged == null) { return false; }
 
             userHasPermission = recordsList.Records.All(rg =>
-            rg.CreatedUser?.Id == userIdLogged
-            //&& rg.Patient.Medical.UserId == userIdLogged
+            (rg.CreatedUser?.Id == userIdLogged && rg.Patient?.Medical?.User?.Id == userIdLogged) 
+            || userLogged.Admin
             );
             //var userLo = await _authorizationService.AuthorizeAsync(loggedInUser, recordsList, "RetrieveRecordsList");
 

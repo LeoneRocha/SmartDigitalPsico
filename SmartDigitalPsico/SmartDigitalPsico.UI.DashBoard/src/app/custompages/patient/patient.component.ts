@@ -60,7 +60,7 @@ export class PatientComponent implements OnInit {
         this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
-        let medicalId: number = 1
+        let medicalId: number = 1//TODO:ARRUAMAR
         this.registerService.getAllByParentId(medicalId, "medicalId").subscribe({
             next: (response: any) => {
                 this.listResult = response["data"]; 

@@ -24,7 +24,7 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.dashboard',//Inicio
     id: "dashboard",
     type: 'link',
-    roleaccess: 'Read',
+    roleaccess: 'Medical',
     icontype: 'pe-7s-home'
 },
 {
@@ -33,9 +33,9 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.medicals',
     type: 'sub',
     icontype: 'pe-7s-users',
-    roleaccess: 'Read',
+    roleaccess: 'Admin',
     children: [
-        { path: 'manage', title: 'navbar.medicals' , ab: 'M' },
+        { path: 'manage', title: 'navbar.medicals', ab: 'M' },
     ]
 },
 {
@@ -44,9 +44,9 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.patient',
     type: 'sub',
     icontype: 'pe-7s-users',
-    roleaccess: 'Read',
+    roleaccess: 'Medical',
     children: [
-        { path: 'manage', title: 'navbar.patient', ab: 'P' },      
+        { path: 'manage', title: 'navbar.patient', ab: 'P' },
     ]
 },
 {
@@ -55,7 +55,7 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.users',
     type: 'sub',
     icontype: 'pe-7s-users',
-    roleaccess: 'Read',
+    roleaccess: 'Admin',
     children: [
         { path: 'usermanagement', title: 'navbar.users', ab: 'U' }
     ]
@@ -65,7 +65,7 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.configurations', //'Configurações',
     type: 'sub',
     icontype: 'pe-7s-tools',
-    roleaccess: 'Read',
+    roleaccess: 'Admin',
     children: [
         { path: 'gender', title: 'navbar.gender', ab: 'G' },
         { path: 'office', title: 'navbar.office', ab: 'O' },
@@ -91,7 +91,7 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.dashboard',
     type: 'sub',
     icontype: 'pe-7s-gift',
-    roleaccess: 'Read',
+    roleaccess: 'Medical',
     children: [
         { path: 'register', title: 'navbar.userregisterpage', ab: 'RP' }
     ]

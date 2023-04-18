@@ -26,7 +26,7 @@ namespace SmartDigitalPsico.Business.Validation.Contratcs
             bool userHasPermission = false;
             User userLogged = await _userRepository.FindByID(userIdLogged);
 
-            userHasPermission = enittyRecord.RecordEntity.CreatedUser?.Id == userIdLogged;
+            userHasPermission = enittyRecord.RecordEntity.CreatedUser?.Id == userIdLogged || userLogged.Admin;
             //var userLo = await _authorizationService.AuthorizeAsync(loggedInUser, recordsList, "RetrieveRecordsList");
 
             return userHasPermission;

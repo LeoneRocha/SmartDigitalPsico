@@ -20,13 +20,13 @@ export class SidebarComponent {
     }
     constructor(@Inject(AuthService) private authService: AuthService) {
 
-    } 
+    }
     checkCanAccess(menuItem: RouteInfo): boolean {
-        let isCanAccess: boolean = true; 
+        let isCanAccess: boolean = true;
         let userCanRoleMenu = this.authService.isUserContainsRole(menuItem?.roleaccess);
-        isCanAccess = userCanRoleMenu; 
+        isCanAccess = userCanRoleMenu;
         if (menuItem.path.indexOf('administrative') >= 0) {
-            isCanAccess = this.authService.isUserContainsRole('Admin'); 
+            isCanAccess = this.authService.isUserContainsRole('Admin');
         }
         return isCanAccess;
     }
@@ -38,6 +38,7 @@ export class SidebarComponent {
         var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
         this.menuItems = ROUTES.filter(menuItem => menuItem);
 
+
         isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
         if (isWindows) {
@@ -47,6 +48,15 @@ export class SidebarComponent {
         } else {
             $('html').addClass('perfect-scrollbar-off');
         }
+    }
+    userCanAccess(menuItem: any) {
+        //console.log(this.authService.getRolesUser());
+        let roleRequired: string = menuItem['roleaccess'];
+        let isuserCanAccess: boolean = this.authService.isUserContainsRole(roleRequired)
+        if (isuserCanAccess) {
+            return true;
+        } 
+        return false;
     }
     ngAfterViewInit() {
         var $sidebarParent = $('.sidebar .nav > li.active .collapse li.active > a').parent().parent().parent();

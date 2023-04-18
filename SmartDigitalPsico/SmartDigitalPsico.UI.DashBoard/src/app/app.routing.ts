@@ -55,7 +55,7 @@ export const AppRoutes: Routes = [
         component: AdminLayoutComponent,
         children: [{
             path: 'manage',
-            canActivate: [AuthGuard],
+            canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/medical/medical.module').then(x => x.MedicalModule)
         }
         ]
@@ -79,6 +79,7 @@ export const AppRoutes: Routes = [
         component: AdminLayoutComponent,
         children: [{
             path: 'user',
+            canActivate: [AuthGuard],
             loadChildren: () => import('./userpage/user.module').then(x => x.UserModule)
         }, {
             path: 'userprofile',

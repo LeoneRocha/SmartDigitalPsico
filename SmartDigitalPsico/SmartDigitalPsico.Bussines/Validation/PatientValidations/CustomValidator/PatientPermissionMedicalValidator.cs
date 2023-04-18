@@ -19,7 +19,7 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidat
                 };
                 return error;
             }
-            else if (userAction.MedicalId == medicalId)
+            else if (userAction.MedicalId != medicalId)
             {
                 var error = new ErrorResponse()
                 {

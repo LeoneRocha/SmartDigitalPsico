@@ -13,8 +13,7 @@ declare var $: any;
     moduleId: module.id,
     selector: 'patient_additionalinformation-list',
     templateUrl: 'patient_additionalinformation.component.html'
-    //styleUrls: ['./Patient.component.css']
-    //fonts icon https://fontawesome.com/search?q=info&o=r&s=light&f=classic
+    //styleUrls: ['./Patient.component.css'] 
 })
 
 export class PatientAdditionalInformationComponent implements OnInit {

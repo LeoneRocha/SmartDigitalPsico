@@ -4,6 +4,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 @Pipe({name: 'customtextactive'})
 export class CustomTextActivePipe implements PipeTransform {
     transform(value) {
-        return value ? 'Ativo' : 'Inativo';
+        return value ? 'general.actived' : 'general.desactived';
     }
 }

@@ -82,7 +82,8 @@ export const ROUTES: RouteInfo[] = [{
     icontype: 'pe-7s-gift',
     roleaccess: 'Read',
     children: [
-        { path: 'user', title: 'navbar.userpage', ab: 'UP' },
+        { path: 'user', title: 'navbar.userpage', ab: 'UM' },
+        { path: 'userprofile', title: 'navbar.userpage', ab: 'UP' },
     ]
 }, {
     path: '/authpages',

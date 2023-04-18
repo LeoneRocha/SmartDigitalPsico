@@ -50,9 +50,7 @@ export class LoginComponent implements OnInit {
             var image_container = '<div class="full-page-background" style="background-image: url(' + image_src + ') "/>'
             $page.append(image_container);
         }
-    };
-
-
+    }; 
     signIn() {
         this.authService.login(this.userLoginModel).subscribe({
             next: (response: any) => {

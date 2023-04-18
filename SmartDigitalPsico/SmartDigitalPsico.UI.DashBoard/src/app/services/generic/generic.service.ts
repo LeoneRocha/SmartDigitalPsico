@@ -54,7 +54,7 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
     return headers
   }
 
-  private customHandleError(error: Response) { 
+  protected customHandleError(error: Response) { 
     const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error'] }; 
 
     if (error.status === 400)

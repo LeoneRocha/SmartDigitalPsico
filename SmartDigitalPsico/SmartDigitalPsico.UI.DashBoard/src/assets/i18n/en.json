@@ -352,7 +352,7 @@
       "TitleAdd": "Add Medication Information",
       "TitleEdit": "Edit Medication Information",
       "TitleView": "View Medication Information"
-    },     
+    },
     "record": {
       "title": "Record Annotation",
       "required": "Record Annotation is required",
@@ -370,6 +370,13 @@
       "TitleEdit": "Edit Record Annotation",
       "TitleView": "View Record Annotation"
     }
+  },
+  "userprofile": {
+    "title": "Profile",
+    "annotationDate": {
+      "title": "Annotation Date",
+      "required": "Annotation Date is required"
+    } 
   },
   "rolegroup": {
     "title": "Role Group",

@@ -370,6 +370,13 @@
       "TitleView": "Visualizar Anotação do Registro"
     }
   },
+  "userprofile": {
+    "title": "Perfil",      
+    "annotationDate": {
+      "title": "Annotation Date",
+      "required": "Annotation Date is required"
+    } 
+  },
   "rolegroup": {
     "title": "Grupo de Funções",
     "category": "Lista de Grupos de Funções",

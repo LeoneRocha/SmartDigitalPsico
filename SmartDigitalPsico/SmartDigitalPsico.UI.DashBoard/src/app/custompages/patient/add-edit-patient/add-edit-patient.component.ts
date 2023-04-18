@@ -182,8 +182,7 @@ export class AddEditPatientComponent implements OnInit {
         let formatDate = 'dd/MM/yyyy';
         let cultureUi = 'en'
         let pipeDate = new DatePipe('pt-BR')
-
-
+ 
         let responseData: PatientModel = this.serviceResponse?.data;
         let formsElement = this.registerForm;
         this.registerModel = {

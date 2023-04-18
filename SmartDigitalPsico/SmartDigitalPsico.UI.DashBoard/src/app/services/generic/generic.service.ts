@@ -44,15 +44,30 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
     let headers = this.getHeaders();
     return this.http.delete<T>(`${this.baseUrl}/${id}`, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
-
   getHeaders(): HttpHeaders {
 
-    let token = localStorage.getItem('tokenjwt');
+    let token: string = localStorage.getItem('tokenjwt');
+    let cultureUI: string = localStorage.getItem("AppLanguageId"); 
+    if (cultureUI !== null && cultureUI !== undefined && cultureUI !== '') {
+      cultureUI = "en-US";
+    } 
     const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `Bearer ${token}`)
+      .set('X-Culture', cultureUI);
+    return headers
+  } 
+  getHeaders2(): HttpHeaders {
 
+    let token: string = localStorage.getItem('tokenjwt');
+    let cultureUI: string = localStorage.getItem("AppLanguageId");
+    let headers = new HttpHeaders();
+
+
+    console.log(headers);
     return headers
   }
+
+
 
   protected customHandleError(error: Response) { 
     const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error'] }; 

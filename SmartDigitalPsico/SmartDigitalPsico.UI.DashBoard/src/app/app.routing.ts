@@ -3,6 +3,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AdminAuthGuard, AdminOrMedicalAuthGuard } from './services/auth/admin-auth-guard.service';
 import { AuthGuard } from './services/auth/auth-guard.service';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const AppRoutes: Routes = [
     {
@@ -10,6 +11,7 @@ export const AppRoutes: Routes = [
         redirectTo: 'authpages/login',
         pathMatch: 'full',
     },
+
     {
         path: 'administrative',
         component: AdminLayoutComponent,
@@ -84,12 +86,17 @@ export const AppRoutes: Routes = [
             canActivate: [AuthGuard],
             loadChildren: () => import('./custompages/userprofile/userprofile.module').then(x => x.UserProfileModule)
         }]
-    }, {
+    },
+    {
         path: 'authpages',
         component: AuthLayoutComponent,
         children: [{
             path: '',
             loadChildren: () => import('./pages/pages.module').then(x => x.PagesModule)
         }]
+    },
+    {
+        path: '**',  
+        component: NotFoundComponent
     }
 ];

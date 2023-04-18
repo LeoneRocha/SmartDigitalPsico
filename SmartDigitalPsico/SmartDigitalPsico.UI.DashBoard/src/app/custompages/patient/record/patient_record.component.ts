@@ -15,6 +15,7 @@ declare var $: any;
     templateUrl: 'patient_record.component.html'
     //styleUrls: ['./Patient.component.css']
     //fonts icon https://fontawesome.com/v4/icons/
+    //https://fontawesome.com/search?q=info&o=r&s=light&f=classic
 })
 
 export class PatientRecordComponent implements OnInit {

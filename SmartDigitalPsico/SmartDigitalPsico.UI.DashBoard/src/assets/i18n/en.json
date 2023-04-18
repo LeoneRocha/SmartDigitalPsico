@@ -376,7 +376,7 @@
     "annotationDate": {
       "title": "Annotation Date",
       "required": "Annotation Date is required"
-    } 
+    }
   },
   "rolegroup": {
     "title": "Role Group",
@@ -389,5 +389,17 @@
       "TitleEdit": "Edit Role Group",
       "TitleView": "View Role Group"
     }
+  },
+  "notfoundpage": {
+    "title": "Ooops!",
+    "category": "404 - Page not found",
+    "description": "The page you are looking for does not exist.",
+    "backnav": "Back to home page"
+  },
+  "noaccess": {
+    "title": "Access Denied!",
+    "category": "403 - Forbidden",
+    "description": "You don't have permission!",
+    "backnav": "Back" 
   }
 }

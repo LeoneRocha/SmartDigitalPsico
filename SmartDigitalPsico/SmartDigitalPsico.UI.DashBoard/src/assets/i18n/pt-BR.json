@@ -371,11 +371,11 @@
     }
   },
   "userprofile": {
-    "title": "Perfil",      
+    "title": "Perfil",
     "annotationDate": {
       "title": "Annotation Date",
       "required": "Annotation Date is required"
-    } 
+    }
   },
   "rolegroup": {
     "title": "Grupo de Funções",
@@ -388,5 +388,17 @@
       "TitleEdit": "Editar Grupo de Funções",
       "TitleView": "Visualizar Grupo de Funções"
     }
+  },
+  "notfoundpage": {
+    "title": "Ooops!",
+    "category": "404 - Página não encontrada",
+    "description": "A página que você está procurando não existe.",
+    "backnav": "Voltar"
+  },
+  "noaccess": {
+    "title": "Acesso negado!",
+    "category": "403 - Proibido",
+    "description": "Você não tem permissão!",
+    "backnav": "Voltar"
   }
 }

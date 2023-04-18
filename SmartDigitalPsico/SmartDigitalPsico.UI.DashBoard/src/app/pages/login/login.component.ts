@@ -62,6 +62,5 @@ export class LoginComponent implements OnInit {
         //value="admin"
         //value="mock123adm"
     }
-} 
-//TODO:  ) TELAS DO USUARIO LOGADO.
+}  
 //TODO:  ) TELAS DO MEDICO LOGADO.

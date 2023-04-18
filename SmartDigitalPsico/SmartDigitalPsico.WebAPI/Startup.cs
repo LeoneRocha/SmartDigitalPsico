@@ -23,6 +23,7 @@ using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.WebAPI.Helper;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.IO;
 using System.Text;
 
@@ -137,6 +138,14 @@ namespace SmartDigitalPsico.WebAPI
                 //HyperMedia
                 endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
+
+            addCustomMiddleware(app);
+        }
+
+        private void addCustomMiddleware(IApplicationBuilder app)
+        {
+            app.UseMiddleware<RequestCultureMiddleware>();
+
         }
 
         #region PRIVATES

@@ -48,23 +48,14 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
 
     let token: string = localStorage.getItem('tokenjwt');
     let cultureUI: string = localStorage.getItem("AppLanguageId"); 
-    if (cultureUI !== null && cultureUI !== undefined && cultureUI !== '') {
+    if (cultureUI !== 'pt-BR') {
       cultureUI = "en-US";
-    } 
+    }   
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('X-Culture', cultureUI);
     return headers
-  } 
-  getHeaders2(): HttpHeaders { 
-    let token: string = localStorage.getItem('tokenjwt');
-    let cultureUI: string = localStorage.getItem("AppLanguageId");
-    let headers = new HttpHeaders(); 
-    return headers
-  }
-
-
-
+  }  
   protected customHandleError(error: Response) { 
     const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error'] }; 
 

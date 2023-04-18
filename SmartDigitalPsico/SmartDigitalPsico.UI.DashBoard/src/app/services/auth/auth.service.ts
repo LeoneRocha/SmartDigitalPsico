@@ -45,6 +45,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     let userCache: UserAutenticateView = {
       id: userLogged.id,
       name: userLogged.name,
+      language: userLogged.language,
       roleGroups: userLogged.roleGroups
     };
     const strUserAutenticate = JSON.stringify(userCache); 

@@ -56,14 +56,10 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
       .set('X-Culture', cultureUI);
     return headers
   } 
-  getHeaders2(): HttpHeaders {
-
+  getHeaders2(): HttpHeaders { 
     let token: string = localStorage.getItem('tokenjwt');
     let cultureUI: string = localStorage.getItem("AppLanguageId");
-    let headers = new HttpHeaders();
-
-
-    console.log(headers);
+    let headers = new HttpHeaders(); 
     return headers
   }
 

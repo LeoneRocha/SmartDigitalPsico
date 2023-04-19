@@ -17,15 +17,15 @@ export class LanguageService {
     this.translate.use(lang);
     this.translate.setDefaultLang(lang);
   }
- 
-  translateInformationAsync(infoKeys: string[]): string[] {    
-    let translatedInfo: string[] = []; 
+
+  translateInformationAsync(infoKeys: string[]): string[] {
+    let translatedInfo: string[] = [];
     this.translateInformations(infoKeys).subscribe((response: string[]) => {
       response.forEach(key => {
         translatedInfo.push(key);
-      });      
-    });        
-    
+      });
+    });
+
     return translatedInfo;
   }
   private getTranslates(infoKey: string | string[]): Observable<any> {
@@ -56,9 +56,7 @@ export class LanguageService {
     });
     return result;
   }
-
-  setLanguage(lang: string) {
-    this.removeLanguageToLocalStorage();
+  switchLanguage(lang: string) {
 
     if (this.translate.currentLang === 'pt-BR') {
       lang = 'en';
@@ -67,6 +65,17 @@ export class LanguageService {
     }
     this.translate.use(lang);
     this.translate.setDefaultLang(lang);
+
+    this.removeLanguageToLocalStorage();
+    this.saveLanguageToLocalStorage(lang);
+    window.location.reload();//paliativa
+  }
+
+  setLanguage(lang: string) {
+    this.translate.use(lang);
+    this.translate.setDefaultLang(lang);
+
+    this.removeLanguageToLocalStorage();
     this.saveLanguageToLocalStorage(lang);
 
     window.location.reload();//paliativa
@@ -78,7 +87,7 @@ export class LanguageService {
   private removeLanguageToLocalStorage() {
     localStorage.removeItem(this.keyLanguage);
   }
-  
+
   getLanguageToLocalStorage(): string {
     let result: string;
     result = localStorage.getItem(this.keyLanguage);

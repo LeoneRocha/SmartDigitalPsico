@@ -1,14 +1,15 @@
  ### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação  
 FROM node:14 as node
 WORKDIR /app
-COPY package*.json /app/
-RUN npm install  --force
 COPY . .
+#COPY package*.json /app/
+RUN npm install  --force
+RUN npm run build 
 ##COPY package.json package-lock.json ./ 
-ARG configuration=production
+#ARG configuration=production
 
-RUN npm run build --prod --output-path=./dist/smartdigitalpsico  --configuration $configuration
-
+#--prod  
+#-output-path=./dist/smartdigitalpsico  --configuration $configuration
 ### ESTÁGIO 2: Executar ###   2 - Responsável por expor nossa aplicação smartdigitalpsico *  based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:latest 
 ## Skip this if you are using kubernetes config map 

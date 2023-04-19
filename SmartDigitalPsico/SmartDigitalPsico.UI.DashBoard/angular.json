@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "smartdigitalpsico": {
+    "pd-pro-angularcli": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -11,12 +11,12 @@
         }
       },
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "src",       
       "prefix": "app", 
       "architect": {
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
-          "options": { 
+          "options": {
             "customWebpackConfig": {
               "path": "./custom-webpack.config.js"
             },
@@ -90,15 +90,15 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "smartdigitalpsico:build"
+            "browserTarget": "pd-pro-angularcli:build"
             
           },
           "configurations": {
             "production": {
-              "browserTarget": "smartdigitalpsico:build:production"
+              "browserTarget": "pd-pro-angularcli:build:production"
             },
             "development": {
-              "browserTarget": "smartdigitalpsico:build:development"
+              "browserTarget": "pd-pro-angularcli:build:development"
             },
             "defaultConfiguration": "development"
           }
@@ -106,7 +106,7 @@
         "extract-i18n": {
           "builder": "@angular-builders/custom-webpack:extract-i18n",
           "options": {
-            "browserTarget": "smartdigitalpsico:build"
+            "browserTarget": "pd-pro-angularcli:build"
           }
         },
         "test": {
@@ -159,7 +159,7 @@
         }
       }
     },
-    "smartdigitalpsico-e2e": {
+    "pd-pro-angularcli-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -168,7 +168,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "smartdigitalpsico:serve"
+            "devServerTarget": "pd-pro-angularcli:serve"
           }
         },
         "lint": {
@@ -182,7 +182,7 @@
         }
       }
     }
-  },  
+  }, 
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

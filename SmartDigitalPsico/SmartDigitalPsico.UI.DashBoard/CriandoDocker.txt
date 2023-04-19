@@ -34,6 +34,7 @@ docker build -t smartdigitalpsico .
 
 docker run -it -p 4200:4200 --rm smartdigitalpsico
 
+docker build -t smartdigitalpsico:prod .
 
 -----------------------------------------------------------
 
@@ -49,6 +50,10 @@ https://www.gasparbarancelli.com/post/construindo-imagem-docker-em-projetos-angu
 https://wkrzywiec.medium.com/build-and-run-angular-application-in-a-docker-container-b65dbbc50be8
 
 https://www.youtube.com/watch?v=m34C6Hz0qF4
+
+https://tiangolo.medium.com/angular-in-docker-with-nginx-supporting-environments-built-with-multi-stage-docker-builds-bb9f1724e984
+
+
 
 ### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação
 FROM node:18 as node
@@ -85,4 +90,7 @@ Rodando via Docker
 
     docker-compose -f docker/docker-compose.yaml up -d
 
-    
+
+
+
+    docker build -t meu-projeto-angular:prod .

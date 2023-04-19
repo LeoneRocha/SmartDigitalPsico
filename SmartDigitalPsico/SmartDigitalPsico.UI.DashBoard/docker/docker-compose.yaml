@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  smartdigitalpsico:
+    image: smartdigitalpsico:v1
+    container_name: smartdigitalpsico
+    ports:
+      - "8081:8081"

@@ -1,0 +1,40 @@
+FROM node:latest
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 4200
+CMD ["npm", "start"]
+
+docker build -t my-angular-app .
+docker run -it -p 4200:4200 --rm SmartDigitalPsico
+docker run --name av-app-multistage-container -d -p 8888:80 av-app-multistage-image
+  
+-----------------------------------------------------------
+
+docker build -t smartdigitalpsico-image:v1 .
+
+docker run -d --name smartdigitalpsico -p 8081:8081  smartdigitalpsico-image:v1
+-----------------------------------------------------------
+
+
+docker run --name smartdigitalpsico-container -d -p 8081:8081 smartdigitalpsico-image
+
+
+https://www.gasparbarancelli.com/post/construindo-imagem-docker-em-projetos-angular-utilizando-o-nginx-como-servidor
+
+https://wkrzywiec.medium.com/build-and-run-angular-application-in-a-docker-container-b65dbbc50be8
+
+https://www.youtube.com/watch?v=m34C6Hz0qF4
+
+### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação
+FROM node:18 as node
+WORKDIR /app
+COPY . .
+RUN npm install --force
+RUN npm run build --prod
+
+### ESTÁGIO 2: Executar ###   2 - Responsável por expor nossa aplicação
+FROM nginx 
+COPY --from=node /app/dist/ /usr/share/nginx/html
+
+EXPOSE 4200

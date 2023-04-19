@@ -69,10 +69,8 @@ export class NavbarComponent implements OnInit {
             }, 1000);
         });
     }
-    ChangeLanguage(idLanguage: string) {
-        //alert('OK');
-        this.appComponent.ChangeLanguage(idLanguage);
-        //  this.languageService.setLanguage(idLanguage);
+    ChangeLanguage(idLanguage: string) { 
+        this.appComponent.ChangeLanguage(idLanguage); 
     }
 
     isMobileMenu() {

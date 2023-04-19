@@ -1,6 +1,6 @@
-### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação  
+ ### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação  
 FROM node:14 as node
-WORKDIR /src/app
+WORKDIR /app
 COPY . .
 ##COPY package.json package-lock.json ./ 
 RUN npm install  --force

@@ -162,8 +162,7 @@ export class AddEditPatientHospitalizationInformationComponent implements OnInit
         this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
-        let formatDate = 'dd/MM/yyyy';
-        let cultureUi = 'en'
+        let formatDate = 'dd/MM/yyyy'; 
         let pipeDate = new DatePipe('pt-BR')
 
 

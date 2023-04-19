@@ -9,6 +9,30 @@ docker build -t my-angular-app .
 docker run -it -p 4200:4200 --rm SmartDigitalPsico
 docker run --name av-app-multistage-container -d -p 8888:80 av-app-multistage-image
   
+  docker builder prune
+-----------------------------------------------------------
+ ### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação  
+FROM node:14 as node
+WORKDIR /app
+COPY . .
+##COPY package.json package-lock.json ./ 
+RUN npm install  --force
+RUN npm run build --prod
+
+### ESTÁGIO 2: Executar ###   2 - Responsável por expor nossa aplicação smartdigitalpsico
+FROM nginx:latest 
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=node /app/dist/smartdigitalpsico /usr/share/nginx/html
+  
+EXPOSE 8081
+CMD ["nginx", "-g", "daemon off;"]
+
+-------------
+docker build -t smartdigitalpsico .
+
+docker run -it -p 4200:4200 --rm smartdigitalpsico
+
+
 -----------------------------------------------------------
 
 docker build -t smartdigitalpsico-image:v1 .

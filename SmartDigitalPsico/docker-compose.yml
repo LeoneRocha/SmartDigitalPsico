@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3320:3326
+  dbSQLSERVER:
+    image: mcr.microsoft.com/mssql/server:latest    
+    restart: always   
+    container_name: smartdigitalpsicoSQLServer
+    environment: 
+      TZ: America/Sao_Paulo
+      ACCEPT_EULA:  "Y"       
+      SA_PASSWORD: docker!123 
+    ports:
+      - 1433:1433
+    networks:
+      - smartdigitalpsiconetwork
+  smartdigitalpsico.webapi:
+    image: smartdigitalpsicoapi-image
+    container_name: smartdigitalpsicoapiapp
+    build:
+      context: .
+      dockerfile: SmartDigitalPsico.WebAPI/Dockerfile
+    environment:
+      TZ: America/Sao_Paulo
+      ASPNETCORE_ENVIRONMENT: Production
+    ports:
+      - 44300:5357 
+    links:
+    - dbSQLSERVER
+    depends_on:
+    - dbSQLSERVER 
+    networks:
+    - smartdigitalpsiconetwork     
+networks:
+  smartdigitalpsiconetwork:
+    driver: bridge

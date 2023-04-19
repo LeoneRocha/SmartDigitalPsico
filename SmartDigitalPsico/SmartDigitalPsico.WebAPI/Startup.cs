@@ -1,3 +1,4 @@
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -280,13 +281,14 @@ namespace SmartDigitalPsico.WebAPI
                 //// Migrate latest database changes during startup
                 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
-                    var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>();
-                    context.Database.Migrate();
+                    using (var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>())
+                    {
+                        context.Database.EnsureCreated();
+                        //context.Database.Migrate();
+                    }                    
                 }
-            }
-
-            //addConfigLocalization(app);
-
+            } 
+            //addConfigLocalization(app); 
         }
 
         private void addConfigLocalization(IApplicationBuilder app)

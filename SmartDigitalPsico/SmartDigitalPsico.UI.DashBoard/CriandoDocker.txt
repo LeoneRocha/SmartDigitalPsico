@@ -42,7 +42,18 @@ docker build -t smartdigitalpsico-image:v1 .
 
 docker run -d --name smartdigitalpsico -p 8081:8081  smartdigitalpsico-image:v1
 -----------------------------------------------------------
- 
+ ---- TESTAR GERAR O BULDI PROD E VER SE VAI BUILDAR 
+
+
+
+https://www.nginx.com/resources/wiki/start/topics/examples/full/
+https://www.google.com/search?q=nginx+configuration+example+angular&rlz=1C1VDKB_pt-PTBR1004BR1004&sxsrf=APwXEdejYBgyk1ZWir_2NPUjdS4rf9IIAg%3A1681948154997&ei=-n1AZJuxPMfI1sQPqeeQ-A0&ved=0ahUKEwiblrySkbf-AhVHpJUCHakzBN8Q4dUDCA8&uact=5&oq=nginx+configuration+example+angular&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIGCAAQFhAeOgoIABBHENYEELADOggIABAWEB4QCkoECEEYAFCAAVjZEWCSFmgBcAF4AIABvAGIAakJkgEDMC44mAEAoAEByAEIwAEB&sclient=gws-wiz-serp
+
+
+
+
+
+ *-*************************
 docker run --name smartdigitalpsico-container -d -p 8081:8081 smartdigitalpsico-image
  
 https://www.gasparbarancelli.com/post/construindo-imagem-docker-em-projetos-angular-utilizando-o-nginx-como-servidor

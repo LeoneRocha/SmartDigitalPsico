@@ -1,10 +1,10 @@
  ### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação  
-FROM node:14 as node
+FROM node:18 as node
 WORKDIR /app
 COPY . .
 #COPY package*.json /app/
 RUN npm install  --force
-RUN npm run build 
+RUN npm run build --prod
 ##COPY package.json package-lock.json ./ 
 #ARG configuration=production
 
@@ -19,6 +19,6 @@ COPY --from=node /app/dist/smartdigitalpsico /usr/share/nginx/html
   
 EXPOSE 8081
 ## Serve
-##CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
 
  

@@ -36,16 +36,35 @@ docker run -it -p 4200:4200 --rm smartdigitalpsico
 
 docker build -t smartdigitalpsico:prod .
 
+--- LOCAL 
+
+npm start
+
 -----------------------------------------------------------
+
+docker builder prune
 
 docker build -t smartdigitalpsico-image:v1 .
 
 docker run -d --name smartdigitalpsico -p 4209:4209  smartdigitalpsico-image:v1
 
+--------- OU ----------
+
+docker-compose -f docker-compose.yaml up -d
+
+
+** LEMBRAR DE MUDAR OS URL DE PROD E DEV
+
+---------------------------
+
+docker inspect smartdigitalpsicoapiapp | findstr "IPAddress"
+
+docker inspect -f '{{range $key, $value := .NetworkSettings.Networks}}{{$key}} {{end}}' smartdigitalpsicoapiapp
+
+docker network inspect -f '{{range .Containers}}{{.Name}} {{end}}' dockercompose14570377054258267338_smartdigitalpsiconetwork
+
 -----------------------------------------------------------
  ---- TESTAR GERAR O BULDI PROD E VER SE VAI BUILDAR 
-
-   docker builder prune
 
 docker-compose -f docker-compose.yaml up -d
 

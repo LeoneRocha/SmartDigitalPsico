@@ -1,6 +1,7 @@
 version: '3.4' 
 services:
-  web:
+  smartdigitalpsicoweb:
+    container_name: smartdigitalpsicowebui
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,7 +12,7 @@ services:
       - ./dist/smartdigitalpsico/:/usr/share/nginx/html
     command: nginx -g 'daemon off;'
     networks:
-      - smartdigitalpsiconetworkweb
+      - smartdigitalpsiconetwork
 networks:
-  smartdigitalpsiconetworkweb:
+  smartdigitalpsiconetwork:
     driver: bridge

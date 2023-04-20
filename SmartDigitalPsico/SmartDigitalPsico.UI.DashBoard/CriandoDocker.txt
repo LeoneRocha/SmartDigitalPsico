@@ -41,6 +41,9 @@ docker build -t smartdigitalpsico:prod .
 docker build -t smartdigitalpsico-image:v1 .
 
 docker run -d --name smartdigitalpsico -p 8081:8081  smartdigitalpsico-image:v1
+
+docker run -d --name smartdigitalpsico -p 4209:4209  smartdigitalpsico-image:v1
+
 -----------------------------------------------------------
  ---- TESTAR GERAR O BULDI PROD E VER SE VAI BUILDAR 
 
@@ -50,6 +53,12 @@ https://www.nginx.com/resources/wiki/start/topics/examples/full/
 https://www.google.com/search?q=nginx+configuration+example+angular&rlz=1C1VDKB_pt-PTBR1004BR1004&sxsrf=APwXEdejYBgyk1ZWir_2NPUjdS4rf9IIAg%3A1681948154997&ei=-n1AZJuxPMfI1sQPqeeQ-A0&ved=0ahUKEwiblrySkbf-AhVHpJUCHakzBN8Q4dUDCA8&uact=5&oq=nginx+configuration+example+angular&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIGCAAQFhAeOgoIABBHENYEELADOggIABAWEB4QCkoECEEYAFCAAVjZEWCSFmgBcAF4AIABvAGIAakJkgEDMC44mAEAoAEByAEIwAEB&sclient=gws-wiz-serp
 
 
+REFERENCIAS
+https://dev.to/sharathmohan007/nginx-configuration-for-angular2-deployment-2b94
+https://stackoverflow.com/questions/45277183/how-to-config-nginx-to-run-angular4-application
+
+https://gist.github.com/noherczeg/f9293abfe0b78198b68e
+https://medium.com/@technicadil_001/deploy-an-angular-app-with-nginx-a79cc1a44b49
 
 
 

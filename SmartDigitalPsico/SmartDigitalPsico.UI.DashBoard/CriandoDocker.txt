@@ -49,6 +49,8 @@ docker run -d --name smartdigitalpsico -p 4209:4209  smartdigitalpsico-image:v1
 
 docker-compose -f docker-compose.yaml up -d
 
+autoindex on;
+            autoindex_exact_size on;
 -----------------------------------------------------------------
 https://www.locaweb.com.br/blog/temas/codigo-aberto/como-enviar-suas-imagens-docker-para-o-dockerhub/
 

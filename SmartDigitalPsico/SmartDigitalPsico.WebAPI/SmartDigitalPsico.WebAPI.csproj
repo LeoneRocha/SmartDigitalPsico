@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="connectionsModels.txt" />
     <None Remove="CriandoDocker.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="connectionsModels.txt" />
     <Content Include="CriandoDocker.txt" />
   </ItemGroup>
 

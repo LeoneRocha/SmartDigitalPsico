@@ -9,7 +9,7 @@ docker build -t my-angular-app .
 docker run -it -p 4200:4200 --rm SmartDigitalPsico
 docker run --name av-app-multistage-container -d -p 8888:80 av-app-multistage-image
   
-  docker builder prune
+
 -----------------------------------------------------------
  ### STAGE 1: Build ###  esponsável por gerar o build da nossa aplicação  
 FROM node:14 as node
@@ -40,14 +40,64 @@ docker build -t smartdigitalpsico:prod .
 
 docker build -t smartdigitalpsico-image:v1 .
 
-docker run -d --name smartdigitalpsico -p 8081:8081  smartdigitalpsico-image:v1
-
 docker run -d --name smartdigitalpsico -p 4209:4209  smartdigitalpsico-image:v1
 
 -----------------------------------------------------------
  ---- TESTAR GERAR O BULDI PROD E VER SE VAI BUILDAR 
 
+   docker builder prune
 
+docker-compose -f docker-compose.yaml up -d
+
+-----------------------------------------------------------------
+https://www.locaweb.com.br/blog/temas/codigo-aberto/como-enviar-suas-imagens-docker-para-o-dockerhub/
+
+https://www.mundodocker.com.br/publicando-imagens-no-docker-hub/
+
+2. Crie um repositório
+
+3. Criar imagem
+
+4. Buildar imagem
+
+6. Bater uma tag na imagem
+
+
+docker login
+
+Crie uma tag para o contêiner:
+
+docker tag <nome-do-container> <seu-nome-de-usuario-docker>/<nome-do-repositorio>:<versao>
+
+docker tag smartdigitalpsico leonecr/smartdigitalpsico:v1.0
+
+
+docker push <seu-nome-de-usuario-docker>/<nome-do-repositorio>:<versao>
+
+docker images | grep smartdigitalpsico-image:v1
+
+
+docker push leonecr/smartdigitalpsico-image:v1
+
+docker push leonecr/smartdigitalpsico-image:tagname
+
+
+docker push smartdigitalpsico-image:v1
+
+
+Certifique-se de que você tenha uma conta no Docker Hub e esteja logado usando o comando docker login.
+
+Adicione um novo serviço ao seu arquivo docker-compose.yml para construir a imagem e enviá-la para o Docker Hub. Exemplo:
+
+Execute o comando docker-compose build para construir a imagem.
+
+Execute o comando docker-compose push para enviar a imagem para o Docker Hub.
+
+Isso irá construir a imagem e enviá-la para o Docker Hub com o nome myusername/myapp. Certifique-se de substituir myusername pelo seu nome de usuário no Docker Hub e myapp pelo nome do seu aplicativo ou serviço.
+
+
+
+--------------------------------------------------------------
 
 https://www.nginx.com/resources/wiki/start/topics/examples/full/
 https://www.google.com/search?q=nginx+configuration+example+angular&rlz=1C1VDKB_pt-PTBR1004BR1004&sxsrf=APwXEdejYBgyk1ZWir_2NPUjdS4rf9IIAg%3A1681948154997&ei=-n1AZJuxPMfI1sQPqeeQ-A0&ved=0ahUKEwiblrySkbf-AhVHpJUCHakzBN8Q4dUDCA8&uact=5&oq=nginx+configuration+example+angular&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIGCAAQFhAeOgoIABBHENYEELADOggIABAWEB4QCkoECEEYAFCAAVjZEWCSFmgBcAF4AIABvAGIAakJkgEDMC44mAEAoAEByAEIwAEB&sclient=gws-wiz-serp
@@ -108,9 +158,32 @@ Rodando via Docker
 
 ### Comando Docker-compose
 
-    docker-compose -f docker/docker-compose.yaml up -d
+    
 
 
 
 
     docker build -t meu-projeto-angular:prod .
+
+
+
+
+
+version: '3.7' 
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ../Dockerfile
+    ports:
+      - "4209:4209"
+    restart: always
+    volumes:
+      - .:/usr/share/nginx/html
+    command: nginx -g 'daemon off;'
+    networks:
+      - smartdigitalpsiconetworkweb
+
+networks:
+  smartdigitalpsiconetworkweb:
+    driver: bridge

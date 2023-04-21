@@ -5,8 +5,8 @@ WORKDIR /app
 #EXPOSE 80
 #EXPOSE 443
 #- 80:443
-EXPOSE 8080
-EXPOSE 5000
+#EXPOSE 8080
+#EXPOSE 5000
 
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build

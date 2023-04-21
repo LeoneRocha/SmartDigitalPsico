@@ -29,7 +29,7 @@ services:
       TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: Production
     ports:
-      - 8080:5000  
+      - 5001:8081  
     links:
     - dbSQLSERVER
     depends_on:

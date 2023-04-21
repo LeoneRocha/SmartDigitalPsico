@@ -44,12 +44,19 @@ npm start
 
 docker builder prune
 
+docker-compose build --force-rm --no-cache
+
 docker build -t smartdigitalpsico-image:v1 .
 
 docker run -d --name smartdigitalpsico -p 4209:4209  smartdigitalpsico-image:v1
 
 --------- OU ----------
 
+docker-compose build --force-rm --no-cache && docker-compose up
+--------- OU ----------
+
+docker-compose build --force-rm --no-cache
+--------- OU ----------
 docker-compose -f docker-compose.yaml up -d
 
 

@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   EnableCaptureResponseTolog : true,
-   //APIUrl: 'https://localhost:52258/api',// npm start  
+   APIUrl: 'https://localhost:59875/api',// npm start  
 };

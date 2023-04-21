@@ -68,4 +68,8 @@ networks:
   smartdigitalpsiconetwork:
     driver: bridge
 
- 
+  location /api { 
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass https://localhost:59875;
+    } 

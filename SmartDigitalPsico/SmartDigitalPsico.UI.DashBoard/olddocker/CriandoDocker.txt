@@ -41,7 +41,6 @@ docker build -t smartdigitalpsico:prod .
 npm start
 
 -----------------------------------------------------------
-npm run build --prod
 
 docker builder prune
 

@@ -26,6 +26,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     let urlAut = `${environment.APIUrl + basePathUrl}/authenticate`;
     //urlAut = '/api/authenticate'//Test Mock
     //JSON.stringify(credentials) 
+    console.log(urlAut);    
     return this.httpLocal.post<ServiceResponse<UserAutenticateModel>>(urlAut, credentials).pipe(map(response => {
       return this.processLoginApi(response);
     }), catchError(this.customHandleErrorAuthService));

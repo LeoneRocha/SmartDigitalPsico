@@ -15,7 +15,7 @@ namespace SmartDigitalPsico.WebAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    //webBuilder.UseUrls("http://localhost:61950");
+                    //webBuilder.UseUrls("http://localhost:61949");
                 });
     }
 }

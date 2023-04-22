@@ -28,11 +28,10 @@ services:
     environment:
       TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: Production
-    ports:
-       - 8080:8080 
-       - 5000:80
-       - 80:443 
-       - 80:5000 
+    ports: # porta do host:porta do container.
+       - 80:80 
+       - 443:443 
+       - 5001:5001 
     links:
       - dbSQLSERVER
     depends_on:

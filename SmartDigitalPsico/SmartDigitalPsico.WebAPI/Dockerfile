@@ -1,11 +1,12 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
+# Imagem base
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
-EXPOSE 8080
+EXPOSE 443  
+EXPOSE 5001  
 
+# Copia dos arquivos do projeto
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["SmartDigitalPsico.WebAPI/SmartDigitalPsicoWebAPI.csproj", "SmartDigitalPsico.WebAPI/"]
@@ -14,15 +15,21 @@ COPY ["SmartDigitalPsico.Dominio/SmartDigitalPsico.Domains.csproj", "SmartDigita
 COPY ["SmartDigitalPsico.Services/SmartDigitalPsico.Services.csproj", "SmartDigitalPsico.Services/"]
 COPY ["SmartDigitalPsico.Bussines/SmartDigitalPsico.Business.csproj", "SmartDigitalPsico.Bussines/"]
 COPY ["SmartDigitalPsico.Data/SmartDigitalPsico.Repository.csproj", "SmartDigitalPsico.Data/"]
+# Restaura as dependências do projeto
 RUN dotnet restore "SmartDigitalPsico.WebAPI/SmartDigitalPsicoWebAPI.csproj"
+# Copia do código fonte
 COPY . .
 WORKDIR "/src/SmartDigitalPsico.WebAPI"
+# Build da aplicação
 RUN dotnet build "SmartDigitalPsicoWebAPI.csproj" -c Release -o /app/build
 
+# Publicação da aplicação
 FROM build AS publish
 RUN dotnet publish "SmartDigitalPsicoWebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
+# Execução da aplicação
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# Define o comando de entrada
 ENTRYPOINT ["dotnet", "SmartDigitalPsicoWebAPI.dll"]

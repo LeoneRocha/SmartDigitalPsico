@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="connectionsModels.txt" />
     <None Remove="CriandoDocker.txt" />
+    <None Remove="DockerfileVS" />
   </ItemGroup>
 
   <ItemGroup>

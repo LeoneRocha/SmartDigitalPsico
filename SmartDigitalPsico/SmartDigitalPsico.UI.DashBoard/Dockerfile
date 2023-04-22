@@ -7,7 +7,7 @@ COPY . .
 # Install the app dependencies
 RUN npm install  --force -g @angular/cli
 # Build the app for production
-RUN npm run build 
+RUN npm run build --prod
 ##--prod
 
 ### ESTÁGIO 2: Executar ###   2 - Responsável por expor nossa aplicação smartdigitalpsico *  based on Nginx, to have only the compiled app, ready for production with Nginx

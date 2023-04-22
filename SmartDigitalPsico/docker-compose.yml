@@ -38,22 +38,24 @@ services:
       - dbSQLSERVER 
     networks:
       - smartdigitalpsiconetwork
-#  client: 
-#    build:
-#      context: ./SmartDigitalPsico.UI.DashBoard
-#      dockerfile: Dockerfile
-#    ports:
-#      - "4209:4209"
-#    restart: always
-#    volumes:
-#      - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html
-#    command: nginx -g 'daemon off;'
-#    links:
-#      - smartdigitalpsico.webapi
-#    depends_on:
-#      - smartdigitalpsico.webapi 
-#    networks:
-#      - smartdigitalpsiconetwork 
+  dashui: 
+     image:  sdpuidashimage
+     container_name:  sdpuidashcontainer
+     build:
+       context: ./SmartDigitalPsico.UI.DashBoard
+       dockerfile: Dockerfile
+     ports:
+       - "4209:4209"
+     restart: always
+     volumes:
+       - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html
+     command: nginx -g 'daemon off;'
+     links:
+       - smartdigitalpsico.webapi
+     depends_on:
+       - smartdigitalpsico.webapi 
+     networks:
+       - smartdigitalpsiconetwork 
 networks:
   smartdigitalpsiconetwork:
     driver: bridge

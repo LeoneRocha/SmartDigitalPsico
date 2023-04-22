@@ -14,13 +14,13 @@ docker build -t smartdigitalpsico-image:v1 .
 
 docker run -d --name smartdigitalpsico -p 4209:4209  smartdigitalpsico-image:v1
 --------- OU --- ||| 2 ||| - |------------------------------------------
-docker builder prune
+docker builder prune --- LIBERAR CONSTUTORES 
 
-npm run build 
+npm run build --prod ------------------- PRECISA DAR BUILD (OBRIGATORIO)
 
-docker-compose build --force-rm --no-cache
+docker-compose build --force-rm --no-cache -- remove conteiners antigos e rebuild completo
 
-docker-compose up
+docker-compose up (OBRIGATORIO)
 
 --------- OU ----------
 

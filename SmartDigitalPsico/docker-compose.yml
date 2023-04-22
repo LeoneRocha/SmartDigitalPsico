@@ -41,7 +41,7 @@ services:
 #      context: ./SmartDigitalPsico.UI.DashBoard
 #      dockerfile: Dockerfile
 #    ports:
-#      - "4209:80"
+#      - "4209:4209"
 #    restart: always
 #    volumes:
 #      - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html

@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4209:80"
+      - "4209:4209"
     restart: always
     volumes:
       - ./dist/smartdigitalpsico/:/usr/share/nginx/html

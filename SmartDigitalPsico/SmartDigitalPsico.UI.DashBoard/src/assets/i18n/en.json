@@ -1,7 +1,45 @@
 {
   "TESTE": "TESTE :) !",
-  "datagrid": {
-    "searchPlaceholder": "Search records :)"
+  "modalalert": {
+    "remove": {
+      "title": "Are you sure?",
+      "text": "You will not be able to recover register!",
+      "confirmButtonText": "Yes, delete it!",
+      "cancelButtonText": "No, keep it",
+      "erro": "Error of delete."
+    },
+    "cancelled": {
+      "title": "Cancelled",
+      "text": "Register hasn't been deleted",
+      "erro": "Error of cancel."
+    },
+    "deleted": {
+      "title": "Deleted!",
+      "text": "Register has been deleted. I will close in 5 seconds",
+      "erro": "Error of delete."
+    },
+    "saved": {
+      "title": "Register is saved!",
+      "text": "I will close in 5 seconds",
+      "erro": "Error adding!",
+      "erroupdate": "Error update!"
+    },
+    "load": {
+      "title": "Error load!",
+      "text": "Error MSG"
+    },
+    "error": {
+      "title": "Error load!",
+      "erro": "Error load!",
+      "text": "Error MSG"
+    },
+    "notification": {
+      "title": "Error of notification!",
+      "text": "Error of notification!",
+      "erro": {
+        "connection": "Error of connection!"
+      }
+    }
   },
   "navbar": {
     "home": "Home",
@@ -28,6 +66,10 @@
     "select": "Select",
     "enable": "Enable",
     "admin": "Admin",
+    "actions": "Actions",
+    "actived": "Enabled",
+    "desactived": "Disabled",
+    "patientrecords": "Details Patient",
     "backnav": "Back",
     "newregisterbtn": "New",
     "updateregisterbtn": "Update",
@@ -38,6 +80,10 @@
     "altEdit": "Edit",
     "altView": "View",
     "altDelete": "Delete",
+    "datetime": {
+      "title": "Date",
+      "required": "Date is required"
+    },
     "name": {
       "title": "Name",
       "required": "Name is required"
@@ -56,7 +102,7 @@
       "required": "Login is required",
       "header": "Access your account",
       "rememberme": "Remember me",
-      "register": "Register" ,
+      "register": "Register",
       "changelanguage": "Click to Change",
       "invalidLogin": "Invalid username and/or password."
     },
@@ -72,9 +118,6 @@
       "title": "Main Role",
       "required": "Main Role"
     }
-  },
-  "modalAlert": {
-    "select": "Select"
   },
   "appsetting": {
     "title": "Configuration",
@@ -106,6 +149,7 @@
     "title": "Office",
     "category": "List of Office",
     "select": "Select Office",
+    "required": "Office is required",
     "form": {
       "TitleAdd": "Add Office",
       "TitleEdit": "Edit Office",
@@ -116,6 +160,7 @@
     "title": "Gender",
     "category": "List of Gender",
     "select": "Select gender",
+    "required": "Gender is required",
     "form": {
       "TitleAdd": "Add Gender",
       "TitleEdit": "Edit Gender",
@@ -124,8 +169,11 @@
   },
   "specialty": {
     "title": "Specialty",
+    "titles": "Specialties",
     "category": "List of Specialty",
     "select": "Select Specialty",
+    "required": "Specialty is required",
+    "requireds": "Specialties is required",
     "form": {
       "TitleAdd": "Add Specialty",
       "TitleEdit": "Edit Specialty",
@@ -146,13 +194,190 @@
   "medical": {
     "title": "Medical",
     "required": "Medical is required",
-
     "category": "List of Medical",
     "select": "Select Medical",
+    "typeAccreditation": {
+      "title": "Type Accreditation",
+      "required": "Type Accreditation is required"
+    },
+    "accreditation": {
+      "title": "Accreditation",
+      "required": "Accreditation is required"
+    },
     "form": {
       "TitleAdd": "Add Medical",
       "TitleEdit": "Edit Medical",
       "TitleView": "View Medical"
+    }
+  },
+  "patient": {
+    "title": "Patient",
+    "required": "Patient is required",
+    "category": "List of Patient",
+    "select": "Select Patient",
+    "name": {
+      "title": "Name",
+      "required": " Date Of Birth is required"
+    },
+    "dateOfBirth": {
+      "title": "Date Of Birth",
+      "required": "Date Of Birth is required"
+    },
+    "cpf": {
+      "title": "CPF",
+      "required": "CPF is required"
+    },
+    "rg": {
+      "title": "RG",
+      "required": "RG is required"
+    },
+    "profession": {
+      "title": "Profession",
+      "required": "Profession is required"
+    },
+    "education": {
+      "title": "Education",
+      "required": "Education is required"
+    },
+    "maritalStatus": {
+      "title": " Marital Status",
+      "required": "Marital Status is required"
+    },
+    "addressCep": {
+      "title": "CEP",
+      "required": "CEP is required"
+    },
+    "addressCity": {
+      "title": "City",
+      "required": "City is required"
+    },
+    "addressState": {
+      "title": "State",
+      "required": "State is required"
+    },
+    "addressNeighborhood": {
+      "title": "Neighborhood",
+      "required": "Neighborhood is required"
+    },
+    "addressStreet": {
+      "title": "Street",
+      "required": "Street is required"
+    },
+    "phoneNumber": {
+      "title": "Phone Number",
+      "required": "Phone Number is required"
+    },
+    "emergencyContactName": {
+      "title": "Emergency Contact Name",
+      "required": "Emergency Contact Name is required"
+    },
+    "emergencyContactPhoneNumber": {
+      "title": "Emergency Contact Phone Number",
+      "required": "Emergency Contact Phone Number is required"
+    },
+    "form": {
+      "TitleAdd": "Add Patient",
+      "TitleEdit": "Edit Patient",
+      "TitleView": "View Patient"
+    },
+    "additionalinformation": {
+      "title": "Additional Information",
+      "required": "Additional Information is required",
+      "category": "List of Additional Information",
+      "select": "Select Additional Information",
+      "FollowUp_Neurological": {
+        "title": "FollowUp Neurological",
+        "required": "FollowUp Neurological is required"
+      },
+      "FollowUp_Psychiatric": {
+        "title": "FollowUp Psychiatric",
+        "required": "FollowUp Psychiatric is required"
+      },
+      "TitleAdd": "Add Additional Information",
+      "TitleEdit": "Edit Additional Information",
+      "TitleView": "View Additional Information"
+    },
+    "hospitalizationinformation": {
+      "title": "Hospitalization Information",
+      "required": "Hospitalization Information is required",
+      "category": "List of Hospitalization Information",
+      "select": "Select Hospitalization Information",
+      "CID": {
+        "title": "CID",
+        "required": "CID is required"
+      },
+      "startDate": {
+        "title": "Start Date",
+        "required": "Start Date is required"
+      },
+      "endDate": {
+        "title": "End Date",
+        "required": "End Date is required"
+      },
+      "hospitalization": {
+        "title": "hospitalization",
+        "required": "hospitalization is required"
+      },
+      "observation": {
+        "title": "Observation",
+        "required": "Observation is required"
+      },
+      "TitleAdd": "Add Hospitalization Information",
+      "TitleEdit": "Edit Hospitalization Information",
+      "TitleView": "View Hospitalization Information"
+    },
+    "medicationinformation": {
+      "title": "Medication Information",
+      "required": "Medication Information is required",
+      "category": "List of Medication Information",
+      "select": "Select Medication Information",
+      "startDate": {
+        "title": "Start Date",
+        "required": "Start Date is required"
+      },
+      "endDate": {
+        "title": "End Date",
+        "required": "End Date is required"
+      },
+      "dosage": {
+        "title": "Dosage",
+        "required": "Dosage is required"
+      },
+      "mainDrug": {
+        "title": "Main Drug",
+        "required": "Main Drug is required"
+      },
+      "posology": {
+        "title": "Posology",
+        "required": "Posology is required"
+      },
+      "TitleAdd": "Add Medication Information",
+      "TitleEdit": "Edit Medication Information",
+      "TitleView": "View Medication Information"
+    },
+    "record": {
+      "title": "Record Annotation",
+      "required": "Record Annotation is required",
+      "category": "List of Record Annotation",
+      "select": "Select Record Annotation",
+      "annotationDate": {
+        "title": "Annotation Date",
+        "required": "Annotation Date is required"
+      },
+      "annotation": {
+        "title": "Annotation",
+        "required": "Annotation is required"
+      },
+      "TitleAdd": "Add Record Annotation",
+      "TitleEdit": "Edit Record Annotation",
+      "TitleView": "View Record Annotation"
+    }
+  },
+  "userprofile": {
+    "title": "Profile",
+    "annotationDate": {
+      "title": "Annotation Date",
+      "required": "Annotation Date is required"
     }
   },
   "rolegroup": {
@@ -166,5 +391,17 @@
       "TitleEdit": "Edit Role Group",
       "TitleView": "View Role Group"
     }
+  },
+  "notfoundpage": {
+    "title": "Ooops!",
+    "category": "404 - Page not found",
+    "description": "The page you are looking for does not exist.",
+    "backnav": "Back to home page"
+  },
+  "noaccess": {
+    "title": "Access Denied!",
+    "category": "403 - Forbidden",
+    "description": "You don't have permission!",
+    "backnav": "Back" 
   }
 }

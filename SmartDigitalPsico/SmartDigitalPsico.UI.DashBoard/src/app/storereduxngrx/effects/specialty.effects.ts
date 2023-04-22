@@ -46,8 +46,7 @@ export class SpecialtyEffect {
   loadEntity$ = createEffect(() =>
     this.actions$.pipe(
       ofType(invokeLoadSpecialtyAPI),
-      switchMap((actions) => {
-        //console.log(actions.id);
+      switchMap((actions) => { 
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } }));
         return this.enittyService
           .getById(Number(actions.id))

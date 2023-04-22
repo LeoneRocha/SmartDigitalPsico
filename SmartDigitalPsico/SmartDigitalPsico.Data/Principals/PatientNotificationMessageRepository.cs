@@ -12,7 +12,12 @@ namespace SmartDigitalPsico.Repository.Principals
          
         public async Task<List<PatientNotificationMessage>> FindAllByPatient(long patientId)
         {
-            return await dataset.Where(x => x.Patient.Id == patientId).ToListAsync();
+            return await dataset
+                .Include(e => e.Patient)
+                .Include(e => e.Patient.Medical)
+                .Include(e => e.Patient.Medical.User)
+                .Include(e => e.CreatedUser)
+                .Where(x => x.Patient.Id == patientId).ToListAsync();
         }
 
 
@@ -20,12 +25,18 @@ namespace SmartDigitalPsico.Repository.Principals
         {
             return await dataset
                 .Include(e => e.Patient)
+                .Include(e => e.Patient.Medical)
+                .Include(e => e.Patient.Medical.User)
+                .Include(e => e.CreatedUser)
                 .SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
         public async override Task<List<PatientNotificationMessage>> FindAll()
         {
             return await dataset
                 .Include(e => e.Patient)
+                .Include(e => e.Patient.Medical)
+                .Include(e => e.Patient.Medical.User)
+                .Include(e => e.CreatedUser)
                 .ToListAsync();
         }
 

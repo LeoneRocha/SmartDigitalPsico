@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { UserLoginModel } from 'app/models/usermodels/UserLoginModel';
 import { AuthService } from 'app/services/auth/auth.service';
 import { LanguageService } from 'app/services/general/language.service';
@@ -38,7 +37,6 @@ export class LoginComponent implements OnInit {
             $('.card').removeClass('card-hidden');
         }, 700);
         const isLoged: boolean = this.authService.isLoggedIn();
-        //console.log(isLoged);
         if (isLoged) {
             let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
             this.router.navigate([returnUrl || '/administrative/dashboard']);
@@ -53,19 +51,25 @@ export class LoginComponent implements OnInit {
             $page.append(image_container);
         }
     };
-
+    proccessSignIn(response: any) {
+        const userLoged = this.authService.getLocalStorageUser()
+        this.languageService.setLanguage(userLoged.language);
+        let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        this.router.navigate([returnUrl || '/administrative/dashboard']);
+    }
 
     signIn() {
         this.authService.login(this.userLoginModel).subscribe({
             next: (response: any) => {
-                let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-                this.router.navigate([returnUrl || '/administrative/dashboard']);
+                this.proccessSignIn(response);
             },
             error: (err) => { this.invalidLogin = true; }
         });
+        //(ngSubmit)="signIn()"  type="submit"
         //value="admin"
         //value="mock123adm"
+        //doctor doctor123
+
     }
 }
-//TODO: 1 ) TERMINAR PACIENTE E MEDICO I18n
-//TODO: 2 ) COMECAR AS TELAS SEQUENTES A PACIENTE 
+//TODO:  ) TELAS DO MEDICO LOGADO.

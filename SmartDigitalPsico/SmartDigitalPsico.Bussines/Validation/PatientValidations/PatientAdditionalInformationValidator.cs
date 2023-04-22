@@ -36,18 +36,18 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations
               .NotNull()
               //.WithMessage("O Usuário que está criando deve ser informado.");
               .WithMessage("ErrorValidator_CreatedUser_Null");
-            
+
             RuleFor(entity => entity.PatientId)
-              .NotNull()  
+              .NotNull()
               .WithMessage("ErrorValidator_Patient_Null")
-              .MustAsync(async (entity, value, c) => await PatientIdFound(entity, value)) 
+              .MustAsync(async (entity, value, c) => await PatientIdFound(entity, value))
               .WithMessage("ErrorValidator_Patient_NotFound")
-              .MustAsync(async (entity, value, c) => await PatientIdChanged(entity, value)) 
+              .MustAsync(async (entity, value, c) => await PatientIdChanged(entity, value))
               .WithMessage("ErrorValidator_Patient_Changed")
-              .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value)) 
-              .WithMessage("ErrorValidator_Patient_Medical_Created")
+              /*  .MustAsync(async (entity, value, c) => await MedicalCreated(entity, value)) 
+            .WithMessage("ErrorValidator_Patient_Medical_Created")
               .MustAsync(async (entity, value, c) => await MedicalModify(entity, value)) 
-              .WithMessage("ErrorValidator_Patient_Medical_Modify");
+              .WithMessage("ErrorValidator_Patient_Medical_Modify")*/;
 
 
             #endregion Relationship  

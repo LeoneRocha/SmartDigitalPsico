@@ -16,3 +16,12 @@ export interface UserModel extends BaseEntityModel, BaseEntityMedicalChildModel 
     role: string;
     admin: boolean;
 }
+
+export interface UserProfileModel extends BaseEntityMedicalChildModel {
+    id: number;
+    name: string;
+    email: string;
+    language: string;
+    timeZone: string;
+    password: string;
+}

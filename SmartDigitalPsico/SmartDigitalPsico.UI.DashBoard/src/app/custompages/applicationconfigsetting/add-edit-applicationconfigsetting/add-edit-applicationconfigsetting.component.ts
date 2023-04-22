@@ -95,13 +95,13 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
         } else {
-            this.modalErroAlert("Error adding!", response);
+            this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
         }
         this.goBackToList();
     }
     processAddRegisterErro(response: ServiceResponse<ApplicationConfigSettingModel>) {
         CaptureTologFunc('processAddRegisterErro-ApplicationConfigSetting', response);
-        this.modalErroAlert("Error adding!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
     }
 
     processUpdateRegister(response: ServiceResponse<ApplicationConfigSettingModel>) {
@@ -111,7 +111,7 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
     }
     processUpdateRegisterErro(response: ServiceResponse<ApplicationConfigSettingModel>) {
         CaptureTologFunc('processUpdateRegisterErro-ApplicationConfigSetting', response);
-        this.modalErroAlert("Error update!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erroupdate'), response);
     }
 
     processLoadRegister(response: ServiceResponse<ApplicationConfigSettingModel>) {
@@ -122,7 +122,7 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
     }
     processLoadRegisterErro(response: ServiceResponse<ApplicationConfigSettingModel>) {
         CaptureTologFunc('processLoadRegisterErro-ApplicationConfigSetting', response);
-        this.modalErroAlert("Error load!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
         let responseData: any = this.serviceResponse?.data;
@@ -168,9 +168,7 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
             enable: formElement.controls['enableOpt']?.value,//this.registerModel_Enable, 
             endPointUrl_Cache: formElement.controls['endPointUrl_Cache']?.value,//this.registerModel_Enable, 
             endPointUrl_StorageFiles: formElement.controls['endPointUrl_StorageFiles']?.value,//this.registerModel_Enable, 
-        };
-
-        //console.log(this.registerModel);
+        }; 
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -182,17 +180,20 @@ export class AddEditApplicationConfigSettingComponent implements OnInit {
             endPointUrl_StorageFiles: ''
         }
     }
-    onSelect(selectedValue: string) {
-        //console.log(selectedValue);
+    onSelect(selectedValue: string) { 
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/applicationsetting']);
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];        
+        return result;
+    }
     modalSuccessAlert() {
         swal.fire({
-            title: "Register is saved!",
-            text: "I will close in 5 seconds.",
+            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
             timer: 5000,
             buttonsStyling: false,
             customClass: {

@@ -21,8 +21,7 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
   }
 
   update(t: E): Observable<T> {
-    let headers = this.getHeaders();
-    //console.log(t); 
+    let headers = this.getHeaders(); 
     return this.http.put<T>(`${this.baseUrl}/`, t, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 
@@ -33,6 +32,7 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
 
   getAll(): Observable<T[]> {
     let headers = this.getHeaders();
+    console.log(this.baseUrl + this.urlgetAll);   
     return this.http.get<T[]>(this.baseUrl + this.urlgetAll, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 
@@ -45,21 +45,20 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
     let headers = this.getHeaders();
     return this.http.delete<T>(`${this.baseUrl}/${id}`, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
-
   getHeaders(): HttpHeaders {
 
-    let token = localStorage.getItem('tokenjwt');
+    let token: string = localStorage.getItem('tokenjwt');
+    let cultureUI: string = localStorage.getItem("AppLanguageId"); 
+    if (cultureUI !== 'pt-BR') {
+      cultureUI = "en-US";
+    }   
     const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`);
-
+      .set('Authorization', `Bearer ${token}`)
+      .set('X-Culture', cultureUI);
     return headers
-  }
-
-  private customHandleError(error: Response) {
-    //console.log('customHandleError');
-    //console.log(error?.['error']);
-    const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error'] };
-    console.log(erroFluentValidationResponse);
+  }  
+  protected customHandleError(error: Response) { 
+    const erroFluentValidationResponse: FluentValidationResponse = { ...error?.['error'] }; 
 
     if (error.status === 400)
       return throwError(() => new BadInput(error));

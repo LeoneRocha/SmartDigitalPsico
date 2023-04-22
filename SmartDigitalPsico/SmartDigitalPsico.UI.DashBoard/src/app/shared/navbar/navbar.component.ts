@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, Directive, Inject } from '@angular/core'; 
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from 'app/services/auth/auth.service';
-import { ROUTES } from 'app/sidebar/routerpaths';
+import { ROUTES } from 'app/common/routerpaths';
 import { AppComponent } from 'app/app.component';
 
 var misc: any = {
@@ -69,10 +69,8 @@ export class NavbarComponent implements OnInit {
             }, 1000);
         });
     }
-    ChangeLanguage(idLanguage: string) {
-        //alert('OK');
-        this.appComponent.ChangeLanguage(idLanguage);
-        //  this.languageService.setLanguage(idLanguage);
+    ChangeLanguage(idLanguage: string) { 
+        this.appComponent.ChangeLanguage(idLanguage); 
     }
 
     isMobileMenu() {

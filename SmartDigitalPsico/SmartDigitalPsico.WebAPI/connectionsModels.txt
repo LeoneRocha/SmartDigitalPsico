@@ -1,0 +1,15 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1439; Database=SmartDigitalPsicoDB; Trusted_Connection=true;",
+    "SmartDigitalPsicoDBConnection": "Data Source=smartdigitalpsicoSQLServer,1433;Initial Catalog=SmartDigitalPsicoDB;User ID=sa;Password=docker!123;Trusted_Connection=False;TrustServerCertificate=True;",
+    "SmartDigitalPsicoDBConnection_SQLSERVER_HOST_WINDOWS": "Server=localhost,1499;Database=SmartDigitalPsicoDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+    "SmartDigitalPsicoDBConnection_SQLSERVER_HOST_LOGIN_AND_FOR_DOCKER": "Server=REZORCREST,1499;Database=SmartDigitalPsicoDB;User ID=sa;Password=sql!123;Trusted_Connection=False;TrustServerCertificate=True;Connect Timeout=30;Encrypt=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+    "SmartDigitalPsicoDBConnection_SQLSERVER_Docker": "Data Source=smartdigitalpsicoSQLServer,1433;Initial Catalog=SmartDigitalPsicoDB;User ID=sa;Password=docker!123;Trusted_Connection=False;TrustServerCertificate=True;",
+    "SmartDigitalPsicoDBConnectionMySQL": "Server=localhost;Database=smartdigitalpsicodb;Uid=root;Pwd=my!SQ@ladmin123;Port=3309; "
+  } 
+}
+
+
+ "applicationUrl": "https://localhost:8080;https://localhost:5000"
+
+ EM PROPERTIES 

@@ -24,7 +24,7 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.dashboard',//Inicio
     id: "dashboard",
     type: 'link',
-    roleaccess: 'Read',
+    roleaccess: 'Medical',
     icontype: 'pe-7s-home'
 },
 {
@@ -33,9 +33,9 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.medicals',
     type: 'sub',
     icontype: 'pe-7s-users',
-    roleaccess: 'Read',
+    roleaccess: 'Admin',
     children: [
-        { path: 'manage', title: 'navbar.medicals' , ab: 'M' },
+        { path: 'manage', title: 'navbar.medicals', ab: 'M' },
     ]
 },
 {
@@ -44,10 +44,9 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.patient',
     type: 'sub',
     icontype: 'pe-7s-users',
-    roleaccess: 'Read',
+    roleaccess: 'Medical',
     children: [
         { path: 'manage', title: 'navbar.patient', ab: 'P' },
-        { path: 'patientrecord', title: 'navbar.patientrecord', ab: 'PP' },
     ]
 },
 {
@@ -56,7 +55,7 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.users',
     type: 'sub',
     icontype: 'pe-7s-users',
-    roleaccess: 'Read',
+    roleaccess: 'Admin',
     children: [
         { path: 'usermanagement', title: 'navbar.users', ab: 'U' }
     ]
@@ -66,7 +65,7 @@ export const ROUTES: RouteInfo[] = [{
     title: 'navbar.configurations', //'Configurações',
     type: 'sub',
     icontype: 'pe-7s-tools',
-    roleaccess: 'Read',
+    roleaccess: 'Admin',
     children: [
         { path: 'gender', title: 'navbar.gender', ab: 'G' },
         { path: 'office', title: 'navbar.office', ab: 'O' },
@@ -75,7 +74,7 @@ export const ROUTES: RouteInfo[] = [{
         { path: 'applicationsetting', title: 'navbar.applicationsetting', ab: 'CS' },
         { path: 'applicationlanguage', title: 'navbar.applicationlanguage', ab: 'I' },
     ]
-}, {
+}, /*{
     path: '/pages',
     id: "pages",
     title: 'navbar.registers',//'Cadastros',
@@ -83,15 +82,16 @@ export const ROUTES: RouteInfo[] = [{
     icontype: 'pe-7s-gift',
     roleaccess: 'Read',
     children: [
-        { path: 'user', title: 'navbar.userpage', ab: 'UP' },
+        { path: 'user', title: 'navbar.userpage', ab: 'UM' },
+        { path: 'userprofile', title: 'navbar.userpage', ab: 'UP' },
     ]
-}, {
+}, */{
     path: '/authpages',
     id: "authpages",
-    title: 'Models',
+    title: 'navbar.dashboard',
     type: 'sub',
     icontype: 'pe-7s-gift',
-    roleaccess: 'Read',
+    roleaccess: 'Medical',
     children: [
         { path: 'register', title: 'navbar.userregisterpage', ab: 'RP' }
     ]

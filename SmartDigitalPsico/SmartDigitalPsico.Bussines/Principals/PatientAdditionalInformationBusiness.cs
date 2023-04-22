@@ -1,15 +1,18 @@
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
-using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Business.Validation.Contratcs;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation;
+using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
@@ -34,6 +37,15 @@ namespace SmartDigitalPsico.Business.Principals
             _entityRepository = entityRepository;
             _userRepository = userRepository;
             _patientRepository = patientRepository;
+        }
+        public async override Task<ServiceResponse<List<GetPatientAdditionalInformationVO>>> FindAll()
+        {
+            var result = new ServiceResponse<List<GetPatientAdditionalInformationVO>>();
+            result.Success = false;
+            result.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
+
+            return result;
         }
 
         public override async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Create(AddPatientAdditionalInformationVO item)
@@ -60,10 +72,10 @@ namespace SmartDigitalPsico.Business.Principals
                 response = await base.Validate(entityAdd);
 
                 if (response.Success)
-                { 
+                {
                     PatientAdditionalInformation entityResponse = await _entityRepository.Create(entityAdd);
 
-                    response.Data = _mapper.Map<GetPatientAdditionalInformationVO>(entityResponse); 
+                    response.Data = _mapper.Map<GetPatientAdditionalInformationVO>(entityResponse);
                     response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
                        ("RegisterCreated", base._applicationLanguageRepository, base._cacheBusiness);
                 }
@@ -73,17 +85,17 @@ namespace SmartDigitalPsico.Business.Principals
 
                 throw;
             }
-            
+
             return response;
         }
 
         public override async Task<ServiceResponse<GetPatientAdditionalInformationVO>> Update(UpdatePatientAdditionalInformationVO item)
-        { 
+        {
             ServiceResponse<GetPatientAdditionalInformationVO> response = new ServiceResponse<GetPatientAdditionalInformationVO>();
             try
             {
                 PatientAdditionalInformation entityUpdate = await _entityRepository.FindByID(item.Id);
-                 
+
                 #region Relationship
 
                 User userAction = await _userRepository.FindByID(this.UserId);
@@ -95,11 +107,11 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.LastAccessDate = DateTime.Now;
 
                 #region Columns
-                entityUpdate.Enable = item.Enable; 
+                entityUpdate.Enable = item.Enable;
                 entityUpdate.FollowUp_Neurological = item.FollowUp_Neurological;
-                entityUpdate.FollowUp_Psychiatric = item.FollowUp_Psychiatric;                
+                entityUpdate.FollowUp_Psychiatric = item.FollowUp_Psychiatric;
                 #endregion Columns
-                 
+
                 response = await base.Validate(entityUpdate);
 
                 if (response.Success)
@@ -120,13 +132,29 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
         }
 
-
-
         public async Task<ServiceResponse<List<GetPatientAdditionalInformationVO>>> FindAllByPatient(long patientId)
         {
             ServiceResponse<List<GetPatientAdditionalInformationVO>> response = new ServiceResponse<List<GetPatientAdditionalInformationVO>>();
 
             var listResult = await _entityRepository.FindAllByPatient(patientId);
+
+            var recordsList = new RecordsList<PatientAdditionalInformation>
+            {
+                UserIdLogged = base.UserId,
+                Records = listResult
+
+            };
+            var validator = new PatientAdditionalInformationSelectListValidator(_userRepository);
+            var validationResult = await validator.ValidateAsync(recordsList);
+
+            if (!validationResult.IsValid)
+            {
+                response.Errors = validator.GetMapErros(validationResult.Errors);
+                response.Success = false;
+                response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("ErrorValidator_User_Not_Permission", base._applicationLanguageRepository, base._cacheBusiness);
+                return response;
+            }
 
             if (listResult == null || listResult.Count == 0)
             {
@@ -140,6 +168,10 @@ namespace SmartDigitalPsico.Business.Principals
             response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
                        ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);
             return response;
-        } 
+        }
+        public async override Task<ServiceResponse<GetPatientAdditionalInformationVO>> FindByID(long id)
+        {
+            return await base.FindByID(id);
+        }
     }
 }

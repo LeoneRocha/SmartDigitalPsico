@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable, forkJoin, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,30 +13,69 @@ export class LanguageService {
 
   loadLanguage() {
     let lang: string;
-
     lang = this.getLanguageToLocalStorage();
-
-    this.translate.use(lang); 
+    this.translate.use(lang);
     this.translate.setDefaultLang(lang);
   }
 
-  setInstant(infoKey: string): any {
-    return this.translate.instant(infoKey)
+  translateInformationAsync(infoKeys: string[]): string[] {
+    let translatedInfo: string[] = [];
+    this.translateInformations(infoKeys).subscribe((response: string[]) => {
+      response.forEach(key => {
+        translatedInfo.push(key);
+      });
+    });
+
+    return translatedInfo;
+  }
+  private getTranslates(infoKey: string | string[]): Observable<any> {
+    return this.translate.get(infoKey);
   }
 
-  setLanguage(lang: string) {
+  private translateInformations(infoKeys: string[]): Observable<string[]> {
+    return this.translate.get(infoKeys).pipe(
+      map(translations => {
+        let translatedInfo: string[] = [];
+        infoKeys.forEach(key => {
+          translatedInfo.push(translations[key]);
+        });
+        return translatedInfo;
+      })
+    );
+  }
 
-    this.removeLanguageToLocalStorage();
-    console.log(this.translate.currentLang);
+  setInstant(infoKey: string): any {
+    return this.translate.instant(infoKey);
+  }
+
+  private getTranslate(infoKey: string): any {
+    let result: string = '';
+    this.translate.get(infoKey).subscribe((res: string) => {
+      result = res;
+      return result
+    });
+    return result;
+  }
+  switchLanguage(lang: string) {
 
     if (this.translate.currentLang === 'pt-BR') {
       lang = 'en';
     } else {
-      lang = 'pt-BR'; 
+      lang = 'pt-BR';
     }
     this.translate.use(lang);
-    this.translate.setDefaultLang(lang);    
-    console.log(lang);
+    this.translate.setDefaultLang(lang);
+
+    this.removeLanguageToLocalStorage();
+    this.saveLanguageToLocalStorage(lang);
+    window.location.reload();//paliativa
+  }
+
+  setLanguage(lang: string) {
+    this.translate.use(lang);
+    this.translate.setDefaultLang(lang);
+
+    this.removeLanguageToLocalStorage();
     this.saveLanguageToLocalStorage(lang);
 
     window.location.reload();//paliativa
@@ -47,7 +87,8 @@ export class LanguageService {
   private removeLanguageToLocalStorage() {
     localStorage.removeItem(this.keyLanguage);
   }
-  private getLanguageToLocalStorage(): string {
+
+  getLanguageToLocalStorage(): string {
     let result: string;
     result = localStorage.getItem(this.keyLanguage);
 
@@ -56,4 +97,23 @@ export class LanguageService {
 
     return result;
   }
+  /*
+  this.translate.get(infoKey).subscribe((res: string) => {
+      //console.log(res);
+      result = res;
+      return result
+  }); */
+  /*  infoKeys.forEach(element => {
+   let infoTranslated = response[element];
+   result.push(infoTranslated);
+ });
+ .subscribe((res: string[]) => { 
+   infoKeys.forEach(element => {
+     let infoTranslated = res[element];
+     result.push(infoTranslated);
+   });   translateInformations(infoKeys: string[]): Observable<string[]> {
+ const observables = infoKeys.map(key => this.translate.get(key));
+ return forkJoin(observables);
+}
+ });*/
 }

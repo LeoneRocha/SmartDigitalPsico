@@ -38,10 +38,8 @@ export class PagesnavbarComponent implements OnInit {
         this.location.prepareExternalUrl(this.location.path());
         // console.log(this.location.prepareExternalUrl(this.location.path()));
     }
-    ChangeLanguage(idLanguage: string) {
-        //alert('OK');
-        this.appComponent.ChangeLanguage(idLanguage);
-        //  this.languageService.setLanguage(idLanguage);
+    ChangeLanguage(idLanguage: string) { 
+        this.appComponent.ChangeLanguage(idLanguage); 
     }
     sidebarOpen() {
         var toggleButton = this.toggleButton;

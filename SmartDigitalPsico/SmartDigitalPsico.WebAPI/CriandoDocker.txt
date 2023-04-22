@@ -1,0 +1,47 @@
+https://learn.microsoft.com/pt-br/visualstudio/containers/tutorial-multicontainer?view=vs-2022
+
+docker build -t nome-da-sua-imagem .
+
+
+docker run -p 8080:80 nome-da-sua-imagem
+
+
+
+docker build -t nome-da-sua-imagem .
+
+
+
+docker-compose up --build
+
+
+docker run --name testeSQLServer   -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=docker!123" -p 1433:1433 --hostname testeSQLServer  -d mcr.microsoft.com/mssql/server:2019-latest
+ 
+
+
+*********************** PARA CONECTAR DO HOST PARA O DOCKER BASTAR POR LOCALHOST MAS A PORTA QUE FOI EXPOSTA EXTERNA 
+
+
+
+  SENHA SQL SERVER 
+
+sql!123
+
+
+"Data Source=restSQLServer,1431;Initial Catalog=rest_with_asp_net_udemy;
+  },
+
+https://renatogroffe.medium.com/asp-net-core-docker-compose-implementando-solu%C3%A7%C3%B5es-web-multi-containers-5f46d22a2ca0
+
+
+----------- ALTERANDO PORTA DO SQL LOCAL 
+http://solucoesdba.blogspot.com/2013/05/alterar-porta-padrao-sqlserver-2008r2.html#:~:text=Altere%20a%20porta%20de%20conex%C3%A3o,1433%20para%2014333%20e%20aplique.
+
+
+
+docker run --name nome-do-seu-container -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sua-senha-do-sql" -p 1433:1433 -v /path/to/sqlserver/data:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2019-latest
+Substitua nome-do-seu-container pelo nome que você deseja dar ao contêiner e sua-senha-do-sql pela senha que você deseja usar para a conta "sa" do SQL Server. O argumento -p expõe a porta 1433 do contêiner para a porta 1433 do host, permitindo conexões externas. O argumento -v monta o diretório que você criou anteriormente para armazenar os arquivos de dados do SQL Server no contêiner.
+
+Para conectar-se ao SQL Server a partir de uma ferramenta externa, como o SQL Server Management Studio, use o nome de host ou endereço IP do seu computador e a porta 1433 para fazer a conexão. Insira a conta "sa" e a senha que você especificou ao criar o contêiner.
+
+
+

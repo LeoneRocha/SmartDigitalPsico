@@ -101,7 +101,7 @@
 
                             <li class="divider"></li>
                             <li>
-                                <a *ngIf="authService.isLoggedIn()" class="text-danger" (click)="authService.logout()">
+                                <a *ngIf="authService.isLoggedIn()" class="text-danger" routerLink="/authpages/logout">
                                     <i class="pe-7s-close-circle"></i>
                                     {{ 'general.login.logout' | translate}}
                                 </a>

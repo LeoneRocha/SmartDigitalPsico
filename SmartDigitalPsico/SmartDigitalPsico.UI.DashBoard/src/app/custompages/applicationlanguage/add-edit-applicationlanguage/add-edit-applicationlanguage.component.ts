@@ -104,13 +104,13 @@ export class AddEditApplicationLanguageComponent implements OnInit {
         if (response?.errors?.length == 0) {
             this.modalSuccessAlert();
         } else {
-            this.modalErroAlert("Error adding!", response);
+            this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
         }
         this.goBackToList();
     }
     processAddRegisterErro(response: ServiceResponse<ApplicationLanguageModel>) {
         CaptureTologFunc('processAddRegisterErro-ApplicationLanguage', response);
-        this.modalErroAlert("Error adding!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
     }
 
     processUpdateRegister(response: ServiceResponse<ApplicationLanguageModel>) {
@@ -120,7 +120,7 @@ export class AddEditApplicationLanguageComponent implements OnInit {
     }
     processUpdateRegisterErro(response: ServiceResponse<ApplicationLanguageModel>) {
         CaptureTologFunc('processUpdateRegisterErro-ApplicationLanguage', response);
-        this.modalErroAlert("Error update!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erroupdate'), response);
     }
 
     processLoadRegister(response: ServiceResponse<ApplicationLanguageModel>) {
@@ -131,7 +131,7 @@ export class AddEditApplicationLanguageComponent implements OnInit {
     }
     processLoadRegisterErro(response: ServiceResponse<ApplicationLanguageModel>) {
         CaptureTologFunc('processLoadRegisterErro-ApplicationLanguage', response);
-        this.modalErroAlert("Error load!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
         let responseData: any = this.serviceResponse?.data;
@@ -198,9 +198,7 @@ export class AddEditApplicationLanguageComponent implements OnInit {
             languageKey: formElement.controls['languageKey']?.value,
             languageValue: formElement.controls['languageValue']?.value,
             resourceKey: formElement.controls['resourceKey']?.value,
-        };
-
-        //console.log(this.registerModel);
+        }; 
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -214,16 +212,19 @@ export class AddEditApplicationLanguageComponent implements OnInit {
         }
     }
     onSelect(selectedValue: string) {
-        //console.log(selectedValue);
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/applicationlanguage']);
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        return result;
+    }
     modalSuccessAlert() {
         swal.fire({
-            title: "Register is saved!",
-            text: "I will close in 5 seconds.",
+            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
             timer: 5000,
             buttonsStyling: false,
             customClass: {
@@ -231,7 +232,7 @@ export class AddEditApplicationLanguageComponent implements OnInit {
             },
             icon: "success"
         });
-    }
+    } 
     modalErroAlert(msgErro: string, response: ServiceResponse<ApplicationLanguageModel>) {
         swal.fire({
             title: msgErro,

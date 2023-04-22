@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -21,7 +22,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [Authorize("Bearer")]
     [Route("api/medical/v{version:apiVersion}/[controller]")]
 
     public class MedicalFileController : ApiBaseController

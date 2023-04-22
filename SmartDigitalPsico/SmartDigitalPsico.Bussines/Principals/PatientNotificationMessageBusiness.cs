@@ -4,12 +4,13 @@ using Microsoft.Extensions.Configuration;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
+using SmartDigitalPsico.Business.SystemDomains;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
-using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
-using SmartDigitalPsico.Model.VO.Medical;
+using SmartDigitalPsico.Model.VO.Patient.PatientHospitalizationInformation;
 using SmartDigitalPsico.Model.VO.Patient.PatientNotificationMessage;
+using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 
@@ -127,6 +128,8 @@ namespace SmartDigitalPsico.Business.Principals
 
             var listResult = await _entityRepository.FindAllByPatient(patientId);
 
+            //TODO:VALIDATE USER GET REGISTER
+
             if (listResult == null || listResult.Count == 0)
             {
                 response.Success = false;
@@ -139,6 +142,19 @@ namespace SmartDigitalPsico.Business.Principals
             return response;
         }
 
+        public async override Task<ServiceResponse<List<GetPatientNotificationMessageVO>>> FindAll()
+        {
+            var result = new ServiceResponse<List<GetPatientNotificationMessageVO>>();
+            result.Success = false;
+            result.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsNotFound", base._applicationLanguageRepository, base._cacheBusiness);
+
+            return result;
+        }
+        public async override Task<ServiceResponse<GetPatientNotificationMessageVO>> FindByID(long id)
+        {
+            return await base.FindByID(id);
+        }
 
     }
 }

@@ -1,10 +1,14 @@
 {
-  "name": "light-booststrap-dashboard-pro-angular",
-  "version": "1.7.0",
-  "license": "https://demos.creative-tim.com/light-bootstrap-dashboard-pro-angular2/documentation/tutorial",
+  "name": "smartdigitalpsico",
+  "version": "1.0.0",
+  "engines": {
+    "node": "18.14.2",
+    "npm": "9.6.3"
+  },
+  "license": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/creativetimofficial/ct-light-bootstrap-dashboard-pro-angular.git"
+    "url": "https://github.com/"
   },
   "scripts": {
     "ng": "ng",

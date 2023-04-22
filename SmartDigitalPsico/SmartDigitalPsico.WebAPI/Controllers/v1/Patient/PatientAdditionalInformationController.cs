@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
@@ -16,7 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
     //[Authorize]
     [ApiController]
     [ApiVersion("1")]
-    //[Authorize("Bearer")]
+    [Authorize("Bearer")]
     [Route("api/patient/v{version:apiVersion}/[controller]")]
 
     public class PatientAdditionalInformationController : ApiBaseController
@@ -29,14 +30,14 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         private void setUserIdCurrent()
         {
             _entityService.SetUserId(base.GetUserIdCurrent());
-        } 
+        }
 
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetPatientAdditionalInformationVO>>>> FindAll()
+        public async Task<ActionResult<ServiceResponse<List<GetPatientAdditionalInformationVO>>>> FindAll(int patientId)
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindAll());
+            return Ok(await _entityService.FindAllByPatient(patientId));
         }
 
         [HttpGet("{id}")]
@@ -74,11 +75,11 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         {
             this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
-            if (response.Data)
+            if (response.Success)
             {
-                return NotFound(response);
+                return Ok(response);
             }
-            return Ok(response);
+            return NotFound(response);
         }
 
     }

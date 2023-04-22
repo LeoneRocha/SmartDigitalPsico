@@ -96,13 +96,13 @@ export class AddEditRoleGroupComponent implements OnInit {
             this.modalSuccessAlert();
             this.goBackToList();
         } else {
-            this.modalErroAlert("Error adding!", response);
+            this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
         }
 
     }
     processAddRegisterErro(response: ServiceResponse<RoleGroupModel>) {
         CaptureTologFunc('processAddRegisterErro-RoleGroup', response);
-        this.modalErroAlert("Error adding!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
     }
 
     processUpdateRegister(response: ServiceResponse<RoleGroupModel>) {
@@ -112,7 +112,7 @@ export class AddEditRoleGroupComponent implements OnInit {
     }
     processUpdateRegisterErro(response: ServiceResponse<RoleGroupModel>) {
         CaptureTologFunc('processUpdateRegisterErro-RoleGroup', response);
-        this.modalErroAlert("Error update!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erroupdate'), response);
     }
 
     processLoadRegister(response: ServiceResponse<RoleGroupModel>) {
@@ -123,7 +123,7 @@ export class AddEditRoleGroupComponent implements OnInit {
     }
     processLoadRegisterErro(response: ServiceResponse<RoleGroupModel>) {
         CaptureTologFunc('processLoadRegisterErro-RoleGroup', response);
-        this.modalErroAlert("Error load!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
         let responseData: any = this.serviceResponse?.data;
@@ -184,16 +184,19 @@ export class AddEditRoleGroupComponent implements OnInit {
         }
     }
     onSelect(selectedValue: string) {
-        //console.log(selectedValue);
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/rolegroup']);
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];        
+        return result;
+    }
     modalSuccessAlert() {
         swal.fire({
-            title: "Register is saved!",
-            text: "I will close in 5 seconds.",
+            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
             timer: 5000,
             buttonsStyling: false,
             customClass: {
@@ -201,7 +204,7 @@ export class AddEditRoleGroupComponent implements OnInit {
             },
             icon: "success"
         });
-    }
+    } 
     modalErroAlert(msgErro: string, response: ServiceResponse<RoleGroupModel>) {
         swal.fire({
             title: msgErro,

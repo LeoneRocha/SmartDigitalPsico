@@ -4,11 +4,9 @@ export class PasswordValidation {
     static MatchPassword(AC: AbstractControl) {
         let password = AC.get('password').value; // to get value in input tag
         let confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
-        if(password != confirmPassword) {
-            //console.log('false');
+        if(password != confirmPassword) { 
             AC.get('confirmPassword').setErrors( {MatchPassword: true} )
-        } else {
-            //console.log('true');
+        } else { 
             return null
         }
     }

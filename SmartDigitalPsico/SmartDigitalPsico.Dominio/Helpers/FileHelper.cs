@@ -97,5 +97,13 @@ namespace SmartDigitalPsico.Domains.Helpers
             }
             return fileDataResult;
         }
+
+        public static void CreateDiretory(string diretorioTemp)
+        {
+            if (!Directory.Exists(diretorioTemp))
+            {
+                Directory.CreateDirectory(diretorioTemp);
+            } 
+        }
     }
 }

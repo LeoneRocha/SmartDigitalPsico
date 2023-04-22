@@ -9,19 +9,51 @@ import { GenderService } from 'app/services/general/simple/gender.service';
 import { DatePipe } from '@angular/common';
 import { LanguageService } from 'app/services/general/language.service';
 import { NgxTranslateModule } from 'app/translate/translate.module';
+import { PatientAdditionalInformationComponent } from './additionalinformation/patient_additionalinformation.component';
+import { PatientAdditionalInformationService } from 'app/services/general/principals/patientadditionalinformation.service';
+import { AddEditPatientAdditionalInformationComponent } from './additionalinformation/add-edit-patient_additionalinformation.component';
+import { ShortenStringPipe } from 'app/common/custompipe/shortenstring.pipe';
+import { AddEditPatientHospitalizationInformationComponent } from './hospitalizationinformation/add-edit-patient_hospitalizationinformation.component';
+import { PatientHospitalizationInformationService } from 'app/services/general/principals/patienthospitalizationinformation.service';
+import { PatientHospitalizationinformationComponent } from './hospitalizationinformation/patient_hospitalizationinformation.component';
+import { PatientMedicationInformationComponent } from './medicationinformation/patient_medicationinformation.component';
+import { AddEditPatientMedicationInformationComponent } from './medicationinformation/add-edit-patientmedicationinformation.component';
+import { PatientMedicationInformationService } from 'app/services/general/principals/patientmedicationinformation.service';
+import { PatientRecordComponent } from './record/patient_record.component';
+import { AddEditPatientRecordComponent } from './record/add-edit-patient_record.component';
+import { PatientRecordService } from 'app/services/general/principals/patientrecord.service';
+import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
+
 @NgModule({
     imports: [
-        CustomPagesModule,
-        RouterModule.forChild(PatientRoutes),
-        NgxTranslateModule,
+        CustomPagesModule
+        , RouterModule.forChild(PatientRoutes)
+        , NgxTranslateModule
+        , CustomPipesModule
     ],
     declarations: [
-        PatientComponent,
-        AddEditPatientComponent,
+        ShortenStringPipe
+        , PatientComponent
+        , AddEditPatientComponent
+        , PatientAdditionalInformationComponent
+        , AddEditPatientAdditionalInformationComponent
+        , PatientHospitalizationinformationComponent
+        , AddEditPatientHospitalizationInformationComponent
+        , PatientMedicationInformationComponent
+        , AddEditPatientMedicationInformationComponent
+        , PatientRecordComponent
+        , AddEditPatientRecordComponent
     ]
     ,
     providers: [
-        PatientService, GenderService, DatePipe, LanguageService
+        , DatePipe
+        , PatientService
+        , GenderService
+        , LanguageService
+        , PatientAdditionalInformationService
+        , PatientHospitalizationInformationService
+        , PatientMedicationInformationService
+        , PatientRecordService
     ],
 })
 

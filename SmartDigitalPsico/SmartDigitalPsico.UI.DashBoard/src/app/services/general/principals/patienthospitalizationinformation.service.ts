@@ -6,7 +6,7 @@ import { environment } from 'environments/environment';
 import { GenericService } from 'app/services/generic/generic.service';   
 import { PatientHospitalizationInformationModel } from 'app/models/principalsmodel/PatientHospitalizationInformationModel';
 
-const basePathUrl = '/PatientHospitalizationInformation/v1';
+const basePathUrl = '/patient/v1/PatientHospitalizationInformation';
 @Injectable()
 export class PatientHospitalizationInformationService extends GenericService<ServiceResponse<PatientHospitalizationInformationModel>, PatientHospitalizationInformationModel, number> {
 

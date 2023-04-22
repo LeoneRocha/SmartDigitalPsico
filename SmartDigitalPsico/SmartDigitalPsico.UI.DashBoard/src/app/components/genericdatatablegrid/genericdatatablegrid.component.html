@@ -5,28 +5,28 @@
         style="width:100%">
         <thead>
             <tr>
-                <th>{{ dataTableIn.headerRow[0] }}</th>
-                <th>{{ dataTableIn.headerRow[1] }}</th>
-                <th>{{ dataTableIn.headerRow[2] }}</th>
-                <th>{{ dataTableIn.headerRow[3] }}</th>
-                <th class="disabled-sorting text-right">{{ dataTableIn.headerRow[4] }}</th>
+                <th>{{ labels[0] }}</th>
+                <th>{{ labels[1] }}</th>
+                <th>{{ labels[2] }}</th>
+                <th>{{ labels[3] }}</th>
+                <th class="disabled-sorting text-right">{{ labels[4] }}</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>{{ dataTableIn.footerRow[0] }}</th>
-                <th>{{ dataTableIn.footerRow[1] }}</th>
-                <th>{{ dataTableIn.footerRow[2] }}</th>
-                <th>{{ dataTableIn.footerRow[3] }}</th>
-                <th class="text-right">{{ dataTableIn.footerRow[4] }}</th>
+                <th>{{ labels[0] }}</th>
+                <th>{{ labels[1] }}</th>
+                <th>{{ labels[2] }}</th>
+                <th>{{ labels[3] }}</th>
+                <th class="text-right">{{ labels[4] }}</th>
             </tr>
         </tfoot>
         <tbody>
-            <tr *ngFor="let row of dataTableIn.dataRowsSimple" >
+            <tr *ngFor="let row of dataTableIn.dataRowsSimple">
                 <td class="text-center">{{ this.row.id }}</td>
                 <td>{{ this.row.description }}</td>
                 <td>{{ this.row.language }}</td>
-                <td>{{ this.row.enable  }}</td>                
+                <td>{{ this.row.enable | customtextactive | translate }}</td>
                 <td class="text-right">
                     <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon eye"
                         (click)="viewRegister(this.row)">

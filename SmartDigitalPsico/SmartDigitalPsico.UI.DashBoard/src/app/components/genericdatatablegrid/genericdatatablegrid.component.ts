@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 import { GenderService } from 'app/services/general/simple/gender.service';
 import { CaptureTologFunc } from 'app/common/errohandler/app-error-handler';
 import { GenderModel } from 'app/models/simplemodel/GenderModel';
+import { LanguageService } from 'app/services/general/language.service';
 
 declare var $: any;
 @Component({
@@ -17,9 +18,14 @@ export class GenericDataTableGrid implements OnInit {
   @Input() dataTableIn: DataTable;
   @Input() listDataIn: SimpleModel[];
   @Input() numberOfColumns: number
+  @Input() language: string
+  @Input() labels: string[]
+
   public listResult: any[];
 
-  constructor(@Inject(Router) private router: Router, @Inject(GenderService) private registerServiceGender: GenderService,) { }
+  constructor(@Inject(Router) private router: Router
+    , @Inject(GenderService) private registerServiceGender: GenderService
+    , @Inject(LanguageService) private languageService: LanguageService) { }
 
   ngOnInit() {
 
@@ -31,36 +37,32 @@ export class GenericDataTableGrid implements OnInit {
     }, 1000);
   }
 
+  gettranslateInformationAsync(key: string): string {
+    let result = this.languageService.translateInformationAsync([key])[0];
+    return result;
+  }
+
   viewRegister(register: any): void {
     let idRegister: number = register['id'];
-    //console.log(idRegister);
-    //console.log(register);
     this.router.navigate([this.dataTableIn?.routes?.baseRoute, { modeForm: 'view', id: idRegister }]);
-    //alert('id :' + register.toString());
-
   }
   editRegister(register: SimpleModel): void {
     let idRegister: number = register['id'];
-    //console.log(idRegister);
-    //console.log(this.dataTableIn?.routes?.baseRoute);
     this.router.navigate([this.dataTableIn?.routes?.baseRoute, { modeForm: 'edit', id: idRegister }]);
-    //lert('id :' + register.toString());
   }
   removeRegister(register: SimpleModel): void {
-    let idRegister: number = register['id'];
-    //console.log(idRegister);
-    this.modalAlertRemove(idRegister);
-    //alert('id :' + register.toString());
+    let idRegister: number = register['id'];    
+    this.modalAlertRemove(idRegister);    
   }
 
   modalAlertRemove(idRegister: number) {
     swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover register!',
+      title: this.gettranslateInformationAsync('modalalert.remove.title'),//'Are you sure?',
+      text: this.gettranslateInformationAsync('modalalert.remove.text'), //'You will not be able to recover register!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it',
+      confirmButtonText: this.gettranslateInformationAsync('modalalert.remove.confirmButtonText'),//'Yes, delete it!',
+      cancelButtonText: this.gettranslateInformationAsync('modalalert.remove.cancelButtonText'),// 'No, keep it',
       customClass: {
         confirmButton: "btn btn-fill btn-success btn-mr-5",
         cancelButton: "btn btn-fill btn-danger",
@@ -83,7 +85,7 @@ export class GenericDataTableGrid implements OnInit {
         this.listResult = this.removeItemFromList<any>(this.dataTableIn.dataRows, idRegister);
         this.modalAlertDeleted();
       },
-      error: (err) => { this.modalErroAlert('Error of delete.'); }
+      error: (err) => { this.modalErroAlert(this.gettranslateInformationAsync('modalalert.deleted.erro')); }
     });
   }
 
@@ -95,8 +97,8 @@ export class GenericDataTableGrid implements OnInit {
   }
   modalAlertCancelled() {
     swal.fire({
-      title: 'Cancelled',
-      text: "Register hasn't been deleted",
+      title: this.gettranslateInformationAsync('modalalert.cancelled.title'), //'Cancelled',
+      text: this.gettranslateInformationAsync('modalalert.cancelled.text'), //"Register hasn't been deleted",
       icon: 'error',
       customClass: {
         confirmButton: "btn btn-fill btn-info",
@@ -106,8 +108,8 @@ export class GenericDataTableGrid implements OnInit {
   }
   modalAlertDeleted() {
     swal.fire({
-      title: 'Deleted!',
-      text: 'Register has been deleted. I will close in 5 seconds.',
+      title: this.gettranslateInformationAsync('modalalert.deleted.title'), // 'Deleted!',
+      text: this.gettranslateInformationAsync('modalalert.deleted.text'), //'Register has been deleted. I will close in 5 seconds.',
       timer: 5000,
       icon: 'success',
       customClass: {
@@ -118,7 +120,7 @@ export class GenericDataTableGrid implements OnInit {
   }
   modalErroAlert(msgErro: string) {
     swal.fire({
-      title: 'Error!',
+      title: this.gettranslateInformationAsync('modalalert.error.title'),//'Error!',
       text: msgErro,
       icon: 'error',
       customClass: {
@@ -127,15 +129,7 @@ export class GenericDataTableGrid implements OnInit {
       buttonsStyling: false
     });
   }
-  loadConfigDataTablesLazzy(dataTableVal: any): void {
-    //console.log(dataTableVal);
-    //console.log(dataTableVal?.dataRows);
-    //onsole.log(dataTableVal?.dataRows?.length);
-    /*if (dataTableVal?.dataRows?.length > 0) {
-      const lista1D = this.convertArray2dToList(dataTableVal?.dataRows);
-      //console.log(lista1D);
-      this.loadConfigDataTables(lista1D, dataTableVal.headerRow);
-    }*/
+  loadConfigDataTablesLazzy(dataTableVal: any): void {   
     this.loadConfigDataTablesV1();
   }
 
@@ -154,19 +148,20 @@ export class GenericDataTableGrid implements OnInit {
   }
 
   loadConfigDataTablesV1(): void {
-    $('#datatables').DataTable({
+    var table = $('#datatables').DataTable({
       "pagingType": "full_numbers",
       "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
       //data: listData,
       //columns: columnsData,
       responsive: true,
       language: {
-        search: "_INPUT_",
-        searchPlaceholder: "Search records",
+        //search: "_INPUT_",
+        //searchPlaceholder: "Search records :)",
+        url: './assets/i18n/datatable_' + this.language + '.json'
       }
     });
 
-    var table = $('#datatables').DataTable();
+    //var table = $('#datatables').DataTable();
 
     // Edit record
     table.on('click', '.edit', function () {

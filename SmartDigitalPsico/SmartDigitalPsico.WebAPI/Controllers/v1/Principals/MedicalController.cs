@@ -37,12 +37,16 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetMedicalVO>>>> FindAll()
         {
             this.setUserIdCurrent();
             var response = await _entityService.FindAll();
             if (!response.Success)
             {
+                if (response.Unauthorized)
+                {
+                    return Unauthorized(response);
+                }
                 return BadRequest(response);
             }
             return Ok(response);
@@ -71,7 +75,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
             {
                 return BadRequest(response);
             }
-            return Ok(response); 
+            return Ok(response);
         }
 
         [HttpPut]

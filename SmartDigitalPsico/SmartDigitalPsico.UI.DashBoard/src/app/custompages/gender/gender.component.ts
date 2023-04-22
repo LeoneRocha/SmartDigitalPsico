@@ -27,6 +27,14 @@ export class GenderComponent implements OnInit, OnDestroy {
     entityRoute: RouteEntity;
     private subscription: Subscription;
     columlabel_1: string;
+    columlabelsDT: string[] = [
+        'Id'
+        , 'general.description'
+        , 'applanguage.title'
+        , 'general.enable'
+        , 'general.actions'
+    ];
+    public labelsDT: string[];
 
     constructor(@Inject(GenderService) private registerService: GenderService, @Inject(Router) private router: Router
         , @Inject(TranslateService) private translate: TranslateService
@@ -35,25 +43,20 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.languageService.loadLanguage();
-        this.columlabel_1 = this.translateInformation('description');
+
+        // this.columlabel_1 =  this.languageService.translateInformation('general.description');         
         this.loadHeaderFooterDataTable();
         this.retrieveList();
 
         //vou ter que injetar o servico em cada componente e pegar do usuario ou storage qual o idioma que o usuario selecionou
     }
-    translateInformation(infoKey: string): string {
-        let result: string = '';
-        result =this.languageService.setInstant(infoKey); ;
-        console.log(result);
-        /*
-        this.translate.get(infoKey).subscribe((res: string) => {
-            console.log(res);
-            result = res;
-            return result
-        }); */
-        return result;
-    }
 
+    getDTLabels(): string[] {
+        return this.languageService.translateInformationAsync(this.columlabelsDT);
+    }
+    getLanguage(): string {
+        return this.languageService.getLanguageToLocalStorage();
+    }
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
@@ -77,13 +80,12 @@ export class GenderComponent implements OnInit, OnDestroy {
             next: (response: any) => {
                 this.listResult = response["data"];
                 this.dataTable.dataRows = response["data"];
-                this.dataTable.dataRowsSimple = response["data"];
-                //console.log(this.listResult);
+                this.dataTable.dataRowsSimple = response["data"];                
                 //this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-gender', response);
             },
-            error: (err) => { this.showNotification('top', 'center', 'Erro ao conectar!', 'danger'); }
+            error: (err) => { this.showNotification('top', 'center', this.gettranslateInformationAsync('modalalert.notification.erro.connection'), 'danger'); }
         });
 
         // alert('You clicked on Like button');
@@ -113,14 +115,15 @@ export class GenderComponent implements OnInit, OnDestroy {
         lista.splice(indexReg, 1);
         return lista;
     }
+
     modalAlertRemove(idRegister: number) {
         swal.fire({
-            title: 'Are you sure?',
-            text: 'You will not be able to recover register!',
+            title: this.gettranslateInformationAsync('modalalert.remove.title'),//'merda? ',// this.gettranslateInformationAsync('modalalert.remove.title'), //'Are you sure?',
+            text: this.gettranslateInformationAsync('modalalert.remove.text'),//'You will not be able to recover register!',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it',
+            confirmButtonText: this.gettranslateInformationAsync('modalalert.remove.confirmButtonText'),//'Yes, delete it!',
+            cancelButtonText: this.gettranslateInformationAsync('modalalert.remove.cancelButtonText'),//'No, keep it',
             customClass: {
                 confirmButton: "btn btn-fill btn-success btn-mr-5",
                 cancelButton: "btn btn-fill btn-danger",
@@ -136,8 +139,8 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     modalAlertDeleted() {
         swal.fire({
-            title: 'Deleted!',
-            text: 'Register has been deleted. I will close in 5 seconds.',
+            title: this.gettranslateInformationAsync('modalalert.deleted.title'),//'Deleted!',
+            text: this.gettranslateInformationAsync('modalalert.deleted.text'),// 'Register has been deleted. I will close in 5 seconds.',
             timer: 5000,
             icon: 'success',
             customClass: {
@@ -148,8 +151,8 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     modalAlertCancelled() {
         swal.fire({
-            title: 'Cancelled',
-            text: "Register hasn't been deleted",
+            title: this.gettranslateInformationAsync('modalalert.cancelled.title'),//'Cancelled',
+            text: this.gettranslateInformationAsync('modalalert.cancelled.text'),//"Register hasn't been deleted",
             icon: 'error',
             customClass: {
                 confirmButton: "btn btn-fill btn-info",
@@ -159,7 +162,7 @@ export class GenderComponent implements OnInit, OnDestroy {
     }
     modalErroAlert(msgErro: string) {
         swal.fire({
-            title: 'Error!',
+            title: this.gettranslateInformationAsync('modalalert.error.title'),//' 'Error!',
             text: msgErro,
             icon: 'error',
             customClass: {
@@ -188,16 +191,18 @@ export class GenderComponent implements OnInit, OnDestroy {
         }, 100);
     }
     loadConfigDataTables(): void {
-        $('#datatables').DataTable({
+        //var table = $('#datatables').DataTable();
+        /*var table = $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             responsive: true,
             language: {
+               // url: '../assets/i18n/datatable_pt_br.json'
                 search: "_INPUT_",
                 searchPlaceholder: "PROCURAR records:(",
             }
         });
-        var table = $('#datatables').DataTable();
+        
 
         // Edit record
         table.on('click', '.edit', function () {
@@ -214,20 +219,24 @@ export class GenderComponent implements OnInit, OnDestroy {
         //Like record
         table.on('click', '.like', function () {
             // alert('You clicked on Like button');
-        });
+        });*/
     }
     loadHeaderFooterDataTable() {
         this.entityRoute = {
             baseRoute: "/administrative/gender/genderaction"
         };
 
-
         this.dataTable = {
 
-            headerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
-            footerRow: ['Id', this.columlabel_1, 'Language', 'Enable', 'Actions'],
+            headerRow: ['Id', 'labels[0]', 'Language', 'Enable', 'Actions'],
+            footerRow: ['Id', 'abels[0]', 'Language', 'Enable', 'Actions'],
             dataRows: [], dataRowsSimple: [],
             routes: this.entityRoute
         };
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0];
+        return result;
+    }
+
 } 

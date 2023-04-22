@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -55,6 +56,15 @@ namespace SmartDigitalPsico.Services.Principals
             serviceResponse = await _userBusiness.Register(newEntity);
 
             return serviceResponse;
-        } 
+        }
+
+        public async Task<ServiceResponse<GetUserVO>> UpdateProfile(UpdateUserProfileVO updateEntity)
+        {
+            var serviceResponse = new ServiceResponse<GetUserVO>();
+
+            serviceResponse = await _userBusiness.UpdateProfile(updateEntity);
+
+            return serviceResponse;
+        }
     }
 }

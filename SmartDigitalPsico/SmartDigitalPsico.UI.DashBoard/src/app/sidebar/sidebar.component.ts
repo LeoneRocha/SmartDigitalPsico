@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, Inject } from '@angular/core';
 import { AuthService } from 'app/services/auth/auth.service';
-import { ROUTES, RouteInfo } from './routerpaths';
+import { ROUTES, RouteInfo } from '../common/routerpaths';
 declare var $: any;
 @Component({
     moduleId: module.id,
@@ -21,18 +21,12 @@ export class SidebarComponent {
     constructor(@Inject(AuthService) private authService: AuthService) {
 
     }
-    logOut(): void {
-        this.authService.logout();
-    }
     checkCanAccess(menuItem: RouteInfo): boolean {
         let isCanAccess: boolean = true;
-        //console.log(menuItem?.roleaccess);
         let userCanRoleMenu = this.authService.isUserContainsRole(menuItem?.roleaccess);
         isCanAccess = userCanRoleMenu;
-        //console.log(userCanRoleMenu);
         if (menuItem.path.indexOf('administrative') >= 0) {
             isCanAccess = this.authService.isUserContainsRole('Admin');
-            //console.log('Admin + ' + isCanAccess);
         }
         return isCanAccess;
     }
@@ -44,6 +38,7 @@ export class SidebarComponent {
         var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
         this.menuItems = ROUTES.filter(menuItem => menuItem);
 
+
         isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
         if (isWindows) {
@@ -53,6 +48,15 @@ export class SidebarComponent {
         } else {
             $('html').addClass('perfect-scrollbar-off');
         }
+    }
+    userCanAccess(menuItem: any) {
+        //console.log(this.authService.getRolesUser());
+        let roleRequired: string = menuItem['roleaccess'];
+        let isuserCanAccess: boolean = this.authService.isUserContainsRole(roleRequired)
+        if (isuserCanAccess) {
+            return true;
+        } 
+        return false;
     }
     ngAfterViewInit() {
         var $sidebarParent = $('.sidebar .nav > li.active .collapse li.active > a').parent().parent().parent();

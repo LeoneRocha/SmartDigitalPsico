@@ -1,5 +1,6 @@
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.CacheManager;
@@ -120,6 +121,7 @@ namespace SmartDigitalPsico.Business.Principals
                 entityUpdate.Enable = updateUser.Enable;
                 entityUpdate.Email = updateUser.Email;
                 entityUpdate.Language = updateUser.Language;
+                entityUpdate.TimeZone = updateUser.TimeZone;
                 if (!string.IsNullOrEmpty(updateUser.Password))
                 {
                     SecurityHelper.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -286,6 +288,55 @@ namespace SmartDigitalPsico.Business.Principals
                 accessToken,
                 refreshToken
                 );
+        }
+
+        public async Task<ServiceResponse<GetUserVO>> UpdateProfile(UpdateUserProfileVO updateUser)
+        {
+            ServiceResponse<GetUserVO> response = new ServiceResponse<GetUserVO>();
+
+            try
+            {
+                User entityUpdate = await _userRepository.FindByID(updateUser.Id);
+
+                if (entityUpdate == null || entityUpdate?.Id == 0)
+                {
+                    response.Success = false;
+                    response.Message = "User not found.";
+                    return response;
+                }
+                entityUpdate.Name = updateUser.Name; 
+                entityUpdate.Email = updateUser.Email;
+                entityUpdate.Language = updateUser.Language;
+                entityUpdate.TimeZone = updateUser.TimeZone;
+
+                if (!string.IsNullOrEmpty(updateUser.Password))
+                {
+                    SecurityHelper.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                    entityUpdate.PasswordHash = passwordHash;
+                    entityUpdate.PasswordSalt = passwordSalt;
+                } 
+
+                entityUpdate.ModifyDate = DateTime.Now;
+                  
+                response = await base.Validate(entityUpdate);
+
+                if (response.Success)
+                { 
+                    User entityResponse = await _userRepository.Update(entityUpdate);
+                    response.Success = true;
+                    response.Data = _mapper.Map<GetUserVO>(entityResponse);
+
+                    if (response.Success)
+                        response.Message = "User Updated.";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return response;
         }
     }
 }

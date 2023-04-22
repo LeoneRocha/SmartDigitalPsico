@@ -16,18 +16,19 @@
                 <img src="../assets/img/default-avatar.png" />
             </div>
             <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                <span [innerHTML]="userNameAtenticate"> 
+                <span>
+                    {{ userNameAtenticate }}
                     <b class="caret"></b>
                 </span>
             </a>
             <div class="collapse" id="collapseExample">
                 <ul class="nav">
                     <li>
-                        <a routerLinkActive="active">
+                        <a routerLinkActive="active" routerLink="/pages/userprofile">
                             <span class="sidebar-mini">MP</span>
                             <span class="sidebar-normal">{{ "user.myprofile" | translate }}</span>
                         </a>
-                        <a routerLinkActive="active" *ngIf="isLoggedIn()" (click)="logOut()">
+                        <a routerLinkActive="active" *ngIf="isLoggedIn()" routerLink="/authpages/logout">
                             <span class="sidebar-mini">LO</span>
                             <span class="sidebar-normal">{{ "general.login.logout" | translate }}</span>
                         </a>
@@ -129,22 +130,22 @@
         </ul>
     </div>
     <ul class="nav">
-        <li routerLinkActive="active" *ngFor="let menuitem of menuItems">
+        <li routerLinkActive="active" *ngFor="let menuitem of menuItems" class=" menuItem">
             <!--If is a single link-->
-            <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'">
+            <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link' && userCanAccess(menuitem)">
                 <i class="{{menuitem.icontype}}"></i>
                 <p>{{menuitem.title | translate}}</p>
             </a>
             <!--If it have a submenu && checkCanAccess(menuitem)-->
-            <a data-toggle="collapse" href="#{{menuitem.id}}" *ngIf="menuitem.type === 'sub'">
+            <a data-toggle="collapse" href="#{{menuitem.id}}" *ngIf="menuitem.type === 'sub' && userCanAccess(menuitem)">
                 <i class="{{menuitem.icontype}}"></i>
                 <p>{{menuitem.title | translate}}<b class="caret"></b></p>
             </a>
 
             <!--Display the submenu items-->
-            <div id="{{menuitem.id}}" class="collapse" *ngIf="menuitem.type === 'sub'">
+            <div id="{{menuitem.id}}" class="collapse" *ngIf="menuitem.type === 'sub' && userCanAccess(menuitem)">
                 <ul class="nav">
-                    <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
+                    <li routerLinkActive="active" *ngFor="let childitem of menuitem.children" class=" submenuitem">
                         <a [routerLink]="[menuitem.path, childitem.path]">
                             <span class="sidebar-mini">{{childitem.ab}}</span>
                             <span class="sidebar-normal">{{childitem.title | translate}}</span>

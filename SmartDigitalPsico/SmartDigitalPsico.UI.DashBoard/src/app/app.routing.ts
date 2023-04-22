@@ -3,6 +3,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AdminAuthGuard, AdminOrMedicalAuthGuard } from './services/auth/admin-auth-guard.service';
 import { AuthGuard } from './services/auth/auth-guard.service';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const AppRoutes: Routes = [
     {
@@ -10,6 +11,7 @@ export const AppRoutes: Routes = [
         redirectTo: 'authpages/login',
         pathMatch: 'full',
     },
+
     {
         path: 'administrative',
         component: AdminLayoutComponent,
@@ -53,7 +55,7 @@ export const AppRoutes: Routes = [
         component: AdminLayoutComponent,
         children: [{
             path: 'manage',
-            canActivate: [AuthGuard],
+            canActivate: [AuthGuard, AdminAuthGuard],
             loadChildren: () => import('./custompages/medical/medical.module').then(x => x.MedicalModule)
         }
         ]
@@ -65,7 +67,11 @@ export const AppRoutes: Routes = [
             path: 'manage',
             canActivate: [AuthGuard],
             loadChildren: () => import('./custompages/patient/patient.module').then(x => x.PatientModule)
-        }
+        }/*, {
+            path: 'usermanagement',
+            canActivate: [AuthGuard],
+            loadChildren: () => import('./custompages/patient/usermanagement.module').then(x => x.UserManagementModule)
+        }*/
         ]
     },
     {
@@ -73,14 +79,25 @@ export const AppRoutes: Routes = [
         component: AdminLayoutComponent,
         children: [{
             path: 'user',
+            canActivate: [AuthGuard],
             loadChildren: () => import('./userpage/user.module').then(x => x.UserModule)
+        }, {
+            path: 'userprofile',
+            //title: 'userprofile.title',
+            canActivate: [AuthGuard],
+            loadChildren: () => import('./custompages/userprofile/userprofile.module').then(x => x.UserProfileModule)
         }]
-    }, {
+    },
+    {
         path: 'authpages',
         component: AuthLayoutComponent,
         children: [{
             path: '',
             loadChildren: () => import('./pages/pages.module').then(x => x.PagesModule)
         }]
+    },
+    {
+        path: '**',  
+        component: NotFoundComponent
     }
 ];

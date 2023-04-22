@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using SmartDigitalPsico.Business.Generic.Contracts;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Principals;
@@ -12,5 +13,7 @@ namespace SmartDigitalPsico.Business.Contracts.Principals
         Task<ServiceResponse<bool>> Logout(string username);
 
         Task<ServiceResponse<GetUserVO>> Register(UserRegisterVO newEntity);
+
+        Task<ServiceResponse<GetUserVO>> UpdateProfile(UpdateUserProfileVO updateEntity);
     }
 }

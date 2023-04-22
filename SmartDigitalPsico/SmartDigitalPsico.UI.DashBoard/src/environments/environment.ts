@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
-  EnableCaptureResponseTolog : true,
-  APIUrl: 'https://localhost:61949/api',
+  EnableCaptureResponseTolog: true,
+  //APIUrl: 'https://localhost:57854/api',// npm start  
+  APIUrl: 'https://localhost:443/api',// DOCKER  
 };

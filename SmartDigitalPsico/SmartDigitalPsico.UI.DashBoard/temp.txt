@@ -2,6 +2,7 @@
   https://codeburst.io/angular-10-ngrx-store-by-example-333cbf16862c
   https://github.com/angular-redux/ng-redux#installation
 
+https://www.youtube.com/watch?v=m34C6Hz0qF4
 ngrx
 e a mais usada 
 

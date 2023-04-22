@@ -14,7 +14,8 @@
                             </div>
                         </div>
                         <!--      INI Data Table   -->
-                        <custom-genericdatatablegrid [dataTableIn]="this.dataTable"></custom-genericdatatablegrid>
+                        <custom-genericdatatablegrid [dataTableIn]="this.dataTable" [language]="getLanguage()"
+                        [labels]="getDTLabels()" ></custom-genericdatatablegrid>
                         <!--      FIM Data Table   -->
                     </div>
                     <!-- end content  -->

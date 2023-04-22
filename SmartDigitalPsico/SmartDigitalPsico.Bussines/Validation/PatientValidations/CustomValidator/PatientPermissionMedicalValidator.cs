@@ -4,7 +4,7 @@ using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Principals;
 
-namespace SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador
+namespace SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidator
 {
     public class PatientPermissionMedicalValidator
     {
@@ -19,7 +19,7 @@ namespace SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidad
                 };
                 return error;
             }
-            else if (userAction.MedicalId == medicalId)
+            else if (userAction.MedicalId != medicalId && !userAction.Admin)
             {
                 var error = new ErrorResponse()
                 {

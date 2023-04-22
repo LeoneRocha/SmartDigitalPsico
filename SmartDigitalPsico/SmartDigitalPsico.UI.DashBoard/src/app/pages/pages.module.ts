@@ -10,6 +10,7 @@ import { NoAccessComponent } from './no-access/no-access.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NgxTranslateModule } from 'app/translate/translate.module';
 import { LanguageService } from 'app/services/general/language.service';
+import { LogoutComponent } from './logout/logout.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -23,7 +24,8 @@ import { LanguageService } from 'app/services/general/language.service';
         RegisterComponent,
         LockComponent, 
         NoAccessComponent, 
-        NotFoundComponent
+        NotFoundComponent,
+        LogoutComponent
     ] ,
     providers: [
          LanguageService

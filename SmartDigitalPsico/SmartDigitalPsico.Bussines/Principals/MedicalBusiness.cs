@@ -5,7 +5,7 @@ using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.SystemDomains;
-using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidador;
+using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidator;
 using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Contracts;
@@ -154,6 +154,8 @@ namespace SmartDigitalPsico.Business.Principals
             ServiceResponse<List<GetMedicalVO>> response = new ServiceResponse<List<GetMedicalVO>>();
 
             response = await validAccessdmin();
+
+
             if (!response.Success)
                 return response;
 
@@ -192,6 +194,7 @@ namespace SmartDigitalPsico.Business.Principals
                        ("PermissionDenied", base._applicationLanguageRepository, base._cacheBusiness);
                 //Permission error or was Denied                "Erro de permissão.";
                 response.Errors = new List<ErrorResponse>();
+                response.Unauthorized = true;
                 response.Errors.Add(validateResult);
                 return response;
             }

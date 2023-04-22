@@ -4,9 +4,15 @@
   "newProjectRoot": "projects",
   "projects": {
     "pd-pro-angularcli": {
-      "root": "",
-      "sourceRoot": "src",
       "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",       
+      "prefix": "app", 
       "architect": {
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
@@ -17,7 +23,7 @@
             "allowedCommonJsDependencies": [
               "fast-deep-equal"
             ],
-            "outputPath": "dist",
+            "outputPath": "dist/smartdigitalpsico",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -176,8 +182,7 @@
         }
       }
     }
-  },
-  "defaultProject": "pd-pro-angularcli",
+  }, 
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

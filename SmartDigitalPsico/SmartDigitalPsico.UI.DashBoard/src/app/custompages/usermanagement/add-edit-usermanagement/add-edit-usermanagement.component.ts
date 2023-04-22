@@ -129,9 +129,7 @@ export class AddEditUserManagementComponent implements OnInit {
         });
     }
     updateRegister() {
-        this.getValuesForm();
-        //console.log(this.registerModel);
-        //console.log(JSON.stringify(this.registerModel));
+        this.getValuesForm(); 
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<UserModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -143,12 +141,12 @@ export class AddEditUserManagementComponent implements OnInit {
             this.modalSuccessAlert();
             this.goBackToList();
         } else {
-            this.modalErroAlert("Error adding!", response);
+            this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
         }
     }
     processAddRegisterErro(response: ServiceResponse<UserModel>) {
         CaptureTologFunc('processAddRegisterErro-usermanagement', response);
-        this.modalErroAlert("Error adding!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erro'), response);
     }
 
     processUpdateRegister(response: ServiceResponse<UserModel>) {
@@ -158,7 +156,7 @@ export class AddEditUserManagementComponent implements OnInit {
     }
     processUpdateRegisterErro(response: ServiceResponse<UserModel>) {
         CaptureTologFunc('processUpdateRegisterErro-usermanagement', response);
-        this.modalErroAlert("Error update!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.saved.erroupdate'), response);
     }
 
     processLoadRegister(response: ServiceResponse<UserModel>) {
@@ -169,7 +167,7 @@ export class AddEditUserManagementComponent implements OnInit {
     }
     processLoadRegisterErro(response: ServiceResponse<UserModel>) {
         CaptureTologFunc('processLoadRegisterErro-usermanagement', response);
-        this.modalErroAlert("Error load!", response);
+        this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
         let responseData: any = this.serviceResponse?.data;
@@ -277,8 +275,7 @@ export class AddEditUserManagementComponent implements OnInit {
             admin: formElement.controls['adminOpt']?.value,
             role: formElement.controls['role']?.value,
             roleGroupsIds: [],// formElement.controls['roleGroupsIds']?.value,
-        };
-        console.log(this.registerModel);
+        }; 
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -296,17 +293,20 @@ export class AddEditUserManagementComponent implements OnInit {
             roleGroupsIds: [],
         };
     }
-    onSelect(selectedValue: string) {
-        //console.log(selectedValue);
+    onSelect(selectedValue: string) { 
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/usermanagement']);
     }
+    gettranslateInformationAsync(key: string): string {
+        let result = this.languageService.translateInformationAsync([key])[0]; 
+        return result;
+    }
     modalSuccessAlert() {
         swal.fire({
-            title: "Register is saved!",
-            text: "I will close in 5 seconds.",
+            title: this.gettranslateInformationAsync('modalalert.saved.title'),//"Register is saved!",
+            text: this.gettranslateInformationAsync('modalalert.saved.text'),//"I will close in 5 seconds.",
             timer: 5000,
             buttonsStyling: false,
             customClass: {
@@ -314,7 +314,7 @@ export class AddEditUserManagementComponent implements OnInit {
             },
             icon: "success"
         });
-    }
+    } 
     modalErroAlert(msgErro: string, response: ServiceResponse<UserModel>) {
         swal.fire({
             title: msgErro,

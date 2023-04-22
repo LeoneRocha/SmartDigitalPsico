@@ -29,6 +29,9 @@ namespace SmartDigitalPsico.Repository.Principals
             return await dataset
                 .Include(e => e.Medical)
                 .Include(e => e.Gender)
+                .Include(e => e.Medical)
+                .Include(e => e.Medical.User)
+                .Include(e => e.CreatedUser)
                 //.Include(e => e.PatientAdditionalInformations)
                 //.Include(e => e.PatientHospitalizationInformations)
                 //.Include(e => e.PatientMedicationInformations)
@@ -50,13 +53,15 @@ namespace SmartDigitalPsico.Repository.Principals
         public async Task<List<Patient>> FindAllByMedicalId(long medicalId)
         {
             return await dataset
-               .Include(e => e.Medical)
                .Include(e => e.Gender)
+               .Include(e => e.Medical)
+               .Include(e => e.Medical.User)
+               .Include(e => e.CreatedUser)
                //.Include(e => e.PatientAdditionalInformations)
                //.Include(e => e.PatientHospitalizationInformations)
                //.Include(e => e.PatientMedicationInformations)
                //.Include(e => e.PatientRecords)
-               .Where(p => p.MedicalId == medicalId) 
+               .Where(p => p.MedicalId == medicalId)
                .ToListAsync();
         }
     }

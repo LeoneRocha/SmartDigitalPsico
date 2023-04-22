@@ -144,10 +144,10 @@ namespace SmartDigitalPsico.Repository.Helper
 
             modelBuilder.Entity<User>().HasMany(p => p.RoleGroups).WithMany(p => p.Users).UsingEntity(j => j.HasData(
                 new { RoleGroupsId = (long)1, UsersId = (long)1 },
-                new { RoleGroupsId = (long)5, UsersId = (long)1 },
-                new { RoleGroupsId = (long)5, UsersId = (long)2 },
-                new { RoleGroupsId = (long)6, UsersId = (long)1 },
-                new { RoleGroupsId = (long)6, UsersId = (long)2 }));
+                new { RoleGroupsId = (long)2, UsersId = (long)1 },
+                new { RoleGroupsId = (long)3, UsersId = (long)1 },
+                new { RoleGroupsId = (long)4, UsersId = (long)1 },                
+                new { RoleGroupsId = (long)2, UsersId = (long)2 }));
 
             #region Patient
 

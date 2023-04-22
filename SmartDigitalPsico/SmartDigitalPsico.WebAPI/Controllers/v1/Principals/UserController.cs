@@ -79,6 +79,21 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
             }
             return Ok(response);
         }
+
+        [HttpPatch]
+        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        public async Task<ActionResult<ServiceResponse<GetUserVO>>> UpdateProfile(UpdateUserProfileVO updateEntity)
+        {
+            this.setUserIdCurrent();
+            var response = await _entityService.UpdateProfile(updateEntity);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+
         [HttpDelete("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<bool>>> Delete(int id)

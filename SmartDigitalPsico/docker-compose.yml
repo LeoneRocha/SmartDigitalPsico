@@ -51,9 +51,9 @@ services:
        - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html
      command: nginx -g 'daemon off;'
      links:
-       - smartdigitalpsico.webapi
+       - smartdigitalpsicowebapi
      depends_on:
-       - smartdigitalpsico.webapi 
+       - smartdigitalpsicowebapi 
      networks:
        - smartdigitalpsiconetwork 
 networks:

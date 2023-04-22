@@ -1,18 +1,17 @@
 version: '3.4' 
 services:
-  smartdigitalpsicoweb:
-    container_name: smartdigitalpsicowebui
+  client: 
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4209:4209"
+      - "4209:80"
     restart: always
     volumes:
       - ./dist/smartdigitalpsico/:/usr/share/nginx/html
     command: nginx -g 'daemon off;'
     networks:
-      - smartdigitalpsiconetwork
+      - clientnetwork
 networks:
-  smartdigitalpsiconetwork:
+  clientnetwork:
     driver: bridge

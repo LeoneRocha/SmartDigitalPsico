@@ -35,7 +35,23 @@ services:
     depends_on:
     - dbSQLSERVER 
     networks:
-    - smartdigitalpsiconetwork     
+    - smartdigitalpsiconetwork
+  #client: 
+  #  build:
+  #    context: ./SmartDigitalPsico.UI.DashBoard
+  #    dockerfile: Dockerfile
+  #  ports:
+  #    - "4209:80"
+  #  restart: always
+  #  volumes:
+  #    - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html
+  #  command: nginx -g 'daemon off;'
+  #  links:
+  #  - smartdigitalpsico.webapi
+ #   depends_on:
+ #   - smartdigitalpsico.webapi 
+ #   networks:
+#    - smartdigitalpsiconetwork 
 networks:
   smartdigitalpsiconetwork:
     driver: bridge

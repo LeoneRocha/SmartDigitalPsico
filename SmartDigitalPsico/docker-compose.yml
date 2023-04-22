@@ -19,9 +19,9 @@ services:
       - 1433:1433
     networks:
       - smartdigitalpsiconetwork
-  smartdigitalpsico.webapi:
-    image: smartdigitalpsicoapi-image
-    container_name: smartdigitalpsicoapiapp
+  smartdigitalpsicowebapi:
+    image: sdpapiimage
+    container_name: sdpapicontainer
     build:
       context: .
       dockerfile: SmartDigitalPsico.WebAPI/Dockerfile
@@ -31,27 +31,27 @@ services:
     ports:
       - 8080:8080  
     links:
-    - dbSQLSERVER
+      - dbSQLSERVER
     depends_on:
-    - dbSQLSERVER 
+      - dbSQLSERVER 
     networks:
-    - smartdigitalpsiconetwork
-  #client: 
-  #  build:
-  #    context: ./SmartDigitalPsico.UI.DashBoard
-  #    dockerfile: Dockerfile
-  #  ports:
-  #    - "4209:80"
-  #  restart: always
-  #  volumes:
-  #    - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html
-  #  command: nginx -g 'daemon off;'
-  #  links:
-  #  - smartdigitalpsico.webapi
- #   depends_on:
- #   - smartdigitalpsico.webapi 
- #   networks:
-#    - smartdigitalpsiconetwork 
+      - smartdigitalpsiconetwork
+#  client: 
+#    build:
+#      context: ./SmartDigitalPsico.UI.DashBoard
+#      dockerfile: Dockerfile
+#    ports:
+#      - "4209:80"
+#    restart: always
+#    volumes:
+#      - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html
+#    command: nginx -g 'daemon off;'
+#    links:
+#      - smartdigitalpsico.webapi
+#    depends_on:
+#      - smartdigitalpsico.webapi 
+#    networks:
+#      - smartdigitalpsiconetwork 
 networks:
   smartdigitalpsiconetwork:
     driver: bridge

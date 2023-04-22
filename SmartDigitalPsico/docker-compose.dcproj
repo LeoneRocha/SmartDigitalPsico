@@ -3,10 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>1c32b372-dbe3-4165-a5fe-33e4133018fd</ProjectGuid>
+    <ProjectGuid>81845e00-5ce8-4a45-94c0-bc7b5bcf7cd5</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>smartdigitalpsico.webapi</DockerServiceName>
+    <DockerServiceName>smartdigitalpsicowebapi</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

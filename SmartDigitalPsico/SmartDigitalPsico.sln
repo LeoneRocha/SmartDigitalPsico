@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Services"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Domains", "SmartDigitalPsico.Dominio\SmartDigitalPsico.Domains.csproj", "{B5E74544-9C9C-4588-86A1-9830D18197CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.WebAPI", "SmartDigitalPsico.WebAPI\SmartDigitalPsico.WebAPI.csproj", "{A03CCECA-13FD-4992-9CB6-182FB5FC9813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsicoWebAPI", "SmartDigitalPsico.WebAPI\SmartDigitalPsicoWebAPI.csproj", "{A03CCECA-13FD-4992-9CB6-182FB5FC9813}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartDigitalPsico.Business", "SmartDigitalPsico.Bussines\SmartDigitalPsico.Business.csproj", "{0E426E36-9A98-4452-AC82-10893F3CE824}"
 EndProject
@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Documentacao\INFO TEC.txt = ..\Documentacao\INFO TEC.txt
 	EndProjectSection
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1C32B372-DBE3-4165-A5FE-33E4133018FD}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81845E00-5CE8-4A45-94C0-BC7B5BCF7CD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +52,10 @@ Global
 		{0E426E36-9A98-4452-AC82-10893F3CE824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E426E36-9A98-4452-AC82-10893F3CE824}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E426E36-9A98-4452-AC82-10893F3CE824}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C32B372-DBE3-4165-A5FE-33E4133018FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C32B372-DBE3-4165-A5FE-33E4133018FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C32B372-DBE3-4165-A5FE-33E4133018FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C32B372-DBE3-4165-A5FE-33E4133018FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81845E00-5CE8-4A45-94C0-BC7B5BCF7CD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81845E00-5CE8-4A45-94C0-BC7B5BCF7CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81845E00-5CE8-4A45-94C0-BC7B5BCF7CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81845E00-5CE8-4A45-94C0-BC7B5BCF7CD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

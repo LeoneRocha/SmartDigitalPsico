@@ -112,9 +112,12 @@ namespace SmartDigitalPsico.WebAPI
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+            var diretorioTemp = Path.Combine(Directory.GetCurrentDirectory(), @"ResourcesTemp");
+            FileHelper.CreateDiretory(diretorioTemp);
+
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"ResourcesTemp")),
+                FileProvider = new PhysicalFileProvider(diretorioTemp),
                 RequestPath = new PathString("/ResourcesTemp")
             });
 
@@ -285,9 +288,9 @@ namespace SmartDigitalPsico.WebAPI
                     {
                         context.Database.EnsureCreated();
                         //context.Database.Migrate();
-                    }                    
+                    }
                 }
-            } 
+            }
             //addConfigLocalization(app); 
         }
 

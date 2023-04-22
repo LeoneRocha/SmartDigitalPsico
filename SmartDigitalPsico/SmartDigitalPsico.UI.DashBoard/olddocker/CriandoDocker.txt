@@ -21,6 +21,7 @@ npm run build --prod ------------------- PRECISA DAR BUILD (OBRIGATORIO)
 docker-compose build --force-rm --no-cache -- remove conteiners antigos e rebuild completo
 
 docker-compose up (OBRIGATORIO)
+docker-compose up -d //-d ou --detach: indica que os serviços devem ser iniciados em modo detached (em segundo plano).
 
 --------- OU ----------
 

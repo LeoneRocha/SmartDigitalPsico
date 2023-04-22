@@ -1,6 +1,8 @@
 version: '3.4' 
 services:
-  client: 
+  dashui: 
+    image:  sdpuidashimage
+    container_name:  sdpuidashcontainer
     build:
       context: .
       dockerfile: Dockerfile

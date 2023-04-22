@@ -56,6 +56,8 @@ docker run -d --name smartdigitalpsico -p 4209:80  smartdigitalpsico-image:v1
 docker-compose build --force-rm --no-cache && docker-compose up
 --------- OU ----------
 
+npm run build 
+
 docker builder prune
 
 docker-compose build --force-rm --no-cache

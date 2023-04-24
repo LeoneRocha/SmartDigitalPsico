@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   EnableCaptureResponseTolog: true,
   //APIUrl: 'https://localhost:57854/api',// npm start  
-  APIUrl: 'https://localhost:443/api',// DOCKER  
+  //APIUrl: 'https://localhost:443/api',// DOCKER  
+  APIUrl: 'http://smartdigitalpsicapi.ddns.net/api',// DNS  
 };

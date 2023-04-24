@@ -20,7 +20,8 @@ services:
     networks:
       - smartdigitalpsiconetwork
   smartdigitalpsicowebapi:
-    image: leonecr/sdpapiimage:latest #sdpapiimage
+    #image: leonecr/sdpapiimage:latest #sdpapi-image
+    image: sdpapi-image
     container_name: sdpapicontainer
     build:
       context: .
@@ -28,8 +29,9 @@ services:
     environment:
       TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: Production 
-      ASPNETCORE_URLS: https://+:443;http://+:5001  
+      ASPNETCORE_URLS: https://+:443;http://+:81;http://+:5001  
     ports: # porta do host:porta do container.ai fica acessivel assim https://localhost/ https://localhost:443 
+       - "81" 
        - "443" 
        - 443:443   
        - 5001:5001 
@@ -44,12 +46,15 @@ services:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     #command: sh -c "dotnet dev-certs https && dotnet run"
   dashui: 
-     image: leonecr/sdpuidashimage:latest #sdpuidashimage
+     #image: leonecr/sdpuidashimage:latest #sdpuidash-image
+     image:  sdpuidash-image
      container_name:  sdpuidashcontainer
      build:
        context: ./SmartDigitalPsico.UI.DashBoard
        dockerfile: Dockerfile
      ports:
+       - "80:80"
+       - "8080:8080"
        - "4209:4209"
      restart: always
      volumes:

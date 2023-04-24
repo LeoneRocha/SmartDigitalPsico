@@ -18,5 +18,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=node /app/dist/smartdigitalpsico /usr/share/nginx/html
   
 EXPOSE 4209
+EXPOSE 80
+EXPOSE 8080
 ## Serve
 CMD ["nginx", "-g", "daemon off;"]

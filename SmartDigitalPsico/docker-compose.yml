@@ -28,11 +28,9 @@ services:
     environment:
       TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: Production 
-      ASPNETCORE_URLS: https://+:443;http://+:80
-    ports: # porta do host:porta do container.ai fica acessivel assim https://localhost/ https://localhost:443
-       - "80"
-       - "443"
-       - 80:80 
+      ASPNETCORE_URLS: https://+:443 
+    ports: # porta do host:porta do container.ai fica acessivel assim https://localhost/ https://localhost:443 
+       - "443" 
        - 443:443   
     links:
       - dbSQLSERVER

@@ -1,3 +1,10 @@
+admin
+
+mock123adm
+
+chainisse russia febrera
+
+
 192.168.1.1
 
 186.204.60.121
@@ -34,6 +41,7 @@ smartdigitalpsico2.ddns.net:4209
 smartdigitalpsico3.ddns.net:4209 
 
 smartdigitalpsico3.ddns.net:4209
+
 
 192.168.1.173:4209
 

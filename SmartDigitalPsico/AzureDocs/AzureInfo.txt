@@ -1,0 +1,19 @@
+1) az login
+
+--location   brazilsouth
+#az account list-locations
+  
+2) az group create --name smartdigitalpsicogr --location eastus 
+ 
+3) az acr create --resource-group smartdigitalpsicogr --name smartdigitalpsicocr --sku Basic --location eastus
+
+4) az acr login --name smartdigitalpsicocr
+
+5) 
+docker tag leonecr/sdpapiimage:latest smartdigitalpsicocr.azurecr.io/sdpapiimage:latest
+docker tag leonecr/sdpuidashimage:latest smartdigitalpsicocr.azurecr.io/sdpuidashimage:latest
+
+6)
+docker push smartdigitalpsicocr.azurecr.io/sdpapiimage:latest 
+
+docker push smartdigitalpsicocr.azurecr.io/sdpuidashimage:latest

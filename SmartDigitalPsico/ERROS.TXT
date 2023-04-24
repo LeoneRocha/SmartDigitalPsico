@@ -1,0 +1,3 @@
+
+cess to XMLHttpRequest at 'http://smartdigitalpsicapi.ddns.net/api/Auth/v1/authenticate' from origin 'http://localhost:4209' has been blocked by CORS policy: Response to preflight request doesn't pass access control chec
+k: No 'Access-Control-Allow-Origin' header is present on the requested resource.

@@ -20,7 +20,7 @@ services:
     networks:
       - smartdigitalpsiconetwork
   smartdigitalpsicowebapi:
-    image: sdpapiimage
+    image: leonecr/sdpapiimage:latest #sdpapiimage
     container_name: sdpapicontainer
     build:
       context: .
@@ -44,7 +44,7 @@ services:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     #command: sh -c "dotnet dev-certs https && dotnet run"
   dashui: 
-     image:  sdpuidashimage
+     image: leonecr/sdpuidashimage:latest #sdpuidashimage
      container_name:  sdpuidashcontainer
      build:
        context: ./SmartDigitalPsico.UI.DashBoard

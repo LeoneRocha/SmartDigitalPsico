@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartDigitalPsicoWebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class SmartDigitalPsicoDBMig_MYSQL : Migration
+    public partial class SmartDigitalPsicoDBMig_MYSQLCLOUD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -7,6 +7,6 @@ namespace SmartDigitalPsico.Domains.Enuns
         MSsqlServer = 0,
         Mysql= 1,
         Postgree = 2,
-
+        MysqlGoogleCloudSQL = 3,
     }
 }

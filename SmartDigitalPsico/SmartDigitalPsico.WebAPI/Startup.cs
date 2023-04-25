@@ -233,6 +233,17 @@ namespace SmartDigitalPsico.WebAPI
                     services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection,
                         b => b.MigrationsAssembly("SmartDigitalPsicoWebAPI")));
                     break;
+                case ETypeDataBase.MysqlGoogleCloudSQL:
+                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMysqlGoogleCloudSQL");
+                    services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
+                    options.UseMySql(connection, ServerVersion.AutoDetect(connection)
+                    , b =>
+                    {
+                        b.MigrationsAssembly("SmartDigitalPsicoWebAPI");
+                        b.SchemaBehavior(MySqlSchemaBehavior.Ignore);
+                    }));
+                    //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
+                    break;
                 default:
                     break;
             }
@@ -297,7 +308,7 @@ namespace SmartDigitalPsico.WebAPI
                 {
                     using (var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>())
                     {
-                        context.Database.EnsureCreated();
+                        //context.Database.EnsureCreated();
                         //context.Database.Migrate();
                     }
                 }

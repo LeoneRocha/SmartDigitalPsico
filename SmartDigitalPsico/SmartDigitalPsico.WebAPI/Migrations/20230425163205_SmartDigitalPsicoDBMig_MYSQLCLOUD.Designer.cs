@@ -11,8 +11,8 @@ using SmartDigitalPsico.Repository.Context;
 namespace SmartDigitalPsicoWebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
-    [Migration("20230425150035_SmartDigitalPsicoDBMig_MYSQL")]
-    partial class SmartDigitalPsicoDBMig_MYSQL
+    [Migration("20230425163205_SmartDigitalPsicoDBMig_MYSQLCLOUD")]
+    partial class SmartDigitalPsicoDBMig_MYSQLCLOUD
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

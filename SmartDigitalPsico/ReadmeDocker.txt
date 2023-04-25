@@ -10,10 +10,9 @@ docker network create smartdigitalpsiconetwork
 docker run --name smartdigitalpsicoSQLServer --hostname dbSQLSERVER --network smartdigitalpsiconetwork -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=docker!123" -p 1433:1433 -d mcr.microsoft.com/mssql/server:latest
 
 docker run --network my-network <nome_da_imagem>
-
-leonecr/sdpuidashimage:latest
  
-leonecr/sdpapiimage:latest
+******* O IDEAL 
 
+*** APONTAR PARA O BANCO DE DADOS DO AZURE 
 
-docker run -d --name sdpapicontainer --env TZ=America/Sao_Paulo --env ASPNETCORE_ENVIRONMENT=Production --env ASPNETCORE_URLS=https://+:443;http://+:5001 -p 443:443 -p 5001:5001 --link dbSQLSERVER --network smartdigitalpsiconetwork  --volume ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro   --volume ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro  leonecr/sdpapiimage:latest
+*** API EM UM COMPOSE SEPARADO APRA VIRAR UMA SERVICE SEPARADO DO FRONT

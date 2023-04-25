@@ -72,7 +72,8 @@ namespace SmartDigitalPsico.WebAPI
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             //ORM API
-            addORM(services, TypeDataBase.MSsqlServer);
+            addORM(services, ETypeDataBase.MSsqlServer); 
+            //addORM(services, getTypeDataBase(services));
 
             //Versioning API
             addVersionning(services);
@@ -80,6 +81,16 @@ namespace SmartDigitalPsico.WebAPI
             //Dependency Injection
             DependenciesInjectionHelper.AddDependenciesInjection(services);
         }
+
+        private ETypeDataBase getTypeDataBase(IServiceCollection services)
+        {
+            DataBaseConfigurationVO configDB = new DataBaseConfigurationVO();
+            
+            new ConfigureFromConfigurationOptions<DataBaseConfigurationVO>(Configuration.GetSection("DataBaseConfigurations"))
+                .Configure(configDB);
+            return configDB.TypeDataBase;
+        }
+
 
         private void addGetAppConfig(IServiceCollection services, TokenConfiguration tokenConfigurations)
         {
@@ -200,27 +211,27 @@ namespace SmartDigitalPsico.WebAPI
         #endregion
 
         #region CONTEXTO
-        private void addORM(IServiceCollection services, TypeDataBase etypeDataBase)
+        private void addORM(IServiceCollection services, ETypeDataBase etypeDataBase)
         {
             var connection = string.Empty;
 
             switch (etypeDataBase)
             {
-                case TypeDataBase.Mysql:
+                case ETypeDataBase.Mysql:
                     connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMySQL");
                     services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
                     options.UseMySql(connection, ServerVersion.AutoDetect(connection)
                     , b =>
                     {
-                        b.MigrationsAssembly("SmartDigitalPsico.WebAPI");
+                        b.MigrationsAssembly("SmartDigitalPsicoWebAPI");
                         b.SchemaBehavior(MySqlSchemaBehavior.Ignore);
                     }));
                     //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
                     break;
-                case TypeDataBase.MSsqlServer:
+                case ETypeDataBase.MSsqlServer:
                     connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnection");
                     services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection,
-                        b => b.MigrationsAssembly("SmartDigitalPsico.WebAPI")));
+                        b => b.MigrationsAssembly("SmartDigitalPsicoWebAPI")));
                     break;
                 default:
                     break;

@@ -91,10 +91,10 @@ dotnet ef migrations add SmartDigitalPsicoDBMig0004 --context SmartDigitalPsicoD
 
 dotnet ef migrations add SmartDigitalPsicoDBMig0003 --context SmartDigitalPsicoDataContext
 
-dotnet ef migrations add SmartDigitalPsicoDBMig
+dotnet ef migrations add SmartDigitalPsicoDBMig --context SmartDigitalPsicoDataContext
 
 --------------REMOVE 
-dotnet ef database update 0
+dotnet ef database update 0 
 
  dotnet ef database update --context SmartDigitalPsicoDataContext
 

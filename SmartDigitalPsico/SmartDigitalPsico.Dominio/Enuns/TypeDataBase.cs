@@ -2,7 +2,7 @@
 
 namespace SmartDigitalPsico.Domains.Enuns
 {
-    public enum TypeDataBase
+    public enum ETypeDataBase
     {
         Mysql,
         Postgree,

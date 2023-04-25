@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -11,44 +12,47 @@ namespace SmartDigitalPsico.Repository.Helper
     internal static class DataMockHelper
     {
         static string valorbr = new CultureInfo("pt-BR").Name;
-        internal static void GenerateMock(ModelBuilder modelBuilder)
+        internal static void GenerateMock(ModelBuilder modelBuilder, ETypeDataBase eTypeDataBase)
         {
-            #region ApplicationConfigSetting
-            addMockApplicationConfigSetting(modelBuilder);
-            #endregion
+            if (eTypeDataBase == ETypeDataBase.MSsqlServer)
+            { 
+                #region ApplicationConfigSetting
+                addMockApplicationConfigSetting(modelBuilder);
+                #endregion
 
-            #region ApplicationLanguage
-            addMockApplicationLanguage(modelBuilder);
-            #endregion
+                #region ApplicationLanguage
+                addMockApplicationLanguage(modelBuilder);
+                #endregion
 
-            #region Gender
-            addMockGender(modelBuilder);
-            #endregion
+                #region Gender
+                addMockGender(modelBuilder);
+                #endregion
 
-            #region Office
-            addMockOffice(modelBuilder);
-            #endregion
+                #region Office
+                addMockOffice(modelBuilder);
+                #endregion
 
-            #region Specialty
-            List<Specialty> specialtySAdd = addMockSpecialty(modelBuilder);
-            #endregion Specialty
+                #region Specialty
+                List<Specialty> specialtySAdd = addMockSpecialty(modelBuilder);
+                #endregion Specialty
 
-            #region RoleGroup
+                #region RoleGroup
 
-            addMockRoleGroup(modelBuilder);
+                addMockRoleGroup(modelBuilder);
 
-            #endregion RoleGroup
+                #endregion RoleGroup
 
-            #region User
+                #region User
 
-            addMockUser(modelBuilder);
-            #endregion
+                addMockUser(modelBuilder);
+                #endregion
 
-            #region Medical
+                #region Medical
 
-            addMockMedical(modelBuilder, specialtySAdd);
+                addMockMedical(modelBuilder, specialtySAdd);
 
-            #endregion Medical 
+                #endregion Medical 
+            }
         }
          
         private static void addMockApplicationLanguage(ModelBuilder modelBuilder)

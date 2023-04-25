@@ -72,8 +72,8 @@ namespace SmartDigitalPsico.WebAPI
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             //ORM API
-            addORM(services, ETypeDataBase.MSsqlServer); 
-            //addORM(services, getTypeDataBase(services));
+            //addORM(services, ETypeDataBase.MSsqlServer); 
+             addORM(services, getTypeDataBase(services));
 
             //Versioning API
             addVersionning(services);

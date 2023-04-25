@@ -12,7 +12,7 @@ using SmartDigitalPsico.Repository.Context;
 namespace SmartDigitalPsicoWebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
-    [Migration("20230425133054_SmartDigitalPsicoDBMig")]
+    [Migration("20230425145349_SmartDigitalPsicoDBMig")]
     partial class SmartDigitalPsicoDBMig
     {
         /// <inheritdoc />
@@ -207,14 +207,14 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(570),
+                            CreatedDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(4942),
                             Description = "Default",
                             Enable = true,
                             EndPointUrl_Cache = "",
                             EndPointUrl_StorageFiles = "",
                             Language = "pt-BR",
-                            LastAccessDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(579),
-                            ModifyDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(578),
+                            LastAccessDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(4958),
+                            ModifyDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(4957),
                             TypeLocationCache = 1,
                             TypeLocationQueeMessaging = 0,
                             TypeLocationSaveFiles = 0
@@ -292,14 +292,14 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(607),
+                            CreatedDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(4985),
                             Description = "Default",
                             Enable = true,
                             Language = "pt-BR",
                             LanguageKey = "Default_ptbr",
                             LanguageValue = "Padrão",
-                            LastAccessDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(608),
-                            ModifyDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(608)
+                            LastAccessDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(4987),
+                            ModifyDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(4986)
                         });
                 });
 
@@ -803,12 +803,12 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         {
                             Id = 1L,
                             Accreditation = "123456",
-                            CreatedDate = new DateTime(2023, 4, 25, 10, 30, 54, 247, DateTimeKind.Local).AddTicks(1990),
+                            CreatedDate = new DateTime(2023, 4, 25, 11, 53, 49, 11, DateTimeKind.Local).AddTicks(7001),
                             CreatedUserId = 1L,
                             Email = "medical@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 4, 25, 10, 30, 54, 247, DateTimeKind.Local).AddTicks(1992),
-                            ModifyDate = new DateTime(2023, 4, 25, 10, 30, 54, 247, DateTimeKind.Local).AddTicks(1993),
+                            LastAccessDate = new DateTime(2023, 4, 25, 11, 53, 49, 11, DateTimeKind.Local).AddTicks(7003),
+                            ModifyDate = new DateTime(2023, 4, 25, 11, 53, 49, 11, DateTimeKind.Local).AddTicks(7003),
                             Name = "Medical MOCK ",
                             OfficeId = 3L,
                             TypeAccreditation = 0
@@ -1040,7 +1040,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                             AddressState = "Bahia",
                             AddressStreet = "Avenida Presidente Médici 264",
                             Cpf = "947.846.605-42",
-                            CreatedDate = new DateTime(2023, 4, 25, 10, 30, 54, 249, DateTimeKind.Local).AddTicks(1643),
+                            CreatedDate = new DateTime(2023, 4, 25, 11, 53, 49, 13, DateTimeKind.Local).AddTicks(6739),
                             CreatedUserId = 1L,
                             DateOfBirth = new DateTime(1960, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Education = "Superior",
@@ -1049,10 +1049,10 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                             EmergencyContactPhoneNumber = "(73) 98540-4268",
                             Enable = true,
                             GenderId = 1L,
-                            LastAccessDate = new DateTime(2023, 4, 25, 10, 30, 54, 249, DateTimeKind.Local).AddTicks(1645),
+                            LastAccessDate = new DateTime(2023, 4, 25, 11, 53, 49, 13, DateTimeKind.Local).AddTicks(6742),
                             MaritalStatus = 0,
                             MedicalId = 1L,
-                            ModifyDate = new DateTime(2023, 4, 25, 10, 30, 54, 249, DateTimeKind.Local).AddTicks(1645),
+                            ModifyDate = new DateTime(2023, 4, 25, 11, 53, 49, 13, DateTimeKind.Local).AddTicks(6742),
                             Name = "Tiago Thales Mendes",
                             PhoneNumber = "(73) 2877-3408",
                             Profession = "Professor",
@@ -1614,16 +1614,16 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            CreatedDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(788),
+                            CreatedDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(5201),
                             Email = "admin@sistemas.com",
                             Enable = true,
                             Language = "pt-BR",
-                            LastAccessDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(789),
+                            LastAccessDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(5201),
                             Login = "admin",
-                            ModifyDate = new DateTime(2023, 4, 25, 10, 30, 54, 245, DateTimeKind.Local).AddTicks(790),
+                            ModifyDate = new DateTime(2023, 4, 25, 11, 53, 49, 9, DateTimeKind.Local).AddTicks(5202),
                             Name = "User MOCK ",
-                            PasswordHash = new byte[] { 4, 249, 227, 132, 179, 127, 2, 94, 71, 151, 164, 69, 19, 95, 238, 158, 51, 248, 34, 207, 184, 219, 107, 129, 87, 159, 149, 34, 240, 105, 82, 239, 9, 209, 134, 112, 82, 45, 211, 47, 21, 31, 168, 105, 126, 43, 78, 234, 85, 93, 171, 49, 162, 112, 13, 32, 78, 61, 236, 245, 130, 205, 46, 125 },
-                            PasswordSalt = new byte[] { 234, 131, 55, 44, 166, 29, 190, 177, 108, 35, 41, 244, 212, 75, 209, 150, 207, 64, 232, 133, 38, 136, 226, 24, 221, 33, 155, 3, 163, 134, 196, 24, 56, 140, 198, 46, 45, 128, 57, 123, 185, 104, 18, 78, 106, 204, 120, 57, 217, 248, 63, 181, 188, 249, 250, 26, 47, 216, 110, 81, 255, 215, 166, 7, 196, 189, 78, 59, 143, 230, 251, 142, 247, 101, 245, 22, 65, 246, 203, 166, 35, 77, 30, 192, 207, 25, 245, 152, 221, 136, 151, 105, 64, 253, 187, 201, 12, 204, 61, 108, 144, 214, 164, 37, 161, 204, 45, 243, 113, 129, 70, 230, 212, 163, 157, 106, 253, 49, 206, 166, 135, 139, 138, 129, 160, 24, 32, 227 },
+                            PasswordHash = new byte[] { 44, 255, 196, 47, 75, 208, 67, 107, 138, 89, 190, 113, 13, 2, 26, 225, 6, 3, 97, 7, 179, 107, 118, 147, 175, 0, 186, 189, 144, 147, 144, 186, 169, 26, 0, 161, 105, 129, 243, 141, 242, 218, 195, 187, 117, 149, 6, 80, 8, 45, 70, 61, 65, 74, 234, 33, 108, 225, 246, 82, 225, 29, 123, 100 },
+                            PasswordSalt = new byte[] { 254, 37, 33, 160, 27, 167, 217, 58, 71, 210, 58, 102, 143, 41, 141, 28, 252, 158, 74, 117, 45, 184, 117, 2, 48, 104, 4, 106, 68, 110, 40, 57, 137, 17, 226, 186, 147, 6, 233, 221, 92, 217, 255, 33, 126, 40, 159, 215, 132, 240, 172, 47, 183, 192, 6, 236, 52, 56, 131, 141, 129, 55, 236, 225, 247, 2, 128, 183, 141, 94, 191, 198, 178, 80, 89, 163, 207, 72, 83, 230, 248, 239, 214, 26, 68, 62, 249, 224, 91, 4, 168, 79, 231, 238, 153, 32, 151, 117, 0, 76, 96, 191, 69, 45, 121, 236, 180, 202, 20, 39, 71, 131, 58, 68, 249, 252, 150, 221, 135, 236, 166, 72, 142, 170, 37, 90, 72, 124 },
                             Role = "Admin",
                             TimeZone = "E. South America Standard Time"
                         },
@@ -1631,17 +1631,17 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         {
                             Id = 2L,
                             Admin = false,
-                            CreatedDate = new DateTime(2023, 4, 25, 10, 30, 54, 247, DateTimeKind.Local).AddTicks(2247),
+                            CreatedDate = new DateTime(2023, 4, 25, 11, 53, 49, 11, DateTimeKind.Local).AddTicks(7291),
                             Email = "doctor@sistemas.com",
                             Enable = true,
                             Language = "pt-BR",
-                            LastAccessDate = new DateTime(2023, 4, 25, 10, 30, 54, 247, DateTimeKind.Local).AddTicks(2248),
+                            LastAccessDate = new DateTime(2023, 4, 25, 11, 53, 49, 11, DateTimeKind.Local).AddTicks(7292),
                             Login = "doctor",
                             MedicalId = 1L,
-                            ModifyDate = new DateTime(2023, 4, 25, 10, 30, 54, 247, DateTimeKind.Local).AddTicks(2249),
+                            ModifyDate = new DateTime(2023, 4, 25, 11, 53, 49, 11, DateTimeKind.Local).AddTicks(7293),
                             Name = "User Medical",
-                            PasswordHash = new byte[] { 160, 212, 145, 115, 5, 42, 194, 69, 154, 65, 3, 118, 179, 105, 189, 32, 207, 30, 158, 39, 150, 222, 49, 86, 175, 99, 123, 241, 113, 10, 164, 46, 146, 20, 81, 98, 182, 45, 49, 115, 23, 86, 61, 12, 124, 63, 156, 46, 244, 146, 175, 119, 213, 152, 95, 247, 200, 13, 149, 19, 223, 225, 80, 129 },
-                            PasswordSalt = new byte[] { 24, 118, 152, 66, 113, 45, 90, 25, 246, 20, 195, 119, 60, 42, 54, 231, 16, 225, 193, 106, 108, 214, 19, 13, 57, 1, 222, 141, 198, 252, 164, 10, 125, 167, 88, 140, 81, 5, 158, 36, 246, 100, 167, 159, 56, 129, 151, 33, 93, 158, 91, 41, 209, 198, 86, 154, 67, 242, 223, 230, 118, 250, 210, 36, 204, 207, 162, 231, 223, 64, 172, 191, 114, 203, 220, 19, 150, 146, 106, 107, 133, 102, 105, 49, 233, 211, 213, 30, 166, 74, 114, 206, 199, 150, 109, 80, 3, 94, 79, 10, 254, 67, 158, 97, 168, 159, 63, 88, 19, 226, 209, 60, 189, 201, 233, 37, 128, 110, 52, 3, 135, 107, 195, 221, 244, 200, 190, 137 },
+                            PasswordHash = new byte[] { 66, 45, 189, 67, 99, 58, 40, 181, 107, 23, 3, 166, 147, 109, 210, 99, 14, 31, 56, 101, 103, 144, 14, 203, 201, 85, 102, 254, 90, 146, 1, 69, 52, 66, 155, 185, 229, 146, 202, 240, 37, 4, 185, 68, 123, 238, 106, 119, 82, 239, 165, 174, 207, 19, 108, 61, 41, 106, 92, 221, 160, 38, 116, 117 },
+                            PasswordSalt = new byte[] { 167, 43, 190, 26, 243, 242, 132, 32, 77, 86, 28, 120, 122, 109, 140, 114, 3, 111, 34, 168, 176, 73, 61, 173, 213, 50, 47, 23, 174, 238, 212, 77, 216, 220, 223, 192, 71, 168, 56, 227, 26, 187, 58, 164, 198, 211, 157, 139, 123, 133, 144, 226, 156, 113, 239, 200, 197, 59, 27, 236, 40, 16, 75, 211, 73, 189, 12, 238, 231, 88, 115, 88, 26, 129, 144, 129, 193, 134, 134, 31, 246, 124, 183, 69, 216, 124, 119, 119, 240, 214, 192, 142, 252, 104, 90, 156, 139, 97, 239, 208, 70, 228, 139, 226, 215, 10, 159, 22, 149, 83, 155, 91, 114, 129, 62, 207, 246, 8, 227, 60, 4, 29, 69, 164, 222, 42, 228, 49 },
                             Role = "Medical",
                             TimeZone = "E. South America Standard Time"
                         });

@@ -73,7 +73,7 @@ namespace SmartDigitalPsico.WebAPI
 
             //ORM API
             //addORM(services, ETypeDataBase.MSsqlServer); 
-             addORM(services, getTypeDataBase(services));
+            addORM(services, getTypeDataBase());
 
             //Versioning API
             addVersionning(services);
@@ -82,10 +82,10 @@ namespace SmartDigitalPsico.WebAPI
             DependenciesInjectionHelper.AddDependenciesInjection(services);
         }
 
-        private ETypeDataBase getTypeDataBase(IServiceCollection services)
+        private ETypeDataBase getTypeDataBase()
         {
             DataBaseConfigurationVO configDB = new DataBaseConfigurationVO();
-            
+
             new ConfigureFromConfigurationOptions<DataBaseConfigurationVO>(Configuration.GetSection("DataBaseConfigurations"))
                 .Configure(configDB);
             return configDB.TypeDataBase;
@@ -308,8 +308,11 @@ namespace SmartDigitalPsico.WebAPI
                 {
                     using (var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>())
                     {
-                        //context.Database.EnsureCreated();
-                        //context.Database.Migrate();
+                        if (getTypeDataBase() == ETypeDataBase.MSsqlServer)
+                        {
+                            context.Database.EnsureCreated();
+                            //context.Database.Migrate();
+                        }
                     }
                 }
             }

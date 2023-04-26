@@ -6,12 +6,11 @@ namespace SmartDigitalPsico.Model.Entity.Principals
     [Table("PatientInfoTag", Schema = "dbo")]
     public class PatientInfoTag
     {
-        [Column("Id", Order = 0)]
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
-
-
+        //[Column("Id", Order = 0)]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public long Id { get; set; }
+         
         #region Relationship 
         public InfoTag InfoTag { get; set; }
 

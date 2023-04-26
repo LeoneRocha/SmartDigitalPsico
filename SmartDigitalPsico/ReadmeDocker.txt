@@ -16,3 +16,10 @@ docker run --network my-network <nome_da_imagem>
 *** APONTAR PARA O BANCO DE DADOS DO AZURE 
 
 *** API EM UM COMPOSE SEPARADO APRA VIRAR UMA SERVICE SEPARADO DO FRONT
+
+
+
+
+PUBLICAR 
+
+docker pull leonecr/sdpapi-imagecloud:v1

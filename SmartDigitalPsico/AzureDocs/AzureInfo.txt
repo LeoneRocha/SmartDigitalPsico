@@ -13,7 +13,14 @@
 docker tag leonecr/sdpapiimage:latest smartdigitalpsicocr.azurecr.io/sdpapiimage:latest
 docker tag leonecr/sdpuidashimage:latest smartdigitalpsicocr.azurecr.io/sdpuidashimage:latest
 
+
+docker tag leonecr/sdpapi-imagecloud:latest smartdigitalpsicocr.azurecr.io/sdpapi-imagecloud:latest
+
+
 6)
 docker push smartdigitalpsicocr.azurecr.io/sdpapiimage:latest 
 
 docker push smartdigitalpsicocr.azurecr.io/sdpuidashimage:latest
+
+
+docker push smartdigitalpsicocr.azurecr.io/sdpapi-imagecloud:latest 

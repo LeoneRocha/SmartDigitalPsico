@@ -129,7 +129,7 @@ namespace SmartDigitalPsico.Business.Principals
                     entityUpdate.PasswordSalt = passwordSalt;
                 }
                 var isAdmin =  updateUser?.Admin.GetValueOrDefault();
-                entityUpdate.Role = string.IsNullOrEmpty(updateUser?.Role) ? "Pendente" : updateUser?.Role;
+                entityUpdate.Role = string.IsNullOrEmpty(updateUser?.Role) ? "Pending" : updateUser?.Role;
                 entityUpdate.Admin = isAdmin != null && isAdmin == true ? true : false; 
 
                 entityUpdate.ModifyDate = DateTime.Now;

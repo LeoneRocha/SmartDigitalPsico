@@ -43,7 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="ResourcesFileSave\" />
     <Folder Include="ResourcesTemp\Cache\" />
     <Folder Include="ResourcesTemp\FilesUpaload\" />

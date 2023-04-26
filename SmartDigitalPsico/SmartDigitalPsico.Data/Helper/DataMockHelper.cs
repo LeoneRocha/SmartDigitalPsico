@@ -14,47 +14,47 @@ namespace SmartDigitalPsico.Repository.Helper
         static string valorbr = new CultureInfo("pt-BR").Name;
         internal static void GenerateMock(ModelBuilder modelBuilder, ETypeDataBase eTypeDataBase)
         {
-            if (eTypeDataBase == ETypeDataBase.MSsqlServer)
-            { 
-                #region ApplicationConfigSetting
-                addMockApplicationConfigSetting(modelBuilder);
-                #endregion
+            //if (eTypeDataBase == ETypeDataBase.MSsqlServer)
+            //{ 
+            #region ApplicationConfigSetting
+            addMockApplicationConfigSetting(modelBuilder);
+            #endregion
 
-                #region ApplicationLanguage
-                addMockApplicationLanguage(modelBuilder);
-                #endregion
+            #region ApplicationLanguage
+            addMockApplicationLanguage(modelBuilder);
+            #endregion
 
-                #region Gender
-                addMockGender(modelBuilder);
-                #endregion
+            #region Gender
+            addMockGender(modelBuilder);
+            #endregion
 
-                #region Office
-                addMockOffice(modelBuilder);
-                #endregion
+            #region Office
+            addMockOffice(modelBuilder);
+            #endregion
 
-                #region Specialty
-                List<Specialty> specialtySAdd = addMockSpecialty(modelBuilder);
-                #endregion Specialty
+            #region Specialty
+            List<Specialty> specialtySAdd = addMockSpecialty(modelBuilder);
+            #endregion Specialty
 
-                #region RoleGroup
+            #region RoleGroup
 
-                addMockRoleGroup(modelBuilder);
+            addMockRoleGroup(modelBuilder);
 
-                #endregion RoleGroup
+            #endregion RoleGroup
 
-                #region User
+            #region User
 
-                addMockUser(modelBuilder);
-                #endregion
+            addMockUser(modelBuilder);
+            #endregion
 
-                #region Medical
+            #region Medical
 
-                addMockMedical(modelBuilder, specialtySAdd);
+            addMockMedical(modelBuilder, specialtySAdd);
 
-                #endregion Medical 
-            }
+            #endregion Medical 
+            //}
         }
-         
+
         private static void addMockApplicationLanguage(ModelBuilder modelBuilder)
         {
             List<ApplicationLanguage> addRegisters = new List<ApplicationLanguage>();
@@ -150,7 +150,7 @@ namespace SmartDigitalPsico.Repository.Helper
                 new { RoleGroupsId = (long)1, UsersId = (long)1 },
                 new { RoleGroupsId = (long)2, UsersId = (long)1 },
                 new { RoleGroupsId = (long)3, UsersId = (long)1 },
-                new { RoleGroupsId = (long)4, UsersId = (long)1 },                
+                new { RoleGroupsId = (long)4, UsersId = (long)1 },
                 new { RoleGroupsId = (long)2, UsersId = (long)2 }));
 
             #region Patient
@@ -184,7 +184,7 @@ namespace SmartDigitalPsico.Repository.Helper
                 Education = "Superior",
                 EmergencyContactName = "Milena Isabelly Vanessa",
                 EmergencyContactPhoneNumber = "(73) 98540-4268",
-                GenderId = 1, 
+                GenderId = 1,
                 MedicalId = 1,
                 PhoneNumber = "(73) 2877-3408",
                 Profession = "Professor",

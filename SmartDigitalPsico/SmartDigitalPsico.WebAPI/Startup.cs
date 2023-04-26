@@ -308,11 +308,11 @@ namespace SmartDigitalPsico.WebAPI
                 {
                     using (var context = serviceScope.ServiceProvider.GetService<SmartDigitalPsicoDataContext>())
                     {
-                        if (getTypeDataBase() == ETypeDataBase.MSsqlServer)
-                        {
-                            context.Database.EnsureCreated();
-                            //context.Database.Migrate();
-                        }
+                        //if (getTypeDataBase() == ETypeDataBase.MSsqlServer)
+                        //{
+                        context.Database.EnsureCreated();
+                        //context.Database.Migrate();
+                        //}
                     }
                 }
             }

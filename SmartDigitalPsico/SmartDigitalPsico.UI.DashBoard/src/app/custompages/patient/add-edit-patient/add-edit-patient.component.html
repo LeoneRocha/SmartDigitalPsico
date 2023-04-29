@@ -123,8 +123,8 @@
                                             [ngClass]="!isValidFormMaritalStatus() ? '' : 'error'" data-title="Select"
                                             data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
                                             <option value="">{{ "general.select" | translate }}</option>
-                                            <option *ngFor="let c of maritalStatusOpts" [value]="c.code">{{ c.name
-                                                }}
+                                            <option *ngFor="let c of maritalStatusOpts" [value]="c.code">
+                                                {{ c.name | translate  }}
                                             </option>
                                         </select>
                                         <small [hidden]="!isValidFormMaritalStatus()" class="text-danger">

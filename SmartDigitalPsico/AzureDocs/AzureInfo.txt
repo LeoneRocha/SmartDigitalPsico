@@ -16,9 +16,33 @@ docker tag leonecr/sdpapiimage:latest smartdigitalpsicocr.azurecr.io/sdpapiimage
 docker tag leonecr/sdpuidashimage:latest smartdigitalpsicocr.azurecr.io/sdpuidashimage:latest
 
 
+
+
+----------------- API 
+
 docker tag leonecr/sdpapi-imagecloud:latest smartdigitalpsicocr.azurecr.io/sdpapi-imagecloud:latest
 
------------------
+docker push smartdigitalpsicocr.azurecr.io/sdpapi-image:latest 
+----------------- API 
+
+
+----------------- UI 
+
+docker tag leonecr/sdpuidashimagecloud:latest smartdigitalpsicocr.azurecr.io/sdpuidashimagecloud:latest
+
+az acr login --name smartdigitalpsicocr
+
+docker push smartdigitalpsicocr.azurecr.io/sdpuidashimagecloud:latest 
+
+
+
+smartdigitalpsicoui
+
+sdpappplan
+
+
+----------------- UI 
+
 
 sdpapi-image:latest
 
@@ -26,7 +50,7 @@ sdpapi-image:latest
 
 docker tag leonecr/sdpapi-image:latest smartdigitalpsicocr.azurecr.io/sdpapi-image:latest
 
-docker push smartdigitalpsicocr.azurecr.io/sdpapi-image:latest 
+
 
 
 

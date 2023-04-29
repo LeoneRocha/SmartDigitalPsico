@@ -20,6 +20,19 @@ docker tag leonecr/sdpapi-imagecloud:latest smartdigitalpsicocr.azurecr.io/sdpap
 
 -----------------
 
+sdpapi-image:latest
+
+
+
+docker tag leonecr/sdpapi-image:latest smartdigitalpsicocr.azurecr.io/sdpapi-image:latest
+
+docker push smartdigitalpsicocr.azurecr.io/sdpapi-image:latest 
+
+
+
+gcloud sql instances patch smartdigitalpsicosvdb --authorized-networks="20.241.252.30,20.241.252.91,20.241.252.181,20.241.252.233,20.241.253.39,20.241.253.64,20.241.253.144,20.241.253.161,20.241.254.50,20.241.254.52,20.241.254.99,20.241.254.100,20.241.254.197,20.241.254.241,20.241.255.40,20.241.255.56,20.241.255.76,20.241.255.81,20.241.255.137,20.241.255.193,20.241.255.207,20.241.255.210,20.241.255.239,20.253.120.17,20.119.16.31"
+
+
 docker push leonecr/sdpapi-imagecloudsql:latest
 
 

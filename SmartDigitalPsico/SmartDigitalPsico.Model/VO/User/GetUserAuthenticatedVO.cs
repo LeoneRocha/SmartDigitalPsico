@@ -20,5 +20,7 @@ namespace SmartDigitalPsico.Model.VO.User
 
         public TokenVO TokenAuth { get; set; }
         public List<GetRoleGroupVO> RoleGroups { get; set; }
+
+        public long? MedicalId { get; set; }
     }
 }

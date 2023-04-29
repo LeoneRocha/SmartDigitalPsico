@@ -33,7 +33,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
   }
   processLoginApi(response: ServiceResponse<UserAutenticateModel>) { 
     this.userAutenticate = response?.data;
-    let token = this.userAutenticate.tokenAuth;
+    let token = this.userAutenticate.tokenAuth; 
     if (token && token?.authenticated && token.accessToken) {
       this.setLocalStorageUser(token);
       return true;
@@ -47,7 +47,8 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
       id: userLogged.id,
       name: userLogged.name,
       language: userLogged.language,
-      roleGroups: userLogged.roleGroups
+      roleGroups: userLogged.roleGroups,
+      medicalId : userLogged.medicalId,
     };
     const strUserAutenticate = JSON.stringify(userCache); 
     localStorage.setItem(this.keyLocalStorage + '_user', strUserAutenticate);

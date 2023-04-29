@@ -1,7 +1,8 @@
 
 Michele Urtreman Turci 
 CRP 06/155.812
-
+login : micheuturci
+senha : micheuturci
 
 
 https://editor.swagger.io/#/ GERADOR PELO SWAGFGER

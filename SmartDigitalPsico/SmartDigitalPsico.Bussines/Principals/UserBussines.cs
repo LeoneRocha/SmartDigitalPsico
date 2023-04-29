@@ -219,6 +219,7 @@ namespace SmartDigitalPsico.Business.Principals
         {
             TokenVO token = await validateCredentials(user);
             GetUserAuthenticatedVO response = _mapper.Map<GetUserAuthenticatedVO>(user);
+            response.MedicalId = user.Medical?.Id;
             response.TokenAuth = token;
             return response;
         }
@@ -229,10 +230,10 @@ namespace SmartDigitalPsico.Business.Principals
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.Login),
+                //new Claim(JwtRegisteredClaimNames.UniqueName, user.Login),
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, user.Name),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                //new Claim(JwtRegisteredClaimNames.Email, user.Email)
             };
 
             var accessToken = _tokenService.GenerateAccessToken(claims);

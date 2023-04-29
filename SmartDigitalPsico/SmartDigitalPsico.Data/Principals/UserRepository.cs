@@ -13,7 +13,10 @@ namespace SmartDigitalPsico.Repository.Principals
 
         public async Task<User> FindByLogin(string login)
         {
-            User userResult = await dataset.Include(e => e.RoleGroups).FirstOrDefaultAsync(p => p.Login.ToLower().Trim().Equals(login.ToLower().Trim()));
+            User userResult = await dataset
+                .Include(e => e.RoleGroups)
+                .Include(e => e.Medical)
+                .FirstOrDefaultAsync(p => p.Login.ToLower().Trim().Equals(login.ToLower().Trim()));
 
             return userResult;
         }

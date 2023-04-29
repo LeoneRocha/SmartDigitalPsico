@@ -7,4 +7,5 @@ export interface UserAutenticateModel {
   language: string
   tokenAuth: TokenAuth
   roleGroups: RoleGroupModel[]
+  medicalId?: number
 }

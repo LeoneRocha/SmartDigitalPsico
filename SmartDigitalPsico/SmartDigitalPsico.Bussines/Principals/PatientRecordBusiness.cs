@@ -153,8 +153,9 @@ namespace SmartDigitalPsico.Business.Principals
             }
             response.Data = listResult.Select(c => _mapper.Map<GetPatientRecordVO>(c)).ToList();
             response.Success = true;
-            response.Message = "Patients finded.";
-              
+            response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                       ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);
+
             return response;
         }
         public async override Task<ServiceResponse<List<GetPatientRecordVO>>> FindAll()

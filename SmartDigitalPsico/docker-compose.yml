@@ -26,14 +26,14 @@ services:
     build:
       context: .
       dockerfile: SmartDigitalPsico.WebAPI/Dockerfile
-    environment:
-      TZ: America/Sao_Paulo
-      ASPNETCORE_ENVIRONMENT: Production 
-      ASPNETCORE_URLS: https://+:443;http://+:80
+    #environment:
+    #  TZ: America/Sao_Paulo
+    # ASPNETCORE_ENVIRONMENT: Production 
+     # ASPNETCORE_URLS: https://+:443;http://+:80
     ports: # porta do host:porta do container.ai fica acessivel assim https://localhost/ https://localhost:443 
        #- "80" 
        #- "443"    
-       - "8080:8080"  
+       - 80:80  
        - 443:443  
     links:
       - dbSQLSERVER
@@ -41,9 +41,9 @@ services:
       - dbSQLSERVER 
     networks:
       - smartdigitalpsiconetwork
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+   # volumes:
+     # - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+     # - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     #command: sh -c "dotnet dev-certs https && dotnet run"
   dashui: 
      #image: leonecr/sdpuidashimage:latest #sdpuidash-image
@@ -53,7 +53,7 @@ services:
        context: ./SmartDigitalPsico.UI.DashBoard
        dockerfile: Dockerfile
      ports:  
-       - "80:80"
+       - "4209:4209"
      restart: always
      volumes:
        - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html

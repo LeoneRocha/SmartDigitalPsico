@@ -2,7 +2,7 @@
 # Imagem base
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /myapi
-EXPOSE 8080
+EXPOSE 80
 EXPOSE 443  
 
 

@@ -20,9 +20,11 @@ docker tag leonecr/sdpuidashimage:latest smartdigitalpsicocr.azurecr.io/sdpuidas
 
 ----------------- API 
 
-docker tag leonecr/sdpapi-imagecloud:latest smartdigitalpsicocr.azurecr.io/sdpapi-imagecloud:latest
+smartdigitalpsicoapi
 
-docker push smartdigitalpsicocr.azurecr.io/sdpapi-image:latest 
+docker tag leonecr/sdp_api_cloud_image_v2:latest smartdigitalpsicocr.azurecr.io/sdp_api_cloud_image_v2:latest
+
+docker push smartdigitalpsicocr.azurecr.io/sdp_api_cloud_image_v2:latest 
 ----------------- API 
 
 

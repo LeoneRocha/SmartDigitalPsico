@@ -62,11 +62,8 @@ export class PatientComponent implements OnInit {
         this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
-        let userLoged = this.authService.getLocalStorageUser();
-        console.log(userLoged);
         let medicalId: number = 0;
-        medicalId = userLoged?.medicalId;
-        
+        medicalId = this.authService.getMedicalId();
         this.registerService.getAllByParentId(medicalId, "medicalId").subscribe({
             next: (response: any) => {
                 this.listResult = response["data"];

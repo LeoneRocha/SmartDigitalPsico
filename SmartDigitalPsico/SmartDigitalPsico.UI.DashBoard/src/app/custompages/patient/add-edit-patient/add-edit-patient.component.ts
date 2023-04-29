@@ -15,6 +15,7 @@ import { GenderService } from 'app/services/general/simple/gender.service';
 import { ETypeMaritalStatusOptions } from 'app/common/enuns/etypemaritalstatus-options';
 import { DatePipe } from '@angular/common';
 import { LanguageService } from 'app/services/general/language.service';
+import { AuthService } from 'app/services/auth/auth.service';
 
 
 declare var $: any;
@@ -49,6 +50,7 @@ export class AddEditPatientComponent implements OnInit {
         , @Inject(GenderService) private genderService: GenderService
         , private datePipe: DatePipe
         , @Inject(LanguageService) private languageService: LanguageService
+        , @Inject(AuthService) private authService: AuthService
     ) {
     }
 
@@ -131,13 +133,13 @@ export class AddEditPatientComponent implements OnInit {
             next: (response: ServiceResponse<PatientModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
         });
     }
-    addRegister() { 
+    addRegister() {
         this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
         });
     }
-    updateRegister() { 
+    updateRegister() {
         this.getValuesForm();
         this.registerService.update(this.registerModel).subscribe({
             next: (response: ServiceResponse<PatientModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
@@ -179,9 +181,9 @@ export class AddEditPatientComponent implements OnInit {
         this.modalErroAlert(this.gettranslateInformationAsync('modalalert.load.title'), response);
     }
     fillFieldsForm(): void {
-        let formatDate = 'dd/MM/yyyy'; 
+        let formatDate = 'dd/MM/yyyy';
         let pipeDate = new DatePipe('pt-BR')
- 
+
         let responseData: PatientModel = this.serviceResponse?.data;
         let formsElement = this.registerForm;
         this.registerModel = {
@@ -228,7 +230,7 @@ export class AddEditPatientComponent implements OnInit {
         formsElement.controls['rg'].setValue(modelEntity?.rg);
         formsElement.controls['medicalId'].setValue(modelEntity?.medicalId);
         formsElement.controls['maritalStatus'].setValue(modelEntity?.maritalStatus);
-        formsElement.controls['enableOpt'].setValue(modelEntity?.enable); 
+        formsElement.controls['enableOpt'].setValue(modelEntity?.enable);
     }
     isValidFormName(): boolean {
         let isRequired = this.registerForm.get('name').errors?.required;
@@ -330,6 +332,8 @@ export class AddEditPatientComponent implements OnInit {
     getValuesForm() {
         let formElement = this.registerForm;
         let medicalIdCurrent = Number(formElement.controls['medicalId']?.value);
+        medicalIdCurrent = this.authService.getMedicalId();
+
         let apiDateOfBirth = new Date(this.datePipe.transform(formElement.controls['dateOfBirth']?.value, 'yyyy-MM-dd'));
 
         this.registerModel = {
@@ -353,7 +357,7 @@ export class AddEditPatientComponent implements OnInit {
             rg: formElement.controls['rg']?.value,
             maritalStatus: Number(formElement.controls['maritalStatus']?.value),
             enable: formElement.controls['enableOpt']?.value,
-        };
+        }; 
     }
 
     createEmptyRegister(): void {
@@ -380,13 +384,13 @@ export class AddEditPatientComponent implements OnInit {
             enable: false
         }
     }
-    onSelect(selectedValue: string) { 
+    onSelect(selectedValue: string) {
     }
     goBackToList() {
         this.router.navigate(['/patient/manage/']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0]; 
+        let result = this.languageService.translateInformationAsync([key])[0];
         return result;
     }
     modalSuccessAlert() {
@@ -400,7 +404,7 @@ export class AddEditPatientComponent implements OnInit {
             },
             icon: "success"
         });
-    } 
+    }
     modalErroAlert(msgErro: string, response: ServiceResponse<PatientModel>) {
         swal.fire({
             title: msgErro,

@@ -1,10 +1,27 @@
 version: '3.4'
 
 name: sdpsic-api-project
-services:  
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3320:3326
+  dbSQLSERVER:
+    image: mcr.microsoft.com/mssql/server:latest    
+    restart: always   
+    container_name: smartdigitalpsicoSQLServer
+    environment: 
+      TZ: America/Sao_Paulo
+      ACCEPT_EULA:  "Y"       
+      SA_PASSWORD: docker!123 #sa / #sdpdbauser
+    ports:
+      - 1433:1433
+    networks:
+      - smartdigitalpsiconetwork
   smartdigitalpsicowebapi:
     #image: leonecr/sdpapiimage:latest #sdpapi-image
-    image: sdpapi-imagecloud
+    image: sdpapi-image
     container_name: sdpapicontainer
     build:
       context: .
@@ -13,9 +30,40 @@ services:
       TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: Production 
       ASPNETCORE_URLS: https://+:443;http://+:80
-    ports: # porta do host:porta do container    
-       - 80:80  
+    ports: # porta do host:porta do container.ai fica acessivel assim https://localhost/ https://localhost:443 
+       #- "80" 
+       #- "443"    
+       - "8080:8080"  
        - 443:443  
+    links:
+      - dbSQLSERVER
+    depends_on:
+      - dbSQLSERVER 
+    networks:
+      - smartdigitalpsiconetwork
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro    
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    #command: sh -c "dotnet dev-certs https && dotnet run"
+  dashui: 
+     #image: leonecr/sdpuidashimage:latest #sdpuidash-image
+     image:  sdpuidash-image
+     container_name:  sdpuidashcontainer
+     build:
+       context: ./SmartDigitalPsico.UI.DashBoard
+       dockerfile: Dockerfile
+     ports:  
+       - "80:80"
+     restart: always
+     volumes:
+       - ./SmartDigitalPsico.UI.DashBoard/dist/smartdigitalpsico/:/usr/share/nginx/html
+     command: nginx -g 'daemon off;'
+     links:
+       - smartdigitalpsicowebapi
+     depends_on:
+       - smartdigitalpsicowebapi 
+     networks:
+       - smartdigitalpsiconetwork 
+networks:
+  smartdigitalpsiconetwork:
+    driver: bridge

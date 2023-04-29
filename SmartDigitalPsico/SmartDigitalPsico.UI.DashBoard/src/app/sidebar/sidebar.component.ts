@@ -49,8 +49,7 @@ export class SidebarComponent {
             $('html').addClass('perfect-scrollbar-off');
         }
     }
-    userCanAccess(menuItem: any) {
-        //console.log(this.authService.getRolesUser());
+    userCanAccess(menuItem: any) { 
         let roleRequired: string = menuItem['roleaccess'];
         let isuserCanAccess: boolean = this.authService.isUserContainsRole(roleRequired)
         if (isuserCanAccess) {

@@ -1,0 +1,17 @@
+version: '3.4' 
+
+name: sdpsic-ui-project
+services:
+  dashui: 
+    image:  leonecr/sdpuidashimagecloud:latest 
+    container_name:  sdpuidashcontainer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+       - "80:80" 
+       - "4209:4209"
+    restart: always
+    volumes:
+      - ./dist/smartdigitalpsico/:/usr/share/nginx/html
+    command: nginx -g 'daemon off;' 

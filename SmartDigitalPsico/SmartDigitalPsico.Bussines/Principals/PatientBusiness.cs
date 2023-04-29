@@ -7,6 +7,7 @@ using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Business.SystemDomains;
+using SmartDigitalPsico.Business.Validation.Contratcs;
 using SmartDigitalPsico.Business.Validation.Helper;
 using SmartDigitalPsico.Business.Validation.PatientValidations.CustomValidator;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
@@ -15,6 +16,7 @@ using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains.GetVOs;
 using SmartDigitalPsico.Model.VO.Patient;
+using SmartDigitalPsico.Model.VO.Patient.PatientRecord;
 using SmartDigitalPsico.Repository.Contract.Principals;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using System.Text;
@@ -194,14 +196,30 @@ namespace SmartDigitalPsico.Business.Principals
             ServiceResponse<List<GetPatientVO>> response = new ServiceResponse<List<GetPatientVO>>();
             try
             {
-                response = await validAccessToList(medicalId);
-                if (!response.Success)
+                List<Patient> listResult = await _entityRepository.FindAllByMedicalId(medicalId);
+                var recordsList = new RecordsList<Patient>
+                {
+                    UserIdLogged = base.UserId,
+                    Records = listResult
+
+                };
+                var validator = new PatientSelectListValidator(_userRepository);
+                var validationResult = await validator.ValidateAsync(recordsList);
+                if (!validationResult.IsValid)
+                {
+                    response.Errors = validator.GetMapErros(validationResult.Errors);
+                    response.Success = false;
+                    response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
+                           ("ErrorValidator_User_Not_Permission", base._applicationLanguageRepository, base._cacheBusiness);
                     return response;
-
-                List<Patient> entityResponse = await _entityRepository.FindAllByMedicalId(medicalId);
-
-                response.Data = entityResponse.Select(c => _mapper.Map<GetPatientVO>(c)).ToList();
-
+                } 
+                if (listResult == null || listResult.Count == 0)
+                {
+                    response.Success = false;
+                    response.Message = "Patients not found.";
+                    return response;
+                }
+                response.Data = listResult.Select(c => _mapper.Map<GetPatientVO>(c)).ToList();
                 response.Success = true;
                 response.Message = await ApplicationLanguageBusiness.GetLocalization<SharedResource>
                        ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);

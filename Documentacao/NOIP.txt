@@ -1,0 +1,65 @@
+admin
+
+mock123adm
+
+chainisse russia febrera
+
+
+192.168.1.1
+
+186.204.60.121
+localhost:4209 
+
+Smart Digital Psico - Sistema de Psicologia
+
+smartdigitalpsico
+
+smartdigitalpsicodb
+
+smartdigitalpsicofree
+192.168.1.173
+
+docker!123
+
+sdpep
+
+http://localhost:4209/administrative/dashboard
+https://localhost:4209 
+
+https://localhost:63058
+
+https://localhost:63058
+
+https://localhost:443
+
+192.168.1.173:443
+
+https://192.168.1.173:63058
+
+smartdigitalpsicapi.ddns.net
+
+smartdigitalpsicweb.ddns.net
+
+http://192.168.1.173:4209/authpages/login
+
+smartdigitalpsico.ddns.net:4209 
+smartdigitalpsico2.ddns.net:4209 
+smartdigitalpsico3.ddns.net:4209 
+
+smartdigitalpsico3.ddns.net:4209
+
+
+192.168.1.173:4209
+
+
+ endereço IP interno é o endereço atribuído à sua máquina na rede local. Esse endereço é usado para identificar sua máquina dentro da rede e geralmente começa com "192.168." ou "10.".
+
+Para encontrar o endereço IP interno da sua máquina, você pode seguir estes passos:
+
+No Windows, clique em "Iniciar" e digite "cmd" na barra de pesquisa. No Mac, abra o Terminal. Isso abrirá uma janela de prompt de comando.
+
+No prompt de comando, digite "ipconfig" (Windows) ou "ifconfig" (Mac) e pressione Enter.
+
+Role para baixo até encontrar o adaptador de rede que você está usando para se conectar à rede local. O endereço IP interno estará listado ao lado de "Endereço IPv4" (Windows) ou "inet" (Mac).
+
+Observe que, se você estiver usando um roteador para conectar-se à rede, o endereço IP interno da sua máquina pode mudar periodicamente. Se você precisar acessar sua máquina a partir de outra máquina na rede, é recomendável configurar um endereço IP estático para sua máquina ou usar um serviço de DNS dinâmico, como o No-IP, para mapear seu endereço IP interno para um nome de domínio.

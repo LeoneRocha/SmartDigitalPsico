@@ -1,0 +1,10 @@
+version: '3.4'
+
+name: sdpsic-api-project
+services:  
+  smartdigitalpsicowebapi:    
+    image:  smartdigitalpsicocr.azurecr.io/sdpapi-imagecloudsql:latest #azure
+    container_name: sdpapicontainer     
+    ports: # porta do host:porta do container    
+       - "80:80"  
+       - "443:443"  

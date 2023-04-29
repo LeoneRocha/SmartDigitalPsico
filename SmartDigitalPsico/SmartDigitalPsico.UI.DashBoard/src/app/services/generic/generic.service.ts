@@ -51,8 +51,9 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
     let cultureUI: string = localStorage.getItem("AppLanguageId"); 
     if (cultureUI !== 'pt-BR') {
       cultureUI = "en-US";
-    }   
+    }     
     const headers = new HttpHeaders()
+    .set('Access-Control-Allow-Origin', '*')
       .set('Authorization', `Bearer ${token}`)
       .set('X-Culture', cultureUI);
     return headers

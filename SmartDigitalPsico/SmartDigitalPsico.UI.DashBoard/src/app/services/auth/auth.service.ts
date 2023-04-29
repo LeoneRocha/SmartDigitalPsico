@@ -3,35 +3,41 @@ import { HttpClient } from '@angular/common/http';
 import { Inject } from '@angular/core';
 import { GenericService } from '../generic/generic.service';
 import { ServiceResponse } from 'app/models/ServiceResponse';
-import { environment } from 'environments/environment'; 
+import { environment } from 'environments/environment';
 import { catchError, map, throwError } from 'rxjs';
 import { AppError } from 'app/common/errohandler/app-error';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserAutenticateModel } from 'app/models/usermodels/UserAutenticateModel'; 
+import { UserAutenticateModel } from 'app/models/usermodels/UserAutenticateModel';
 import { TokenAuth } from 'app/models/general/TokenAuth';
 import { UserAutenticateView } from 'app/models/usermodels/UserAutenticateView';
 import { RoleGroupModel } from 'app/models/simplemodel/RoleGroupModel';
 import { UserLoginModel } from 'app/models/usermodels/UserLoginModel';
- 
+
 const basePathUrl = '/Auth/v1';
 @Injectable()
 export class AuthService extends GenericService<ServiceResponse<UserAutenticateModel>, UserLoginModel, number> {
+
   private keyLocalStorage: string = "tokenjwt";
   private userAutenticate: UserAutenticateModel;
 
   constructor(@Inject(HttpClient) http: HttpClient) {
     super(http, `${environment.APIUrl + basePathUrl}`, '/');
   }
+
+  getMedicalId(): number {
+    let userLoged = this.getLocalStorageUser();
+    let isAdminUser = this.isUserContainsRole('Admin');
+    return isAdminUser ? 0 : userLoged.medicalId;
+  }
   login(credentials: UserLoginModel) {
     let urlAut = `${environment.APIUrl + basePathUrl}/authenticate`;
     //urlAut = '/api/authenticate'//Test Mock
-    //JSON.stringify(credentials) 
-    console.log(urlAut);    
+    //JSON.stringify(credentials)  
     return this.httpLocal.post<ServiceResponse<UserAutenticateModel>>(urlAut, credentials).pipe(map(response => {
       return this.processLoginApi(response);
     }), catchError(this.customHandleErrorAuthService));
   }
-  processLoginApi(response: ServiceResponse<UserAutenticateModel>) { 
+  processLoginApi(response: ServiceResponse<UserAutenticateModel>) {
     this.userAutenticate = response?.data;
     let token = this.userAutenticate.tokenAuth;
     if (token && token?.authenticated && token.accessToken) {
@@ -42,29 +48,30 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
   }
   setLocalStorageUser(token: TokenAuth): void {
     const userLogged = this.userAutenticate;
-    localStorage.setItem(this.keyLocalStorage, token.accessToken); 
+    localStorage.setItem(this.keyLocalStorage, token.accessToken);
     let userCache: UserAutenticateView = {
       id: userLogged.id,
       name: userLogged.name,
       language: userLogged.language,
-      roleGroups: userLogged.roleGroups
+      roleGroups: userLogged.roleGroups,
+      medicalId: userLogged.medicalId,
     };
-    const strUserAutenticate = JSON.stringify(userCache); 
+    const strUserAutenticate = JSON.stringify(userCache);
     localStorage.setItem(this.keyLocalStorage + '_user', strUserAutenticate);
   }
   getLocalStorageUser(): UserAutenticateView {
-    const strUserAutenticate = localStorage.getItem(this.keyLocalStorage + '_user'); 
+    const strUserAutenticate = localStorage.getItem(this.keyLocalStorage + '_user');
     let userLoaded: UserAutenticateView
-    userLoaded = JSON.parse(strUserAutenticate); 
+    userLoaded = JSON.parse(strUserAutenticate);
     return userLoaded;
   }
   getRolesUser(): RoleGroupModel[] {
     let userLoaded: UserAutenticateView = this.getLocalStorageUser();
-   
+
     if (userLoaded != null && userLoaded != undefined)
       return userLoaded?.roleGroups;
 
-      return null;
+    return null;
   }
 
   isUserContainsRole(roleCheck: string): boolean {
@@ -108,7 +115,7 @@ export class AuthService extends GenericService<ServiceResponse<UserAutenticateM
     return sessionTokenActive;
   }
 
-  private customHandleErrorAuthService(error: Response) { 
+  private customHandleErrorAuthService(error: Response) {
     /*if (error.status === 400)
       return throwError(() => new BadInput(error.json()));
 

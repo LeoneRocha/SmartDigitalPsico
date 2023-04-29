@@ -13,3 +13,6 @@
  "applicationUrl": "https://localhost:8080;https://localhost:5000"
 
  EM PROPERTIES 
+
+
+ "SmartDigitalPsicoDBConnection": "Data Source=smartdigitalpsicoSQLServer,1433;Initial Catalog=SmartDigitalPsicoDB;User ID=sa;Password=docker!123;Trusted_Connection=False;TrustServerCertificate=True;",

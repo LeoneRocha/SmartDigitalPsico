@@ -9,6 +9,7 @@ import { UserModel } from 'app/models/principalsmodel/UserModel';
 import { PatientService } from 'app/services/general/principals/patient.service';
 import { PatientModel } from 'app/models/principalsmodel/PatientModel';
 import { LanguageService } from 'app/services/general/language.service';
+import { AuthService } from 'app/services/auth/auth.service';
 
 declare var $: any;
 
@@ -32,11 +33,12 @@ export class PatientComponent implements OnInit {
         , 'general.patientrecords'
         , 'general.actions'
     ];
-    
+
 
     constructor(@Inject(PatientService) private registerService: PatientService
         , @Inject(Router) private router: Router
-        , @Inject(LanguageService) private languageService: LanguageService) { }
+        , @Inject(LanguageService) private languageService: LanguageService
+        , @Inject(AuthService) private authService: AuthService) { }
     ngOnInit() {
         this.languageService.loadLanguage();
         this.loadHeaderFooterDataTable();
@@ -60,10 +62,11 @@ export class PatientComponent implements OnInit {
         this.modalAlertRemove(idRegister);
     }
     retrieveList(): void {
-        let medicalId: number = 1//TODO:ARRUAMAR
+        let medicalId: number = 0;
+        medicalId = this.authService.getMedicalId();
         this.registerService.getAllByParentId(medicalId, "medicalId").subscribe({
             next: (response: any) => {
-                this.listResult = response["data"]; 
+                this.listResult = response["data"];
                 this.loadConfigDataTablesLazzy();
                 //this.convertListToDataTableRowAndFill(response["data"]);  this.loadConfigDataTablesLazzy()
                 CaptureTologFunc('retrieveList-patient', response);
@@ -154,7 +157,7 @@ export class PatientComponent implements OnInit {
         });
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0]; 
+        let result = this.languageService.translateInformationAsync([key])[0];
         return result;
     }
     showNotification(from, align, messageCustom: string, colorType: string) {

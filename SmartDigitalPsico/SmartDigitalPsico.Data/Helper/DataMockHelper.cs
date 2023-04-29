@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Security;
 using SmartDigitalPsico.Model.Entity.Domains;
@@ -11,8 +12,10 @@ namespace SmartDigitalPsico.Repository.Helper
     internal static class DataMockHelper
     {
         static string valorbr = new CultureInfo("pt-BR").Name;
-        internal static void GenerateMock(ModelBuilder modelBuilder)
+        internal static void GenerateMock(ModelBuilder modelBuilder, ETypeDataBase eTypeDataBase)
         {
+            //if (eTypeDataBase == ETypeDataBase.MSsqlServer)
+            //{ 
             #region ApplicationConfigSetting
             addMockApplicationConfigSetting(modelBuilder);
             #endregion
@@ -49,8 +52,9 @@ namespace SmartDigitalPsico.Repository.Helper
             addMockMedical(modelBuilder, specialtySAdd);
 
             #endregion Medical 
+            //}
         }
-         
+
         private static void addMockApplicationLanguage(ModelBuilder modelBuilder)
         {
             List<ApplicationLanguage> addRegisters = new List<ApplicationLanguage>();
@@ -146,7 +150,7 @@ namespace SmartDigitalPsico.Repository.Helper
                 new { RoleGroupsId = (long)1, UsersId = (long)1 },
                 new { RoleGroupsId = (long)2, UsersId = (long)1 },
                 new { RoleGroupsId = (long)3, UsersId = (long)1 },
-                new { RoleGroupsId = (long)4, UsersId = (long)1 },                
+                new { RoleGroupsId = (long)4, UsersId = (long)1 },
                 new { RoleGroupsId = (long)2, UsersId = (long)2 }));
 
             #region Patient
@@ -180,7 +184,7 @@ namespace SmartDigitalPsico.Repository.Helper
                 Education = "Superior",
                 EmergencyContactName = "Milena Isabelly Vanessa",
                 EmergencyContactPhoneNumber = "(73) 98540-4268",
-                GenderId = 1, 
+                GenderId = 1,
                 MedicalId = 1,
                 PhoneNumber = "(73) 2877-3408",
                 Profession = "Professor",

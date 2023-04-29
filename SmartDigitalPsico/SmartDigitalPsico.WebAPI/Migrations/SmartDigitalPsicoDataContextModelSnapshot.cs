@@ -2,13 +2,12 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartDigitalPsico.Repository.Context;
 
 #nullable disable
 
-namespace SmartDigitalPsico.WebAPI.Migrations
+namespace SmartDigitalPsicoWebAPI.Migrations
 {
     [DbContext(typeof(SmartDigitalPsicoDataContext))]
     partial class SmartDigitalPsicoDataContextModelSnapshot : ModelSnapshot
@@ -18,9 +17,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("MedicalSpecialty", b =>
                 {
@@ -66,22 +63,22 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         },
                         new
                         {
-                            RoleGroupsId = 5L,
+                            RoleGroupsId = 2L,
                             UsersId = 1L
                         },
                         new
                         {
-                            RoleGroupsId = 5L,
-                            UsersId = 2L
-                        },
-                        new
-                        {
-                            RoleGroupsId = 6L,
+                            RoleGroupsId = 3L,
                             UsersId = 1L
                         },
                         new
                         {
-                            RoleGroupsId = 6L,
+                            RoleGroupsId = 4L,
+                            UsersId = 1L
+                        },
+                        new
+                        {
+                            RoleGroupsId = 2L,
                             UsersId = 2L
                         });
                 });
@@ -93,8 +90,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("CacheId")
                         .IsRequired()
@@ -109,23 +104,23 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("CacheKey");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<DateTime>("DateTimeSlidingExpiration")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool?>("Enable")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.HasKey("Id");
@@ -141,10 +136,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Description")
@@ -154,7 +147,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Description");
 
                     b.Property<bool?>("Enable")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -177,11 +170,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Language");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<int>("TypeLocationCache")
@@ -204,14 +197,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5033),
+                            CreatedDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9659),
                             Description = "Default",
                             Enable = true,
                             EndPointUrl_Cache = "",
                             EndPointUrl_StorageFiles = "",
                             Language = "pt-BR",
-                            LastAccessDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5050),
-                            ModifyDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5048),
+                            LastAccessDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9674),
+                            ModifyDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9674),
                             TypeLocationCache = 1,
                             TypeLocationQueeMessaging = 0,
                             TypeLocationSaveFiles = 0
@@ -226,10 +219,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Description")
@@ -239,7 +230,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Description");
 
                     b.Property<bool?>("Enable")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -262,11 +253,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("LanguageValue");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<string>("ResourceKey")
@@ -275,7 +266,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasDefaultValue("ApplicationLanguage")
-                        .HasColumnName("ResourceKey ");
+                        .HasColumnName("ResourceKey");
 
                     b.HasKey("Id");
 
@@ -289,14 +280,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5141),
+                            CreatedDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9709),
                             Description = "Default",
                             Enable = true,
                             Language = "pt-BR",
                             LanguageKey = "Default_ptbr",
                             LanguageValue = "Padrão",
-                            LastAccessDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5145),
-                            ModifyDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5144)
+                            LastAccessDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9711),
+                            ModifyDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9710)
                         });
                 });
 
@@ -308,10 +299,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Description")
@@ -322,7 +311,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
@@ -334,11 +323,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Language");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.HasKey("Id");
@@ -374,10 +363,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Description")
@@ -388,7 +375,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
@@ -400,11 +387,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Language");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.HasKey("Id");
@@ -449,10 +436,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Description")
@@ -463,7 +448,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
@@ -475,11 +460,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Language");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<string>("RolePolicyClaimCode")
@@ -563,10 +548,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Description")
@@ -577,7 +560,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
@@ -589,11 +572,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Language");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.HasKey("Id");
@@ -674,29 +657,27 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("Enable")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<long>("MedicalId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -721,8 +702,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<string>("Accreditation")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -730,7 +709,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Accreditation");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -745,17 +724,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -800,12 +779,12 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Accreditation = "123456",
-                            CreatedDate = new DateTime(2023, 4, 10, 19, 30, 11, 509, DateTimeKind.Local).AddTicks(6943),
+                            CreatedDate = new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2318),
                             CreatedUserId = 1L,
                             Email = "medical@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 4, 10, 19, 30, 11, 509, DateTimeKind.Local).AddTicks(6961),
-                            ModifyDate = new DateTime(2023, 4, 10, 19, 30, 11, 509, DateTimeKind.Local).AddTicks(6963),
+                            LastAccessDate = new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2319),
+                            ModifyDate = new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2320),
                             Name = "Medical MOCK ",
                             OfficeId = 3L,
                             TypeAccreditation = 0
@@ -820,10 +799,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -835,7 +812,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Description");
 
                     b.Property<bool?>("Enable")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -845,7 +822,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("FileContentType");
 
                     b.Property<byte[]>("FileData")
-                        .HasColumnType("varbinary(max)")
+                        .HasColumnType("longblob")
                         .HasColumnName("FileData");
 
                     b.Property<string>("FileExtension")
@@ -863,14 +840,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("FileSizeKB");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<long>("MedicalId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -898,8 +875,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("AddressCep")
                         .HasMaxLength(20)
@@ -932,14 +907,14 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Cpf");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("DateOfBirth");
 
                     b.Property<string>("Education")
@@ -966,7 +941,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
@@ -975,7 +950,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<int>("MaritalStatus")
@@ -986,7 +961,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -1037,7 +1012,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             AddressState = "Bahia",
                             AddressStreet = "Avenida Presidente Médici 264",
                             Cpf = "947.846.605-42",
-                            CreatedDate = new DateTime(2023, 4, 10, 19, 30, 11, 516, DateTimeKind.Local).AddTicks(285),
+                            CreatedDate = new DateTime(2023, 4, 26, 0, 56, 10, 532, DateTimeKind.Local).AddTicks(3329),
                             CreatedUserId = 1L,
                             DateOfBirth = new DateTime(1960, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Education = "Superior",
@@ -1046,10 +1021,10 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                             EmergencyContactPhoneNumber = "(73) 98540-4268",
                             Enable = true,
                             GenderId = 1L,
-                            LastAccessDate = new DateTime(2023, 4, 10, 19, 30, 11, 516, DateTimeKind.Local).AddTicks(295),
+                            LastAccessDate = new DateTime(2023, 4, 26, 0, 56, 10, 532, DateTimeKind.Local).AddTicks(3332),
                             MaritalStatus = 0,
                             MedicalId = 1L,
-                            ModifyDate = new DateTime(2023, 4, 10, 19, 30, 11, 516, DateTimeKind.Local).AddTicks(296),
+                            ModifyDate = new DateTime(2023, 4, 26, 0, 56, 10, 532, DateTimeKind.Local).AddTicks(3333),
                             Name = "Tiago Thales Mendes",
                             PhoneNumber = "(73) 2877-3408",
                             Profession = "Professor",
@@ -1065,10 +1040,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -1076,7 +1049,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
@@ -1092,11 +1065,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("FollowUp_Psychiatric");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -1124,10 +1097,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -1139,7 +1110,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Description");
 
                     b.Property<bool?>("Enable")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
@@ -1149,7 +1120,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("FileContentType");
 
                     b.Property<byte[]>("FileData")
-                        .HasColumnType("varbinary(max)")
+                        .HasColumnType("longblob")
                         .HasColumnName("FileData");
 
                     b.Property<string>("FileExtension")
@@ -1167,11 +1138,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("FileSizeKB");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -1203,8 +1174,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<string>("CID")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -1212,7 +1181,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("CID");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -1226,21 +1195,21 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("EndDate");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -1256,7 +1225,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("StartDate");
 
                     b.HasKey("Id");
@@ -1278,14 +1247,6 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.Property<long>("InfoTagId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("Id")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.HasKey("PatientId", "InfoTagId");
 
                     b.HasIndex("InfoTagId");
@@ -1301,10 +1262,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -1323,17 +1282,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("EndDate");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<string>("MainDrug")
@@ -1342,7 +1301,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("MainDrug");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -1357,7 +1316,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Posology");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("StartDate");
 
                     b.HasKey("Id");
@@ -1379,10 +1338,8 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -1390,17 +1347,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
                     b.Property<bool>("IsReaded")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("IsReaded");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<string>("MessagePatient")
@@ -1410,25 +1367,25 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("MessagePatient");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("Notified")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("Notified");
 
                     b.Property<DateTime?>("NotifiedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("NotifiedDate");
 
                     b.Property<long>("PatientId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("ReadingDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ReadingDate");
 
                     b.HasKey("Id");
@@ -1450,19 +1407,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<string>("Annotation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("Annotation");
 
                     b.Property<DateTime>("AnnotationDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("AnnotationDate");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<long?>("CreatedUserId")
@@ -1476,17 +1431,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<long?>("ModifyUserId")
@@ -1514,13 +1469,11 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<bool>("Admin")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Email")
@@ -1532,7 +1485,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<bool?>("Enable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true)
                         .HasColumnName("Enable")
                         .HasColumnOrder(1);
@@ -1543,7 +1496,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnName("Language");
 
                     b.Property<DateTime>("LastAccessDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("LastAccessDate");
 
                     b.Property<string>("Login")
@@ -1557,7 +1510,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("ModifyDate");
 
                     b.Property<string>("Name")
@@ -1569,20 +1522,20 @@ namespace SmartDigitalPsico.WebAPI.Migrations
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)")
+                        .HasColumnType("longblob")
                         .HasColumnName("PasswordHash");
 
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)")
+                        .HasColumnType("longblob")
                         .HasColumnName("PasswordSalt");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("Refresh_token");
 
                     b.Property<DateTime?>("RefreshTokenExpiryTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("Refresh_token_expiry_time");
 
                     b.Property<string>("Role")
@@ -1601,8 +1554,7 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MedicalId")
-                        .IsUnique()
-                        .HasFilter("[MedicalId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Users", "dbo");
 
@@ -1611,15 +1563,16 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            CreatedDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5496),
+                            CreatedDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9896),
                             Email = "admin@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5498),
+                            Language = "pt-BR",
+                            LastAccessDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9896),
                             Login = "admin",
-                            ModifyDate = new DateTime(2023, 4, 10, 19, 30, 11, 503, DateTimeKind.Local).AddTicks(5500),
+                            ModifyDate = new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9897),
                             Name = "User MOCK ",
-                            PasswordHash = new byte[] { 214, 14, 104, 171, 240, 158, 79, 5, 240, 129, 63, 39, 8, 195, 147, 195, 145, 186, 205, 206, 249, 217, 64, 61, 56, 204, 4, 195, 169, 64, 63, 131, 40, 58, 76, 71, 188, 161, 137, 161, 219, 171, 171, 123, 124, 223, 55, 162, 105, 195, 175, 113, 94, 216, 218, 200, 89, 60, 17, 177, 234, 171, 7, 103 },
-                            PasswordSalt = new byte[] { 212, 105, 175, 80, 65, 47, 22, 175, 212, 84, 158, 255, 142, 249, 103, 132, 146, 224, 43, 113, 144, 205, 127, 12, 178, 43, 66, 143, 159, 63, 2, 234, 74, 93, 183, 156, 182, 234, 82, 182, 13, 172, 251, 224, 47, 119, 117, 32, 198, 152, 190, 97, 229, 224, 83, 175, 191, 160, 108, 190, 228, 184, 132, 72, 136, 129, 92, 242, 206, 117, 56, 8, 30, 253, 59, 49, 79, 53, 195, 120, 102, 21, 213, 28, 165, 77, 166, 202, 123, 88, 164, 73, 90, 141, 251, 26, 55, 44, 60, 93, 213, 133, 255, 22, 47, 48, 64, 156, 176, 154, 163, 110, 250, 20, 75, 183, 201, 81, 109, 141, 60, 125, 70, 19, 199, 223, 132, 174 },
+                            PasswordHash = new byte[] { 228, 147, 12, 150, 236, 130, 227, 229, 143, 218, 4, 214, 254, 50, 18, 252, 119, 117, 124, 116, 247, 244, 21, 116, 2, 166, 210, 80, 81, 139, 185, 13, 238, 246, 89, 219, 25, 253, 90, 206, 200, 105, 4, 145, 69, 115, 212, 232, 49, 136, 55, 234, 133, 248, 92, 69, 54, 216, 87, 182, 182, 225, 25, 171 },
+                            PasswordSalt = new byte[] { 168, 235, 141, 44, 135, 0, 93, 147, 153, 64, 220, 2, 254, 187, 0, 89, 101, 56, 99, 208, 30, 218, 163, 29, 132, 176, 217, 38, 204, 83, 232, 105, 231, 219, 14, 208, 231, 11, 5, 71, 205, 130, 253, 238, 34, 91, 16, 178, 231, 155, 155, 0, 188, 214, 48, 141, 111, 252, 44, 53, 128, 2, 200, 239, 6, 2, 81, 93, 127, 120, 245, 155, 240, 154, 93, 223, 189, 196, 23, 209, 12, 12, 35, 203, 34, 4, 232, 127, 90, 69, 115, 130, 194, 116, 59, 27, 94, 145, 8, 27, 20, 70, 225, 105, 181, 245, 243, 119, 27, 78, 126, 209, 225, 56, 169, 121, 88, 178, 204, 158, 103, 24, 26, 208, 255, 128, 193, 190 },
                             Role = "Admin",
                             TimeZone = "E. South America Standard Time"
                         },
@@ -1627,16 +1580,17 @@ namespace SmartDigitalPsico.WebAPI.Migrations
                         {
                             Id = 2L,
                             Admin = false,
-                            CreatedDate = new DateTime(2023, 4, 10, 19, 30, 11, 509, DateTimeKind.Local).AddTicks(8742),
+                            CreatedDate = new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2587),
                             Email = "doctor@sistemas.com",
                             Enable = true,
-                            LastAccessDate = new DateTime(2023, 4, 10, 19, 30, 11, 509, DateTimeKind.Local).AddTicks(8749),
+                            Language = "pt-BR",
+                            LastAccessDate = new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2588),
                             Login = "doctor",
                             MedicalId = 1L,
-                            ModifyDate = new DateTime(2023, 4, 10, 19, 30, 11, 509, DateTimeKind.Local).AddTicks(8750),
+                            ModifyDate = new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2589),
                             Name = "User Medical",
-                            PasswordHash = new byte[] { 96, 136, 209, 146, 236, 217, 100, 69, 84, 82, 68, 247, 2, 32, 150, 31, 3, 240, 238, 142, 249, 25, 29, 167, 61, 225, 151, 191, 130, 208, 240, 106, 80, 90, 72, 254, 167, 85, 42, 240, 163, 23, 99, 177, 136, 163, 4, 140, 110, 179, 219, 143, 92, 48, 146, 190, 112, 204, 87, 39, 6, 20, 247, 89 },
-                            PasswordSalt = new byte[] { 42, 79, 99, 115, 74, 250, 224, 198, 211, 188, 129, 154, 59, 228, 185, 145, 216, 107, 157, 190, 51, 252, 17, 53, 52, 119, 113, 136, 202, 110, 147, 111, 241, 190, 141, 81, 135, 52, 110, 19, 47, 142, 131, 198, 67, 19, 43, 182, 172, 34, 151, 223, 210, 26, 39, 239, 110, 108, 172, 117, 232, 201, 42, 125, 23, 95, 123, 250, 1, 61, 129, 115, 6, 149, 151, 109, 112, 3, 249, 146, 228, 180, 215, 229, 88, 69, 193, 36, 196, 80, 17, 181, 129, 180, 148, 97, 60, 148, 119, 123, 19, 244, 28, 2, 109, 164, 213, 169, 236, 178, 168, 25, 41, 132, 93, 211, 190, 62, 46, 182, 135, 240, 246, 49, 176, 129, 149, 95 },
+                            PasswordHash = new byte[] { 181, 206, 97, 101, 104, 247, 55, 125, 15, 146, 89, 50, 36, 90, 220, 210, 225, 116, 17, 214, 128, 59, 12, 209, 99, 214, 174, 8, 191, 233, 45, 228, 0, 157, 64, 109, 117, 208, 163, 235, 21, 128, 26, 34, 18, 246, 119, 178, 97, 77, 129, 235, 25, 91, 178, 42, 161, 182, 76, 156, 239, 86, 90, 34 },
+                            PasswordSalt = new byte[] { 104, 220, 232, 14, 207, 156, 178, 166, 143, 221, 224, 173, 178, 10, 38, 192, 242, 122, 89, 121, 154, 75, 152, 137, 171, 125, 49, 154, 70, 6, 104, 11, 20, 37, 245, 97, 248, 234, 99, 247, 114, 121, 88, 26, 57, 247, 241, 193, 120, 130, 243, 117, 164, 160, 228, 51, 29, 151, 249, 54, 130, 38, 76, 176, 214, 142, 63, 239, 129, 199, 237, 238, 156, 243, 94, 3, 230, 191, 186, 64, 130, 92, 48, 57, 41, 175, 183, 144, 143, 31, 26, 139, 52, 97, 113, 85, 62, 91, 251, 135, 51, 114, 216, 178, 227, 47, 104, 76, 205, 56, 132, 83, 61, 67, 184, 158, 31, 143, 146, 247, 108, 144, 33, 235, 77, 210, 35, 230 },
                             Role = "Medical",
                             TimeZone = "E. South America Standard Time"
                         });

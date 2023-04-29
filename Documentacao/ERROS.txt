@@ -1,0 +1,19 @@
+2023-04-22 20:55:45 warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+2023-04-22 20:55:45       Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2023-04-22 20:55:45 warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+2023-04-22 20:55:45       No XML encryptor configured. Key {e07b980b-b9c4-4a54-992c-2bd6b6b7fc46} may be persisted to storage in unencrypted form.
+2023-04-22 20:56:12 Unhandled exception. System.InvalidOperationException: Unable to configure HTTPS endpoint. No server certificate was specified, and the default developer certificate could not be found or is out of date.
+2023-04-22 20:56:12 To generate a developer certificate run 'dotnet dev-certs https'. To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.
+2023-04-22 20:56:12 For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
+2023-04-22 20:56:12    at Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(ListenOptions listenOptions, Action`1 configureOptions)
+2023-04-22 20:56:12    at Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(ListenOptions listenOptions)
+2023-04-22 20:56:12    at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+2023-04-22 20:56:12    at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(IEnumerable`1 listenOptions, AddressBindContext context, CancellationToken cancellationToken)
+2023-04-22 20:56:12    at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+2023-04-22 20:56:12    at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+2023-04-22 20:56:12    at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+2023-04-22 20:56:12    at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+2023-04-22 20:56:12    at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+2023-04-22 20:56:12    at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+2023-04-22 20:56:12    at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+2023-04-22 20:56:12    at SmartDigitalPsico.WebAPI.Program.Main(String[] args) in /myapisrc/SmartDigitalPsico.WebAPI/Program.cs:line 10

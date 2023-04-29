@@ -6,9 +6,5 @@
 export const environment = {
   production: false,
   EnableCaptureResponseTolog: true,
-  APIUrl: 'https://smartdigitalpsicoapp.azurewebsites.net/api',// npm start  
-  //APIUrl: 'https://localhost:8080/api',// npm start  
-  //APIUrl: 'https://localhost:57854/api',// npm start  
-  //APIUrl: 'https://localhost:443/api',// DOCKER  
-  //APIUrl: 'http://smartdigitalpsicapi.ddns.net/api',// DNS  
+  APIUrl: 'https://smartdigitalpsicoapp.azurewebsites.net/api'  
 };

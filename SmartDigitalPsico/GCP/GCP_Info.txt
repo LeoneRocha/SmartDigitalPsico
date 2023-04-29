@@ -1,0 +1,2 @@
+https://medium.com/net-core/deploy-an-asp-net-core-app-with-ef-core-and-postgresql-to-google-cloud-be8a06978eb0
+ 

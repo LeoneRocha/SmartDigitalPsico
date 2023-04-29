@@ -9,14 +9,26 @@
 
 4) az acr login --name smartdigitalpsicocr
 
-5) 
+6) docker pull leonecr/sdpapi-imagecloud:latest
+
+7) 
 docker tag leonecr/sdpapiimage:latest smartdigitalpsicocr.azurecr.io/sdpapiimage:latest
 docker tag leonecr/sdpuidashimage:latest smartdigitalpsicocr.azurecr.io/sdpuidashimage:latest
 
 
 docker tag leonecr/sdpapi-imagecloud:latest smartdigitalpsicocr.azurecr.io/sdpapi-imagecloud:latest
 
+-----------------
 
+docker push leonecr/sdpapi-imagecloudsql:latest
+
+
+docker pull leonecr/sdpapi-imagecloudsql:latest
+
+docker tag leonecr/sdpapi-imagecloudsql:latest smartdigitalpsicocr.azurecr.io/sdpapi-imagecloudsql:latest
+
+imagecloudsql
+docker push smartdigitalpsicocr.azurecr.io/sdpapi-imagecloudsql:latest 
 6)
 docker push smartdigitalpsicocr.azurecr.io/sdpapiimage:latest 
 
@@ -24,3 +36,70 @@ docker push smartdigitalpsicocr.azurecr.io/sdpuidashimage:latest
 
 
 docker push smartdigitalpsicocr.azurecr.io/sdpapi-imagecloud:latest 
+
+docker push smartdigitalpsicocr.azurecr.io/sdpapi-imagecloudsql:latest 
+
+akssmartdigitalpsico
+
+smartdigitalpsicoapp
+
+sdpappplan
+
+
+smartdigitalpsiconetwork
+
+Criar um contexto do Azure
+
+
+docker login azure
+
+
+docker context create aci sdpacicontext
+
+Execute docker context ls para confirmar se você adicionou o contexto da ACI aos contextos do Docker:
+ 
+ docker context ls
+
+docker context use sdpacicontext
+
+
+
+gcloud auth login
+autopilot-cluster-smartdigitalpsico
+ 
+
+
+1) gcloud auth configure-docker
+
+2) docker pull leonecr/sdpapi-imagecloud:latest
+
+3) gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-west3-docker.pkg.dev
+
+4) docker tag leonecr/sdpapi-imagecloud:latest southamerica-east1-docker.pkg.dev/smartdigitalpsico/smartdigitalpsicocr/sdpapi-imagecloud:latest
+
+5) gcloud auth configure-docker southamerica-east1-docker.pkg.dev
+
+6) docker push southamerica-east1-docker.pkg.dev/smartdigitalpsico/smartdigitalpsicocr/sdpapi-imagecloud:latest
+
+
+tentar sem o migration rodando testar local mudando o connection 
+
+
+az network public-ip show --resource-group myresourcegroup --name myAGPublicIPAddress --query [ipAddress] --output tsv
+
+
+az container show --name smartdigitalpsicoapp --resource-group smartdigitalpsicogr --query ipAddress.ip --output tsv
+
+
+az network vnet create   --name myVNet   --resource-group smartdigitalpsicogr  --location eastus   --address-prefix 10.0.0.0/16  --subnet-name myAGSubnet   --subnet-prefix 10.0.1.0/24
+
+
+az network vnet subnet create --name myACISubnet  --resource-group smartdigitalpsicogr --vnet-name myVNet   --address-prefix 10.0.2.0/24
+
+
+az network public-ip create  --resource-group smartdigitalpsicogr  --name myAGPublicIPAddress --allocation-method Static --sku Standard
+
+
+10.0.1.4
+
+10.0.1.4

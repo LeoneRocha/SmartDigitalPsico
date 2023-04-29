@@ -1,0 +1,43 @@
+version: '3.4'
+
+name: sdpsic-api-project
+services: 
+  dbSQLSERVER:
+    image: mcr.microsoft.com/mssql/server:latest    
+    restart: always   
+    container_name: smartdigitalpsicoSQLServer
+    environment: 
+      TZ: America/Sao_Paulo
+      ACCEPT_EULA:  "Y"       
+      SA_PASSWORD: docker!123 #sa / #sdpdbauser
+    ports:
+      - 1433:1433
+    networks:
+      - smartdigitalpsiconetwork 
+  smartdigitalpsicowebapi:
+    image: sdpapi-imagecloudsql #local
+    #image: leonecr/sdpapi-imagecloud:latest #sdpapi-image #docker
+    #image:  smartdigitalpsicocr.azurecr.io/sdpapi-imagecloud:latest #azure
+    container_name: sdpapicontainer    
+    build:
+      context: .
+      dockerfile: SmartDigitalPsico.WebAPI/Dockerfile
+    environment:
+      TZ: America/Sao_Paulo
+      ASPNETCORE_ENVIRONMENT: Production 
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    ports: # porta do host:porta do container    
+       - 80:80  
+       - 443:443  
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro  
+    links:
+      - dbSQLSERVER
+    depends_on:
+      - dbSQLSERVER 
+    networks:
+      - smartdigitalpsiconetwork  
+networks:
+  smartdigitalpsiconetwork:
+    driver: bridge      

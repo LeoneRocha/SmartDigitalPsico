@@ -32,7 +32,7 @@ export class GenericService<T, E, ID> implements GenericServiceModel<T, E, ID> {
 
   getAll(): Observable<T[]> {
     let headers = this.getHeaders();
-    console.log(this.baseUrl + this.urlgetAll);   
+    //console.log(this.baseUrl + this.urlgetAll);   
     return this.http.get<T[]>(this.baseUrl + this.urlgetAll, { headers: headers }).pipe(map(response => { return response; }), catchError(this.customHandleError));
   }
 

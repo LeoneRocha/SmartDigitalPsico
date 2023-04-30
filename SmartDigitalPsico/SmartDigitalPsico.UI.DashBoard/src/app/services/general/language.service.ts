@@ -96,24 +96,5 @@ export class LanguageService {
       return "en";
 
     return result;
-  }
-  /*
-  this.translate.get(infoKey).subscribe((res: string) => {
-      //console.log(res);
-      result = res;
-      return result
-  }); */
-  /*  infoKeys.forEach(element => {
-   let infoTranslated = response[element];
-   result.push(infoTranslated);
- });
- .subscribe((res: string[]) => { 
-   infoKeys.forEach(element => {
-     let infoTranslated = res[element];
-     result.push(infoTranslated);
-   });   translateInformations(infoKeys: string[]): Observable<string[]> {
- const observables = infoKeys.map(key => this.translate.get(key));
- return forkJoin(observables);
-}
- });*/
+  } 
 }

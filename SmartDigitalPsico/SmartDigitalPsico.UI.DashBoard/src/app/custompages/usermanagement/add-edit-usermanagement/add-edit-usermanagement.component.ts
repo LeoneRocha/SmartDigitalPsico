@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServiceResponse } from 'app/models/ServiceResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
@@ -16,6 +16,8 @@ import { RoleOptions } from 'app/common/enuns/role-options';
 import { MedicalService } from 'app/services/general/principals/medical.service';
 import { MedicalModel } from 'app/models/principalsmodel/MedicalModel';
 import { LanguageService } from 'app/services/general/language.service';
+import { RoleGroupModel } from 'app/models/simplemodel/RoleGroupModel';
+import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
 @Component({
     moduleId: module.id,
     selector: 'add-edit-usermanagement',
@@ -36,25 +38,29 @@ export class AddEditUserManagementComponent implements OnInit {
     public languagesGlobal: SimpleGeneralModel[];
     public timeZonesGlobal: SimpleGeneralModel[];
     public medicalsOpts: MedicalModel[];
+    public roleGroupOpts: RoleGroupModel[];
 
     estadoBotao_goBackToList = 'inicial';
     estadoBotao_addRegister = 'inicial';
     estadoBotao_updateRegister = 'inicial';
 
     constructor(@Inject(ActivatedRoute) private route: ActivatedRoute
-        , @Inject(UserService) private registerService: UserService
-        , @Inject(GlobalizationCultureService) private globalizationCultureService: GlobalizationCultureService
-        , @Inject(GlobalizationTimeZonesService) private globalizationTimeZonesService: GlobalizationTimeZonesService
-        , @Inject(MedicalService) private medicalService: MedicalService
         , private fb: FormBuilder
         , @Inject(Router) private router: Router
-        , @Inject(LanguageService) private languageService: LanguageService) {
+        , @Inject(UserService) private registerService: UserService
+        , @Inject(MedicalService) private medicalService: MedicalService
+        , @Inject(RoleGroupService) private roleGroupService: RoleGroupService
+        , @Inject(GlobalizationCultureService) private globalizationCultureService: GlobalizationCultureService
+        , @Inject(GlobalizationTimeZonesService) private globalizationTimeZonesService: GlobalizationTimeZonesService
+        , @Inject(LanguageService) private languageService: LanguageService
+    ) {
         this.gerateFormRegister();
-    } 
+    }
     ngOnInit() {
         this.languageService.loadLanguage();
         this.loadGlobalization();
         this.loadMedicals();
+        this.loadRoleGroups();
         this.loadFormParameters();
         this.loadFormRegister();
         if (this.registerId)
@@ -78,7 +84,12 @@ export class AddEditUserManagementComponent implements OnInit {
     }
     loadMedicals() {
         this.medicalService.getAll().subscribe({
-            next: (response: any) => { this.medicalsOpts = response['data']; console.log(response['data']); }, error: (err) => { console.log(err); },
+            next: (response: any) => { this.medicalsOpts = response['data']; }, error: (err) => { console.log(err); },
+        });
+    }
+    loadRoleGroups() {
+        this.roleGroupService.getAll().subscribe({
+            next: (response: any) => { this.roleGroupOpts = response['data']; }, error: (err) => { console.log(err); },
         });
     }
     loadGlobalization() {
@@ -116,22 +127,24 @@ export class AddEditUserManagementComponent implements OnInit {
             formsElement.controls['enableOpt'].disable();
             formsElement.controls['role'].disable();
         }
-    } 
+    }
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
-            next: (response: ServiceResponse<UserModel>) => { this.processLoadRegister(response); }, error: (err) => { this.processLoadRegisterErro(err); },
+            next: (response: ServiceResponse<UserModel>) => { this.processLoadRegister(response); }, error: (err: any) => { this.processLoadRegisterErro(err); },
         });
     }
     addRegister() {
         this.getValuesForm();
         this.registerService.add(this.registerModel).subscribe({
-            next: (response: ServiceResponse<UserModel>) => { this.processAddRegister(response); }, error: (err) => { this.processAddRegisterErro(err); },
+            next: (response: ServiceResponse<UserModel>) => { this.processAddRegister(response); }, error: (err: any) => { this.processAddRegisterErro(err); },
         });
     }
     updateRegister() {
-        this.getValuesForm(); 
+        this.getValuesForm();
         this.registerService.update(this.registerModel).subscribe({
-            next: (response: ServiceResponse<UserModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
+            next: (response: ServiceResponse<UserModel>) => { this.processUpdateRegister(response); }, error: (err: any) => {
+                this.processUpdateRegisterErro(err);
+            },
         });
     }
     processAddRegister(response: ServiceResponse<UserModel>) {
@@ -184,7 +197,7 @@ export class AddEditUserManagementComponent implements OnInit {
             enable: responseData?.enable,
             admin: responseData?.admin,
             role: responseData?.role,
-            roleGroupsIds: responseData?.roleGroupsIds,
+            roleGroupsIds: responseData?.roleGroups?.map(roleGroup => roleGroup.id)
         };
         let modelEntity = this.registerModel;
         formsElement.controls['name'].setValue(modelEntity?.name);
@@ -198,6 +211,8 @@ export class AddEditUserManagementComponent implements OnInit {
         formsElement.controls['adminOpt'].setValue(modelEntity?.admin);
         formsElement.controls['role'].setValue(modelEntity?.role);
         //formsElement.controls['roleGroupsIds'].setValue(modelEntity?.roleGroupsIds);
+        setTimeout(() => { this.setCheckedRoleGroupsIds(modelEntity); }, 500);
+
     }
     isValidFormName(): boolean {
         let isValid = this.registerForm.get('name').errors?.required;
@@ -236,6 +251,10 @@ export class AddEditUserManagementComponent implements OnInit {
         let isValid = this.registerForm.get('timezone').errors?.required;
         return this.registerForm.controls['timezone'].touched && this.registerForm.controls['timezone'].invalid && isValid;
     }
+    isValidFormRoleGroupsIds(): boolean {
+        let isRequired = this.registerForm.get('roleGroupsIds').errors?.required;
+        return this.registerForm.controls['roleGroupsIds'].touched && this.registerForm.controls['roleGroupsIds'].invalid && isRequired;
+    }
     gerateFormRegister() {
         let isPasswordRequired: boolean = true;
 
@@ -256,6 +275,7 @@ export class AddEditUserManagementComponent implements OnInit {
             adminOpt: new FormControl(false, Validators.required),
             role: new FormControl(false, Validators.required),
             medicalId: new FormControl(),
+            roleGroupsIds: this.fb.array<number>([]),
             //roleGroupsIds: new FormControl(false, Validators.required), 
         });
 
@@ -274,8 +294,35 @@ export class AddEditUserManagementComponent implements OnInit {
             enable: formElement.controls['enableOpt']?.value,
             admin: formElement.controls['adminOpt']?.value,
             role: formElement.controls['role']?.value,
-            roleGroupsIds: [],// formElement.controls['roleGroupsIds']?.value,
-        }; 
+            roleGroupsIds: formElement.controls['roleGroupsIds']?.value,
+        };
+    }
+    setCheckedRoleGroupsIds(modelEntity): void {
+        if (modelEntity?.roleGroupsIds) {
+            modelEntity?.roleGroupsIds.forEach(specialtyId => {
+                if (this.roleGroupOpts && this.roleGroupOpts.length > 0) {
+                    const roleGroup = this.roleGroupOpts.find(opt => opt.id === specialtyId);
+                    if (roleGroup) {
+                        roleGroup.selected = true;
+                    }
+                }
+            });
+        }
+    }
+    onCheckboxChange(e) {
+        const checkArray: FormArray = this.registerForm.get('roleGroupsIds') as FormArray;
+        if (e.target.checked) {
+            checkArray.push(new FormControl(e.target.value));
+        } else {
+            let i: number = 0;
+            checkArray.controls.forEach((item: FormControl) => {
+                if (item.value == e.target.value) {
+                    checkArray.removeAt(i);
+                    return;
+                }
+                i++;
+            });
+        }
     }
     createEmptyRegister(): void {
         this.registerModel = {
@@ -293,14 +340,14 @@ export class AddEditUserManagementComponent implements OnInit {
             roleGroupsIds: [],
         };
     }
-    onSelect(selectedValue: string) { 
+    onSelect(selectedValue: string) {
         //demo
     }
     goBackToList() {
         this.router.navigate(['/administrative/usermanagement']);
     }
     gettranslateInformationAsync(key: string): string {
-        let result = this.languageService.translateInformationAsync([key])[0]; 
+        let result = this.languageService.translateInformationAsync([key])[0];
         return result;
     }
     modalSuccessAlert() {
@@ -314,7 +361,7 @@ export class AddEditUserManagementComponent implements OnInit {
             },
             icon: "success"
         });
-    } 
+    }
     modalErroAlert(msgErro: string, response: ServiceResponse<UserModel>) {
         swal.fire({
             title: msgErro,

@@ -8,6 +8,7 @@ using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Domains.Security;
+using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Patient;
@@ -26,20 +27,33 @@ namespace SmartDigitalPsico.Business.Principals
         private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly IRoleGroupRepository _roleGroupRepository;
+
         IConfiguration _configuration;
         ITokenConfiguration _configurationToken;
         private readonly ITokenService _tokenService;
         AuthConfigurationVO _configurationAuth;
-        public UserBusiness(IMapper mapper, IUserRepository entityRepository, IConfiguration configuration
-            , ITokenConfiguration configurationToken, ITokenService tokenService, IOptions<AuthConfigurationVO> configurationAuth, IValidator<User> entityValidator, IApplicationLanguageRepository applicationLanguageRepository, ICacheBusiness cacheBusiness)
+        public UserBusiness(
+              IUserRepository entityRepository
+            , IApplicationLanguageRepository applicationLanguageRepository
+            , IRoleGroupRepository roleGroupRepository
+            , IMapper mapper
+            , IConfiguration configuration
+            , ITokenConfiguration configurationToken
+            , ITokenService tokenService
+            , IOptions<AuthConfigurationVO> configurationAuth
+            , IValidator<User> entityValidator
+            , ICacheBusiness cacheBusiness
+            )
             : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
-            _mapper = mapper;
             _userRepository = entityRepository;
+            _roleGroupRepository = roleGroupRepository;
+            _mapper = mapper;
             _configuration = configuration;
             _configurationToken = configurationToken;
-            _tokenService = tokenService;
             _configurationAuth = configurationAuth.Value;
+            _tokenService = tokenService;
         }
 
         public async Task<ServiceResponse<GetUserAuthenticatedVO>> Login(string login, string password)
@@ -83,7 +97,7 @@ namespace SmartDigitalPsico.Business.Principals
                 entityAdd.CreatedDate = DateTime.Now;
                 entityAdd.ModifyDate = DateTime.Now;
                 entityAdd.LastAccessDate = DateTime.Now;
-                entityAdd.Role = "Pendente";
+                entityAdd.Role = "Pending";
                 entityAdd.Admin = false;
 
                 response = await base.Validate(entityAdd);
@@ -128,13 +142,16 @@ namespace SmartDigitalPsico.Business.Principals
                     entityUpdate.PasswordHash = passwordHash;
                     entityUpdate.PasswordSalt = passwordSalt;
                 }
-                var isAdmin =  updateUser?.Admin.GetValueOrDefault();
-                entityUpdate.Role = string.IsNullOrEmpty(updateUser?.Role) ? "Pending" : updateUser?.Role;
-                entityUpdate.Admin = isAdmin != null && isAdmin == true ? true : false; 
+                var isAdmin = updateUser?.Admin.GetValueOrDefault();
+                entityUpdate.Role = updateUser?.Role;
+                //entityUpdate.Admin = isAdmin != null && isAdmin == true ? true : false; 
 
                 entityUpdate.ModifyDate = DateTime.Now;
-
                 entityUpdate.MedicalId = updateUser?.MedicalId;
+
+                List<RoleGroup> roleGroups = await _roleGroupRepository.FindByIDs(updateUser?.RoleGroupsIds);
+                entityUpdate.RoleGroups.Clear();
+                roleGroups.ForEach(rg=> entityUpdate.RoleGroups.Add(rg));
                  
                 response = await base.Validate(entityUpdate);
 
@@ -147,12 +164,13 @@ namespace SmartDigitalPsico.Business.Principals
 
                     if (response.Success)
                         response.Message = "User Updated.";
-                } 
+                }
             }
-            catch (Exception)
-            {
-
-                throw;
+            catch (Exception ex)
+            { 
+                response.Success = false;
+                response.Errors = SmartDigitalPsico.Domains.Helpers.HandleException.GerateListErrorResponse(ex);
+                response.Message = SmartDigitalPsico.Domains.Helpers.HandleException.GetMessage(ex); 
             }
 
             return response;
@@ -171,8 +189,11 @@ namespace SmartDigitalPsico.Business.Principals
                 entityAdd.CreatedDate = DateTime.Now;
                 entityAdd.ModifyDate = DateTime.Now;
                 entityAdd.LastAccessDate = DateTime.Now;
-                entityAdd.Role = string.IsNullOrEmpty(userRegisterVO?.Role) ? "Pendente" : "";
-                entityAdd.Admin = userRegisterVO?.Admin != null ? true : false;
+                entityAdd.Role = userRegisterVO?.Role;
+                //entityAdd.Admin = userRegisterVO?.Admin != null ? true : false;
+                List<RoleGroup> roleGroups = await _roleGroupRepository.FindByIDs(userRegisterVO?.RoleGroupsIds);
+                entityAdd.RoleGroups = new List<RoleGroup>();
+                roleGroups.ForEach(rg => entityAdd.RoleGroups.Add(rg));
 
                 response = await base.Validate(entityAdd);
 
@@ -305,7 +326,7 @@ namespace SmartDigitalPsico.Business.Principals
                     response.Message = "User not found.";
                     return response;
                 }
-                entityUpdate.Name = updateUser.Name; 
+                entityUpdate.Name = updateUser.Name;
                 entityUpdate.Email = updateUser.Email;
                 entityUpdate.Language = updateUser.Language;
                 entityUpdate.TimeZone = updateUser.TimeZone;
@@ -315,14 +336,14 @@ namespace SmartDigitalPsico.Business.Principals
                     SecurityHelper.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
                     entityUpdate.PasswordHash = passwordHash;
                     entityUpdate.PasswordSalt = passwordSalt;
-                } 
+                }
 
                 entityUpdate.ModifyDate = DateTime.Now;
-                  
+
                 response = await base.Validate(entityUpdate);
 
                 if (response.Success)
-                { 
+                {
                     User entityResponse = await _userRepository.Update(entityUpdate);
                     response.Success = true;
                     response.Data = _mapper.Map<GetUserVO>(entityResponse);

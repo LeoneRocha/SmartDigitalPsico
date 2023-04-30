@@ -62,19 +62,8 @@ export class UserManagementComponent implements OnInit {
                 CaptureTologFunc('retrieveList-usermanagement', response);
             },
             error: (err) => { this.showNotification('top', 'center', this.gettranslateInformationAsync('modalalert.notification.erro.connection'), 'danger'); }
-        });
-
-        // alert('You clicked on Like button');
-    }
-    /* convertListToDataTableRowAndFill(inputArray: any) {
-         //const outputArray = inputArray.map(obj => Object.values(obj)); 
-         let resultData = inputArray.map((item) => {
-             return [item.id, item.description, item.language, item.enable];
-         });
-         this.dataTable.dataRows = resultData;
-         //console.log(resultData);
-     }
- */
+        }); 
+    } 
     executeDeleteRegister(idRegister: number) {
         this.registerService.delete(idRegister).subscribe({
             next: (response: any) => {

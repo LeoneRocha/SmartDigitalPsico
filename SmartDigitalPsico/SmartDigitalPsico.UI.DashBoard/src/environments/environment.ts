@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   EnableCaptureResponseTolog: true,
-  APIUrl: 'https://localhost:8080/api'    
+  APIUrl: 'https://smartdigitalpsicoapi.azurewebsites.net/api'     
 };

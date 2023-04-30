@@ -99,23 +99,23 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-user">
+                <div class="card card-user" *ngIf="registerModel">
                     <div class="image">
                         <img src="../../assets/img/full-screen-image-3.jpg" alt="..." />
                     </div>
                     <div class="content">
-                        <div class="author">
-                            <a href="#">
+                        <div class="author"> 
                                 <img class="avatar border-gray" src="../../assets/img/default-avatar.png" alt="..." />
-
-                                <h4 class="title">Nome do Medico<br />
-                                    <small>michael24</small>
-                                </h4>
-                            </a>
+                                <h3 class="title">{{registerModel?.name}}<br />
+                                </h3>
+                                <h4 class="title">{{registerModel?.medical?.office?.description}}<br />
+                                    <small>{{registerModel.medical?.accreditation}}</small>
+                                </h4> 
                         </div>
-                        <p class="description text-center"> "Lamborghini Mercy <br>
-                            Your chick she so thirsty <br>
-                            I'm in that two seat Lambo"
+                        <p class="description text-center"
+                            *ngFor="let speciality of registerModel.medical?.specialties; let i=index">
+                            {{ speciality?.description }}
+                            <br>
                         </p>
                     </div>
                     <hr>

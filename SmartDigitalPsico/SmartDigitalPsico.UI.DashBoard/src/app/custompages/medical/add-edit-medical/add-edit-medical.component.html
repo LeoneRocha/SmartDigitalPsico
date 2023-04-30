@@ -120,7 +120,7 @@
                                         <div *ngFor="let data of specialtiesOpts; let i=index">
                                             <div class="checkbox checkbox-inline">
                                                 <input [id]="'checkbox' + data.id" type="checkbox" [value]="data.id"
-                                                    (change)="onCheckboxChange($event)" [checked]="data.selected" />
+                                                    (change)="onCheckboxChange($event)" [checked]="data.selected" [disabled]="this.isModeViewForm" />
                                                 <label [for]="'checkbox' + data.id">
                                                     {{data.description}}
                                                 </label>

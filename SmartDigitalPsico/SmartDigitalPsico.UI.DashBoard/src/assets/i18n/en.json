@@ -403,5 +403,19 @@
     "category": "403 - Forbidden",
     "description": "You don't have permission!",
     "backnav": "Back" 
+  }, 
+  "maritalstatusoptions" : {
+    "single": { 
+      "title" : "Single"
+    }, 
+    "married": { 
+      "title" : "Married"
+    }, 
+    "divorced": { 
+      "title" : "Divorced"
+    }, 
+    "other": { 
+      "title" : "other"
+    } 
   }
-}
+} 

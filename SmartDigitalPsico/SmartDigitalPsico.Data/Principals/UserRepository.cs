@@ -40,6 +40,9 @@ namespace SmartDigitalPsico.Repository.Principals
         {
             return await dataset
                 .Include(e => e.RoleGroups)
+                .Include(e => e.Medical)
+                .Include(e => e.Medical.Specialties)
+                .Include(e => e.Medical.Office)
                 .SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
 

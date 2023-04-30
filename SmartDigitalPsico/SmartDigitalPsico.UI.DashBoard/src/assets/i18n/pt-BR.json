@@ -402,5 +402,19 @@
     "category": "403 - Proibido",
     "description": "Você não tem permissão!",
     "backnav": "Voltar"
+  },
+  "maritalstatusoptions": {
+    "single": {
+      "title": "Solteiro(a)"
+    },
+    "married": {
+      "title": "Casado(a)"
+    },
+    "divorced": {
+      "title": "Divorciado(a)"
+    },
+    "other": {
+      "title": "Outro"
+    }
   }
 }

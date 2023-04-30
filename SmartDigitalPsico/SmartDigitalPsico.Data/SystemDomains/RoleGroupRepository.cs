@@ -1,4 +1,5 @@
-﻿using SmartDigitalPsico.Model.Entity.Domains;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartDigitalPsico.Model.Entity.Domains;
 using SmartDigitalPsico.Repository.Context;
 using SmartDigitalPsico.Repository.Contract.SystemDomains;
 using SmartDigitalPsico.Repository.Generic;
@@ -27,6 +28,13 @@ namespace SmartDigitalPsico.Repository.SystemDomains
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public async Task<List<RoleGroup>> FindByIDs(List<long>? roleGroupsIds)
+        {
+            if (roleGroupsIds == null) { return new List<RoleGroup>(); }
+
+            return await dataset.Where(p => roleGroupsIds.Contains(p.Id)).ToListAsync();
         }
         #endregion
     }

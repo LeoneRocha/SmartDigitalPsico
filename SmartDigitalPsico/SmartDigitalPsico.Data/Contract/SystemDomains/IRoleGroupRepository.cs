@@ -5,6 +5,6 @@ namespace SmartDigitalPsico.Repository.Contract.SystemDomains
 {
     public interface IRoleGroupRepository : IRepositoryEntityBaseSimple<RoleGroup>
     {
-
+        Task<List<RoleGroup>> FindByIDs(List<long>? roleGroupsIds);
     }
 }

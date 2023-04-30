@@ -1,6 +1,6 @@
 export const ETypeMaritalStatusOptions = [
-    { code: 0 , name: 'Single' },
-    { code: 1 , name: 'Married' },
-    { code: 2 , name: 'Divorced' },
-    { code: 3 , name: 'Other' }, 
+    { code: 0 , name: 'maritalstatusoptions.single.title' },
+    { code: 1 , name: 'maritalstatusoptions.married.title' },
+    { code: 2 , name: 'maritalstatusoptions.divorced.title' },
+    { code: 3 , name: 'maritalstatusoptions.other.title' }, 
 ];  

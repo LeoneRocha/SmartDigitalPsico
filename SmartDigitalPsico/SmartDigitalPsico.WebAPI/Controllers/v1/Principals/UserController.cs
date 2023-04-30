@@ -32,14 +32,19 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         private void setUserIdCurrent()
         {
             _entityService.SetUserId(base.GetUserIdCurrent());
-        } 
+        }
 
         [HttpGet("FindAll")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
         public async Task<ActionResult<ServiceResponse<List<GetUserVO>>>> FindAll()
         {
             this.setUserIdCurrent();
-            return Ok(await _entityService.FindAll());
+            var response = await _entityService.FindAll();
+            if (!response.Success)
+            {
+                return NotFound(response);
+            }
+            return Ok(response); 
         }
 
         [HttpGet("{id}")]
@@ -73,9 +78,9 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         {
             this.setUserIdCurrent();
             var response = await _entityService.Update(updateEntity);
-            if (response.Data == null)
+            if (!response.Success)
             {
-                return NotFound(response);
+                return BadRequest(response);
             }
             return Ok(response);
         }
@@ -86,9 +91,9 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         {
             this.setUserIdCurrent();
             var response = await _entityService.UpdateProfile(updateEntity);
-            if (response.Data == null)
+            if (!response.Success)
             {
-                return NotFound(response);
+                return BadRequest(response);
             }
             return Ok(response);
         }
@@ -102,9 +107,9 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
             var response = await _entityService.Delete(id);
             if (!response.Success)
             {
-                return NotFound(response);
+                return BadRequest(response);
             }
             return Ok(response);
-        } 
+        }
     }
 }

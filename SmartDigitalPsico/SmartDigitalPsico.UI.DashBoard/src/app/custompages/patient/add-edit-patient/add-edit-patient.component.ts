@@ -345,7 +345,7 @@ export class AddEditPatientComponent implements OnInit {
             addressCity: formElement.controls['addressCity']?.value,
             addressNeighborhood: formElement.controls['addressNeighborhood']?.value,
             addressState: formElement.controls['addressState']?.value,
-            addressStreet: formElement.controls['email']?.value,
+            addressStreet: formElement.controls['addressStreet']?.value,
             cpf: formElement.controls['cpf']?.value,
             dateOfBirth: apiDateOfBirth,
             education: formElement.controls['education']?.value,

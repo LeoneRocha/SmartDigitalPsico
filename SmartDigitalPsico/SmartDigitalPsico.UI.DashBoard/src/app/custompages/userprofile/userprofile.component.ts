@@ -80,7 +80,7 @@ export class UserProfileComponent implements OnInit {
         let paramsUrl = this.route.snapshot.paramMap;
         //formsElement.controls['description'].disable(); 
         this.userLoged = this.authService.getLocalStorageUser();
-        this.registerId = this.userLoged.id; 
+        this.registerId = this.userLoged.id;
     }
     loadRegister() {
         this.registerService.getById(this.registerId).subscribe({
@@ -88,7 +88,7 @@ export class UserProfileComponent implements OnInit {
         });
     }
     updateRegister() {
-        this.getValuesForm(); 
+        this.getValuesForm();
         this.registerService.updateProfile(this.registerModel).subscribe({
             next: (response: ServiceResponse<UserProfileModel>) => { this.processUpdateRegister(response); }, error: (err) => { this.processUpdateRegisterErro(err); },
         });
@@ -126,19 +126,13 @@ export class UserProfileComponent implements OnInit {
             timeZone: responseData?.timeZone,
             medical: responseData?.medical,
         };
-        let modelEntity = this.registerModel;
-
+        let modelEntity = this.registerModel;  
         //User
         formsElement.controls['email'].setValue(modelEntity?.email);
         formsElement.controls['name'].setValue(modelEntity?.name);
         formsElement.controls['password'].setValue(modelEntity?.password);
         formsElement.controls['language'].setValue(modelEntity?.language);
-        formsElement.controls['timeZone'].setValue(modelEntity?.timeZone);
-
-        //Medical
-        //formsElement.controls['accreditation'].setValue(modelEntity?.medical?.accreditation);
-
-        //this.registerModel_Enable = modelEntity?.enable; 
+        formsElement.controls['timeZone'].setValue(modelEntity?.timeZone);  
     }
     isValidFormEmail(): boolean {
         let isValid = this.registerForm.get('email').errors?.required;
@@ -196,7 +190,7 @@ export class UserProfileComponent implements OnInit {
             timeZone: '',
         }
     }
-    onSelect(selectedValue: string) { 
+    onSelect(selectedValue: string) {
         //demo
     }
     gettranslateInformationAsync(key: string): string {

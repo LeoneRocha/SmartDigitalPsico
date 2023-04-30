@@ -9,6 +9,7 @@ import { MedicalService } from 'app/services/general/principals/medical.service'
 import { NgxTranslateModule } from 'app/translate/translate.module';
 import { LanguageService } from 'app/services/general/language.service'; 
 import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
+import { RoleGroupService } from 'app/services/general/simple/rolegroup.service';
 @NgModule({
     imports: [
         CustomPagesModule,
@@ -22,7 +23,7 @@ import { CustomPipesModule } from 'app/common/custompipe/custompipe.module';
     ]
     ,
     providers: [
-        UserService, MedicalService, LanguageService,
+        UserService, MedicalService, LanguageService, RoleGroupService
     ],
 })
 

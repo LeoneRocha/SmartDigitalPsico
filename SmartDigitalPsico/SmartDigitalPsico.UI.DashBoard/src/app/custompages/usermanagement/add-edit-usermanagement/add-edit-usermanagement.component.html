@@ -19,22 +19,24 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name">{{ "general.name.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="name">{{ "general.name.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="text" class="form-control" id="name" name="name"
                                             formControlName="name" maxlength="50"
                                             [ngClass]="!isValidFormName() ? '' : 'error'" />
                                         <small [hidden]="!isValidFormName()" class="text-danger">
-                                            {{ "general.name.required" | translate }}  
+                                            {{ "general.name.required" | translate }}
                                         </small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">{{ "general.email.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="email">{{ "general.email.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="email" class="form-control" id="email" name="email"
                                             formControlName="email" maxlength="50"
                                             [ngClass]="!isValidFormEmail() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormEmail()" class="text-danger">                                            
+                                        <small [hidden]="!isValidFormEmail()" class="text-danger">
                                             {{ "general.email.required" | translate }}
                                         </small>
                                     </div>
@@ -43,11 +45,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="login">{{ "general.login.title" | translate }}:</label> <span class="star">*</span>
+                                        <label for="login">{{ "general.login.title" | translate }}:</label> <span
+                                            class="star">*</span>
                                         <input type="text" class="form-control" id="login" name="login"
                                             formControlName="login" maxlength="50"
                                             [ngClass]="!isValidFormLogin() ? '' : 'error'" />
-                                        <small [hidden]="!isValidFormLogin()" class="text-danger"> 
+                                        <small [hidden]="!isValidFormLogin()" class="text-danger">
                                             {{ "general.login.required" | translate }}
                                         </small>
                                     </div>
@@ -127,10 +130,9 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="role">{{ "medical.title" | translate }}</label> <span
-                                            class="star">*</span>
-                                        <select formControlName="medicalId" required name="medicalId"
-                                            class="form-control" data-style="btn-default btn-block"
+                                        <label for="role">{{ "medical.title" | translate }}</label>
+                                        <select formControlName="medicalId" name="medicalId" class="form-control"
+                                            data-style="btn-default btn-block"
                                             [ngClass]="!isValidFormMedicalId() ? '' : 'error'" data-title="Select"
                                             data-menu-style="dropdown-blue" (change)="onSelect($event.target.value)">
                                             <option value="">{{ "general.select" | translate }}</option>
@@ -142,8 +144,30 @@
                                             {{ "medical.required" | translate }}
                                         </small>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="roleGroupsIds"> {{ "specialty.titles" | translate }}:</label> <span
+                                            class="star">*</span>
+                                        <div *ngFor="let data of roleGroupOpts; let i=index">
+                                            <div class="checkbox checkbox-inline">
+                                                <input [id]="'checkbox' + data.id" type="checkbox" [value]="data.id"
+                                                    (change)="onCheckboxChange($event)" [checked]="data.selected"
+                                                    [disabled]="this.isModeViewForm" />
+                                                <label [for]="'checkbox' + data.id">
+                                                    {{data.description}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <small [hidden]="!isValidFormRoleGroupsIds()" class="text-danger">
+                                            {{ "specialty.requireds" | translate }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">

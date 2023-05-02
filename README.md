@@ -1,3 +1,6 @@
+[![Build status](https://leonecostarocha.visualstudio.com/SMART%20DIGITAL%20PSICO/_apis/build/status/SMART%20DIGITAL%20PSICO-ASP.NET-CI)](https://leonecostarocha.visualstudio.com/SMART%20DIGITAL%20PSICO/_build/latest?definitionId=9)
+
+
 # SmartDigitalPsico
 Atendimento Inteligente Digital De Pacientes de Psicologia
 

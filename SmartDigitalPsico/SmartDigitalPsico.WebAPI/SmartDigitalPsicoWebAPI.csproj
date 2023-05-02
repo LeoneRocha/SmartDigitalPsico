@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="connectionsModels.txt" />
-    <None Remove="CriandoDocker.txt" />
-    <None Remove="DockerfileVS" />
+    <None Remove="connectionsModels.txt" /> 
   </ItemGroup>
 
   <ItemGroup>

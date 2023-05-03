@@ -16,3 +16,5 @@
 
 
  "SmartDigitalPsicoDBConnection": "Data Source=smartdigitalpsicoSQLServer,1433;Initial Catalog=SmartDigitalPsicoDB;User ID=sa;Password=docker!123;Trusted_Connection=False;TrustServerCertificate=True;",
+
+ https://stackoverflow.com/questions/69929652/problem-in-azure-devops-pipeline-restoring-automapper-nuget-package-in-net-6

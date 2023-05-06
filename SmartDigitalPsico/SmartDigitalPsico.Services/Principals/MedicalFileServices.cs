@@ -1,8 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using SmartDigitalPsico.Business.Contracts.Principals;
+using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
+using SmartDigitalPsico.Model.VO.Patient.PatientAdditionalInformation;
 using SmartDigitalPsico.Services.Contracts.Principals;
 using SmartDigitalPsico.Services.Generic;
 
@@ -47,5 +49,14 @@ namespace SmartDigitalPsico.Services.Principals
                 throw;
             }
         }
+         
+        public async Task<ServiceResponse<List<GetMedicalFileVO>>> FindAllByMedical(long medicalId)
+        { 
+            var serviceResponse = new ServiceResponse<List<GetMedicalFileVO>>();
+            serviceResponse = await _entityBusiness.FindAllByMedical(medicalId);
+
+            return serviceResponse;
+        }
+
     }
 }

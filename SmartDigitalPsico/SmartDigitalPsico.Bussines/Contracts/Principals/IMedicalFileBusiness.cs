@@ -12,5 +12,7 @@ namespace SmartDigitalPsico.Business.Contracts.Principals
     {
         Task<bool> DownloadFileById(long fileId);
         Task<bool> PostFileAsync(AddMedicalFileVO entity);
+        
+        Task<ServiceResponse<List<GetMedicalFileVO>>> FindAllByMedical(long medicalId);
     }
 }

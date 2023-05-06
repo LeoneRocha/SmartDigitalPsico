@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -17,31 +16,25 @@ namespace SmartDigitalPsicoWebAPI.Migrations
             migrationBuilder.EnsureSchema(
                 name: "dbo");
 
-            migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateTable(
                 name: "ApplicationCacheLogs",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    DateTimeSlidingExpiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    CacheId = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CacheKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    DateTimeSlidingExpiration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CacheId = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    CacheKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ApplicationCacheLogs", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "ApplicationConfigSetting",
@@ -49,28 +42,23 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EndPointUrl_StorageFiles = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EndPointUrl_Cache = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    EndPointUrl_StorageFiles = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    EndPointUrl_Cache = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     TypeLocationSaveFiles = table.Column<int>(type: "int", nullable: false),
                     TypeLocationCache = table.Column<int>(type: "int", nullable: false),
                     TypeLocationQueeMessaging = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ApplicationConfigSetting", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "ApplicationLanguage",
@@ -78,27 +66,21 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LanguageKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ResourceKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false, defaultValue: "ApplicationLanguage")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LanguageValue = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    LanguageKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    ResourceKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false, defaultValue: "ApplicationLanguage"),
+                    LanguageValue = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ApplicationLanguage", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Genders",
@@ -106,21 +88,18 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
-                    Description = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Description = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genders", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Officies",
@@ -128,21 +107,18 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Officies", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "RoleGroups",
@@ -150,23 +126,19 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
-                    Description = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    RolePolicyClaimCode = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Description = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    RolePolicyClaimCode = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RoleGroups", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Specialties",
@@ -174,21 +146,18 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Specialties", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "InfoTag",
@@ -196,20 +165,19 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
                     MedicalId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InfoTag", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "MedicalFile",
@@ -217,31 +185,26 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
                     MedicalId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FileData = table.Column<byte[]>(type: "longblob", nullable: true),
-                    FileExtension = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FileContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true),
+                    FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    FileExtension = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true),
+                    FileContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     FileSizeKB = table.Column<long>(type: "bigint", nullable: false),
                     TypeLocationSaveFile = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MedicalFile", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Medicals",
@@ -249,24 +212,20 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
-                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     OfficeId = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    Accreditation = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Accreditation = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     TypeAccreditation = table.Column<int>(type: "int", nullable: false),
-                    SecurityKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    SecurityKey = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -278,8 +237,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalTable: "Officies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "MedicalSpecialty",
@@ -306,8 +264,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalTable: "Specialties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Users",
@@ -315,30 +272,23 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
-                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Login = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Login = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false),
                     MedicalId = table.Column<long>(type: "bigint", nullable: true),
-                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
-                    Role = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, defaultValue: "Admin")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Admin = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TimeZone = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Refresh_token = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Refresh_token_expiry_time = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Role = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, defaultValue: "Admin"),
+                    Admin = table.Column<bool>(type: "bit", nullable: false),
+                    Language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true),
+                    TimeZone = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    Refresh_token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Refresh_token_expiry_time = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -350,8 +300,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalTable: "Medicals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Patients",
@@ -359,45 +308,31 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
-                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     MedicalId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
                     GenderId = table.Column<long>(type: "bigint", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Profession = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cpf = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Rg = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Education = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Profession = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    Cpf = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
+                    Rg = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false),
+                    Education = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     MaritalStatus = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AddressStreet = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AddressNeighborhood = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AddressCity = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AddressState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AddressCep = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmergencyContactName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmergencyContactPhoneNumber = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
+                    AddressStreet = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    AddressNeighborhood = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    AddressCity = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    AddressState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    AddressCep = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
+                    EmergencyContactName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    EmergencyContactPhoneNumber = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -428,8 +363,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "RoleGroupUser",
@@ -456,8 +390,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "PatientAdditionalInformations",
@@ -465,18 +398,16 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    FollowUp_Psychiatric = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FollowUp_Neurological = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    FollowUp_Psychiatric = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: true),
+                    FollowUp_Neurological = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -500,8 +431,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "PatientFile",
@@ -509,23 +439,19 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FileData = table.Column<byte[]>(type: "longblob", nullable: true),
-                    FileExtension = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FileContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true),
+                    FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    FileExtension = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true),
+                    FileContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     FileSizeKB = table.Column<long>(type: "bigint", nullable: false),
                     TypeLocationSaveFile = table.Column<int>(type: "int", nullable: false)
                 },
@@ -551,8 +477,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "PatientHospitalizationInformations",
@@ -560,22 +485,19 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    CID = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Observation = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CID = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    Observation = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -599,8 +521,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "PatientInfoTag",
@@ -625,8 +546,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Patients",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "PatientMedicationInformations",
@@ -634,24 +554,20 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Dosage = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Posology = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    MainDrug = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Dosage = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    Posology = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    MainDrug = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -675,8 +591,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "PatientNotificationMessage",
@@ -684,20 +599,19 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    MessagePatient = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsReaded = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ReadingDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Notified = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    NotifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    MessagePatient = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: false),
+                    IsReaded = table.Column<bool>(type: "bit", nullable: false),
+                    ReadingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Notified = table.Column<bool>(type: "bit", nullable: false),
+                    NotifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -721,8 +635,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "PatientRecords",
@@ -730,19 +643,17 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Enable = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enable = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     PatientId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifyUserId = table.Column<long>(type: "bigint", nullable: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Annotation = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AnnotationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastAccessDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Annotation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnnotationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -766,20 +677,19 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "ApplicationConfigSetting",
                 columns: new[] { "Id", "CreatedDate", "Description", "Enable", "EndPointUrl_Cache", "EndPointUrl_StorageFiles", "Language", "LastAccessDate", "ModifyDate", "TypeLocationCache", "TypeLocationQueeMessaging", "TypeLocationSaveFiles" },
-                values: new object[] { 1L, new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9659), "Default", true, "", "", "pt-BR", new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9674), new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9674), 1, 0, 0 });
+                values: new object[] { 1L, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5565), "Default", true, "", "", "pt-BR", new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5578), new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5577), 1, 0, 0 });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "ApplicationLanguage",
                 columns: new[] { "Id", "CreatedDate", "Description", "Enable", "Language", "LanguageKey", "LanguageValue", "LastAccessDate", "ModifyDate" },
-                values: new object[] { 1L, new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9709), "Default", true, "pt-BR", "Default_ptbr", "Padrão", new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9711), new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9710) });
+                values: new object[] { 1L, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5628), "Default", true, "pt-BR", "Default_ptbr", "Padrão", new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5628), new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5628) });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -835,13 +745,13 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 schema: "dbo",
                 table: "Users",
                 columns: new[] { "Id", "Admin", "CreatedDate", "Email", "Enable", "Language", "LastAccessDate", "Login", "MedicalId", "ModifyDate", "Name", "PasswordHash", "PasswordSalt", "Refresh_token", "Refresh_token_expiry_time", "Role", "TimeZone" },
-                values: new object[] { 1L, true, new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9896), "admin@sistemas.com", true, "pt-BR", new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9896), "admin", null, new DateTime(2023, 4, 26, 0, 56, 10, 527, DateTimeKind.Local).AddTicks(9897), "User MOCK ", new byte[] { 228, 147, 12, 150, 236, 130, 227, 229, 143, 218, 4, 214, 254, 50, 18, 252, 119, 117, 124, 116, 247, 244, 21, 116, 2, 166, 210, 80, 81, 139, 185, 13, 238, 246, 89, 219, 25, 253, 90, 206, 200, 105, 4, 145, 69, 115, 212, 232, 49, 136, 55, 234, 133, 248, 92, 69, 54, 216, 87, 182, 182, 225, 25, 171 }, new byte[] { 168, 235, 141, 44, 135, 0, 93, 147, 153, 64, 220, 2, 254, 187, 0, 89, 101, 56, 99, 208, 30, 218, 163, 29, 132, 176, 217, 38, 204, 83, 232, 105, 231, 219, 14, 208, 231, 11, 5, 71, 205, 130, 253, 238, 34, 91, 16, 178, 231, 155, 155, 0, 188, 214, 48, 141, 111, 252, 44, 53, 128, 2, 200, 239, 6, 2, 81, 93, 127, 120, 245, 155, 240, 154, 93, 223, 189, 196, 23, 209, 12, 12, 35, 203, 34, 4, 232, 127, 90, 69, 115, 130, 194, 116, 59, 27, 94, 145, 8, 27, 20, 70, 225, 105, 181, 245, 243, 119, 27, 78, 126, 209, 225, 56, 169, 121, 88, 178, 204, 158, 103, 24, 26, 208, 255, 128, 193, 190 }, null, null, "Admin", "E. South America Standard Time" });
+                values: new object[] { 1L, true, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5906), "admin@sistemas.com", true, "pt-BR", new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5906), "admin", null, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5907), "User MOCK ", new byte[] { 233, 213, 169, 153, 38, 208, 28, 254, 26, 189, 204, 103, 234, 231, 108, 53, 168, 238, 19, 235, 25, 160, 36, 247, 16, 58, 119, 247, 152, 230, 120, 34, 45, 147, 183, 219, 27, 7, 34, 144, 117, 131, 21, 187, 88, 238, 179, 21, 92, 207, 44, 228, 79, 13, 255, 120, 146, 44, 96, 163, 45, 233, 226, 230 }, new byte[] { 12, 76, 181, 122, 102, 216, 25, 247, 97, 29, 196, 102, 100, 91, 31, 234, 233, 245, 93, 34, 129, 215, 236, 172, 166, 195, 55, 155, 178, 12, 138, 229, 50, 14, 250, 252, 158, 206, 189, 212, 156, 205, 169, 84, 109, 53, 174, 118, 212, 114, 174, 55, 128, 47, 126, 102, 100, 19, 1, 190, 245, 198, 79, 148, 204, 9, 48, 113, 93, 99, 36, 171, 71, 108, 3, 201, 19, 49, 217, 15, 240, 133, 1, 163, 186, 129, 172, 180, 121, 181, 181, 113, 132, 218, 116, 97, 162, 166, 114, 81, 233, 120, 98, 28, 92, 1, 242, 120, 172, 110, 125, 88, 122, 155, 126, 217, 215, 2, 92, 156, 238, 62, 53, 115, 155, 247, 170, 57 }, null, null, "Admin", "E. South America Standard Time" });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Medicals",
                 columns: new[] { "Id", "Accreditation", "CreatedDate", "CreatedUserId", "Email", "Enable", "LastAccessDate", "ModifyDate", "ModifyUserId", "Name", "OfficeId", "SecurityKey", "TypeAccreditation", "UserId" },
-                values: new object[] { 1L, "123456", new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2318), 1L, "medical@sistemas.com", true, new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2319), new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2320), null, "Medical MOCK ", 3L, null, 0, null });
+                values: new object[] { 1L, "123456", new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7002), 1L, "medical@sistemas.com", true, new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7004), new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7004), null, "Medical MOCK ", 3L, null, 0, null });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -865,13 +775,13 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 schema: "dbo",
                 table: "Patients",
                 columns: new[] { "Id", "AddressCep", "AddressCity", "AddressNeighborhood", "AddressState", "AddressStreet", "Cpf", "CreatedDate", "CreatedUserId", "DateOfBirth", "Education", "Email", "EmergencyContactName", "EmergencyContactPhoneNumber", "Enable", "GenderId", "LastAccessDate", "MaritalStatus", "MedicalId", "ModifyDate", "ModifyUserId", "Name", "PhoneNumber", "Profession", "Rg" },
-                values: new object[] { 1L, "45675-970", "Aurelino Leal", "Centro", "Bahia", "Avenida Presidente Médici 264", "947.846.605-42", new DateTime(2023, 4, 26, 0, 56, 10, 532, DateTimeKind.Local).AddTicks(3329), 1L, new DateTime(1960, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Superior", "tiago.thales.mendes@andrade.com", "Milena Isabelly Vanessa", "(73) 98540-4268", true, 1L, new DateTime(2023, 4, 26, 0, 56, 10, 532, DateTimeKind.Local).AddTicks(3332), 0, 1L, new DateTime(2023, 4, 26, 0, 56, 10, 532, DateTimeKind.Local).AddTicks(3333), null, "Tiago Thales Mendes", "(73) 2877-3408", "Professor", "13.809.283-7" });
+                values: new object[] { 1L, "45675-970", "Aurelino Leal", "Centro", "Bahia", "Avenida Presidente Médici 264", "947.846.605-42", new DateTime(2023, 5, 6, 13, 45, 32, 249, DateTimeKind.Local).AddTicks(6323), 1L, new DateTime(1960, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Superior", "tiago.thales.mendes@andrade.com", "Milena Isabelly Vanessa", "(73) 98540-4268", true, 1L, new DateTime(2023, 5, 6, 13, 45, 32, 249, DateTimeKind.Local).AddTicks(6327), 0, 1L, new DateTime(2023, 5, 6, 13, 45, 32, 249, DateTimeKind.Local).AddTicks(6327), null, "Tiago Thales Mendes", "(73) 2877-3408", "Professor", "13.809.283-7" });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Users",
                 columns: new[] { "Id", "Admin", "CreatedDate", "Email", "Enable", "Language", "LastAccessDate", "Login", "MedicalId", "ModifyDate", "Name", "PasswordHash", "PasswordSalt", "Refresh_token", "Refresh_token_expiry_time", "Role", "TimeZone" },
-                values: new object[] { 2L, false, new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2587), "doctor@sistemas.com", true, "pt-BR", new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2588), "doctor", 1L, new DateTime(2023, 4, 26, 0, 56, 10, 530, DateTimeKind.Local).AddTicks(2589), "User Medical", new byte[] { 181, 206, 97, 101, 104, 247, 55, 125, 15, 146, 89, 50, 36, 90, 220, 210, 225, 116, 17, 214, 128, 59, 12, 209, 99, 214, 174, 8, 191, 233, 45, 228, 0, 157, 64, 109, 117, 208, 163, 235, 21, 128, 26, 34, 18, 246, 119, 178, 97, 77, 129, 235, 25, 91, 178, 42, 161, 182, 76, 156, 239, 86, 90, 34 }, new byte[] { 104, 220, 232, 14, 207, 156, 178, 166, 143, 221, 224, 173, 178, 10, 38, 192, 242, 122, 89, 121, 154, 75, 152, 137, 171, 125, 49, 154, 70, 6, 104, 11, 20, 37, 245, 97, 248, 234, 99, 247, 114, 121, 88, 26, 57, 247, 241, 193, 120, 130, 243, 117, 164, 160, 228, 51, 29, 151, 249, 54, 130, 38, 76, 176, 214, 142, 63, 239, 129, 199, 237, 238, 156, 243, 94, 3, 230, 191, 186, 64, 130, 92, 48, 57, 41, 175, 183, 144, 143, 31, 26, 139, 52, 97, 113, 85, 62, 91, 251, 135, 51, 114, 216, 178, 227, 47, 104, 76, 205, 56, 132, 83, 61, 67, 184, 158, 31, 143, 146, 247, 108, 144, 33, 235, 77, 210, 35, 230 }, null, null, "Medical", "E. South America Standard Time" });
+                values: new object[] { 2L, false, new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7269), "doctor@sistemas.com", true, "pt-BR", new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7270), "doctor", 1L, new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7271), "User Medical", new byte[] { 244, 177, 156, 6, 44, 150, 97, 9, 131, 148, 85, 246, 67, 119, 72, 245, 146, 226, 46, 112, 236, 193, 113, 193, 19, 91, 41, 139, 240, 231, 146, 235, 14, 98, 164, 177, 109, 157, 37, 136, 174, 67, 113, 94, 154, 62, 97, 31, 41, 64, 249, 249, 69, 178, 39, 7, 226, 129, 25, 241, 205, 47, 83, 146 }, new byte[] { 77, 15, 79, 253, 37, 72, 60, 81, 223, 30, 253, 186, 30, 80, 71, 30, 115, 240, 134, 233, 0, 148, 213, 253, 185, 80, 133, 19, 23, 107, 246, 236, 102, 137, 161, 139, 162, 1, 90, 157, 197, 95, 253, 98, 196, 103, 254, 110, 172, 202, 199, 11, 151, 196, 117, 110, 45, 13, 124, 161, 75, 145, 243, 7, 41, 16, 244, 73, 44, 14, 123, 227, 205, 93, 143, 83, 222, 105, 126, 137, 103, 179, 161, 56, 89, 196, 216, 65, 102, 236, 161, 56, 200, 121, 79, 45, 94, 23, 75, 49, 236, 198, 75, 12, 15, 194, 18, 12, 43, 62, 66, 173, 92, 80, 125, 236, 53, 81, 212, 35, 176, 159, 49, 218, 33, 129, 47, 92 }, null, null, "Medical", "E. South America Standard Time" });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -1101,7 +1011,8 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 schema: "dbo",
                 table: "Users",
                 column: "MedicalId",
-                unique: true);
+                unique: true,
+                filter: "[MedicalId] IS NOT NULL");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_InfoTag_Medicals_MedicalId",

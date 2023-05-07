@@ -194,6 +194,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                     ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    FileName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true),
                     FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     FileExtension = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true),
@@ -448,6 +449,7 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                     ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastAccessDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    FileName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     FilePath = table.Column<string>(type: "varchar(2083)", maxLength: 2083, nullable: true),
                     FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     FileExtension = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true),
@@ -683,13 +685,13 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 schema: "dbo",
                 table: "ApplicationConfigSetting",
                 columns: new[] { "Id", "CreatedDate", "Description", "Enable", "EndPointUrl_Cache", "EndPointUrl_StorageFiles", "Language", "LastAccessDate", "ModifyDate", "TypeLocationCache", "TypeLocationQueeMessaging", "TypeLocationSaveFiles" },
-                values: new object[] { 1L, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5565), "Default", true, "", "", "pt-BR", new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5578), new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5577), 1, 0, 0 });
+                values: new object[] { 1L, new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(4617), "Default", true, "", "", "pt-BR", new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(4676), new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(4675), 1, 0, 0 });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "ApplicationLanguage",
                 columns: new[] { "Id", "CreatedDate", "Description", "Enable", "Language", "LanguageKey", "LanguageValue", "LastAccessDate", "ModifyDate" },
-                values: new object[] { 1L, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5628), "Default", true, "pt-BR", "Default_ptbr", "Padrão", new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5628), new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5628) });
+                values: new object[] { 1L, new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(4779), "Default", true, "pt-BR", "Default_ptbr", "Padrão", new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(4780), new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(4780) });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -745,13 +747,13 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 schema: "dbo",
                 table: "Users",
                 columns: new[] { "Id", "Admin", "CreatedDate", "Email", "Enable", "Language", "LastAccessDate", "Login", "MedicalId", "ModifyDate", "Name", "PasswordHash", "PasswordSalt", "Refresh_token", "Refresh_token_expiry_time", "Role", "TimeZone" },
-                values: new object[] { 1L, true, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5906), "admin@sistemas.com", true, "pt-BR", new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5906), "admin", null, new DateTime(2023, 5, 6, 13, 45, 32, 245, DateTimeKind.Local).AddTicks(5907), "User MOCK ", new byte[] { 233, 213, 169, 153, 38, 208, 28, 254, 26, 189, 204, 103, 234, 231, 108, 53, 168, 238, 19, 235, 25, 160, 36, 247, 16, 58, 119, 247, 152, 230, 120, 34, 45, 147, 183, 219, 27, 7, 34, 144, 117, 131, 21, 187, 88, 238, 179, 21, 92, 207, 44, 228, 79, 13, 255, 120, 146, 44, 96, 163, 45, 233, 226, 230 }, new byte[] { 12, 76, 181, 122, 102, 216, 25, 247, 97, 29, 196, 102, 100, 91, 31, 234, 233, 245, 93, 34, 129, 215, 236, 172, 166, 195, 55, 155, 178, 12, 138, 229, 50, 14, 250, 252, 158, 206, 189, 212, 156, 205, 169, 84, 109, 53, 174, 118, 212, 114, 174, 55, 128, 47, 126, 102, 100, 19, 1, 190, 245, 198, 79, 148, 204, 9, 48, 113, 93, 99, 36, 171, 71, 108, 3, 201, 19, 49, 217, 15, 240, 133, 1, 163, 186, 129, 172, 180, 121, 181, 181, 113, 132, 218, 116, 97, 162, 166, 114, 81, 233, 120, 98, 28, 92, 1, 242, 120, 172, 110, 125, 88, 122, 155, 126, 217, 215, 2, 92, 156, 238, 62, 53, 115, 155, 247, 170, 57 }, null, null, "Admin", "E. South America Standard Time" });
+                values: new object[] { 1L, true, new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(5036), "admin@sistemas.com", true, "pt-BR", new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(5036), "admin", null, new DateTime(2023, 5, 6, 21, 18, 27, 18, DateTimeKind.Local).AddTicks(5037), "User MOCK ", new byte[] { 224, 96, 91, 166, 47, 182, 95, 47, 90, 24, 210, 242, 187, 37, 132, 193, 195, 23, 136, 22, 13, 12, 218, 11, 18, 33, 95, 229, 176, 138, 67, 134, 68, 218, 213, 159, 136, 233, 80, 186, 220, 7, 75, 89, 202, 64, 204, 218, 37, 224, 208, 196, 227, 173, 210, 106, 190, 85, 152, 95, 96, 80, 238, 19 }, new byte[] { 144, 221, 66, 7, 72, 82, 199, 150, 15, 223, 103, 203, 211, 212, 226, 12, 111, 24, 104, 105, 191, 99, 126, 51, 52, 227, 2, 76, 197, 170, 212, 64, 75, 63, 21, 56, 207, 110, 64, 117, 2, 111, 114, 78, 71, 116, 249, 71, 71, 233, 16, 233, 183, 65, 91, 213, 89, 236, 194, 12, 63, 216, 196, 46, 229, 135, 212, 131, 136, 125, 173, 158, 237, 169, 25, 237, 191, 78, 166, 38, 207, 35, 7, 11, 50, 250, 138, 87, 232, 57, 240, 159, 76, 28, 21, 239, 44, 164, 13, 245, 122, 239, 176, 64, 162, 208, 109, 222, 229, 106, 29, 43, 57, 211, 20, 111, 81, 199, 185, 112, 154, 228, 190, 61, 76, 162, 203, 140 }, null, null, "Admin", "E. South America Standard Time" });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Medicals",
                 columns: new[] { "Id", "Accreditation", "CreatedDate", "CreatedUserId", "Email", "Enable", "LastAccessDate", "ModifyDate", "ModifyUserId", "Name", "OfficeId", "SecurityKey", "TypeAccreditation", "UserId" },
-                values: new object[] { 1L, "123456", new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7002), 1L, "medical@sistemas.com", true, new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7004), new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7004), null, "Medical MOCK ", 3L, null, 0, null });
+                values: new object[] { 1L, "123456", new DateTime(2023, 5, 6, 21, 18, 27, 20, DateTimeKind.Local).AddTicks(6682), 1L, "medical@sistemas.com", true, new DateTime(2023, 5, 6, 21, 18, 27, 20, DateTimeKind.Local).AddTicks(6686), new DateTime(2023, 5, 6, 21, 18, 27, 20, DateTimeKind.Local).AddTicks(6686), null, "Medical MOCK ", 3L, null, 0, null });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -775,13 +777,13 @@ namespace SmartDigitalPsicoWebAPI.Migrations
                 schema: "dbo",
                 table: "Patients",
                 columns: new[] { "Id", "AddressCep", "AddressCity", "AddressNeighborhood", "AddressState", "AddressStreet", "Cpf", "CreatedDate", "CreatedUserId", "DateOfBirth", "Education", "Email", "EmergencyContactName", "EmergencyContactPhoneNumber", "Enable", "GenderId", "LastAccessDate", "MaritalStatus", "MedicalId", "ModifyDate", "ModifyUserId", "Name", "PhoneNumber", "Profession", "Rg" },
-                values: new object[] { 1L, "45675-970", "Aurelino Leal", "Centro", "Bahia", "Avenida Presidente Médici 264", "947.846.605-42", new DateTime(2023, 5, 6, 13, 45, 32, 249, DateTimeKind.Local).AddTicks(6323), 1L, new DateTime(1960, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Superior", "tiago.thales.mendes@andrade.com", "Milena Isabelly Vanessa", "(73) 98540-4268", true, 1L, new DateTime(2023, 5, 6, 13, 45, 32, 249, DateTimeKind.Local).AddTicks(6327), 0, 1L, new DateTime(2023, 5, 6, 13, 45, 32, 249, DateTimeKind.Local).AddTicks(6327), null, "Tiago Thales Mendes", "(73) 2877-3408", "Professor", "13.809.283-7" });
+                values: new object[] { 1L, "45675-970", "Aurelino Leal", "Centro", "Bahia", "Avenida Presidente Médici 264", "947.846.605-42", new DateTime(2023, 5, 6, 21, 18, 27, 22, DateTimeKind.Local).AddTicks(7023), 1L, new DateTime(1960, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Superior", "tiago.thales.mendes@andrade.com", "Milena Isabelly Vanessa", "(73) 98540-4268", true, 1L, new DateTime(2023, 5, 6, 21, 18, 27, 22, DateTimeKind.Local).AddTicks(7026), 0, 1L, new DateTime(2023, 5, 6, 21, 18, 27, 22, DateTimeKind.Local).AddTicks(7027), null, "Tiago Thales Mendes", "(73) 2877-3408", "Professor", "13.809.283-7" });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Users",
                 columns: new[] { "Id", "Admin", "CreatedDate", "Email", "Enable", "Language", "LastAccessDate", "Login", "MedicalId", "ModifyDate", "Name", "PasswordHash", "PasswordSalt", "Refresh_token", "Refresh_token_expiry_time", "Role", "TimeZone" },
-                values: new object[] { 2L, false, new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7269), "doctor@sistemas.com", true, "pt-BR", new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7270), "doctor", 1L, new DateTime(2023, 5, 6, 13, 45, 32, 247, DateTimeKind.Local).AddTicks(7271), "User Medical", new byte[] { 244, 177, 156, 6, 44, 150, 97, 9, 131, 148, 85, 246, 67, 119, 72, 245, 146, 226, 46, 112, 236, 193, 113, 193, 19, 91, 41, 139, 240, 231, 146, 235, 14, 98, 164, 177, 109, 157, 37, 136, 174, 67, 113, 94, 154, 62, 97, 31, 41, 64, 249, 249, 69, 178, 39, 7, 226, 129, 25, 241, 205, 47, 83, 146 }, new byte[] { 77, 15, 79, 253, 37, 72, 60, 81, 223, 30, 253, 186, 30, 80, 71, 30, 115, 240, 134, 233, 0, 148, 213, 253, 185, 80, 133, 19, 23, 107, 246, 236, 102, 137, 161, 139, 162, 1, 90, 157, 197, 95, 253, 98, 196, 103, 254, 110, 172, 202, 199, 11, 151, 196, 117, 110, 45, 13, 124, 161, 75, 145, 243, 7, 41, 16, 244, 73, 44, 14, 123, 227, 205, 93, 143, 83, 222, 105, 126, 137, 103, 179, 161, 56, 89, 196, 216, 65, 102, 236, 161, 56, 200, 121, 79, 45, 94, 23, 75, 49, 236, 198, 75, 12, 15, 194, 18, 12, 43, 62, 66, 173, 92, 80, 125, 236, 53, 81, 212, 35, 176, 159, 49, 218, 33, 129, 47, 92 }, null, null, "Medical", "E. South America Standard Time" });
+                values: new object[] { 2L, false, new DateTime(2023, 5, 6, 21, 18, 27, 20, DateTimeKind.Local).AddTicks(7036), "doctor@sistemas.com", true, "pt-BR", new DateTime(2023, 5, 6, 21, 18, 27, 20, DateTimeKind.Local).AddTicks(7037), "doctor", 1L, new DateTime(2023, 5, 6, 21, 18, 27, 20, DateTimeKind.Local).AddTicks(7038), "User Medical", new byte[] { 32, 235, 223, 129, 218, 115, 72, 22, 98, 120, 172, 240, 2, 74, 112, 206, 236, 194, 226, 60, 227, 223, 231, 185, 213, 237, 194, 95, 35, 30, 178, 187, 132, 23, 8, 215, 204, 71, 206, 246, 25, 74, 179, 60, 202, 66, 199, 119, 157, 152, 141, 208, 146, 83, 80, 58, 46, 53, 235, 16, 99, 68, 49, 42 }, new byte[] { 19, 164, 112, 32, 1, 148, 179, 222, 225, 14, 78, 210, 126, 134, 242, 73, 61, 13, 179, 119, 55, 173, 219, 252, 187, 2, 1, 213, 5, 208, 81, 135, 97, 237, 10, 103, 6, 161, 255, 179, 42, 10, 164, 129, 193, 17, 217, 41, 5, 171, 85, 0, 194, 139, 181, 238, 38, 238, 116, 245, 170, 103, 77, 249, 71, 1, 26, 29, 124, 16, 155, 170, 251, 140, 93, 145, 187, 4, 28, 249, 32, 211, 60, 7, 5, 13, 82, 25, 183, 0, 1, 42, 155, 100, 46, 0, 236, 252, 103, 221, 94, 94, 185, 101, 165, 235, 91, 20, 131, 40, 74, 31, 175, 38, 185, 118, 227, 172, 145, 207, 147, 149, 121, 176, 30, 105, 255, 65 }, null, null, "Medical", "E. South America Standard Time" });
 
             migrationBuilder.InsertData(
                 schema: "dbo",

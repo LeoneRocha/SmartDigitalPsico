@@ -17,6 +17,10 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [MaxLength(255)]
         public string? Description { get; set; }
 
+        [Column("FileName", TypeName = "varchar(255)")]
+        [MaxLength(255)]
+        public string? FileName { get; set; }
+
         [Column("FilePath", TypeName = "varchar(2083)")]
         [MaxLength(2083)]
         public string? FilePath { get; set; }

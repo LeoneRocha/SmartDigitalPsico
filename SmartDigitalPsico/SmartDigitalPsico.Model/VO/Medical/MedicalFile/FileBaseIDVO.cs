@@ -15,7 +15,10 @@ namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
         /// Name File
         /// </summary>
         [MaxLength(255)]
-        public string? Description { get; set; }
+        public string? Description { get; set; } 
+        
+        [MaxLength(255)]
+        public string? FileName { get; set; }
 
         [MaxLength(2083)]
         public string? FilePath { get; set; }

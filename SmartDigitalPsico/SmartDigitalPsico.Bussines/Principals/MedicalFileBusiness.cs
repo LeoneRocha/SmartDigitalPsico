@@ -117,7 +117,7 @@ namespace SmartDigitalPsico.Business.Principals
                     if (fileData != null)
                     {
                         string extensioFile = fileData.ContentType.Split('/').Last(); 
-                        entity.FilePath = fileData.FileName;
+                        entity.FilePath = fileData.FileName; 
                         entity.FileContentType = fileData.ContentType;
                         entity.FileExtension = extensioFile.Substring(0, 3);
                         entity.FileSizeKB = fileData.Length / 1024;
@@ -125,6 +125,7 @@ namespace SmartDigitalPsico.Business.Principals
                 }
 
                 MedicalFile entityAdd = _mapper.Map<MedicalFile>(entity);
+                entityAdd.FileName = entity?.FilePath;
 
                 #region Relationship
 

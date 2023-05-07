@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
+using SmartDigitalPsico.Model.Entity.Principals;
 using SmartDigitalPsico.Model.VO.Domains;
 using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Model.VO.Utils;
@@ -69,11 +71,26 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
 
         [HttpGet("Download/{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetMedicalFileVO>>> DownloadFileById(long id)
+        public async Task<ActionResult> DownloadFileById(long id)
         {
             this.setUserIdCurrent();
             var result = await _entityService.DownloadFileById(id);
-            return Ok("Downloaded");
+
+            //FileHelper.GetFromByteSaveTemp(result.FileData, result.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ResourcesTemp", result.FileName);
+            var fileStream = System.IO.File.OpenRead(filePath);
+            var fileBytes = new byte[fileStream.Length];
+            fileStream.Read(fileBytes, 0, (int)fileStream.Length);
+            fileStream.Close();
+
+            var response = new FileContentResult(fileBytes, "application/octet-stream")
+            {
+                FileDownloadName = result.FileName
+            };
+
+            return Ok(response);
+
+            // return Ok("Downloaded");
         }
 
         [HttpPost("Upload")]

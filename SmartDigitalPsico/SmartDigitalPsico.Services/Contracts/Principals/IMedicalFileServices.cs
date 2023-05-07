@@ -9,8 +9,8 @@ namespace SmartDigitalPsico.Services.Contracts.Principals
     public interface IMedicalFileServices : IGenericServicesEntityBaseSimple<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO>
     { 
         Task<bool> PostFileAsync(AddMedicalFileVOService entity);
-         
-        Task<bool> DownloadFileById(long fileID);
+
+        Task<GetMedicalFileVO> DownloadFileById(long fileID);
 
         Task<ServiceResponse<List<GetMedicalFileVO>>> FindAllByMedical(long medicalId);
     }

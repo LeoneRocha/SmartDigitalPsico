@@ -2,6 +2,7 @@ using AutoMapper;
 using Azure;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.CacheManager;
@@ -26,7 +27,7 @@ namespace SmartDigitalPsico.Business.Principals
 {
     public class MedicalFileBusiness : GenericBusinessEntityBaseSimple<MedicalFile, AddMedicalFileVO, UpdateMedicalFileVO, GetMedicalFileVO, IMedicalFileRepository>, IMedicalFileBusiness
 
-    {   
+    {
         private readonly IMapper _mapper;
         IConfiguration _configuration;
         private readonly IMedicalFileRepository _entityRepository;
@@ -116,8 +117,8 @@ namespace SmartDigitalPsico.Business.Principals
                     fileData = entity.FileDetails;
                     if (fileData != null)
                     {
-                        string extensioFile = fileData.ContentType.Split('/').Last(); 
-                        entity.FilePath = fileData.FileName; 
+                        string extensioFile = fileData.ContentType.Split('/').Last();
+                        entity.FilePath = fileData.FileName;
                         entity.FileContentType = fileData.ContentType;
                         entity.FileExtension = extensioFile.Substring(0, 3);
                         entity.FileSizeKB = fileData.Length / 1024;
@@ -157,34 +158,30 @@ namespace SmartDigitalPsico.Business.Principals
             return true;
         }
 
-        public async Task<bool> DownloadFileById(long fileId)
+        public async Task<GetMedicalFileVO> DownloadFileById(long fileId)
         {
             var userAutenticated = await _userRepository.FindByID(this.UserId);
 
             var fileEntity = await _entityRepository.FindByID(fileId);
 
-            if (userAutenticated != null && fileEntity != null
-                && fileEntity?.Medical?.Id == userAutenticated?.Medical?.Id)
-            {
-                return false;
-            }
+            GetMedicalFileVO resultVO = _mapper.Map<GetMedicalFileVO>(fileEntity);
 
             if (fileEntity != null)
             {
                 if (_locationSaveFileConfigurationVO.TypeLocationSaveFiles == ETypeLocationSaveFiles.DataBase && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.DataBase)
                 {
-                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.Description);
+                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.FileName);
                 }
 
                 if (_locationSaveFileConfigurationVO.TypeLocationSaveFiles == ETypeLocationSaveFiles.Disk && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.Disk)
                 {
                     fileEntity.FileData = await getFromDisk(fileEntity);
 
-                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.Description);
+                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.FileName);
                 }
-            }
+            } 
 
-            return true;
+            return resultVO;
         }
 
         private async Task<string?> persistFile(AddMedicalFileVO entity, IFormFile fileData, MedicalFile entityAdd)

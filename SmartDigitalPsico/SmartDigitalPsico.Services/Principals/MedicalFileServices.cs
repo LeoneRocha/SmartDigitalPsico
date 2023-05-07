@@ -14,7 +14,7 @@ namespace SmartDigitalPsico.Services.Principals
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMedicalFileBusiness _entityBusiness;
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
         public MedicalFileServices(IMapper mapper, IMedicalFileBusiness entityBusiness, IHttpContextAccessor httpContextAccessor)
             : base(mapper, entityBusiness)
         {
@@ -23,35 +23,35 @@ namespace SmartDigitalPsico.Services.Principals
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<bool> DownloadFileById(long fileId)
+        public async Task<GetMedicalFileVO> DownloadFileById(long fileId)
         {
             try
-            { 
-                return await _entityBusiness.DownloadFileById(fileId); 
+            {
+                return await _entityBusiness.DownloadFileById(fileId);
             }
             catch (Exception)
             {
                 throw;
-            } 
-            return false;
+            }
+            return null;
         }
 
-      
+
         public async Task<bool> PostFileAsync(AddMedicalFileVOService entity)
         {
             try
             {
-                AddMedicalFileVO entityAdd = _mapper.Map<AddMedicalFileVO>(entity);                 
-                return await _entityBusiness.PostFileAsync(entityAdd); 
+                AddMedicalFileVO entityAdd = _mapper.Map<AddMedicalFileVO>(entity);
+                return await _entityBusiness.PostFileAsync(entityAdd);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-         
+
         public async Task<ServiceResponse<List<GetMedicalFileVO>>> FindAllByMedical(long medicalId)
-        { 
+        {
             var serviceResponse = new ServiceResponse<List<GetMedicalFileVO>>();
             serviceResponse = await _entityBusiness.FindAllByMedical(medicalId);
 

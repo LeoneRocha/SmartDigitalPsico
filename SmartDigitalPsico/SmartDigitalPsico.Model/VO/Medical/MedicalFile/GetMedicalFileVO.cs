@@ -12,5 +12,6 @@ namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
         #endregion Relationship
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
+        public FileStream? DataFileStream { get; set; }
     }
 }

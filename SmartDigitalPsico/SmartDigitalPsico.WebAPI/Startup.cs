@@ -187,10 +187,11 @@ namespace SmartDigitalPsico.WebAPI
             {
                 builder.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .WithExposedHeaders("Content-Disposition");
             }));
         }
-        #endregion
+        #endregion  
 
         #region Version
         private void addVersionning(IServiceCollection services)

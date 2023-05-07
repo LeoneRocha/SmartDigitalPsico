@@ -62,7 +62,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         {
             this.setUserIdCurrent();
             var response = await _entityService.Delete(id);
-            if (response.Data)
+            if (!response.Success)
             {
                 return NotFound(response);
             }
@@ -75,22 +75,9 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
         {
             this.setUserIdCurrent();
             var result = await _entityService.DownloadFileById(id);
-
-            //FileHelper.GetFromByteSaveTemp(result.FileData, result.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ResourcesTemp", result.FileName);
-            var fileStream = System.IO.File.OpenRead(filePath);
-            var fileBytes = new byte[fileStream.Length];
-            fileStream.Read(fileBytes, 0, (int)fileStream.Length);
-            fileStream.Close();
-
-            var response = new FileContentResult(fileBytes, "application/octet-stream")
-            {
-                FileDownloadName = result.FileName
-            };
-
-            return Ok(response);
-
-            // return Ok("Downloaded");
+            var response = FileHelper.ProccessDownloadToBrowser("ResourcesTemp", result.FileName);
+            return response;
+            //return Ok(response); 
         }
 
         [HttpPost("Upload")]

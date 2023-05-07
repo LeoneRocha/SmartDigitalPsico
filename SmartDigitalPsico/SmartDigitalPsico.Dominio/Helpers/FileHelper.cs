@@ -7,7 +7,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace SmartDigitalPsico.Domains.Helpers
 {
@@ -104,6 +105,45 @@ namespace SmartDigitalPsico.Domains.Helpers
             {
                 Directory.CreateDirectory(diretorioTemp);
             } 
+        }
+
+        public static string GetContentType(string filePath)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            string contentType;
+            if (!provider.TryGetContentType(filePath, out contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+            return contentType;
+        }
+
+        public static string GetFilePath(string folderOrigin, string fileName)
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), folderOrigin, fileName);
+        }
+
+        public static string GetSameName(string fileName)
+        {
+            string[] nameparts = fileName.Split(new char[] { '.' });
+            return nameparts.First().Trim();
+        }
+
+        public static FileContentResult ProccessDownloadToBrowser(string folderOrigin, string fileName)
+        {
+            var filePath = FileHelper.GetFilePath(folderOrigin, fileName);
+            var fileStream = System.IO.File.OpenRead(filePath);
+            var contentType = FileHelper.GetContentType(filePath);
+            var fileBytes = new byte[fileStream.Length];
+            fileStream.Read(fileBytes, 0, (int)fileStream.Length);
+            fileStream.Close();
+            var response = new FileContentResult(fileBytes, contentType)
+            {
+                LastModified = DateTime.Now,
+                FileDownloadName = FileHelper.GetSameName(fileName),
+            };
+
+            return response;
         }
     }
 }

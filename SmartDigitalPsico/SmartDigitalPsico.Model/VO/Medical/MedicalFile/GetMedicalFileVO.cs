@@ -13,5 +13,6 @@ namespace SmartDigitalPsico.Model.VO.Medical.MedicalFile
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
         public FileStream? DataFileStream { get; set; }
+        public string? FileUrl { get; set; }
     }
 }

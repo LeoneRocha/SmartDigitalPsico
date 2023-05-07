@@ -60,6 +60,20 @@ namespace SmartDigitalPsico.Business.Principals
             return result;
         }
 
+        public async override Task<ServiceResponse<GetMedicalFileVO>> FindByID(long id)
+        {
+            ServiceResponse<GetMedicalFileVO> response = new ServiceResponse<GetMedicalFileVO>();
+            response = await base.FindByID(id);
+
+            if (string.IsNullOrEmpty(response.Data.FilePath))
+            {
+                FileHelper.GetFromByteSaveTemp(response?.Data?.FileData, response?.Data?.FileName);
+                response.Data.FileUrl = FileHelper.GetFilePath("ResourcesTemp", response?.Data?.FileName);
+            } 
+            return response;
+        }
+
+          
         public async Task<ServiceResponse<List<GetMedicalFileVO>>> FindAllByMedical(long medicalId)
         {
             ServiceResponse<List<GetMedicalFileVO>> response = new ServiceResponse<List<GetMedicalFileVO>>();
@@ -96,11 +110,7 @@ namespace SmartDigitalPsico.Business.Principals
                        ("RegisterIsFound", base._applicationLanguageRepository, base._cacheBusiness);
             return response;
         }
-
-        public override Task<ServiceResponse<bool>> Delete(long id)
-        {
-            return base.EnableOrDisable(id);
-        }
+         
         public override Task<ServiceResponse<GetMedicalFileVO>> Update(UpdateMedicalFileVO item)
         {
             throw new NotImplementedException("Not Permission");

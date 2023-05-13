@@ -69,8 +69,7 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Principals
             return Ok(response);
         }
 
-        [HttpGet("Download/{id}")]
-        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
+        [HttpGet("Download/{id}")]        
         public async Task<ActionResult> DownloadFileById(long id)
         {
             this.setUserIdCurrent();

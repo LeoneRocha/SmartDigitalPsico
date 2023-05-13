@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Filters;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.VO.Domains;
@@ -62,31 +63,39 @@ namespace SmartDigitalPsico.WebAPI.Controllers.v1.Patient
         }
 
 
-        [HttpGet("Download/{id}")]
-        [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<ServiceResponse<GetPatientFileVO>>> DownloadFileById(long id)
+        [HttpGet("Download/{id}")]        
+        public async Task<ActionResult> DownloadFileById(long id)
         {
             this.setUserIdCurrent();
             var result = await _entityService.DownloadFileById(id);
-            return Ok("Downloaded");
+            var response = FileHelper.ProccessDownloadToBrowser("ResourcesTemp", result.FileName);
+            return response;
         }
 
         [HttpPost("Upload")]
         [TypeFilter(typeof(HyperMediaFilter))]//HyperMedia somente verbos que tem retorno 
-        public async Task<ActionResult<string>> Create([FromForm] AddPatientFileVOService newEntity)
+        public async Task<ActionResult<GetPatientFileVO>> Create([FromForm] AddPatientFileVOService newEntity)
         {
             this.setUserIdCurrent();
+            ServiceResponse<GetPatientFileVO> response = new ServiceResponse<GetPatientFileVO>();
+
             try
             {
-                await _entityService.PostFileAsync(newEntity);
+                response.Data = null;
+                response.Success = await _entityService.PostFileAsync(newEntity);
+                response.Message = $"Upload success!";
+                if (!response.Success)
+                {
+                    response.Message = $"Upload fail";
+                    return BadRequest(response);
+                }
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex}");
-            }
-
-            return Ok($"Upload Succed");
-        }
-
+                response.Message = $"Upload fail";
+                return BadRequest(response);
+            } 
+        } 
     }
 }

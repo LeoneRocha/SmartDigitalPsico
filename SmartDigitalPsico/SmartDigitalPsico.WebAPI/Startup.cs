@@ -219,6 +219,7 @@ namespace SmartDigitalPsico.WebAPI
             switch (etypeDataBase)
             {
                 case ETypeDataBase.Mysql:
+                case ETypeDataBase.MysqlCloudSQL:
                     connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMySQL");
                     services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
                     options.UseMySql(connection, ServerVersion.AutoDetect(connection)
@@ -227,23 +228,11 @@ namespace SmartDigitalPsico.WebAPI
                         b.MigrationsAssembly("SmartDigitalPsicoWebAPI");
                         b.SchemaBehavior(MySqlSchemaBehavior.Ignore);
                     }));
-                    //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
                     break;
                 case ETypeDataBase.MSsqlServer:
                     connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnection");
                     services.AddDbContext<SmartDigitalPsicoDataContext>(options => options.UseSqlServer(connection,
                         b => b.MigrationsAssembly("SmartDigitalPsicoWebAPI")));
-                    break;
-                case ETypeDataBase.MysqlGoogleCloudSQL:
-                    connection = Configuration.GetConnectionString("SmartDigitalPsicoDBConnectionMysqlGoogleCloudSQL");
-                    services.AddDbContext<SmartDigitalPsicoDataContext>(options =>
-                    options.UseMySql(connection, ServerVersion.AutoDetect(connection)
-                    , b =>
-                    {
-                        b.MigrationsAssembly("SmartDigitalPsicoWebAPI");
-                        b.SchemaBehavior(MySqlSchemaBehavior.Ignore);
-                    }));
-                    //migreted = _Environment.IsDevelopment() ? migrateDatabaseMySql(connection) : false;
                     break;
                 default:
                     break;

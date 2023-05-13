@@ -23,7 +23,7 @@ namespace SmartDigitalPsico.Services.Principals
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<bool> DownloadFileById(long fileId)
+        public async Task<GetPatientFileVO> DownloadFileById(long fileId)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace SmartDigitalPsico.Services.Principals
             {
                 throw;
             }
-            return false;
+            return null;
         } 
         public async Task<bool> PostFileAsync(AddPatientFileVOService entity)
         {

@@ -3,6 +3,7 @@ using Azure;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using SmartDigitalPsico.Business.CacheManager;
 using SmartDigitalPsico.Business.Contracts.Principals;
 using SmartDigitalPsico.Business.Generic;
@@ -10,6 +11,8 @@ using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Domains.Helpers;
 using SmartDigitalPsico.Domains.Hypermedia.Utils;
 using SmartDigitalPsico.Model.Entity.Principals;
+using SmartDigitalPsico.Model.VO.Domains;
+using SmartDigitalPsico.Model.VO.Medical.MedicalFile;
 using SmartDigitalPsico.Model.VO.Patient.PatientFile;
 using SmartDigitalPsico.Model.VO.User;
 using SmartDigitalPsico.Repository.Contract.Principals;
@@ -23,24 +26,26 @@ namespace SmartDigitalPsico.Business.Principals
     {
         private readonly IMapper _mapper;
         IConfiguration _configuration;
-        private ETypeLocationSaveFiles _localSalvar = ETypeLocationSaveFiles.Disk;
         private readonly IUserRepository _userRepository;
         private readonly IPatientFileRepository _entityRepository;
         private readonly IPatientRepository _patientRepository;
         private readonly IRepositoryFileDisk _repositoryFileDisk;
+        private readonly LocationSaveFileConfigurationVO _locationSaveFileConfigurationVO;
 
         public PatientFileBusiness(IMapper mapper, IPatientFileRepository entityRepository, IConfiguration configuration,
             IUserRepository userRepository, IPatientRepository patientRepository
             , IValidator<PatientFile> entityValidator
             , IApplicationLanguageRepository applicationLanguageRepository
-            , ICacheBusiness cacheBusiness)
-            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository,cacheBusiness)
+            , ICacheBusiness cacheBusiness
+            , IOptions<LocationSaveFileConfigurationVO> locationSaveFileConfigurationVO)
+            : base(mapper, entityRepository, entityValidator, applicationLanguageRepository, cacheBusiness)
         {
             _mapper = mapper;
             _configuration = configuration;
             _entityRepository = entityRepository;
             _userRepository = userRepository;
             _patientRepository = patientRepository;
+            _locationSaveFileConfigurationVO = locationSaveFileConfigurationVO.Value;
         }
 
         public override Task<ServiceResponse<bool>> Delete(long id)
@@ -62,7 +67,6 @@ namespace SmartDigitalPsico.Business.Principals
                     if (fileData != null)
                     {
                         string extensioFile = fileData.ContentType.Split('/').Last();
-                        entity.Description = fileData.FileName;
                         entity.FilePath = fileData.FileName;
                         entity.FileContentType = fileData.ContentType;
                         entity.FileExtension = extensioFile.Substring(0, 3);
@@ -71,7 +75,7 @@ namespace SmartDigitalPsico.Business.Principals
                 }
 
                 PatientFile entityAdd = _mapper.Map<PatientFile>(entity);
-
+                entityAdd.FileName = entity?.FilePath;
                 #region Relationship
 
                 entityAdd.Patient = await _patientRepository.FindByID(entity.PatientId);
@@ -86,7 +90,7 @@ namespace SmartDigitalPsico.Business.Principals
                 User userAction = await _userRepository.FindByID(this.UserId);
                 entityAdd.CreatedUser = userAction;
 
-                response = await base.Validate(entityAdd);
+                //response = await base.Validate(entityAdd);
 
                 if (response.Success)
                 {
@@ -94,42 +98,37 @@ namespace SmartDigitalPsico.Business.Principals
                     PatientFile entityResponse = await _entityRepository.Create(entityAdd);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
             return true;
         }
 
-        public async Task<bool> DownloadFileById(long fileId)
+        public async Task<GetPatientFileVO> DownloadFileById(long fileId)
         {
             var userAutenticated = await _userRepository.FindByID(this.UserId);
-
             var fileEntity = await _entityRepository.FindByID(fileId);
+            GetPatientFileVO resultVO = _mapper.Map<GetPatientFileVO>(fileEntity);
 
-            if (userAutenticated != null && fileEntity != null
-                && fileEntity?.Patient.Medical.Id == userAutenticated?.Medical?.Id)
-            {
-                return false;
-            }
             if (fileEntity != null)
             {
-                if (_localSalvar == ETypeLocationSaveFiles.DataBase && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.DataBase)
+                if (_locationSaveFileConfigurationVO.TypeLocationSaveFiles == ETypeLocationSaveFiles.DataBase && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.DataBase)
                 {
-                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.Description);
+                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.FileName);
                 }
 
-                if (_localSalvar == ETypeLocationSaveFiles.Disk && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.Disk)
+                if (_locationSaveFileConfigurationVO.TypeLocationSaveFiles == ETypeLocationSaveFiles.Disk && fileEntity.TypeLocationSaveFile == ETypeLocationSaveFiles.Disk)
                 {
                     fileEntity.FileData = await getFromDisk(fileEntity);
 
-                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.Description);
+                    FileHelper.GetFromByteSaveTemp(fileEntity.FileData, fileEntity.FileName);
                 }
             }
 
-            return true;
+            return resultVO;
         }
 
         private async Task<string?> persistFile(AddPatientFileVO entity, IFormFile fileData, PatientFile entityAdd)
@@ -141,13 +140,13 @@ namespace SmartDigitalPsico.Business.Principals
 
             byte[] fileDataSave = await FileHelper.GetByteDataFromIFormFile(fileData);
 
-            if (_localSalvar == ETypeLocationSaveFiles.DataBase)
+            if (_locationSaveFileConfigurationVO.TypeLocationSaveFiles == ETypeLocationSaveFiles.DataBase)
             {
                 entityAdd.FileData = fileDataSave;
                 entityAdd.TypeLocationSaveFile = ETypeLocationSaveFiles.DataBase;
                 folderDest = null;
             }
-            if (_localSalvar == ETypeLocationSaveFiles.Disk)
+            if (_locationSaveFileConfigurationVO.TypeLocationSaveFiles == ETypeLocationSaveFiles.Disk)
             {
                 await _repositoryFileDisk.Save(new FileData()
                 {

@@ -131,19 +131,25 @@ namespace SmartDigitalPsico.Domains.Helpers
 
         public static FileContentResult ProccessDownloadToBrowser(string folderOrigin, string fileName)
         {
-            var filePath = FileHelper.GetFilePath(folderOrigin, fileName);
-            var fileStream = System.IO.File.OpenRead(filePath);
-            var contentType = FileHelper.GetContentType(filePath);
-            var fileBytes = new byte[fileStream.Length];
-            fileStream.Read(fileBytes, 0, (int)fileStream.Length);
-            fileStream.Close();
-            var response = new FileContentResult(fileBytes, contentType)
+            try
             {
-                LastModified = DateTime.Now,
-                FileDownloadName = FileHelper.GetSameName(fileName),
-            };
-
-            return response;
+                var filePath = FileHelper.GetFilePath(folderOrigin, fileName);
+                var fileStream = System.IO.File.OpenRead(filePath);
+                var contentType = FileHelper.GetContentType(filePath);
+                var fileBytes = new byte[fileStream.Length];
+                fileStream.Read(fileBytes, 0, (int)fileStream.Length);
+                fileStream.Close();
+                var response = new FileContentResult(fileBytes, contentType)
+                {
+                    LastModified = DateTime.Now,
+                    FileDownloadName = FileHelper.GetSameName(fileName),
+                };
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex; 
+            } 
         }
     }
 }

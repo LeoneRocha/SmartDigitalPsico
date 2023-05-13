@@ -9,6 +9,6 @@ namespace SmartDigitalPsico.Services.Contracts.Principals
     {
         Task<bool> PostFileAsync(AddPatientFileVOService entity);
 
-        Task<bool> DownloadFileById(long fileID);
+        Task<GetPatientFileVO> DownloadFileById(long fileID);
     }
 }

@@ -19,6 +19,9 @@ namespace SmartDigitalPsico.Model.VO.Patient.PatientFile
         public string FilePath { get; set; }
 
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+        
+        public string FileName { get; set; }
+
         #endregion Columns  
 
     }

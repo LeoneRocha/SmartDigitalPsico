@@ -10,6 +10,14 @@
 }
 
 
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1439; Database=SmartDigitalPsicoDB; Trusted_Connection=true;",
+    "SmartDigitalPsicoDBConnection": "Server=localhost,1499;Database=SmartDigitalPsicoDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+    "SmartDigitalPsicoDBConnectionMySQL": "Server=localhost;Database=smartdigitalpsicodb;Uid=root;Pwd=my!SQ@ladmin123;Port=3309;",
+    "SmartDigitalPsicoDBConnectionMysqlCloudSQL": "Server=35.192.215.204;Database=smartdigitalpsicodb;Uid=root;Pwd=my!SQ@ladmin123;Port=3306;"
+  },
+
+
  "applicationUrl": "https://localhost:8080;https://localhost:5000"
 
  EM PROPERTIES 

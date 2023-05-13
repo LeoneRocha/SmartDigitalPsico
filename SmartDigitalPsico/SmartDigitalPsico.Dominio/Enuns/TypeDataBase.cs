@@ -6,7 +6,7 @@ namespace SmartDigitalPsico.Domains.Enuns
     {
         MSsqlServer = 0,
         Mysql= 1,
-        Postgree = 2,
-        MysqlCloudSQL = 3,
+        Postgree = 3,
+        FireBase = 4,
     }
 }

@@ -147,10 +147,7 @@ namespace SmartDigitalPsico.Repository.Helper
             modelBuilder.Entity<User>().HasData(newAddUserMedical);
 
             modelBuilder.Entity<User>().HasMany(p => p.RoleGroups).WithMany(p => p.Users).UsingEntity(j => j.HasData(
-                new { RoleGroupsId = (long)1, UsersId = (long)1 },
-                new { RoleGroupsId = (long)2, UsersId = (long)1 },
-                new { RoleGroupsId = (long)3, UsersId = (long)1 },
-                new { RoleGroupsId = (long)4, UsersId = (long)1 },
+                new { RoleGroupsId = (long)1, UsersId = (long)1 }, 
                 new { RoleGroupsId = (long)2, UsersId = (long)2 }));
 
             #region Patient
@@ -173,7 +170,7 @@ namespace SmartDigitalPsico.Repository.Helper
                 Enable = true,
                 LastAccessDate = DateTime.Now,
                 ModifyDate = DateTime.Now,
-                CreatedUserId = 1,
+                CreatedUserId = 2,
                 AddressCep = "45675-970",
                 AddressCity = "Aurelino Leal",
                 AddressNeighborhood = "Centro",

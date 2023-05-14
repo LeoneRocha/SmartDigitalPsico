@@ -26,7 +26,10 @@ namespace SmartDigitalPsico.Model.VO.Medical
         [MaxLength(100)]
         [Required]
         public string Email { get; set; }
-         
+
+        [MaxLength(20)]
+        [Required]
+        public string Accreditation;
 
         public ETypeAccreditation TypeAccreditation { get; set; }
          

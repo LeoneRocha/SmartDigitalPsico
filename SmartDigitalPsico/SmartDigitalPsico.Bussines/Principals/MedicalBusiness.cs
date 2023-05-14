@@ -111,7 +111,7 @@ namespace SmartDigitalPsico.Business.Principals
 
                 #region Columns
                 entityUpdate.Enable = item.Enable;
-                //entityUpdate.Accreditation = item.Accreditation;
+                entityUpdate.Accreditation = item.Accreditation;
                 entityUpdate.Name = item.Name;
                 entityUpdate.Email = item.Email;
 

@@ -29,7 +29,7 @@
 
  Server=35.192.215.204;Database=smartdigitalpsicodb;Uid=root;Pwd=mysdpSQladmin123;Port=3306;
 
- Server= ;Database=smartdigitalpsicodb;Uid=root;Pwd=mysdpSQladmin123;Port=3306;
+ Server=smartdigitalpsicosvdb.cmboro8zgs93.us-east-2.rds.amazonaws.com;Database=smartdigitalpsicodb;Uid=root;Pwd=mysdpSQladmin123;Port=3306;
 
 
 

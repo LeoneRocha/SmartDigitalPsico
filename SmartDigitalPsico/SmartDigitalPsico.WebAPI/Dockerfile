@@ -2,7 +2,7 @@
 # Imagem base
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /myapi
-EXPOSE 8080
+EXPOSE 80
 EXPOSE 443  
 
 
@@ -15,19 +15,19 @@ COPY ["SmartDigitalPsico.Dominio/SmartDigitalPsico.Domains.csproj", "SmartDigita
 COPY ["SmartDigitalPsico.Services/SmartDigitalPsico.Services.csproj", "SmartDigitalPsico.Services/"]
 COPY ["SmartDigitalPsico.Bussines/SmartDigitalPsico.Business.csproj", "SmartDigitalPsico.Bussines/"]
 COPY ["SmartDigitalPsico.Data/SmartDigitalPsico.Repository.csproj", "SmartDigitalPsico.Data/"]
-# Restaura as dependências do projeto
+# Restaura as dependencias do projeto
 RUN dotnet restore "SmartDigitalPsico.WebAPI/SmartDigitalPsicoWebAPI.csproj"
-# Copia do código fonte
+# Copia do codigo fonte
 COPY . .
 WORKDIR "/myapisrc/SmartDigitalPsico.WebAPI"
-# Build da aplicação
+# Build da aplicacao
 RUN dotnet build "SmartDigitalPsicoWebAPI.csproj" -c Release -o /myapi/build
 
-# Publicação da aplicação
+# Publicacao da aplicacao
 FROM build AS publish
 RUN dotnet publish "SmartDigitalPsicoWebAPI.csproj" -c Release -o /myapi/publish /p:UseAppHost=false
 
-# Execução da aplicação
+# Execucao da aplicacao
 FROM base AS final
 WORKDIR /myapi
 COPY --from=publish /myapi/publish .

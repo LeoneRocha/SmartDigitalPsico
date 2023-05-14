@@ -1,0 +1,42 @@
+version: '3.4'
+
+name: sdpsic-api-project
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3320:3326
+  dbSQLSERVER:
+    image: mcr.microsoft.com/mssql/server:latest    
+    restart: always   
+    container_name: smartdigitalpsicoSQLServer
+    environment: 
+      TZ: America/Sao_Paulo
+      ACCEPT_EULA:  "Y"       
+      SA_PASSWORD: docker!123 #sa / #sdpdbauser
+    ports:
+      - 1433:1433
+    networks:
+      - smartdigitalpsiconetwork 
+  smartdigitalpsicowebapi: 
+    image: ${DOCKER_REGISTRY-}smartdigitalpsicowebapi
+    container_name: sdp_api_container
+    build:
+      context: .
+      dockerfile: SmartDigitalPsico.WebAPI/Dockerfile 
+    ports:   
+       - "8080:8080"  
+       - "443:443"
+    links:
+      - dbSQLSERVER
+    depends_on:
+      - dbSQLSERVER 
+    networks:
+      - smartdigitalpsiconetwork
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro       
+networks:
+  smartdigitalpsiconetwork:
+    driver: bridge

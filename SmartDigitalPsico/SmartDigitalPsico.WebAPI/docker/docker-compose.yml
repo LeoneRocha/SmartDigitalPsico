@@ -3,7 +3,7 @@ version: '3.4'
 name: sdpsic-api-project
 services: 
   smartdigitalpsicowebapi: 
-    image: sdp_api_cloud_image_v2
+    image: sdp_api_cloud_image
     container_name: sdp_api_container
     build:
       context: .

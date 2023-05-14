@@ -23,7 +23,15 @@
  EM PROPERTIES 
 
  azmysqlusersdp
+
  my!SQ@ladmin123
+
+
+ Server=35.192.215.204;Database=smartdigitalpsicodb;Uid=root;Pwd=mysdpSQladmin123;Port=3306;
+
+ Server=smartdigitalpsicosvdb.cmboro8zgs93.us-east-2.rds.amazonaws.com;Database=smartdigitalpsicodb;Uid=root;Pwd=mysdpSQladmin123;Port=3306;
+
+
 
 
  "SmartDigitalPsicoDBConnection": "Data Source=smartdigitalpsicoSQLServer,1433;Initial Catalog=SmartDigitalPsicoDB;User ID=sa;Password=docker!123;Trusted_Connection=False;TrustServerCertificate=True;",

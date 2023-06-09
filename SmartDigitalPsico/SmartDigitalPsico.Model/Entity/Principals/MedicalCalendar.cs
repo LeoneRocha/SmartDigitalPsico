@@ -1,3 +1,4 @@
+using SmartDigitalPsico.Domains.Enuns;
 using SmartDigitalPsico.Model.Contracts;
 using SmartDigitalPsico.Model.Contracts.Interface;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SmartDigitalPsico.Model.Entity.Principals
 {
     [Table("MedicalCalendar", Schema = "dbo")]
-    public class MedicalCalendar : FileBase, IEntityBaseLogUser
+    public class MedicalCalendar : EntityBaseSimple, IEntityBaseLogUser
     {
         #region Relationship 
         [Required]
@@ -14,6 +15,11 @@ namespace SmartDigitalPsico.Model.Entity.Principals
 
         [ForeignKey("MedicalId")]
         public long MedicalId { get; set; }
+
+        public Patient? Patient { get; set; }
+
+        [ForeignKey("PatientId")]
+        public long? PatientId { get; set; }
 
 
         public User? CreatedUser { get; set; }
@@ -35,13 +41,17 @@ namespace SmartDigitalPsico.Model.Entity.Principals
         [Column("AllDay")]
         public bool AllDay { get; set; }
 
+        [Column("Status")]
+        public EStatusCalendar Status { get; set; }
+
+
         [Column("ColorCategory", TypeName = "varchar(50)")]
         [MaxLength(50)]
-        public string ColorCategory { get; set; }
+        public string? ColorCategory { get; set; }
 
         [Column("Url", TypeName = "varchar(150)")]
         [MaxLength(150)]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         [Column("PushedCalendar")]
         public bool PushedCalendar { get; set; }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartDigitalPsico.Model.Entity.Domains.Configurations;
 using SmartDigitalPsico.Model.Entity.Domains;
-using SmartDigitalPsico.Model.Entity.Principals; 
+using SmartDigitalPsico.Model.Entity.Principals;
 
 namespace SmartDigitalPsico.Repository.Context
 {
@@ -30,11 +30,11 @@ namespace SmartDigitalPsico.Repository.Context
         #region Principais
 
         public DbSet<User> Users { get; set; }
-         
+
         public DbSet<Medical> Medicals { get; set; }
 
         public DbSet<Patient> Patients { get; set; }
-          
+
         public DbSet<PatientAdditionalInformation> PatientAdditionalInformations { get; set; }
 
         public DbSet<PatientHospitalizationInformation> PatientHospitalizationInformations { get; set; }
@@ -47,6 +47,8 @@ namespace SmartDigitalPsico.Repository.Context
         public DbSet<PatientFile> PatientFiles { get; set; }
 
         public DbSet<MedicalFile> MedicalFiles { get; set; }
+
+        // public DbSet<MedicalCalendar> MedicalCalendars { get; set; }
 
         #endregion Principais
 

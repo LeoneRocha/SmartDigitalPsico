@@ -48,7 +48,7 @@ namespace SmartDigitalPsico.Repository.Context
 
         public DbSet<MedicalFile> MedicalFiles { get; set; }
 
-        // public DbSet<MedicalCalendar> MedicalCalendars { get; set; }
+        public DbSet<MedicalCalendar> MedicalCalendars { get; set; }
 
         #endregion Principais
 

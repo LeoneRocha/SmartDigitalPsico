@@ -105,13 +105,13 @@ dotnet ef database update 0
 
  dotnet ef database update --context SmartDigitalPsicoDataContext
 
+ dotnet ef database update SmartDigitalPsicoDBMigv001
 
 dotnet ef migrations remove
 
+dotnet ef database update --context SmartDigitalPsicoDataContext --ignore-failed-drops
 
-
-
-
+dotnet ef database update SmartDigitalPsicoDataContext 20230609200408_SmartDigitalPsicoDBMigv001
 
 a - Criando a migra??o
 

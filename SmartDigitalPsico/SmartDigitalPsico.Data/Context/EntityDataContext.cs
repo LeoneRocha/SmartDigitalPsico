@@ -5,10 +5,10 @@ using SmartDigitalPsico.Model.Entity.Principals;
 
 namespace SmartDigitalPsico.Repository.Context
 {
-    public class EntityDataContext : DbContext
+    public abstract class EntityDataContext : DbContext
 
     {
-        public EntityDataContext(DbContextOptions<SmartDigitalPsicoDataContext> options) : base(options)
+        protected EntityDataContext(DbContextOptions<SmartDigitalPsicoDataContext> options) : base(options)
         {
 
         }
@@ -51,6 +51,13 @@ namespace SmartDigitalPsico.Repository.Context
         public DbSet<MedicalCalendar> MedicalCalendars { get; set; }
 
         #endregion Principais
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //optionsBuilder.EnableSensitiveDataLogging();
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            base.OnConfiguring(optionsBuilder);
+        }
 
     }
 }
